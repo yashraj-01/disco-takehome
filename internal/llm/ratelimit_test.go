@@ -45,3 +45,30 @@ func TestLimiterHonorsContextCancellation(t *testing.T) {
 		t.Error("want a context error on the second call")
 	}
 }
+
+// A cancelled caller must not consume the slot it will never use — a bug here
+// would show up as an unrelated, still-active caller waiting a full interval
+// longer than it should for a burst like stage 5's concurrent persona calls.
+func TestLimiterCancelledContextDoesNotConsumeSlot(t *testing.T) {
+	l := NewLimiter(600) // one per 100ms
+	ctx, cancel := context.WithCancel(context.Background())
+	cancel() // already cancelled before the first call
+
+	start := time.Now()
+	if err := l.Wait(ctx); err == nil {
+		t.Fatal("want a context error for an already-cancelled context")
+	}
+	if elapsed := time.Since(start); elapsed > 20*time.Millisecond {
+		t.Errorf("Wait on a cancelled context took %v, want near-instant", elapsed)
+	}
+
+	// If the cancelled call above had reserved the first slot, this fresh
+	// caller would now have to wait ~100ms for the next one instead of
+	// getting the free first slot itself.
+	if err := l.Wait(context.Background()); err != nil {
+		t.Fatalf("Wait: %v", err)
+	}
+	if elapsed := time.Since(start); elapsed > 50*time.Millisecond {
+		t.Errorf("second Wait took %v, want near-instant — the cancelled call must not have consumed a slot", elapsed)
+	}
+}

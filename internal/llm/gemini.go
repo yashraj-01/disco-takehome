@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"net/http"
 	"os"
 	"path/filepath"
 	"strings"
@@ -122,16 +123,30 @@ func (g *Gemini) generate(ctx context.Context, prompt string, schema *genai.Sche
 			return nil, fmt.Errorf("llm: %w", err)
 		}
 		wait := backoffBase * time.Duration(1<<attempt)
+		timer := time.NewTimer(wait)
 		select {
-		case <-time.After(wait):
+		case <-timer.C:
 		case <-ctx.Done():
+			timer.Stop()
 			return nil, ctx.Err()
 		}
+		timer.Stop()
 	}
 	return nil, errors.New("llm: exhausted attempts")
 }
 
+// isRateLimited reports whether err is a 429 the caller should back off and
+// retry for. google.golang.org/genai@v1.71.0 wraps a non-2xx HTTP response in
+// a typed genai.APIError carrying the numeric status code (see
+// newAPIError/APIError.Error in the SDK's api_client.go), so that is checked
+// first via errors.As. The string match stays only as a fallback for an error
+// the SDK does not wrap that way — e.g. a transport-level failure whose
+// message still names the status.
 func isRateLimited(err error) bool {
+	var apiErr genai.APIError
+	if errors.As(err, &apiErr) {
+		return apiErr.Code == http.StatusTooManyRequests
+	}
 	s := err.Error()
 	return strings.Contains(s, "429") ||
 		strings.Contains(s, "RESOURCE_EXHAUSTED") ||
@@ -142,6 +157,12 @@ func (g *Gemini) cachePath(r Request) string {
 	return filepath.Join(g.cacheDir, CacheKey(g.Name(), g.model, r)+".json")
 }
 
+// readCache returns a cache hit only if the cached bytes still satisfy the
+// request's schema. A corrupt or hand-edited cache file — or one left
+// truncated by a crash mid-write — is treated as a miss rather than served
+// straight through or returned as an error: falling through to regenerate is
+// what preserves the validate-and-repair guarantee this layer exists for, and
+// a bad cache entry must never be fatal.
 func (g *Gemini) readCache(r Request) (json.RawMessage, bool) {
 	if g.cacheDir == "" {
 		return nil, false
@@ -150,9 +171,17 @@ func (g *Gemini) readCache(r Request) (json.RawMessage, bool) {
 	if err != nil {
 		return nil, false
 	}
+	if err := Validate(r.Schema, b); err != nil {
+		return nil, false
+	}
 	return json.RawMessage(b), true
 }
 
+// writeCache writes out atomically: a temp file in the cache directory is
+// written and fsynced, then renamed over the target. Renames are atomic on
+// the same filesystem, so a crash mid-write can never leave a truncated cache
+// entry for readCache to find later — the temp file either never gets renamed
+// (and is simply absent) or the rename completes with the full content.
 func (g *Gemini) writeCache(r Request, out json.RawMessage) {
 	if g.cacheDir == "" {
 		return
@@ -160,17 +189,37 @@ func (g *Gemini) writeCache(r Request, out json.RawMessage) {
 	if err := os.MkdirAll(g.cacheDir, 0o755); err != nil {
 		return // the cache is an optimisation; failing to write it is not fatal
 	}
-	_ = os.WriteFile(g.cachePath(r), out, 0o644)
+	tmp, err := os.CreateTemp(g.cacheDir, ".cache-*.tmp")
+	if err != nil {
+		return
+	}
+	tmpName := tmp.Name()
+	_, werr := tmp.Write(out)
+	if werr == nil {
+		werr = tmp.Sync()
+	}
+	cerr := tmp.Close()
+	if werr != nil || cerr != nil {
+		os.Remove(tmpName)
+		return
+	}
+	if err := os.Rename(tmpName, g.cachePath(r)); err != nil {
+		os.Remove(tmpName)
+	}
 }
 
-// jsonSchema is the subset of JSON Schema the prompt files use.
+// jsonSchema is the subset of JSON Schema the prompt files use. Enum is left
+// as raw JSON rather than []string so a non-string enum (e.g. on an integer
+// type) can be rejected with a clear, property-scoped error in convert
+// instead of failing the top-level json.Unmarshal with a generic type
+// mismatch that names no property.
 type jsonSchema struct {
 	Type        string                `json:"type"`
 	Description string                `json:"description"`
 	Properties  map[string]jsonSchema `json:"properties"`
 	Items       *jsonSchema           `json:"items"`
 	Required    []string              `json:"required"`
-	Enum        []string              `json:"enum"`
+	Enum        json.RawMessage       `json:"enum"`
 }
 
 var genaiTypes = map[string]genai.Type{
@@ -201,7 +250,11 @@ func convert(js *jsonSchema) (*genai.Schema, error) {
 	}
 	out := &genai.Schema{Type: t, Description: js.Description, Required: js.Required}
 	if len(js.Enum) > 0 {
-		out.Enum = js.Enum
+		var enum []string
+		if err := json.Unmarshal(js.Enum, &enum); err != nil {
+			return nil, fmt.Errorf("enum: only string enum values are supported: %w", err)
+		}
+		out.Enum = enum
 	}
 	if len(js.Properties) > 0 {
 		out.Properties = make(map[string]*genai.Schema, len(js.Properties))
@@ -213,6 +266,12 @@ func convert(js *jsonSchema) (*genai.Schema, error) {
 			}
 			out.Properties[name] = c
 		}
+	}
+	// An array schema with no "items" would otherwise convert silently and
+	// only fail later, mid-run, when the live API rejects it — reject it here
+	// instead so the failure names the offending property at build time.
+	if t == genai.TypeArray && js.Items == nil {
+		return nil, errors.New(`array schema requires "items"`)
 	}
 	if js.Items != nil {
 		c, err := convert(js.Items)

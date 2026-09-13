@@ -24,10 +24,16 @@ func NewLimiter(rpm int) *Limiter {
 	return &Limiter{interval: time.Minute / time.Duration(rpm)}
 }
 
-// Wait blocks until the caller may issue a request, or until ctx is done.
+// Wait blocks until the caller may issue a request, or until ctx is done. An
+// already-cancelled ctx returns immediately without reserving a slot — stage 5
+// fires calls concurrently, so a cancelled caller must not delay the others by
+// consuming a slot it will never use.
 func (l *Limiter) Wait(ctx context.Context) error {
+	if err := ctx.Err(); err != nil {
+		return err
+	}
 	if l.interval == 0 {
-		return ctx.Err()
+		return nil
 	}
 
 	l.mu.Lock()
