@@ -76,6 +76,10 @@ func Build(in BuildInput) model.Campaign {
 		if !ok {
 			v = model.FitVerdict{Verdict: "excluded", Reason: "not evaluated"}
 		}
+		// Fit already enforces this; this is a deliberate second line of
+		// defence against a future caller that builds a campaign from
+		// verdicts that did not go through Fit. Keep both — do not delete
+		// this one, and do not delete Fit's as "redundant" either.
 		if s.HardGate != GateNone {
 			v.Verdict = "excluded" // a hard gate is not overridable
 			v.Rank = 0

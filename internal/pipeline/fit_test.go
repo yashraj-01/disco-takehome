@@ -131,6 +131,128 @@ func TestFitBackfillsOmittedPublishers(t *testing.T) {
 	}
 }
 
+// If the model returns the same publisher_id twice with conflicting verdicts,
+// exactly one entry must survive — the first one — not both, and not the
+// second overwriting the first.
+func TestFitKeepsFirstVerdictOnDuplicatePublisherID(t *testing.T) {
+	brief := "premium dog food"
+	c := loadCatalog(t)
+	scores := ScoreAll(dogFood(), c)
+
+	dupID := "pub_007"
+	found := false
+	for _, s := range scores {
+		if s.PublisherID == dupID {
+			found = true
+			break
+		}
+	}
+	if !found {
+		t.Fatalf("fixture assumes %s exists in the catalog", dupID)
+	}
+
+	var vs []map[string]any
+	// The duplicate leads the response so "first" and "last" are distinguishable.
+	vs = append(vs,
+		map[string]any{"publisher_id": dupID, "verdict": "recommended", "rank": 1, "reason": "first: model committed here"},
+		map[string]any{"publisher_id": dupID, "verdict": "excluded", "rank": 0, "reason": "second: model contradicted itself"},
+	)
+	for _, s := range scores {
+		if s.PublisherID == dupID {
+			continue
+		}
+		vs = append(vs, map[string]any{
+			"publisher_id": s.PublisherID, "verdict": "considered", "rank": 0, "reason": "ok"})
+	}
+	d := fixtureDeps(t, "fit", brief, map[string]any{"verdicts": vs})
+	d.Catalog = c
+
+	got, err := Fit(context.Background(), d, withBrief(dogFood(), brief), scores)
+	if err != nil {
+		t.Fatalf("Fit: %v", err)
+	}
+	if len(got) != len(c.Publishers) {
+		t.Fatalf("got %d verdicts, want %d", len(got), len(c.Publishers))
+	}
+	var matches []model.FitVerdict
+	for _, v := range got {
+		if v.PublisherID == dupID {
+			matches = append(matches, v)
+		}
+	}
+	if len(matches) != 1 {
+		t.Fatalf("got %d entries for %s, want exactly 1", len(matches), dupID)
+	}
+	if matches[0].Verdict != "recommended" || matches[0].Reason != "first: model committed here" {
+		t.Errorf("kept verdict = %+v, want the FIRST occurrence (recommended, %q)",
+			matches[0], "first: model committed here")
+	}
+}
+
+// With no verdicts at all, every catalog publisher must still be backfilled
+// with a reasoned exclusion — the ledger is never partially empty.
+func TestFitWithNoVerdictsBackfillsEveryPublisher(t *testing.T) {
+	brief := "premium dog food"
+	c := loadCatalog(t)
+	scores := ScoreAll(dogFood(), c)
+
+	d := fixtureDeps(t, "fit", brief, map[string]any{"verdicts": []map[string]any{}})
+	d.Catalog = c
+
+	got, err := Fit(context.Background(), d, withBrief(dogFood(), brief), scores)
+	if err != nil {
+		t.Fatalf("Fit: %v", err)
+	}
+	if len(got) != len(c.Publishers) {
+		t.Fatalf("got %d verdicts, want %d", len(got), len(c.Publishers))
+	}
+	for _, v := range got {
+		if v.Verdict != "excluded" {
+			t.Errorf("%s verdict = %q, want excluded", v.PublisherID, v.Verdict)
+		}
+		if v.Reason == "" {
+			t.Errorf("%s has no reason", v.PublisherID)
+		}
+	}
+}
+
+// If the model returns every catalog publisher twice, the result must still
+// be exactly one entry per publisher, not 40.
+func TestFitEveryPublisherTwiceStillYieldsOnePerPublisher(t *testing.T) {
+	brief := "premium dog food"
+	c := loadCatalog(t)
+	scores := ScoreAll(dogFood(), c)
+
+	var vs []map[string]any
+	for _, s := range scores {
+		vs = append(vs, map[string]any{
+			"publisher_id": s.PublisherID, "verdict": "considered", "rank": 0, "reason": "first pass"})
+	}
+	for _, s := range scores {
+		vs = append(vs, map[string]any{
+			"publisher_id": s.PublisherID, "verdict": "recommended", "rank": 1, "reason": "second pass"})
+	}
+	d := fixtureDeps(t, "fit", brief, map[string]any{"verdicts": vs})
+	d.Catalog = c
+
+	got, err := Fit(context.Background(), d, withBrief(dogFood(), brief), scores)
+	if err != nil {
+		t.Fatalf("Fit: %v", err)
+	}
+	if len(got) != len(c.Publishers) {
+		t.Fatalf("got %d verdicts, want %d (every publisher appeared twice)", len(got), len(c.Publishers))
+	}
+	seen := map[string]int{}
+	for _, v := range got {
+		seen[v.PublisherID]++
+	}
+	for id, n := range seen {
+		if n != 1 {
+			t.Errorf("%s appears %d times, want 1", id, n)
+		}
+	}
+}
+
 // A schema property name that drifts from its struct's json tag validates
 // cleanly and decodes to a zero value with no error anywhere else in the
 // suite. This test marshals a fully-populated fitResponse, validates it

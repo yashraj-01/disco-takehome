@@ -17,6 +17,11 @@ type fitResponse struct {
 // Three things are enforced here rather than trusted to the prompt: a hard gate
 // is never overridable, an unknown publisher ID is dropped, and a publisher the
 // model omitted is backfilled — so the ledger always covers the whole catalog.
+//
+// The returned slice's order is not guaranteed: it is model order for
+// publishers the model returned, followed by backfilled publishers in catalog
+// order. A live model's JSON array order is not stable across calls, so
+// callers must not depend on this slice's order — key by PublisherID instead.
 func Fit(ctx context.Context, d Deps, p model.AdvertiserProfile, scores []model.PublisherScore) ([]model.FitVerdict, error) {
 	type pubView struct {
 		ID                 string          `json:"id"`
@@ -70,7 +75,12 @@ func Fit(ctx context.Context, d Deps, p model.AdvertiserProfile, scores []model.
 			continue
 		}
 		if seen[v.PublisherID] {
-			continue // the model repeated a publisher; keep its first verdict
+			// The model repeated a publisher_id. Keep-first is a deliberate
+			// choice (not an accident of loop order): the first verdict is
+			// what the model committed to before second-guessing itself, and
+			// picking a stable, simple rule here beats trying to reconcile
+			// two conflicting reasons.
+			continue
 		}
 		seen[v.PublisherID] = true
 		out = append(out, applyGate(v, scoreByID[v.PublisherID].HardGate))
