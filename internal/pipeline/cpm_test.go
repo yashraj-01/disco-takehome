@@ -125,13 +125,13 @@ func TestPremiumTablesConsistentWithCatalog(t *testing.T) {
 		pub := &c.Publishers[i]
 
 		// Check income tier is in the table
-		if _, ok := IncomePremium[pub.Audience.IncomeTier]; !ok {
-			t.Errorf("%s: income tier %q not in IncomePremium table", pub.ID, pub.Audience.IncomeTier)
+		if _, ok := incomePremium[pub.Audience.IncomeTier]; !ok {
+			t.Errorf("%s: income tier %q not in incomePremium table", pub.ID, pub.Audience.IncomeTier)
 		}
 
 		// Check category is in the table
-		if _, ok := CategoryPremium[pub.Category]; !ok {
-			t.Errorf("%s: category %q not in CategoryPremium table", pub.ID, pub.Category)
+		if _, ok := categoryPremium[pub.Category]; !ok {
+			t.Errorf("%s: category %q not in categoryPremium table", pub.ID, pub.Category)
 		}
 	}
 }

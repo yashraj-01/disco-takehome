@@ -13,13 +13,13 @@ const (
 	aovMaxLift = 0.15 // AOV can move the number by at most 15%
 )
 
-var IncomePremium = map[string]float64{
+var incomePremium = map[string]float64{
 	"mid":      0,
 	"mid-high": 4,
 	"high":     9,
 }
 
-var CategoryPremium = map[string]float64{
+var categoryPremium = map[string]float64{
 	"groceries":         0,
 	"instant_delivery":  0,
 	"meal_kits":         0,
@@ -36,7 +36,7 @@ var CategoryPremium = map[string]float64{
 // publisher. minAOV and maxAOV are the catalog-wide bounds, used to place this
 // publisher's order value on a 0..1 index.
 func EstimateCPM(pub *catalog.Publisher, minAOV, maxAOV int) float64 {
-	base := cpmFloor + IncomePremium[pub.Audience.IncomeTier] + CategoryPremium[pub.Category]
+	base := cpmFloor + incomePremium[pub.Audience.IncomeTier] + categoryPremium[pub.Category]
 
 	var idx float64
 	if maxAOV > minAOV {
