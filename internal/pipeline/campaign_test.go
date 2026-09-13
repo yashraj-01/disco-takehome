@@ -152,13 +152,52 @@ func TestBuildDerivesBidFromWeightedCPM(t *testing.T) {
 }
 
 // A non-consumer brief produces no budget, no creatives, and a ledger in which
-// every publisher is excluded for the same honest reason.
+// every publisher is excluded for the same honest reason. The upstream
+// artifacts here are deliberately fully populated, and stage 3's verdicts
+// deliberately recommend several publishers: the no-recommendation path must
+// discard that work, not merely pass through inputs that were already empty.
+// A stub that unconditionally copies c.Creatives = in.Creatives (or unions
+// selected personas into Targeting.PersonaIDs) regardless of Status would
+// fail this test, whereas it would have passed the old version that fed it
+// nil/empty inputs to begin with.
 func TestBuildNoRecommendationForNonConsumerBrief(t *testing.T) {
+	c := loadCatalog(t)
 	p := dogFood()
 	p.IsConsumerDTC = false
-	in := buildInput(t, p)
-	in.Creatives = nil
-	in.Personas = model.PersonaSelection{}
+	scores := ScoreAll(p, c)
+
+	var verdicts []model.FitVerdict
+	for i, s := range scores {
+		if i < 5 {
+			verdicts = append(verdicts, model.FitVerdict{
+				PublisherID: s.PublisherID, Verdict: "recommended", Rank: i + 1, Reason: "strong fit",
+			})
+			continue
+		}
+		verdicts = append(verdicts, model.FitVerdict{PublisherID: s.PublisherID, Verdict: "excluded", Reason: "low fit"})
+	}
+
+	in := BuildInput{
+		Brief:    p.RawBrief,
+		Profile:  p,
+		Scores:   scores,
+		Verdicts: verdicts,
+		Personas: model.PersonaSelection{
+			Selected: []model.PersonaPick{
+				{PersonaID: "persona_004", Rationale: "pet parent"},
+				{PersonaID: "persona_002", Rationale: "busy parent"},
+			},
+			Rejected: []model.PersonaRejection{{PersonaID: "persona_003", Reason: "no pet affinity"}},
+		},
+		Creatives: []model.Creative{
+			{PersonaID: "persona_004", Headline: "a", Body: "b"},
+			{PersonaID: "persona_002", Headline: "c", Body: "d"},
+		},
+		Catalog:  c,
+		Params:   DefaultAllocParams(),
+		Model:    "gemini-2.5-flash",
+		Provider: "fixture",
+	}
 	got := Build(in)
 
 	if got.Status != model.StatusNoRecommendation {
@@ -168,12 +207,199 @@ func TestBuildNoRecommendationForNonConsumerBrief(t *testing.T) {
 		t.Errorf("got %d allocations, want 0", len(got.Budget.Allocation))
 	}
 	if len(got.Creatives) != 0 {
-		t.Errorf("got %d creatives, want 0", len(got.Creatives))
+		t.Errorf("got %d creatives, want 0 (upstream creatives must be discarded, not just passed through)", len(got.Creatives))
+	}
+	if len(got.Targeting.PersonaIDs) != 0 {
+		t.Errorf("got %d persona IDs in targeting, want 0", len(got.Targeting.PersonaIDs))
+	}
+	if len(got.PublisherLedger) != len(c.Publishers) {
+		t.Fatalf("ledger has %d entries, want %d", len(got.PublisherLedger), len(c.Publishers))
 	}
 	for _, e := range got.PublisherLedger {
 		if e.Verdict != "excluded" {
 			t.Errorf("%s verdict = %q, want excluded", e.PublisherID, e.Verdict)
 		}
+	}
+}
+
+// TestBuildHardGateOverridesContradictingVerdict feeds Build verdicts that
+// deliberately contradict the hard gates - every publisher marked
+// "recommended" with a nonzero rank, including ones a real stage 3 would
+// never approve. The gate override in Build must still win: a hard-gated
+// publisher must come out excluded with Rank 0 regardless of what verdict it
+// arrived with. Deleting that override block would not fail the other tests
+// (buildInput's mock stage 3 never recommends a gated publisher in the first
+// place) but must fail this one.
+func TestBuildHardGateOverridesContradictingVerdict(t *testing.T) {
+	c := loadCatalog(t)
+
+	contradictingVerdicts := func(scores []model.PublisherScore) []model.FitVerdict {
+		var verdicts []model.FitVerdict
+		for i, s := range scores {
+			verdicts = append(verdicts, model.FitVerdict{
+				PublisherID: s.PublisherID, Verdict: "recommended", Rank: i + 1, Reason: "stage 3 says yes",
+			})
+		}
+		return verdicts
+	}
+
+	t.Run("partial_gate", func(t *testing.T) {
+		p := activewear()
+		scores := ScoreAll(p, c)
+		got := Build(BuildInput{
+			Brief: p.RawBrief, Profile: p, Scores: scores, Verdicts: contradictingVerdicts(scores),
+			Catalog: c, Params: DefaultAllocParams(), Model: "m", Provider: "fixture",
+		})
+
+		var gatedChecked, ungatedFound bool
+		for _, e := range got.PublisherLedger {
+			if e.PublisherID == "pub_005" { // Linden Park: 50-70 audience, activewear targets 25-45
+				gatedChecked = true
+				if e.HardGate == GateNone {
+					t.Fatal("test setup broken: pub_005 is not hard-gated under the activewear profile")
+				}
+				if e.Verdict != "excluded" {
+					t.Errorf("pub_005 (hard-gated) verdict = %q, want excluded despite the contradicting verdict", e.Verdict)
+				}
+				if e.Rank != 0 {
+					t.Errorf("pub_005 (hard-gated) rank = %d, want 0", e.Rank)
+				}
+			}
+			if e.HardGate == GateNone && e.Verdict == "recommended" {
+				ungatedFound = true
+				if e.Rank == 0 {
+					t.Errorf("%s: ungated recommended publisher lost its rank", e.PublisherID)
+				}
+			}
+		}
+		if !gatedChecked {
+			t.Fatal("pub_005 missing from ledger")
+		}
+		if !ungatedFound {
+			t.Fatal("no ungated publisher kept its recommendation - gate override may be too aggressive")
+		}
+	})
+
+	t.Run("all_gated_non_consumer", func(t *testing.T) {
+		p := activewear()
+		p.IsConsumerDTC = false
+		scores := ScoreAll(p, c)
+		got := Build(BuildInput{
+			Brief: p.RawBrief, Profile: p, Scores: scores, Verdicts: contradictingVerdicts(scores),
+			Catalog: c, Params: DefaultAllocParams(), Model: "m", Provider: "fixture",
+		})
+		for _, e := range got.PublisherLedger {
+			if e.HardGate == GateNone {
+				t.Fatalf("test setup broken: %s is not hard-gated under a non-consumer profile", e.PublisherID)
+			}
+			if e.Verdict != "excluded" {
+				t.Errorf("%s verdict = %q, want excluded (every publisher is hard-gated)", e.PublisherID, e.Verdict)
+			}
+			if e.Rank != 0 {
+				t.Errorf("%s rank = %d, want 0", e.PublisherID, e.Rank)
+			}
+		}
+	})
+}
+
+// TestBuildExceedsMaxShareRationaleStatesEffectNotCause pins the wording rule:
+// the rationale sentence added when ExceedsMaxShare is set must describe the
+// effect (share over the 40% guideline) without asserting a specific cause,
+// since the flag can be set for reasons other than "fewer than 3 publishers
+// qualified" (see allocate.go's doc comment on inventory reconciliation). It
+// also checks the sentence is absent when the flag is not set.
+func TestBuildExceedsMaxShareRationaleStatesEffectNotCause(t *testing.T) {
+	c := loadCatalog(t)
+	p := dogFood()
+	scores := ScoreAll(p, c)
+
+	best := scores[0]
+	for _, s := range scores {
+		if s.HardGate == GateNone && s.Score > best.Score {
+			best = s
+		}
+	}
+	var verdicts []model.FitVerdict
+	for _, s := range scores {
+		if s.PublisherID == best.PublisherID {
+			verdicts = append(verdicts, model.FitVerdict{
+				PublisherID: s.PublisherID, Verdict: "recommended", Rank: 1, Reason: "sole qualifying publisher",
+			})
+			continue
+		}
+		verdicts = append(verdicts, model.FitVerdict{PublisherID: s.PublisherID, Verdict: "excluded", Reason: "low fit"})
+	}
+	got := Build(BuildInput{
+		Brief: p.RawBrief, Profile: p, Scores: scores, Verdicts: verdicts,
+		Catalog: c, Params: DefaultAllocParams(), Model: "m", Provider: "fixture",
+	})
+
+	if len(got.Budget.Allocation) != 1 {
+		t.Fatalf("got %d allocations, want 1", len(got.Budget.Allocation))
+	}
+	a := got.Budget.Allocation[0]
+	if !a.ExceedsMaxShare {
+		t.Fatal("expected ExceedsMaxShare true for a lone recommended publisher")
+	}
+	lower := strings.ToLower(a.Rationale)
+	if !strings.Contains(lower, "40%") {
+		t.Errorf("rationale does not mention the 40%% guideline: %q", a.Rationale)
+	}
+	if strings.Contains(lower, "fewer than 3") || strings.Contains(lower, "fewer than three") {
+		t.Errorf("rationale asserts a specific cause it cannot know: %q", a.Rationale)
+	}
+
+	// With several recommended publishers the cap is satisfiable, so no
+	// entry should carry the concentration sentence at all.
+	got2 := Build(buildInput(t, p))
+	for _, e := range got2.Budget.Allocation {
+		if e.ExceedsMaxShare {
+			t.Fatalf("test setup broken: %s unexpectedly exceeds max share in the multi-publisher case", e.PublisherID)
+		}
+		if strings.Contains(strings.ToLower(e.Rationale), "concentration guideline") {
+			t.Errorf("%s: rationale mentions the concentration guideline despite ExceedsMaxShare=false: %q",
+				e.PublisherID, e.Rationale)
+		}
+	}
+}
+
+// TestBuildRecommendedButNothingAllocated pins ruling 4: Allocate can return
+// an empty list even when publishers were recommended (here, zero deliverable
+// inventory via SOVCap=0). Build must not assume a 1:1 correspondence between
+// recommended publishers and allocation rows - e.g. it must not index into
+// Allocate's result positionally by candidate index, which would panic the
+// moment the result is shorter than the candidate list.
+func TestBuildRecommendedButNothingAllocated(t *testing.T) {
+	in := buildInput(t, dogFood())
+	in.Params.SOVCap = 0 // no publisher can deliver any inventory at all
+	got := Build(in)
+
+	if got.Status != model.StatusReady {
+		t.Errorf("status = %q, want %q", got.Status, model.StatusReady)
+	}
+	if len(got.Budget.Allocation) != 0 {
+		t.Errorf("got %d allocations, want 0 (zero deliverable inventory)", len(got.Budget.Allocation))
+	}
+	for name, v := range map[string]float64{
+		"floor": got.Bid.FloorUSD, "target": got.Bid.TargetUSD,
+		"ceiling": got.Bid.CeilingUSD, "target_cpa": got.Bid.TargetCPAUSD,
+	} {
+		if math.IsNaN(v) || math.IsInf(v, 0) {
+			t.Errorf("bid.%s is not finite: %v", name, v)
+		}
+	}
+	if got.Bid.TargetUSD != 0 {
+		t.Errorf("bid target = %v, want 0 when nothing was allocated", got.Bid.TargetUSD)
+	}
+	if len(got.Targeting.Geos) != 0 || len(got.Targeting.IncomeTiers) != 0 || len(got.Targeting.ContextualCategories) != 0 {
+		t.Error("targeting derived from allocation should be empty when nothing was allocated")
+	}
+	if math.Abs(got.Budget.UnallocatedUSD-in.Params.TotalUSD) > 0.01 {
+		t.Errorf("unallocated_usd = %.2f, want the full budget %.2f", got.Budget.UnallocatedUSD, in.Params.TotalUSD)
+	}
+	c := loadCatalog(t)
+	if len(got.PublisherLedger) != len(c.Publishers) {
+		t.Errorf("ledger has %d entries, want %d", len(got.PublisherLedger), len(c.Publishers))
 	}
 }
 

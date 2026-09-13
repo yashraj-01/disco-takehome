@@ -125,8 +125,13 @@ func Build(in BuildInput) model.Campaign {
 		pub, _ := in.Catalog.Publisher(a.PublisherID)
 		rationale := reasonByID[a.PublisherID]
 		if a.ExceedsMaxShare {
-			rationale += " Concentration guideline exceeded: fewer than 3 publishers qualified, " +
-				"so the 40% cap cannot be satisfied."
+			// State the effect, not a cause: ExceedsMaxShare can also fire
+			// when inventory reconciliation redistributes leftover budget
+			// among three or more survivors, not only when fewer than three
+			// qualified. Asserting "fewer than 3 publishers" here would
+			// sometimes be a confidently wrong explanation.
+			rationale += " This publisher's share exceeds the 40% concentration guideline, " +
+				"which was relaxed because it could not be satisfied for this set of recommended publishers."
 		}
 		c.Budget.Allocation = append(c.Budget.Allocation, model.AllocationEntry{
 			PublisherID: a.PublisherID, PublisherName: pub.Name,
