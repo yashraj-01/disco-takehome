@@ -32,6 +32,14 @@ type Candidate struct {
 }
 
 // Allocation is one publisher's resulting slice of the budget.
+//
+// AmountUSD == AllocParams.TotalUSD * Share holds only when the candidate set
+// is not inventory-starved. When every candidate's combined SOV ceiling falls
+// short of TotalUSD (see Allocate), the budget cannot be fully deployed on
+// this set at all: each candidate is instead allocated exactly its SOV
+// ceiling, AmountUSD sums to that (smaller) deliverable total rather than to
+// TotalUSD, and Share is redefined as each candidate's fraction of that
+// deployed total, not of TotalUSD.
 type Allocation struct {
 	PublisherID string
 	Share       float64
@@ -59,6 +67,13 @@ const maxAllocPasses = 5
 // survivor over the concentration cap, and dropping a sub-floor publisher
 // redistributes money that can do the same — so they are iterated to a fixed
 // point rather than applied in a single pass.
+//
+// If the candidate set is fully inventory-starved — every candidate's SOV
+// ceiling together still falls short of TotalUSD, reachable at ordinary
+// budgets whenever the shortlist's combined deliverable inventory is modest —
+// the budget cannot be deployed in full on this set at all. See
+// fullyStarvedDeployment for that case; see Allocation's doc comment for how
+// its results differ from the normal case.
 func Allocate(cands []Candidate, p AllocParams) []Allocation {
 	return allocateWithPasses(cands, p, maxAllocPasses)
 }
@@ -69,6 +84,21 @@ func Allocate(cands []Candidate, p AllocParams) []Allocation {
 func allocateWithPasses(cands []Candidate, p AllocParams, passes int) []Allocation {
 	if len(cands) == 0 {
 		return nil
+	}
+
+	// A lone candidate is exempt (the pre-existing, separate "single
+	// candidate takes everything" rule handles it below via renormalisation),
+	// but two or more jointly-starved candidates cannot be resolved by the
+	// normal cap-precedence loop: there is no unlocked survivor and no
+	// releasable locked one either, because every one of them is genuinely
+	// at its physical ceiling. Handle that honestly up front rather than
+	// falling into the loop's last-resort renormalisation, which would
+	// inflate shares — and therefore impressions — past SOV ceilings that
+	// must never yield.
+	if len(cands) > 1 {
+		if out, ok := fullyStarvedDeployment(cands, p); ok {
+			return out
+		}
 	}
 
 	share := make(map[string]float64, len(cands))
@@ -251,11 +281,56 @@ func allocateWithPasses(cands []Candidate, p AllocParams, passes int) []Allocati
 		})
 	}
 
+	sortByShareDesc(out)
+	return out
+}
+
+// fullyStarvedDeployment handles the case where every candidate's SOV
+// (inventory) ceiling, summed across the whole set, still falls short of
+// TotalUSD: no allocation of any shape can deploy the full budget on this set
+// without buying impressions that don't exist. The SOV cap never yields (see
+// the cap-precedence rule in allocateWithPasses), so the only honest answer
+// is to buy each candidate's full deliverable inventory and leave the rest of
+// the budget undeployed — fit and gamma play no role, because there is no
+// choice left to make: everyone gets their ceiling, full stop.
+//
+// ok is false (and the normal algorithm applies) unless every candidate has a
+// computable SOV ceiling and their sum is strictly less than TotalUSD.
+func fullyStarvedDeployment(cands []Candidate, p AllocParams) (out []Allocation, ok bool) {
+	if p.TotalUSD <= 0 {
+		return nil, false
+	}
+	var capacityUSD float64
+	for _, c := range cands {
+		if c.EstCPM <= 0 {
+			return nil, false // no computable ceiling for this one; it can absorb the rest
+		}
+		capacityUSD += float64(c.MonthlyImpressions) * p.SOVCap / 1000 * c.EstCPM
+	}
+	if capacityUSD <= 0 || capacityUSD >= p.TotalUSD {
+		return nil, false
+	}
+
+	out = make([]Allocation, 0, len(cands))
+	for _, c := range cands {
+		deliverableUSD := float64(c.MonthlyImpressions) * p.SOVCap / 1000 * c.EstCPM
+		s := deliverableUSD / capacityUSD
+		impressions := int64(deliverableUSD / c.EstCPM * 1000)
+		out = append(out, Allocation{
+			PublisherID: c.PublisherID, Share: s, AmountUSD: deliverableUSD,
+			EstCPMUSD: c.EstCPM, EstImpressions: impressions,
+			ExceedsMaxShare: s > p.MaxShare+1e-9,
+		})
+	}
+	sortByShareDesc(out)
+	return out, true
+}
+
+func sortByShareDesc(out []Allocation) {
 	sort.Slice(out, func(i, j int) bool {
 		if out[i].Share != out[j].Share {
 			return out[i].Share > out[j].Share
 		}
 		return out[i].PublisherID < out[j].PublisherID // stable for equal shares
 	})
-	return out
 }

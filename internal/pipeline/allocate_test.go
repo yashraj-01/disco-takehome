@@ -254,6 +254,13 @@ func TestAllocateEmptyInput(t *testing.T) {
 	}
 }
 
+// AmountUSD == TotalUSD*Share only holds when the candidate set is not
+// inventory-starved (see Allocation's doc comment) -- $25k is well under the
+// dog-food shortlist's combined SOV ceiling of ~$159,328, so that identity is
+// exactly what this case exercises. It does NOT hold in the starved case
+// (see TestAllocateFullyStarvedDeployment): there, AmountUSD is capped at
+// each candidate's SOV ceiling and Share is redefined as a fraction of the
+// (smaller) deployed total, not of TotalUSD.
 func TestAllocateComputesDollarsAndImpressions(t *testing.T) {
 	p := DefaultAllocParams()
 	p.TotalUSD = 25_000
@@ -333,5 +340,101 @@ func TestFixedPointLoopIsRequired(t *testing.T) {
 	}
 	if s := sumShares(fixed); math.Abs(s-1) > 1e-9 {
 		t.Errorf("shares sum to %v, want 1", s)
+	}
+}
+
+// The dog-food shortlist's combined SOV (inventory) ceiling at the default
+// 15% cap is $11,143.08 + $106,362.24 + $27,877.20 + $13,945.55 = $159,328.07.
+// At $200,000 -- an ordinary campaign budget, not a synthetic edge -- the
+// budget cannot be fully deployed on this shortlist at all: every candidate
+// is starved simultaneously. The correct answer is to buy each candidate's
+// full inventory and leave the shortfall undeployed, not to inflate anyone
+// past their physical ceiling. Expected values are the exact numbers the
+// implementation computes (deliverableUSD per candidate, and each one's
+// fraction of the $159,328.07 actually deployed), asserted to a tolerance of
+// 0.0005 on shares per the spec, not trusted from hand-rounding.
+func TestAllocateFullyStarvedDeployment(t *testing.T) {
+	p := DefaultAllocParams()
+	p.TotalUSD = 200_000
+	got := Allocate(dogFoodCandidates(), p)
+
+	for _, tc := range []struct {
+		id          string
+		wantShare   float64
+		wantAmount  float64
+		wantExceeds bool
+	}{
+		{"pub_007", 0.06994, 11143.08, false},
+		{"pub_009", 0.66757, 106362.24, true},
+		{"pub_008", 0.17497, 27877.20, false},
+		{"pub_018", 0.08753, 13945.55, false},
+	} {
+		var found bool
+		for _, a := range got {
+			if a.PublisherID != tc.id {
+				continue
+			}
+			found = true
+			if math.Abs(a.Share-tc.wantShare) > 0.0005 {
+				t.Errorf("%s share = %.5f, want %.5f", tc.id, a.Share, tc.wantShare)
+			}
+			if math.Abs(a.AmountUSD-tc.wantAmount) > 0.01 {
+				t.Errorf("%s amount = %.2f, want %.2f", tc.id, a.AmountUSD, tc.wantAmount)
+			}
+			if a.ExceedsMaxShare != tc.wantExceeds {
+				t.Errorf("%s ExceedsMaxShare = %v, want %v", tc.id, a.ExceedsMaxShare, tc.wantExceeds)
+			}
+		}
+		if !found {
+			t.Fatalf("no allocation for %s in %+v", tc.id, got)
+		}
+	}
+
+	// Amounts sum to the deliverable total, strictly below the requested
+	// budget -- the shortfall is real and must not be silently absorbed.
+	var sumAmount float64
+	for _, a := range got {
+		sumAmount += a.AmountUSD
+	}
+	const wantDeployed = 159_328.07
+	if math.Abs(sumAmount-wantDeployed) > 1 {
+		t.Errorf("amounts sum to %.2f, want %.2f (deliverable total)", sumAmount, wantDeployed)
+	}
+	if sumAmount >= p.TotalUSD {
+		t.Errorf("amounts sum to %.2f, want strictly less than the %.0f budget", sumAmount, p.TotalUSD)
+	}
+
+	// Shares still sum to 1.0 -- of what was actually deployed, not of TotalUSD.
+	if s := sumShares(got); math.Abs(s-1) > 1e-9 {
+		t.Errorf("shares sum to %v, want 1", s)
+	}
+}
+
+// No allocation may ever exceed its publisher's SOV (inventory) ceiling in
+// impressions, at any budget -- non-starved, at the edge of starvation, or
+// fully starved. This is the one cap the spec says has no exceptions.
+func TestAllocateNeverExceedsSOVCeilingAcrossBudgets(t *testing.T) {
+	cands := dogFoodCandidates()
+	byID := map[string]Candidate{}
+	for _, c := range cands {
+		byID[c.PublisherID] = c
+	}
+	base := DefaultAllocParams()
+
+	// The shortlist's combined SOV ceiling is ~$159,328: $159k sits just
+	// under it (normal cap-precedence path), $200k and $500k sit over it
+	// (fully-starved path) -- both sides of the boundary are covered.
+	for _, budget := range []float64{25_000, 50_000, 159_000, 200_000, 500_000} {
+		p := base
+		p.TotalUSD = budget
+		got := Allocate(cands, p)
+		for _, a := range got {
+			c := byID[a.PublisherID]
+			ceiling := float64(c.MonthlyImpressions) * p.SOVCap
+			if float64(a.EstImpressions) > ceiling+1 {
+				t.Errorf("budget $%.0f: %s impressions = %d, exceeds SOV ceiling %.0f",
+					budget, a.PublisherID, a.EstImpressions, ceiling)
+			}
+		}
 	}
 }
