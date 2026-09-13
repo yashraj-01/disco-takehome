@@ -2,7 +2,7 @@
 
 **Date:** 2026-09-13
 **Status:** Approved, pending implementation plan
-**Stack:** Go 1.25, `anthropic-sdk-go`, `claude-opus-5`
+**Stack:** Go 1.25, `google.golang.org/genai` (pinned `< 2.0.0`), `gemini-2.5-flash`
 
 ---
 
@@ -26,6 +26,7 @@ The exercise is not testing ad-tech knowledge. It is testing whether an LLM pipe
 - Degraded modes for non-addressable and low-signal briefs
 - `disco run` (terminal), `disco serve` (embedded HTML), `disco eval` (assertions over 15 briefs)
 - Prompts and JSON Schemas as reviewable files under `prompts/`
+- A `fixture` provider that replays recorded responses, so the demo and the full test suite run with **no API key**
 
 **Out (deliberate cuts, to be stated in README):**
 image creative · auction simulation · vector search / RAG (catalog is ~10KB, it fits in a prompt) · persistence · auth · multi-tenancy · real rate card · A/B measurement · frequency capping · personas beyond the 10 supplied
@@ -44,7 +45,10 @@ Stage 2 and 6 have no network dependency and are unit-tested. Every dollar figur
 ```
 cmd/disco/main.go                run | serve | eval
 internal/catalog/                load + validate publishers.json / shopper_personas.json; ID allow-lists
-internal/llm/                    Anthropic client: structured output, schema repair, prompt cache, disk cache
+internal/llm/
+    provider.go                  Provider interface (~40 lines): Complete(ctx, prompt, schema) -> json
+    gemini.go                    google.golang.org/genai, ResponseSchema, rate limiter, disk cache
+    fixture.go                   replays evals/fixtures/*.json; zero network, zero key
 internal/pipeline/
     profile.go    stage 1  LLM
     scoring.go    stage 2  PURE   <- unit tested
@@ -59,6 +63,7 @@ prompts/<stage>.schema.json      output contract, loaded at runtime, fed to outp
 evals/briefs.txt
 evals/assertions.go
 evals/snapshots/
+evals/fixtures/                  recorded provider responses, committed
 data/                            supplied catalog, unmodified
 ```
 
@@ -243,12 +248,39 @@ Refusing `"idk just try it"` outright is as wrong as confidently campaigning on 
 
 ## 10. LLM integration
 
-- **Model** `claude-opus-5`, adaptive thinking. `output_config.effort`: `medium` for stages 1 and 4, `high` for 3 and 5.
-- **Structured output** via `output_config.format` fed from `prompts/<stage>.schema.json` — one file serves as the LLM contract, the runtime validator (`santhosh-tekuri/jsonschema`), and the `prompts/` deliverable.
-- **Schema repair**: on validation failure, one retry feeding the validator error back. Second failure is a hard error, not a silent default.
+### Provider interface
+
+```go
+type Provider interface {
+    Name() string
+    Complete(ctx context.Context, stage string, prompt string, schema json.RawMessage) (json.RawMessage, error)
+}
+```
+
+Two implementations. No registry, no config DSL — a third provider is a new file and one switch arm.
+
+| Impl | Purpose |
+|---|---|
+| `gemini` | Real runs. `google.golang.org/genai`, `BackendGeminiAPI`, structured output via `ResponseMIMEType: "application/json"` + `ResponseSchema` |
+| `fixture` | Replays `evals/fixtures/<sha>.json`. No network, no key. Default for `go test` and for a reviewer's first `disco serve` |
+
+### Model choice and quotas
+
+`gemini-2.5-flash` by default (`--model`), `gemini-2.5-flash-lite` for dev loops. Free-tier limits as of 2026-09: Flash 10 RPM / 250 RPD, Flash-Lite 15 RPM / 1,000 RPD, both sharing 250,000 TPM. Gemini 2.5 Pro left the free tier in April 2026.
+
+Groq was evaluated and rejected: its 6,000 TPM free-tier ceiling is below the ~6,000-token cost of a single stage-3 call, because the whole 20-publisher catalog sits in the prompt.
+
+A run costs ~7–8 calls (stages 1, 3, 4, plus one per selected persona in stage 5), so Flash allows roughly 31 uncached runs per day and a 15-brief eval costs ~120 calls.
+
+### Client behavior
+
+- **Rate limiting**: token-bucket at the configured RPM, shared across the `errgroup` in stage 5 — the parallel creative calls are the only place that can burst past the limit.
+- **429 handling**: honor `retry-after`, exponential backoff, 3 attempts.
+- **Structured output**: `prompts/<stage>.schema.json` is loaded and passed as `ResponseSchema`, and the same file validates the response via `santhosh-tekuri/jsonschema`. One artifact serves as model contract, runtime validator, and `prompts/` deliverable.
+- **Schema repair**: on validation failure, one retry feeding the validator error back. Second failure is a hard error, never a silent default.
 - **Grounding**: after unmarshal, any `publisher_id` / `persona_id` outside the catalog allow-list is dropped. An empty required field after filtering fails loudly.
-- **Prompt caching**: the ~10KB catalog is an identical prefix across all stages and all 15 eval briefs — cached with a breakpoint after the catalog block. Verify via `usage.cache_read_input_tokens`.
-- **Disk cache** keyed by `sha256(stage + prompt + schema + input)` under `.cache/`, so `serve` and repeated `eval` runs are fast and cheap. `--no-cache` bypasses.
+- **Disk cache** keyed by `sha256(provider + model + stage + prompt + schema)` under `.cache/`. `--no-cache` bypasses. This is what keeps daily-quota pressure manageable, since dev iterations usually touch one stage and replay the rest.
+- **Fixture recording**: `--record` writes each response to `evals/fixtures/`, keyed by the same hash. Committed, so the repo ships a working offline demo.
 
 ## 11. Eval
 
@@ -267,7 +299,8 @@ Refusing `"idk just try it"` outright is as wrong as confidently campaigning on 
 | #10 $1,200 handbags | zero allocation to Swiftcart (pub_001, AOV 28) |
 | #6 $650 ski shells | excluded from mid-income publishers |
 
-Plus snapshot diffs under `evals/snapshots/` so a prompt edit shows its blast radius.
+Plus snapshot diffs under `evals/snapshots/
+evals/fixtures/                  recorded provider responses, committed` so a prompt edit shows its blast radius.
 
 The eval asserts **structural and judgment invariants**, not copy quality. Whether a headline is good is not measurable in this budget; whether the system refused when it should have refused is binary and cheap. The README says this explicitly — creative quality is the genuinely hard part precisely because it cannot be asserted.
 
@@ -288,7 +321,8 @@ disco eval  [--brief N] [--update-snapshots]
 - `internal/pipeline/scoring_test.go` — table-driven, no network. Covers each sub-score, each hard gate, and the Linden Park / Swiftcart exclusion cases.
 - `internal/pipeline/campaign_test.go` — table-driven. Covers CPM derivation against the spot values above, all four allocation steps, the $50k clip case, and sum-to-1.0.
 - `internal/catalog/catalog_test.go` — golden load, ID allow-list construction.
-- `go test ./...` requires no API key. `disco eval` requires network and a key.
+- `go test ./...` requires no API key and no network — LLM stages run against the `fixture` provider.
+- `disco eval --provider fixture` is deterministic and free; `disco eval --provider gemini` exercises the real model against daily quota.
 
 ## 14. Risks
 
@@ -298,8 +332,10 @@ disco eval  [--brief N] [--update-snapshots]
 | Keyword matching on free-text `notes` is brittle | Only 15% of the score; stage 3 sees raw notes and can override the verdict |
 | CPM proxy is invented | Isolated in one function, labeled as a stand-in, spot values sanity-checked against real display ranges |
 | LLM stage non-determinism | Disk cache; assertions are structural, never exact-text |
-| No `ANTHROPIC_API_KEY` in the dev environment | Must be resolved before any LLM stage runs |
+| Free-tier RPD (250 on Flash) throttles iteration | Disk cache; Flash-Lite for dev loops; fixture provider for tests |
+| Gemini Flash writes weaker ad copy than a frontier model | Acknowledged in README as a stated constraint, not hidden; provider swap is one file |
+| Non-Anthropic provider in an Anthropic-adjacent context | The brief explicitly permits any LLM; README states the choice and its reason |
 
 ## 15. Prerequisite
 
-`ANTHROPIC_API_KEY` is not set and the `ant` CLI is not installed. One of the two is required before stages 1, 3, 4, or 5 can execute. Stages 2 and 6 and their tests run without it.
+`GEMINI_API_KEY` from aistudio.google.com — free, no payment method required. Needed only for `--provider gemini`. Everything else — `go test ./...`, `disco run --provider fixture`, `disco serve` on committed fixtures — runs with no key at all.
