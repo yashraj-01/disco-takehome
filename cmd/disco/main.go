@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/yashraj/disco/internal/catalog"
+	"github.com/yashraj/disco/internal/eval"
 	"github.com/yashraj/disco/internal/llm"
 	"github.com/yashraj/disco/internal/pipeline"
 	"github.com/yashraj/disco/internal/render"
@@ -180,7 +181,50 @@ func cmdServe(args []string) error {
 	})
 }
 
-// cmdEval will run every example brief and check the invariants (Task 16). It
-// is stubbed here for the same reason as cmdServe; internal/eval does not
-// exist yet and must not be imported until Task 16 adds it.
-func cmdEval(args []string) error { return fmt.Errorf("eval: not implemented yet") }
+// cmdEval runs every example brief through the pipeline and checks the
+// invariants that can actually be asserted (Task 16).
+func cmdEval(args []string) error {
+	fs := flag.NewFlagSet("eval", flag.ExitOnError)
+	fs.Usage = func() {
+		fmt.Fprintf(fs.Output(), "usage: disco eval [flags]\n\nrun every example brief and check the invariants\n\nflags:\n")
+		fs.PrintDefaults()
+	}
+	common := registerCommon(fs)
+	briefsPath := fs.String("briefs", "evals/briefs.txt", "file of numbered example briefs")
+	only := fs.Int("brief", 0, "run only this brief number")
+	if err := fs.Parse(args); err != nil {
+		return err
+	}
+
+	briefs, err := eval.LoadBriefs(*briefsPath)
+	if err != nil {
+		return err
+	}
+	if *only > 0 {
+		var kept []eval.Brief
+		for _, b := range briefs {
+			if b.N == *only {
+				kept = append(kept, b)
+			}
+		}
+		if len(kept) == 0 {
+			return fmt.Errorf("no brief numbered %d in %s", *only, *briefsPath)
+		}
+		briefs = kept
+	}
+
+	provider, cat, err := buildProvider(common)
+	if err != nil {
+		return err
+	}
+
+	results := eval.Run(context.Background(), briefs, pipeline.Options{
+		Provider: provider, Catalog: cat, Params: common.params, Model: common.model,
+	}, cat)
+
+	_, failed := eval.Report(os.Stdout, results)
+	if failed > 0 {
+		return fmt.Errorf("%d of %d briefs failed", failed, len(results))
+	}
+	return nil
+}
