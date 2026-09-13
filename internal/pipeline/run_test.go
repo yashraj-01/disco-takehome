@@ -3,6 +3,9 @@ package pipeline
 import (
 	"context"
 	"encoding/json"
+	"fmt"
+	"reflect"
+	"strings"
 	"sync"
 	"testing"
 
@@ -158,8 +161,29 @@ func TestRunShortCircuitsNonConsumerBrief(t *testing.T) {
 			t.Errorf("stage %q ran for a brief this catalog cannot serve", stage)
 		}
 	}
-	if len(got.PublisherLedger) == 0 {
-		t.Error("the ledger should still explain every publisher")
+
+	// The short circuit is only defensible because the ledger still explains
+	// every publisher, not merely some of them: nothing downstream (Fit) ran
+	// to fill in verdicts, so this checks Run's own synthesized-verdict path,
+	// not Fit's.
+	c := loadCatalog(t)
+	if len(got.PublisherLedger) != len(c.Publishers) {
+		t.Errorf("ledger has %d entries, want %d (every catalog publisher)",
+			len(got.PublisherLedger), len(c.Publishers))
+	}
+	wantReason := gateReason(GateNotConsumerDTC)
+	for _, e := range got.PublisherLedger {
+		if e.Reason == "" {
+			t.Errorf("publisher %q has no reason in the ledger", e.PublisherID)
+		}
+	}
+	// Spot-check one entry's reason is the specific gate reason, not Build's
+	// generic "not evaluated" fallback for a publisher with no verdict at
+	// all. If Run stopped pre-populating Verdicts, every entry would
+	// silently degrade to "not evaluated" and only this assertion would
+	// notice.
+	if got.PublisherLedger[0].Reason != wantReason {
+		t.Errorf("ledger reason = %q, want gate reason %q", got.PublisherLedger[0].Reason, wantReason)
 	}
 }
 
@@ -184,4 +208,90 @@ func TestRunLowConfidenceStillProducesAProvisionalCampaign(t *testing.T) {
 	if len(got.Creatives) == 0 {
 		t.Error("a provisional campaign should still carry creatives")
 	}
+}
+
+// failingProvider wraps a provider and fails one specific call — identified
+// by stage and, optionally, a substring that must appear in the rendered
+// prompt — while delegating every other call normally. FixtureKey is a hash
+// of the brief (see fixtureKey), so it cannot be matched against a literal
+// persona ID; the rendered prompt still carries the persona's own "id" field
+// in its JSON input, so that is what failPromptContains matches against.
+// failingProvider's fields are set once at construction and never written
+// afterward, so unlike countingProvider it needs no mutex even though
+// Complete may be called concurrently by stage 5.
+type failingProvider struct {
+	inner              llm.Provider
+	failStage          string
+	failPromptContains string // if non-empty, only fail when Prompt contains this
+}
+
+func (f *failingProvider) Name() string { return "failing" }
+
+func (f *failingProvider) Complete(ctx context.Context, r llm.Request) (json.RawMessage, error) {
+	if r.Stage == f.failStage &&
+		(f.failPromptContains == "" || strings.Contains(r.Prompt, f.failPromptContains)) {
+		return nil, fmt.Errorf("pipeline test: simulated failure for stage %q", r.Stage)
+	}
+	return f.inner.Complete(ctx, r)
+}
+
+// assertRunFailedCleanly is shared by the three stage-failure tests below:
+// Run must surface the error and must not let a half-built campaign escape,
+// since a caller rendering a zero-Status, empty-ledger config would be no
+// better than one silently missing its later stages.
+func assertRunFailedCleanly(t *testing.T, got model.Campaign, err error) {
+	t.Helper()
+	if err == nil {
+		t.Fatal("Run: want error, got nil")
+	}
+	if !reflect.DeepEqual(got, model.Campaign{}) {
+		t.Errorf("Run returned a non-zero campaign alongside an error: %+v", got)
+	}
+}
+
+// A failure in stage 3 (Fit) must abort the run before personas or creatives
+// ever get a chance to execute, and must not return a partially built
+// campaign. Corruption this catches: run.go ignoring Fit's error (e.g.
+// `in.Verdicts, _ = Fit(...)`) and falling through to Build with an empty
+// Verdicts slice, which would look like a normal (if odd) campaign rather
+// than a failure.
+func TestRunPropagatesFitError(t *testing.T) {
+	brief := "We sell premium dog food for senior dogs."
+	base := fullRunProvider(t, brief, consumerProfile())
+	p := &failingProvider{inner: base.inner, failStage: "fit"}
+
+	got, err := Run(context.Background(), brief, Options{
+		Provider: p, Catalog: loadCatalog(t), Params: DefaultAllocParams(), Model: "test"})
+	assertRunFailedCleanly(t, got, err)
+}
+
+// Same guarantee, for stage 4 (Personas). Corruption this catches: the same
+// error-swallowing mistake one stage later, which TestRunPropagatesFitError
+// cannot catch because it never reaches Personas.
+func TestRunPropagatesPersonasError(t *testing.T) {
+	brief := "We sell premium dog food for senior dogs."
+	base := fullRunProvider(t, brief, consumerProfile())
+	p := &failingProvider{inner: base.inner, failStage: "personas"}
+
+	got, err := Run(context.Background(), brief, Options{
+		Provider: p, Catalog: loadCatalog(t), Params: DefaultAllocParams(), Model: "test"})
+	assertRunFailedCleanly(t, got, err)
+}
+
+// Same guarantee, for stage 5 (Creatives) — but the failure is injected into
+// only one of the three concurrent per-persona goroutines (persona_002),
+// while the other two succeed. This is the path most likely to swallow an
+// error: it must cross an errgroup goroutine boundary to reach Run's caller
+// at all. Corruption this catches: Creatives (or Run) discarding the
+// errgroup's error — e.g. a future edit collecting per-goroutine errors into
+// a slice and only surfacing them via logging — which would let Run return a
+// campaign built from 2 of 3 intended creatives instead of failing outright.
+func TestRunPropagatesCreativeErrorFromConcurrentGoroutine(t *testing.T) {
+	brief := "We sell premium dog food for senior dogs."
+	base := fullRunProvider(t, brief, consumerProfile())
+	p := &failingProvider{inner: base.inner, failStage: "creative", failPromptContains: `"id": "persona_002"`}
+
+	got, err := Run(context.Background(), brief, Options{
+		Provider: p, Catalog: loadCatalog(t), Params: DefaultAllocParams(), Model: "test"})
+	assertRunFailedCleanly(t, got, err)
 }
