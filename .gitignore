@@ -1,4 +1,4 @@
 .cache/
-disco
+/disco
 *.exe
 .env
