@@ -1,0 +1,58 @@
+{
+  "selected": [
+    {
+      "persona_id": "persona_001",
+      "rationale": "Given the advertiser's unknown category and mid price tier, The Wellness Optimizer provides a strong baseline to test premium, evidence-backed messaging targeting consumers with a low price sensitivity and typical AOV of $95.",
+      "primary_publishers": [
+        "pub_wellness_blog",
+        "pub_fitness_mag"
+      ]
+    },
+    {
+      "persona_id": "persona_003",
+      "rationale": "To cover visual and identity-driven impulses for the unknown product, The Gen Z Aesthete offers a contrast with their high responsiveness to novelty and aesthetic-forward messaging at a lower AOV of $48.",
+      "primary_publishers": [
+        "pub_tiktok_creator",
+        "pub_instagram_influencer"
+      ]
+    },
+    {
+      "persona_id": "persona_008",
+      "rationale": "The Value-Conscious Shopper covers high price sensitivity and response to bundles, contrasting the premium wellness persona and testing how the unspecified product performs under discount-forward messaging.",
+      "primary_publishers": [
+        "pub_deals_newsletter",
+        "pub_coupon_aggregator"
+      ]
+    }
+  ],
+  "rejected": [
+    {
+      "persona_id": "persona_002",
+      "reason": "The Busy Parent specifically loves subscriptions, whereas the advertiser's business model is explicitly listed as a one_off transaction."
+    },
+    {
+      "persona_id": "persona_004",
+      "reason": "The Pet Parent focuses strictly on pet-related categories which does not align with an unknown general advertiser profile."
+    },
+    {
+      "persona_id": "persona_005",
+      "reason": "The Affluent Classic prefers heritage and craftsmanship with an AOV of $145, which clashes with the assumed mid price tier of the advertiser."
+    },
+    {
+      "persona_id": "persona_006",
+      "reason": "The Sustainability Buyer requires specific supply chain transparency and certifications, which cannot be justified given the missing signals for the advertiser."
+    },
+    {
+      "persona_id": "persona_007",
+      "reason": "The Convenience-First Millennial relies heavily on subscription services and instant delivery, conflicting with the one-off business model."
+    },
+    {
+      "persona_id": "persona_009",
+      "reason": "The Fitness Enthusiast focuses on activewear and performance supplements, which is too narrow given the unknown primary category."
+    },
+    {
+      "persona_id": "persona_010",
+      "reason": "The Gifter is disinterested in self-care-only framing and subscription-only models, but more importantly operates as an intermittent seasonal mode rather than a foundational target."
+    }
+  ]
+}

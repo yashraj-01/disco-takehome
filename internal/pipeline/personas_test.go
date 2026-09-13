@@ -3,6 +3,7 @@ package pipeline
 import (
 	"context"
 	"encoding/json"
+	"strings"
 	"testing"
 
 	"github.com/yashraj/disco/internal/llm"
@@ -120,26 +121,79 @@ func TestPersonasCapsAtFive(t *testing.T) {
 	}
 }
 
-// Fewer than three usable picks is an error, not a silently short campaign:
-// the exercise asks for 3 to 5 creative variants.
-func TestPersonasTooFewIsAnError(t *testing.T) {
+// Enforcement rule 4: an under-delivering model is backfilled, not fatal.
+// A real run on brief #5 ("We help people feel better") returned two valid
+// picks against a prompt asking for three to five. Erroring there would crash
+// on exactly the low-signal input this pipeline exists to handle gracefully.
+func TestPersonasBackfillsWhenModelUnderDelivers(t *testing.T) {
 	brief := "premium dog food"
 	d := fixtureDeps(t, "personas", brief, personaFixture([]string{"persona_004"}))
-	if _, err := Personas(context.Background(), d, withBrief(dogFood(), brief), nil); err == nil {
-		t.Fatal("want an error when fewer than 3 personas survive filtering")
+
+	got, err := Personas(context.Background(), d, withBrief(dogFood(), brief), nil)
+	if err != nil {
+		t.Fatalf("Personas: %v", err)
+	}
+	if len(got.Selected) != minPersonas {
+		t.Fatalf("got %d personas, want %d after backfill", len(got.Selected), minPersonas)
+	}
+	if got.Selected[0].PersonaID != "persona_004" {
+		t.Errorf("model's own pick should come first, got %s", got.Selected[0].PersonaID)
+	}
+	// The backfilled entries must say they were added, so the output never
+	// implies the model endorsed a persona it did not choose.
+	for _, p := range got.Selected[1:] {
+		if !strings.Contains(p.Rationale, "Added to reach") {
+			t.Errorf("%s rationale does not disclose it was backfilled: %q",
+				p.PersonaID, p.Rationale)
+		}
+	}
+	seen := map[string]bool{}
+	for _, p := range got.Selected {
+		if seen[p.PersonaID] {
+			t.Errorf("%s appears twice after backfill", p.PersonaID)
+		}
+		seen[p.PersonaID] = true
 	}
 }
 
-// Enforcement rule 4b (fewer than 3 is an error): filtering unknown/duplicate
-// IDs down to under 3 must also error, not just a raw under-3 response. This
-// exercises the interaction between rule 1/2 and rule 4, not just rule 4 in
-// isolation.
-func TestPersonasTooFewAfterFilteringIsAnError(t *testing.T) {
+// Backfill must survive the rule 1/2 interaction: unknown and duplicate IDs
+// filtered down to one real pick still ends at the minimum, not an error.
+func TestPersonasBackfillsAfterFilteringRemovesIDs(t *testing.T) {
 	brief := "premium dog food"
 	d := fixtureDeps(t, "personas", brief, personaFixture(
 		[]string{"persona_004", "persona_999", "persona_004", "persona_888"}))
-	if _, err := Personas(context.Background(), d, withBrief(dogFood(), brief), nil); err == nil {
-		t.Fatal("want an error: only 1 of 4 raw entries is a valid, unique catalog ID")
+
+	got, err := Personas(context.Background(), d, withBrief(dogFood(), brief), nil)
+	if err != nil {
+		t.Fatalf("Personas: %v", err)
+	}
+	if len(got.Selected) != minPersonas {
+		t.Fatalf("got %d personas, want %d", len(got.Selected), minPersonas)
+	}
+	for _, p := range got.Selected {
+		if !d.Catalog.HasPersona(p.PersonaID) {
+			t.Errorf("backfill introduced a non-catalog persona: %s", p.PersonaID)
+		}
+	}
+}
+
+// A backfilled persona must not also be listed as rejected.
+func TestPersonasBackfilledPersonaIsNotAlsoRejected(t *testing.T) {
+	brief := "premium dog food"
+	d := fixtureDeps(t, "personas", brief, personaFixture([]string{"persona_004"}))
+
+	got, err := Personas(context.Background(), d, withBrief(dogFood(), brief), nil)
+	if err != nil {
+		t.Fatalf("Personas: %v", err)
+	}
+	selected := map[string]bool{}
+	for _, p := range got.Selected {
+		selected[p.PersonaID] = true
+	}
+	for _, r := range got.Rejected {
+		if selected[r.PersonaID] {
+			t.Errorf("%s is both selected (backfilled) and rejected", r.PersonaID)
+		}
 	}
 }
 

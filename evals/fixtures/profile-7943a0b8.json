@@ -1,0 +1,30 @@
+{
+  "primary_category": "wellness_dtc",
+  "subcategories": [
+    "workout_supplements",
+    "protein",
+    "pre_workout",
+    "creatine"
+  ],
+  "price_tier": "budget",
+  "estimated_aov_usd": 30,
+  "target_age_min": 18,
+  "target_age_max": 45,
+  "target_gender_skew": "balanced",
+  "values": [
+    "value"
+  ],
+  "business_model": "one_off",
+  "is_consumer_dtc": true,
+  "confidence": "medium",
+  "assumptions": [
+    "Target age range of 18-45 assumes typical fitness and supplement buyer demographics.",
+    "Target gender skew is assumed to be balanced as workout supplements appeal to both men and women.",
+    "Estimated AOV of $30 assumes standard lower-cost supplement pricing for a single item or smaller bundle based on the half-the-cost positioning."
+  ],
+  "missing_signals": [
+    "Exact average order value or typical basket size",
+    "Specific target age demographic",
+    "Subscription availability versus one-off purchases"
+  ]
+}

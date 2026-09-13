@@ -1,0 +1,124 @@
+{
+  "verdicts": [
+    {
+      "publisher_id": "pub_001",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category mismatch in instant grocery delivery, failing category overlap."
+    },
+    {
+      "publisher_id": "pub_002",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category mismatch in apparel and activewear."
+    },
+    {
+      "publisher_id": "pub_003",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category mismatch in wellness services and fitness booking."
+    },
+    {
+      "publisher_id": "pub_004",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category mismatch and an audience age skew of 45-65, which misses the target demographic."
+    },
+    {
+      "publisher_id": "pub_005",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category mismatch and an older audience demographic skewing 50-70."
+    },
+    {
+      "publisher_id": "pub_006",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category mismatch in apparel."
+    },
+    {
+      "publisher_id": "pub_007",
+      "verdict": "recommended",
+      "rank": 2,
+      "reason": "Subscription-heavy pet buyers who are health-conscious and responsive to premium positioning, aligning well with a $64 AOV and a $35 subscription box."
+    },
+    {
+      "publisher_id": "pub_008",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category mismatch in organic groceries."
+    },
+    {
+      "publisher_id": "pub_009",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Plausible pet publisher with the largest audience in the catalog, but notes mention broad demographics rather than specifically targeting new pet owners or subscription buyers."
+    },
+    {
+      "publisher_id": "pub_010",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category mismatch in apparel, socks, and basics."
+    },
+    {
+      "publisher_id": "pub_011",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category mismatch in home textiles and bedding."
+    },
+    {
+      "publisher_id": "pub_012",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category mismatch in vitamins and wellness DTC."
+    },
+    {
+      "publisher_id": "pub_013",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category mismatch in beauty and skincare."
+    },
+    {
+      "publisher_id": "pub_014",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category mismatch in kitchenware and home goods."
+    },
+    {
+      "publisher_id": "pub_015",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category mismatch in meal kits."
+    },
+    {
+      "publisher_id": "pub_016",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category mismatch in sustainable footwear."
+    },
+    {
+      "publisher_id": "pub_017",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category mismatch in apparel and active footwear."
+    },
+    {
+      "publisher_id": "pub_018",
+      "verdict": "recommended",
+      "rank": 1,
+      "reason": "Millennials treating pets as family with a matching $35 AOV and a playful brand voice that perfectly converts subscription boxes for new pet owners."
+    },
+    {
+      "publisher_id": "pub_019",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category mismatch in haircare and beauty."
+    },
+    {
+      "publisher_id": "pub_020",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category mismatch in functional beverages."
+    }
+  ]
+}

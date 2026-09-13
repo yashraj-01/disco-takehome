@@ -1,0 +1,28 @@
+{
+  "primary_category": "apparel",
+  "subcategories": [
+    "outerwear",
+    "ski_gear",
+    "technical_clothing"
+  ],
+  "price_tier": "luxury",
+  "estimated_aov_usd": 650,
+  "target_age_min": 25,
+  "target_age_max": 55,
+  "target_gender_skew": "balanced",
+  "values": [
+    "craftsmanship"
+  ],
+  "business_model": "one_off",
+  "is_consumer_dtc": true,
+  "confidence": "high",
+  "assumptions": [
+    "Assumed target age range based on the high cost and extreme nature of backcountry skiing.",
+    "Assumed balanced gender skew as backcountry skiing is practiced by both men and women.",
+    "Assumed craftsmanship as a core value due to technical performance and professional use by patrollers."
+  ],
+  "missing_signals": [
+    "Exact average order value across multiple items rather than starting price.",
+    "Specific demographic gender split."
+  ]
+}

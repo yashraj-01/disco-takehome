@@ -1,0 +1,53 @@
+{
+  "selected": [
+    {
+      "persona_id": "persona_001",
+      "rationale": "The Wellness Optimizer tracks sleep, supplements, and workouts with a low price sensitivity and an affinity for wellness categories, perfectly mirroring the advertiser's primary category of general wellness services and mid-to-high price tier.",
+      "primary_publishers": [
+        "pub_012",
+        "pub_003"
+      ]
+    },
+    {
+      "persona_id": "persona_009",
+      "rationale": "The Fitness Enthusiast works out frequently and holds a strong category affinity for fitness services and recovery, aligning directly with the appointment-based booking and self-care offerings of the recommended publisher Studiogrid.",
+      "primary_publishers": [
+        "pub_003"
+      ]
+    }
+  ],
+  "rejected": [
+    {
+      "persona_id": "persona_002",
+      "reason": "The Busy Parent focuses on kids' products, household items, and meal kits, which do not align with the core wellness services focus of the advertiser."
+    },
+    {
+      "persona_id": "persona_003",
+      "reason": "The Gen Z Aesthete is primarily focused on fashion, beauty, and functional beverages discovered on social media, whereas this advertiser offers general wellness services."
+    },
+    {
+      "persona_id": "persona_004",
+      "reason": "The Pet Parent focuses strictly on pet health, pet food, and pet supplies, which is entirely irrelevant to human wellness services."
+    },
+    {
+      "persona_id": "persona_005",
+      "reason": "The Affluent Classic gravitates towards classic apparel, travel, and home goods rather than active personal wellness services."
+    },
+    {
+      "persona_id": "persona_006",
+      "reason": "The Sustainability Buyer prioritizes eco-friendly apparel, clean beauty, and refillable products, which lacks a direct connection to general wellness services."
+    },
+    {
+      "persona_id": "persona_007",
+      "reason": "The Convenience-First Millennial is driven by instant delivery, meal kits, and quick commerce, which does not match the service-based nature of the advertiser."
+    },
+    {
+      "persona_id": "persona_008",
+      "reason": "The Value-Conscious Shopper looks for discounts and bundles on groceries and household goods, conflicting with the service orientation and estimated AOV of the advertiser."
+    },
+    {
+      "persona_id": "persona_010",
+      "reason": "The Gifter is a temporary mode centered on holiday or life event gifting with physical items like gift sets, which does not fit an ongoing service."
+    }
+  ]
+}

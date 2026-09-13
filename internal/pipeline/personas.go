@@ -67,12 +67,39 @@ func Personas(ctx context.Context, d Deps, p model.AdvertiserProfile, verdicts [
 		}
 	}
 
-	// Enforcement rule 4: fewer than 3 usable personas is an error, not a
-	// quietly short campaign.
+	// Enforcement rule 4: always end with at least minPersonas picks.
+	//
+	// The model under-delivers on a vague brief: "We help people feel better"
+	// returned two picks against a prompt asking for three to five, both valid
+	// and neither filtered. Failing there would crash on exactly the low-signal
+	// input this pipeline advertises handling gracefully, and would make vague
+	// briefs succeed or fail on whether the model happened to return three.
+	// Backfill deterministically instead, in catalog order, and say plainly in
+	// the rationale that the pick was added — the output must never imply the
+	// model endorsed a persona it did not choose.
+	for i := range d.Catalog.Personas {
+		if len(kept) >= minPersonas {
+			break
+		}
+		p := &d.Catalog.Personas[i]
+		if seen[p.ID] {
+			continue
+		}
+		seen[p.ID] = true
+		kept = append(kept, model.PersonaPick{
+			PersonaID: p.ID,
+			Rationale: "Added to reach the three-variant minimum. The brief was too " +
+				"vague for the model to segment on, so this is a placeholder, not a " +
+				"judgement that this persona fits.",
+		})
+	}
+
+	// Structurally impossible with the supplied catalog of ten, but a catalog
+	// smaller than the minimum cannot satisfy the contract.
 	if len(kept) < minPersonas {
 		return model.PersonaSelection{}, fmt.Errorf(
-			"pipeline: personas: %d usable personas after filtering, want at least %d",
-			len(kept), minPersonas)
+			"pipeline: personas: catalog has %d personas, need at least %d",
+			len(d.Catalog.Personas), minPersonas)
 	}
 
 	// Enforcement rule 6: a persona that was selected must not also appear in

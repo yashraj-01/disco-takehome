@@ -1,0 +1,124 @@
+{
+  "verdicts": [
+    {
+      "publisher_id": "pub_001",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category mismatch as indicated by the hard gate."
+    },
+    {
+      "publisher_id": "pub_002",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category mismatch as indicated by the hard gate."
+    },
+    {
+      "publisher_id": "pub_003",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category mismatch as indicated by the hard gate."
+    },
+    {
+      "publisher_id": "pub_004",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category mismatch as indicated by the hard gate."
+    },
+    {
+      "publisher_id": "pub_005",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category mismatch as indicated by the hard gate."
+    },
+    {
+      "publisher_id": "pub_006",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category mismatch as indicated by the hard gate."
+    },
+    {
+      "publisher_id": "pub_007",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category mismatch as indicated by the hard gate."
+    },
+    {
+      "publisher_id": "pub_008",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category mismatch as indicated by the hard gate."
+    },
+    {
+      "publisher_id": "pub_009",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category mismatch as indicated by the hard gate."
+    },
+    {
+      "publisher_id": "pub_010",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category mismatch as indicated by the hard gate."
+    },
+    {
+      "publisher_id": "pub_011",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category mismatch as indicated by the hard gate."
+    },
+    {
+      "publisher_id": "pub_012",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category mismatch as indicated by the hard gate."
+    },
+    {
+      "publisher_id": "pub_013",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category mismatch as indicated by the hard gate."
+    },
+    {
+      "publisher_id": "pub_014",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category mismatch as indicated by the hard gate."
+    },
+    {
+      "publisher_id": "pub_015",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category mismatch as indicated by the hard gate."
+    },
+    {
+      "publisher_id": "pub_016",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category mismatch as indicated by the hard gate."
+    },
+    {
+      "publisher_id": "pub_017",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category mismatch as indicated by the hard gate."
+    },
+    {
+      "publisher_id": "pub_018",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category mismatch as indicated by the hard gate."
+    },
+    {
+      "publisher_id": "pub_019",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category mismatch as indicated by the hard gate."
+    },
+    {
+      "publisher_id": "pub_020",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category mismatch as indicated by the hard gate."
+    }
+  ]
+}

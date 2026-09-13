@@ -1,0 +1,26 @@
+{
+  "primary_category": "groceries",
+  "subcategories": [
+    "protein_bars",
+    "snacks"
+  ],
+  "price_tier": "mid",
+  "estimated_aov_usd": 30,
+  "target_age_min": 18,
+  "target_age_max": 45,
+  "target_gender_skew": "balanced",
+  "values": [],
+  "business_model": "one_off",
+  "is_consumer_dtc": true,
+  "confidence": "medium",
+  "assumptions": [
+    "Assumed mid price tier based on typical protein bar market pricing",
+    "Assumed estimated AOV of $30 for a typical pack purchase",
+    "Assumed target age range of 18-45 based on typical snack and fitness demographic"
+  ],
+  "missing_signals": [
+    "Exact pricing and pack sizes",
+    "Target demographic specifics",
+    "Subscription availability"
+  ]
+}

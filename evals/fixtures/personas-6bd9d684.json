@@ -1,0 +1,62 @@
+{
+  "selected": [
+    {
+      "persona_id": "persona_001",
+      "rationale": "The Wellness Optimizer tracks workouts and has low price sensitivity, matching the premium pricing tier and activewear category of the brand. She responds to science-backed claims and ingredient transparency, which aligns well with messaging around recycled ocean plastic and sustainability.",
+      "primary_publishers": [
+        "pub_002",
+        "pub_016"
+      ]
+    },
+    {
+      "persona_id": "persona_003",
+      "rationale": "The Gen Z Aesthete is highly visual and cares about whether a brand stands for something, which connects directly to the advertiser's core values of sustainability and being made from recycled ocean plastic.",
+      "primary_publishers": [
+        "pub_002",
+        "pub_017"
+      ]
+    },
+    {
+      "persona_id": "persona_006",
+      "rationale": "The Sustainability Buyer specifically researches supply chains and will pay more for genuinely sustainable options, making them a direct fit for a brand whose primary value and material sourcing focus is sustainability and recycled ocean plastic.",
+      "primary_publishers": [
+        "pub_016",
+        "pub_017"
+      ]
+    },
+    {
+      "persona_id": "persona_009",
+      "rationale": "The Fitness Enthusiast works out 4+ times a week and buys performance apparel, which maps directly to the activewear category and the premium tier sitting between Lululemon and Girlfriend Collective.",
+      "primary_publishers": [
+        "pub_002",
+        "pub_017"
+      ]
+    }
+  ],
+  "rejected": [
+    {
+      "persona_id": "persona_002",
+      "reason": "The Busy Parent loves subscriptions, whereas the advertiser's business model is explicitly a one-off purchase."
+    },
+    {
+      "persona_id": "persona_004",
+      "reason": "The Pet Parent focuses entirely on pet-related categories like pet food and pet health, which has no overlap with women's activewear."
+    },
+    {
+      "persona_id": "persona_005",
+      "reason": "The Affluent Classic prefers classic apparel and heritage messaging and is explicitly disinterested in influencer positioning and trendy language, making her a poor fit for a modern activewear brand."
+    },
+    {
+      "persona_id": "persona_007",
+      "reason": "The Convenience-First Millennial focuses on instant delivery and quick commerce, which does not align with a specialized D2C apparel brand."
+    },
+    {
+      "persona_id": "persona_008",
+      "reason": "The Value-Conscious Shopper has high price sensitivity and responds to discount-forward messaging, which conflicts with the brand's premium price tier."
+    },
+    {
+      "persona_id": "persona_010",
+      "reason": "The Gifter is explicitly disinterested in self-care-only framing and relies heavily on gifting occasions, whereas activewear is typically purchased for personal use."
+    }
+  ]
+}

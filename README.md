@@ -7,31 +7,26 @@ could act on.
 
 ## Run it
 
-**Fixtures have not been recorded yet.** `evals/fixtures/` is empty — no
-`GEMINI_API_KEY` was available while building this. A fresh clone will fail on
-`disco run`, `disco eval`, and a submit from `disco serve` with an actionable
-error saying exactly this. Fix it once:
-
-```bash
-cp .env.example .env          # then put your key in it
-set -a; source .env; set +a   # no dotenv loader: the shell loads it
-go run ./cmd/disco eval --provider gemini --record
-```
-
-The key is free and needs no payment method: <https://aistudio.google.com/apikey>.
-`export GEMINI_API_KEY=...` works just as well if you would rather not keep a file.
-
-That's about 120 calls (15 briefs × ~4 model-calling stages) against a 250/day
-free-tier limit, written to `evals/fixtures/` as they come back. After this one
-run, everything below replays offline forever and the key is never needed
-again:
+Fixtures are committed, so everything below runs offline with **no API key**:
 
 ```bash
 go run ./cmd/disco serve      # http://localhost:8080
 go run ./cmd/disco run "We sell premium dog food for senior dogs, targeting owners who care about joint health and longevity. Grain-free, vet-formulated, subscription-based."
-go run ./cmd/disco eval       # all 15 example briefs, offline, against the recorded fixtures
+go run ./cmd/disco eval       # all 15 example briefs — 15/15 passing
 go test ./...
 ```
+
+To regenerate them against the live model, get a free key (no payment method:
+<https://aistudio.google.com/apikey>), then:
+
+```bash
+cp .env.example .env          # put your key in it
+set -a; source .env; set +a   # no dotenv loader: the shell loads it
+go run ./cmd/disco eval --provider gemini --record
+```
+
+Mind the free-tier daily cap — it is per model and small (20/day on
+`gemini-3.6-flash` at time of writing). `--model` picks a different quota pool.
 
 ## How it works
 
@@ -56,7 +51,7 @@ condition can trigger it. A B2B brief (#7) returns `no_recommendation` after
 scoring; a vague brief (#5, #8, #15) returns `needs_clarification` with an
 inferred profile and the questions we'd ask.
 
-**The model.** This runs on Gemini 2.5 Flash's free tier — no API budget was
+**The model.** This runs on Gemini 3.5 Flash Lite's free tier — no API budget was
 available. The ad copy is weaker than a frontier model would write, and copy
 quality is one of the things this exercise grades, so I'd rather say that
 plainly than let the demo hide it. The provider seam (`internal/llm`) means

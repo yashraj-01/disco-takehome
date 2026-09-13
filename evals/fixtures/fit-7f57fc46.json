@@ -1,0 +1,124 @@
+{
+  "verdicts": [
+    {
+      "publisher_id": "pub_001",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate category_mismatch; instant delivery groceries do not reach senior dog food buyers."
+    },
+    {
+      "publisher_id": "pub_002",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate category_mismatch; activewear apparel lacks category overlap with pet food."
+    },
+    {
+      "publisher_id": "pub_003",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate category_mismatch; wellness services and fitness classes do not sell consumer packaged pet food."
+    },
+    {
+      "publisher_id": "pub_004",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate category_mismatch; women's workwear apparel is irrelevant to a dog food brand."
+    },
+    {
+      "publisher_id": "pub_005",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate category_mismatch; classic women's apparel has zero category overlap with pet health products."
+    },
+    {
+      "publisher_id": "pub_006",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate category_mismatch; plus-size apparel and intimates do not align with pet food."
+    },
+    {
+      "publisher_id": "pub_007",
+      "verdict": "recommended",
+      "rank": 1,
+      "reason": "Top recommendation due to high subscription overlap and health-conscious pet owners who readily pay a premium for specialized care."
+    },
+    {
+      "publisher_id": "pub_008",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate category_mismatch; organic grocery delivery does not sell pet food."
+    },
+    {
+      "publisher_id": "pub_009",
+      "verdict": "recommended",
+      "rank": 2,
+      "reason": "Strong reach with the largest pet audience in the catalog and proven repeat-purchase behavior, making it a reliable scale play despite a slightly lower income tier."
+    },
+    {
+      "publisher_id": "pub_010",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate category_mismatch; socks and underwear basics have no relevance to senior dog nutrition."
+    },
+    {
+      "publisher_id": "pub_011",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate category_mismatch; home bedding and bath textiling does not cross over into pet food."
+    },
+    {
+      "publisher_id": "pub_012",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate category_mismatch; human vitamins and supplements do not sell animal nutrition."
+    },
+    {
+      "publisher_id": "pub_013",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate category_mismatch; skincare and beauty products do not match the pet food category."
+    },
+    {
+      "publisher_id": "pub_014",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate category_mismatch; kitchen cookware and non-toxic home goods do not overlap with pet care."
+    },
+    {
+      "publisher_id": "pub_015",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate category_mismatch; human meal kits are a category mismatch for pet food."
+    },
+    {
+      "publisher_id": "pub_016",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate category_mismatch; women's sustainable shoes do not match pet food."
+    },
+    {
+      "publisher_id": "pub_017",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate category_mismatch; activewear shoes have no category overlap with pet nutrition."
+    },
+    {
+      "publisher_id": "pub_018",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Plausible pet publisher due to subscription model and dog focus, but missed the final cut because its lower AOV ($35) and younger audience skew lean away from premium senior health positioning."
+    },
+    {
+      "publisher_id": "pub_019",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate category_mismatch; personalized hair care is entirely outside the pet care sector."
+    },
+    {
+      "publisher_id": "pub_020",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate category_mismatch; functional beverages for humans cannot sell dog food."
+    }
+  ]
+}

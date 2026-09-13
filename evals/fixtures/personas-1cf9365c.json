@@ -1,0 +1,55 @@
+{
+  "selected": [
+    {
+      "persona_id": "persona_001",
+      "rationale": "The Wellness Optimizer tracks health and values science-backed outcomes, perfectly matching the advertiser's focus on adaptogens and functional beverages. She can be reached on Daily Form.",
+      "primary_publishers": [
+        "pub_012"
+      ]
+    },
+    {
+      "persona_id": "persona_003",
+      "rationale": "The Gen Z Aesthete is drawn to functional beverages and visual brand identity, aligning with the advertiser's trendy cocktail alternative concept. She can be reached on Pop & Sip.",
+      "primary_publishers": [
+        "pub_020"
+      ]
+    },
+    {
+      "persona_id": "persona_009",
+      "rationale": "The Fitness Enthusiast looks for recovery and functional beverages to support an active lifestyle, fitting the advertiser's non-alcoholic and feel-good value proposition. He can be reached on Pop & Sip.",
+      "primary_publishers": [
+        "pub_020"
+      ]
+    }
+  ],
+  "rejected": [
+    {
+      "persona_id": "persona_002",
+      "reason": "The Busy Parent prioritizes bulk buying and family-friendly household products, which does not match a single-item functional beverage advertiser."
+    },
+    {
+      "persona_id": "persona_004",
+      "reason": "The Pet Parent focuses strictly on pet supplies and pet health, making human beverages irrelevant to their purchasing habits."
+    },
+    {
+      "persona_id": "persona_005",
+      "reason": "The Affluent Classic prefers traditional home goods, luxury apparel, and heritage brands rather than trendy functional beverage alternatives."
+    },
+    {
+      "persona_id": "persona_006",
+      "reason": "The Sustainability Buyer focuses on supply chain transparency and eco-certifications for apparel and home goods rather than beverage-specific functional benefits."
+    },
+    {
+      "persona_id": "persona_007",
+      "reason": "The Convenience-First Millennial relies on instant grocery delivery and quick commerce apps rather than the DTC wellness publishers recommended here."
+    },
+    {
+      "persona_id": "persona_008",
+      "reason": "The Value-Conscious Shopper seeks heavy discounts and bundle deals, clashing with the mid-tier $40 AOV pricing of this specialty drink."
+    },
+    {
+      "persona_id": "persona_010",
+      "reason": "The Gifter buys premium items specifically for gifting holidays and explicitly dislikes subscription-only or self-care framing, missing the everyday functional beverage use case."
+    }
+  ]
+}

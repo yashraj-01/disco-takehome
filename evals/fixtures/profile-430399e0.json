@@ -1,0 +1,28 @@
+{
+  "primary_category": "apparel",
+  "subcategories": [
+    "handbags",
+    "leather_goods",
+    "luxury_accessories"
+  ],
+  "price_tier": "luxury",
+  "estimated_aov_usd": 1200,
+  "target_age_min": 30,
+  "target_age_max": 65,
+  "target_gender_skew": "female",
+  "values": [
+    "craftsmanship",
+    "aesthetic"
+  ],
+  "business_model": "one_off",
+  "is_consumer_dtc": true,
+  "confidence": "high",
+  "assumptions": [
+    "Target age range 30-65 inferred from the high luxury price point of $1,200",
+    "Target gender skew female inferred as primary buyers of custom luxury leather handbags"
+  ],
+  "missing_signals": [
+    "Specific target demographic gender breakdown",
+    "Target age group confirmation"
+  ]
+}

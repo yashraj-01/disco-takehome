@@ -1,0 +1,55 @@
+{
+  "selected": [
+    {
+      "persona_id": "persona_001",
+      "rationale": "The Wellness Optimizer fits the 28-40 female demographic and mid-to-high price tier of the advertiser's target audience, aligning well with the science-focused wellness publisher Daily Form.",
+      "primary_publishers": [
+        "pub_012"
+      ]
+    },
+    {
+      "persona_id": "persona_002",
+      "rationale": "The Busy Parent directly targets the 32-45 age bracket and the 'moms' subcategory orientation of the brand, resonating with family-friendly messaging suitable for inclusive apparel on Everbody.",
+      "primary_publishers": [
+        "pub_006"
+      ]
+    },
+    {
+      "persona_id": "persona_009",
+      "rationale": "The Fitness Enthusiast matches the 22-42 age range and female skew of Movewell, capturing active mothers who prioritize performance and activewear.",
+      "primary_publishers": [
+        "pub_002"
+      ]
+    }
+  ],
+  "rejected": [
+    {
+      "persona_id": "persona_003",
+      "reason": "The Gen Z Aesthete is too young (19-27) for the advertiser's target age range of 25-45 moms."
+    },
+    {
+      "persona_id": "persona_004",
+      "reason": "The Pet Parent focuses entirely on pet products rather than the family and women subcategories relevant to this advertiser."
+    },
+    {
+      "persona_id": "persona_005",
+      "reason": "The Affluent Classic is too old (50-68) compared to the advertiser's target age maximum of 45."
+    },
+    {
+      "persona_id": "persona_006",
+      "reason": "The Sustainability Buyer prioritizes specific eco-certifications and supply chains, which are not mentioned in the advertiser's core product profile."
+    },
+    {
+      "persona_id": "persona_007",
+      "reason": "The Convenience-First Millennial relies on instant delivery and quick commerce, which do not align with the recommended publishers."
+    },
+    {
+      "persona_id": "persona_008",
+      "reason": "The Value-Conscious Shopper seeks discount-forward messaging and bundles, which conflicts with the mid-tier $50 estimated AOV profile."
+    },
+    {
+      "persona_id": "persona_010",
+      "reason": "The Gifter is a temporary gifting mode rather than a persistent demographic segment, and the record explicitly disinterests them in subscription-only or self-care-only framing."
+    }
+  ]
+}

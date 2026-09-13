@@ -1,0 +1,57 @@
+{
+  "selected": [
+    {
+      "persona_id": "persona_005",
+      "rationale": "The Affluent Classic shares a direct affinity for home goods and values quality and craftsmanship over trends, perfectly aligning with the advertiser's Portugal-made linen and grown-up aesthetic.",
+      "primary_publishers": [
+        "pub_011",
+        "pub_014"
+      ]
+    },
+    {
+      "persona_id": "persona_006",
+      "rationale": "The Sustainability Buyer looks for supply chain transparency and authentic craftsmanship, which matches the advertiser's emphasis on breathability and made-in-Portugal origin.",
+      "primary_publishers": [
+        "pub_011",
+        "pub_014"
+      ]
+    },
+    {
+      "persona_id": "persona_001",
+      "rationale": "The Wellness Optimizer treats sleep as a core system and is willing to pay premium prices, making breathable, high-end linen a strong product fit for their sleep-optimization goals.",
+      "primary_publishers": [
+        "pub_011"
+      ]
+    }
+  ],
+  "rejected": [
+    {
+      "persona_id": "persona_002",
+      "reason": "The Busy Parent seeks convenience, bulk buying, and subscriptions, whereas the advertiser offers a one-off, premium-positioned luxury bedding product."
+    },
+    {
+      "persona_id": "persona_003",
+      "reason": "The Gen Z Aesthete prefers playful novelty and a typical AOV of $48, which is far too low for a premium $200 AOV bedding brand targeting ages 30-55."
+    },
+    {
+      "persona_id": "persona_004",
+      "reason": "The Pet Parent focuses entirely on pet health, supplies, and food, which has no category overlap with human bedding and linen."
+    },
+    {
+      "persona_id": "persona_007",
+      "reason": "The Convenience-First Millennial prioritizes instant delivery and one-click subscriptions, clashing with the advertiser's one-off, artisanal home goods business model."
+    },
+    {
+      "persona_id": "persona_008",
+      "reason": "The Value-Conscious Shopper is high in price sensitivity and responds to discounts and bundles, whereas the advertiser is positioned as a premium, non-Brooklinen alternative."
+    },
+    {
+      "persona_id": "persona_009",
+      "reason": "The Fitness Enthusiast focuses on activewear, supplements, and recovery, which does not connect to the home bedding and linen category."
+    },
+    {
+      "persona_id": "persona_010",
+      "reason": "The Gifter is a temporary seasonal mode rather than a core long-term customer base, and they are disinterested in self-care-only framing compared to permanent home upgrades."
+    }
+  ]
+}

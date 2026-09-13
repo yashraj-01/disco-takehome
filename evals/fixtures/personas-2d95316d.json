@@ -1,0 +1,57 @@
+{
+  "selected": [
+    {
+      "persona_id": "persona_006",
+      "rationale": "The advertiser's candles are crafted from natural soy wax with no synthetic fragrances and emphasize sustainability and craftsmanship, perfectly matching the Sustainability Buyer's focus on non-toxic, eco-friendly home goods and supply chain transparency.",
+      "primary_publishers": [
+        "pub_008",
+        "pub_014"
+      ]
+    },
+    {
+      "persona_id": "persona_010",
+      "rationale": "The advertiser's brief explicitly notes that their small-batch Vermont candles are mostly bought as gifts, which aligns directly with the Gifter persona's motivation to find impressive-looking, premium-presentation purchases for holidays and life events.",
+      "primary_publishers": [
+        "pub_010"
+      ]
+    },
+    {
+      "persona_id": "persona_003",
+      "rationale": "The Gen Z Aesthete is driven by small-batch home decor and values-aligned, aesthetic-forward purchasing, which pairs naturally with hand-poured artisan candles that serve as identity-expressive home items.",
+      "primary_publishers": [
+        "pub_014",
+        "pub_017"
+      ]
+    }
+  ],
+  "rejected": [
+    {
+      "persona_id": "persona_001",
+      "reason": "The Wellness Optimizer focuses primarily on ingestible supplements, fitness tracking, and clean beauty, which does not closely align with home fragrance or gifting products."
+    },
+    {
+      "persona_id": "persona_002",
+      "reason": "The Busy Parent relies heavily on subscriptions and bulk convenience, whereas the advertiser operates on a one-off business model for hand-poured artisan goods."
+    },
+    {
+      "persona_id": "persona_004",
+      "reason": "The Pet Parent is exclusively focused on pet food, pet health, and pet supplies, lacking an affinity for human home decor or gifting categories."
+    },
+    {
+      "persona_id": "persona_005",
+      "reason": "The Affluent Classic targets classic apparel and travel with a much higher typical AOV of $145, which exceeds the mid-tier $35 estimated price point of these candles."
+    },
+    {
+      "persona_id": "persona_007",
+      "reason": "The Convenience-First Millennial prioritizes instant delivery, speed, and automated subscription services, which contradicts the slow, small-batch, one-off nature of hand-poured Vermont candles."
+    },
+    {
+      "persona_id": "persona_008",
+      "reason": "The Value-Conscious Shopper seeks discount-forward messaging and budget-aware household bundles, whereas these are mid-tier artisan gifts valued for craftsmanship rather than bargain pricing."
+    },
+    {
+      "persona_id": "persona_009",
+      "reason": "The Fitness Enthusiast focuses purely on activewear, supplements, and physical recovery products rather than home ambiance or gift items."
+    }
+  ]
+}

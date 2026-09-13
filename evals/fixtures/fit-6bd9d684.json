@@ -1,0 +1,124 @@
+{
+  "verdicts": [
+    {
+      "publisher_id": "pub_001",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category_mismatch; instant delivery groceries and convenience items do not share category overlap with apparel."
+    },
+    {
+      "publisher_id": "pub_002",
+      "verdict": "recommended",
+      "rank": 1,
+      "reason": "Strong category and demographic match with 82 percent female audience and fitness-engaged shoppers who cross over with wellness and activewear."
+    },
+    {
+      "publisher_id": "pub_003",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Plausible fitness and wellness service audience, but lower average order value and appointment booking focus make it a near-miss compared to direct apparel publishers."
+    },
+    {
+      "publisher_id": "pub_004",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "High average order value, but the audience age skew of 45-65 misses the core target age range of 22 to 45."
+    },
+    {
+      "publisher_id": "pub_005",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to demographic_mismatch; the audience age skew of 50-70 does not overlap with the target age range of 22 to 45."
+    },
+    {
+      "publisher_id": "pub_006",
+      "verdict": "recommended",
+      "rank": 2,
+      "reason": "Inclusive sizing and a representation-focused audience provide a strong values and category alignment for women's apparel."
+    },
+    {
+      "publisher_id": "pub_007",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category_mismatch; pet food and supplies do not overlap with apparel."
+    },
+    {
+      "publisher_id": "pub_008",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category_mismatch; organic groceries and pantry items do not overlap with apparel."
+    },
+    {
+      "publisher_id": "pub_009",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category_mismatch; pet supplies and pharmacy do not overlap with apparel."
+    },
+    {
+      "publisher_id": "pub_010",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Apparel basics publisher with social-good messaging, but lower average order value of $52 creates a pricing tier gap against the $100 AOV positioning."
+    },
+    {
+      "publisher_id": "pub_011",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Design-conscious urban buyers with high income, but home textiles and bedding is a secondary category distance from apparel."
+    },
+    {
+      "publisher_id": "pub_012",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Excellent age and gender alignment in wellness, but lower AOV and supplement category distance make it a near-miss."
+    },
+    {
+      "publisher_id": "pub_013",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Younger Gen Z audience skew (18-34) and lower income tier present an age and demographic distance from the target profile."
+    },
+    {
+      "publisher_id": "pub_014",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Shared sustainability values and high-income audience, but kitchenware is a category mismatch for an activewear brand."
+    },
+    {
+      "publisher_id": "pub_015",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category_mismatch; meal kits and groceries have no category overlap with apparel."
+    },
+    {
+      "publisher_id": "pub_016",
+      "verdict": "recommended",
+      "rank": 3,
+      "reason": "High affinity professional women's audience with explicit sustainability values alignment and strong AOV proximity."
+    },
+    {
+      "publisher_id": "pub_017",
+      "verdict": "recommended",
+      "rank": 4,
+      "reason": "Outstanding overlap in sustainable activewear shoes with tech-adjacent urban professionals who respond well to comfort and sustainability messaging."
+    },
+    {
+      "publisher_id": "pub_018",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category_mismatch; pet supplies and subscription toys do not overlap with apparel."
+    },
+    {
+      "publisher_id": "pub_019",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Haircare and beauty DTC category distance combined with a younger 18-38 skew make it an unfit pairing for apparel."
+    },
+    {
+      "publisher_id": "pub_020",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category_mismatch; functional beverages and gut health products do not overlap with apparel."
+    }
+  ]
+}

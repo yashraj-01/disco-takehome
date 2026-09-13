@@ -1,0 +1,56 @@
+{
+  "selected": [
+    {
+      "persona_id": "persona_009",
+      "rationale": "The Fitness Enthusiast focuses on activewear, technical fabrics, and performance claims, perfectly matching the advertiser's technical backcountry ski shells and professional patroller-grade positioning.",
+      "primary_publishers": [
+        "pub_017"
+      ]
+    },
+    {
+      "persona_id": "persona_006",
+      "rationale": "The Sustainability Buyer expects supply chain transparency and high-quality materials, aligning with the advertiser's value of craftsmanship and the sustainable apparel affinities emphasized by the recommended publishers.",
+      "primary_publishers": [
+        "pub_016",
+        "pub_017"
+      ]
+    },
+    {
+      "persona_id": "persona_001",
+      "rationale": "The Wellness Optimizer has low price sensitivity and demands science-backed claims, matching the premium $650+ price tier and the high-performance technical nature of the ski shells.",
+      "primary_publishers": [
+        "pub_016"
+      ]
+    }
+  ],
+  "rejected": [
+    {
+      "persona_id": "persona_002",
+      "reason": "The Busy Parent prioritizes subscriptions, household convenience, and family-friendly messaging, which conflicts with the advertiser's luxury one-off business model and technical outdoor gear category."
+    },
+    {
+      "persona_id": "persona_003",
+      "reason": "The Gen Z Aesthete has a typical AOV of $48 and seeks fast-moving trends and playful novelty, making them a poor fit for a $650+ luxury technical outerwear brand."
+    },
+    {
+      "persona_id": "persona_004",
+      "reason": "The Pet Parent focuses on pet food, pet supplies, and veterinary recommendations, which are completely irrelevant to human technical apparel and backcountry ski gear."
+    },
+    {
+      "persona_id": "persona_005",
+      "reason": "The Affluent Classic prefers classic apparel, home goods, and travel with understated heritage styling, rather than high-performance technical gear used by ski patrollers."
+    },
+    {
+      "persona_id": "persona_007",
+      "reason": "The Convenience-First Millennial is motivated by speed, instant delivery, and subscription services, which contradicts the advertiser's one-off purchase model for specialized ski equipment."
+    },
+    {
+      "persona_id": "persona_008",
+      "reason": "The Value-Conscious Shopper has a high price sensitivity and relies on discount-forward messaging and bundle offers, directly contradicting the advertiser's luxury $650+ price tier."
+    },
+    {
+      "persona_id": "persona_010",
+      "reason": "The Gifter is driven by gifting holidays, gift sets, and last-minute shipping wrappers, which is too transient and misaligned with the technical product-focused research required for backcountry gear."
+    }
+  ]
+}

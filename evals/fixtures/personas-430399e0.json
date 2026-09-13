@@ -1,0 +1,57 @@
+{
+  "selected": [
+    {
+      "persona_id": "persona_005",
+      "rationale": "The Affluent Classic demographic matches the high-end $1,200 price point and luxury positioning of Florence-crafted leather handbags. Their preference for heritage and craftsmanship aligns directly with the advertiser's core values, and they match publishers pub_004 and pub_005.",
+      "primary_publishers": [
+        "pub_004",
+        "pub_005"
+      ]
+    },
+    {
+      "persona_id": "persona_006",
+      "rationale": "The Sustainability Buyer values supply chain transparency and artisanal sourcing over mass-produced fast fashion, directly connecting to handcrafted Florentine leather goods. They can be effectively targeted on publisher pub_016.",
+      "primary_publishers": [
+        "pub_016"
+      ]
+    },
+    {
+      "persona_id": "persona_010",
+      "rationale": "The Gifter looks for impressive, high-AOV statement pieces with premium presentation, which fits custom-made luxury handbags. They align with the affluent demographics on publishers pub_004 and pub_005.",
+      "primary_publishers": [
+        "pub_004",
+        "pub_005"
+      ]
+    }
+  ],
+  "rejected": [
+    {
+      "persona_id": "persona_001",
+      "reason": "The Wellness Optimizer focuses on supplements, fitness, and clean beauty with a low typical AOV of $95, making them a poor fit for luxury fashion accessories priced at $1,200."
+    },
+    {
+      "persona_id": "persona_002",
+      "reason": "The Busy Parent explicitly lists a disinterest in luxury positioning and values convenience and speed, whereas custom-fit handbags require a 6-week fulfillment window."
+    },
+    {
+      "persona_id": "persona_003",
+      "reason": "The Gen Z Aesthete has a low typical AOV of $48 and relies on TikTok discovery, whereas the recommended publishers cater to older, highly affluent demographics."
+    },
+    {
+      "persona_id": "persona_004",
+      "reason": "The Pet Parent focuses strictly on animal-related health and supplies, having no category overlap with luxury leather handbags."
+    },
+    {
+      "persona_id": "persona_007",
+      "reason": "The Convenience-First Millennial prioritizes fast delivery and instant gratification, which conflicts directly with the 6-week custom manufacturing and shipping timeframe."
+    },
+    {
+      "persona_id": "persona_008",
+      "reason": "The Value-Conscious Shopper seeks discount-forward messaging and bundle offers, which sharply contradicts the luxury, non-discounted pricing of a $1,200 handmade Italian handbag."
+    },
+    {
+      "persona_id": "persona_009",
+      "reason": "The Fitness Enthusiast focuses on activewear, supplements, and recovery gear, showing no affinity for luxury leather goods or high-end apparel publishers."
+    }
+  ]
+}

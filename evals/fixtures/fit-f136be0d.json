@@ -1,0 +1,124 @@
+{
+  "verdicts": [
+    {
+      "publisher_id": "pub_001",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate category_mismatch: instant delivery and groceries do not overlap with wellness services."
+    },
+    {
+      "publisher_id": "pub_002",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Fitness-engaged shoppers have strong crossover with wellness, but apparel category distance keeps it as a near-miss compared to direct wellness publishers."
+    },
+    {
+      "publisher_id": "pub_003",
+      "verdict": "recommended",
+      "rank": 1,
+      "reason": "Direct alignment in the wellness services category with appointment-based booking users actively spending on self-care, matching the advertiser's general wellness offering."
+    },
+    {
+      "publisher_id": "pub_004",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Audience age skew is 45-65 and apparel-focused, which presents a category and messaging distance from a general wellness service."
+    },
+    {
+      "publisher_id": "pub_005",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Highest-AOV apparel publisher with a conservative brand sensibility, presenting both category and price point misalignment for a mid-tier wellness service."
+    },
+    {
+      "publisher_id": "pub_006",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Inclusive sizing and fit-focused messaging align well with feeling better, but apparel is outside the advertiser's core wellness services category."
+    },
+    {
+      "publisher_id": "pub_007",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate category_mismatch: pet food and supplies do not overlap with human wellness services."
+    },
+    {
+      "publisher_id": "pub_008",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate category_mismatch: organic groceries do not overlap with wellness services."
+    },
+    {
+      "publisher_id": "pub_009",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate category_mismatch: pet products and pharmacy have no category overlap with wellness services."
+    },
+    {
+      "publisher_id": "pub_010",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Strong AOV and audience alignment with gifting uplift, but apparel basics lack direct thematic connection to feeling better."
+    },
+    {
+      "publisher_id": "pub_011",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate category_mismatch: home bedding and bath do not align with wellness services."
+    },
+    {
+      "publisher_id": "pub_012",
+      "verdict": "recommended",
+      "rank": 2,
+      "reason": "Science-forward wellness audience actively engaging with supplements and health claims, making them highly receptive to a general wellness service."
+    },
+    {
+      "publisher_id": "pub_013",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate category_mismatch: beauty skincare and makeup do not match wellness services."
+    },
+    {
+      "publisher_id": "pub_014",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate category_mismatch: non-toxic cookware and kitchen items do not overlap with wellness services."
+    },
+    {
+      "publisher_id": "pub_015",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate category_mismatch: meal kits and groceries have no category overlap with wellness services."
+    },
+    {
+      "publisher_id": "pub_016",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Professional women footwear audience with a high AOV of $142, which exceeds the advertiser's mid-tier price point and represents a category mismatch."
+    },
+    {
+      "publisher_id": "pub_017",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Tech-adjacent activewear and shoe publisher; despite good age overlap, the apparel category does not fit wellness services."
+    },
+    {
+      "publisher_id": "pub_018",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate category_mismatch: pet supplies and subscription toys have no category overlap with wellness services."
+    },
+    {
+      "publisher_id": "pub_019",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate category_mismatch: personalized haircare beauty products do not overlap with wellness services."
+    },
+    {
+      "publisher_id": "pub_020",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate category_mismatch: functional beverages and gut health products do not align with wellness services."
+    }
+  ]
+}

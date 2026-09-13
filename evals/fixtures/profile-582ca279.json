@@ -1,0 +1,29 @@
+{
+  "primary_category": "unknown",
+  "subcategories": [
+    "moms",
+    "women",
+    "family"
+  ],
+  "price_tier": "mid",
+  "estimated_aov_usd": 50,
+  "target_age_min": 25,
+  "target_age_max": 45,
+  "target_gender_skew": "female",
+  "values": [],
+  "business_model": "one_off",
+  "is_consumer_dtc": true,
+  "confidence": "low",
+  "assumptions": [
+    "Assumed target age range based on typical demographic for mothers",
+    "Assumed female gender skew due to the mention of moms",
+    "Assumed standard mid-tier pricing and AOV as no price was stated",
+    "Assumed one-off purchase model and DTC nature based on typical consumer product phrasing"
+  ],
+  "missing_signals": [
+    "What is the actual product or service being offered",
+    "What is the price point or AOV",
+    "What is the business model",
+    "What specific category does this product belong to"
+  ]
+}

@@ -1,0 +1,124 @@
+{
+  "verdicts": [
+    {
+      "publisher_id": "pub_001",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate: category_mismatch. Convenience and instant delivery groceries do not match the advertiser's family and women focus."
+    },
+    {
+      "publisher_id": "pub_002",
+      "verdict": "recommended",
+      "rank": 1,
+      "reason": "Strong demographic alignment with 25-44 female shoppers and wellness crossover, making it a great fit for a mother-focused DTC brand."
+    },
+    {
+      "publisher_id": "pub_003",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate: category_mismatch. Wellness services and fitness booking platforms do not align with a consumer product offering for moms."
+    },
+    {
+      "publisher_id": "pub_004",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Near-miss due to older age skew (45-65) and higher AOV ($112 vs $50 expected), though female audience alignment is nearly total."
+    },
+    {
+      "publisher_id": "pub_005",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate: demographic_mismatch. The 50-70 age skew falls entirely outside the 25-45 target age range for the advertiser."
+    },
+    {
+      "publisher_id": "pub_006",
+      "verdict": "recommended",
+      "rank": 2,
+      "reason": "Inclusive women's apparel publisher with a strong 30-55 female audience and mid-tier pricing that aligns closely with the expected $50 AOV."
+    },
+    {
+      "publisher_id": "pub_007",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate: category_mismatch. Pet-focused subscription products do not overlap with the advertiser's category."
+    },
+    {
+      "publisher_id": "pub_008",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate: category_mismatch. Organic grocery and pantry items do not match the consumer product brief."
+    },
+    {
+      "publisher_id": "pub_009",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate: category_mismatch. Pet supplies and pharmacy have no category overlap with the advertiser."
+    },
+    {
+      "publisher_id": "pub_010",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate: category_mismatch. Socks, underwear, and basics in the apparel category conflict with the unknown/family category mismatch."
+    },
+    {
+      "publisher_id": "pub_011",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate: category_mismatch. Home bedding and bath textiles do not match the advertiser's category."
+    },
+    {
+      "publisher_id": "pub_012",
+      "verdict": "recommended",
+      "rank": 3,
+      "reason": "Science-forward women's wellness DTC with a $38 AOV and a strong 22-42 female demographic that mirrors the target audience for moms."
+    },
+    {
+      "publisher_id": "pub_013",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate: category_mismatch. Beauty and skincare for Gen Z is too young and category-specific for this family-focused brand."
+    },
+    {
+      "publisher_id": "pub_014",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate: category_mismatch. Kitchenware and home goods do not overlap with the women and family category."
+    },
+    {
+      "publisher_id": "pub_015",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate: category_mismatch. Meal kit subscription services are outside the advertiser's category."
+    },
+    {
+      "publisher_id": "pub_016",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Plausible fit among professional women, but the $142 AOV is significantly higher than the estimated $50 AOV."
+    },
+    {
+      "publisher_id": "pub_017",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate: category_mismatch. Footwear and activewear do not align with the product category."
+    },
+    {
+      "publisher_id": "pub_018",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate: category_mismatch. Pet supplies and toy subscriptions have no category alignment."
+    },
+    {
+      "publisher_id": "pub_019",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate: category_mismatch. Haircare and beauty DTC does not match the advertiser's primary categories."
+    },
+    {
+      "publisher_id": "pub_020",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate: category_mismatch. Functional beverages do not match the advertiser's brief."
+    }
+  ]
+}

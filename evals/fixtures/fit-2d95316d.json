@@ -1,0 +1,124 @@
+{
+  "verdicts": [
+    {
+      "publisher_id": "pub_001",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category mismatch in instant grocery and convenience delivery."
+    },
+    {
+      "publisher_id": "pub_002",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Plausible fitness and wellness audience crossover, but apparel focus makes it a near-miss compared to home and lifestyle publishers."
+    },
+    {
+      "publisher_id": "pub_003",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category mismatch in wellness booking services."
+    },
+    {
+      "publisher_id": "pub_004",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Strong affinity for quality messaging among older women, but the higher AOV and older age skew make it less optimal than core gifting publishers."
+    },
+    {
+      "publisher_id": "pub_005",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to an older demographic skew (50-70) and high AOV apparel focus that diverges from the 25-54 target age."
+    },
+    {
+      "publisher_id": "pub_006",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Good demographic overlap and values alignment, but apparel focus limits conversion compared to home goods platforms."
+    },
+    {
+      "publisher_id": "pub_007",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category mismatch in pet food and supplies."
+    },
+    {
+      "publisher_id": "pub_008",
+      "verdict": "recommended",
+      "rank": 2,
+      "reason": "Values-driven grocery shoppers who are highly responsive to clean-ingredient, sustainability, and wellness positioning."
+    },
+    {
+      "publisher_id": "pub_009",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category mismatch in pet pharmacy and supplies."
+    },
+    {
+      "publisher_id": "pub_010",
+      "verdict": "recommended",
+      "rank": 3,
+      "reason": "Strong gifting season uplift with an audience that responds well to social-good and artisan messaging."
+    },
+    {
+      "publisher_id": "pub_011",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Design-conscious home audience with great category overlap, but the higher AOV ($164) pushes the price tier mismatch."
+    },
+    {
+      "publisher_id": "pub_012",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category mismatch in vitamins and supplements DTC."
+    },
+    {
+      "publisher_id": "pub_013",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category mismatch in skincare and makeup beauty DTC."
+    },
+    {
+      "publisher_id": "pub_014",
+      "verdict": "recommended",
+      "rank": 1,
+      "reason": "Sustainability-motivated home goods buyers with life events and gifting drivers that align perfectly with hand-poured soy candles."
+    },
+    {
+      "publisher_id": "pub_015",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category mismatch in meal kits and grocery delivery."
+    },
+    {
+      "publisher_id": "pub_016",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Professional women with strong sustainability alignment, but footwear category distance makes it secondary to home-focused placements."
+    },
+    {
+      "publisher_id": "pub_017",
+      "verdict": "recommended",
+      "rank": 4,
+      "reason": "Tech-adjacent urban professionals who respond strongly to comfort and sustainability messaging for gifts and home use."
+    },
+    {
+      "publisher_id": "pub_018",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category mismatch in pet subscription boxes."
+    },
+    {
+      "publisher_id": "pub_019",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category mismatch in haircare DTC."
+    },
+    {
+      "publisher_id": "pub_020",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category mismatch in functional beverages."
+    }
+  ]
+}
