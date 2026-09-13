@@ -1,0 +1,179 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>disco — campaign drafter</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+  :root { --bg:#fbfbf9; --fg:#1c1c1a; --mut:#6b6b66; --line:#e3e3dd; --accent:#1a5c3a; --warn:#8a5a12; --bad:#8a2a2a; }
+  @media (prefers-color-scheme:dark){ :root{ --bg:#16161a; --fg:#e8e8e4; --mut:#9a9a94; --line:#2e2e34; --accent:#6fbf90; --warn:#d8a94a; --bad:#e08080; } }
+  *{box-sizing:border-box}
+  body{margin:0;padding:24px 16px;background:var(--bg);color:var(--fg);
+       font:15px/1.5 ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
+  main{max-width:900px;margin:0 auto}
+  h1{font-size:20px;margin:0 0 4px} .sub{color:var(--mut);margin:0 0 20px}
+  form{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+  textarea{flex:1 1 420px;min-height:70px;padding:10px;border:1px solid var(--line);
+           border-radius:8px;background:transparent;color:inherit;font:inherit;resize:vertical}
+  button{padding:10px 18px;border:0;border-radius:8px;background:var(--accent);
+         color:var(--bg);font:600 15px inherit;cursor:pointer}
+  button[disabled]{opacity:.5;cursor:progress}
+  .ex{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px}
+  .ex button{background:transparent;color:var(--mut);border:1px solid var(--line);
+             font-weight:400;font-size:13px;padding:5px 10px}
+  section{border-top:1px solid var(--line);padding-top:16px;margin-top:20px}
+  h2{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);margin:0 0 12px}
+  .banner{padding:10px 14px;border-radius:8px;margin-bottom:16px;font-weight:600}
+  .ready{background:color-mix(in srgb,var(--accent) 15%,transparent)}
+  .needs_clarification{background:color-mix(in srgb,var(--warn) 18%,transparent)}
+  .no_recommendation{background:color-mix(in srgb,var(--bad) 18%,transparent)}
+  .unalloc{padding:10px 14px;border-radius:8px;margin:0 0 14px;font-weight:600;
+           background:color-mix(in srgb,var(--warn) 22%,transparent);color:var(--fg);
+           border:1px solid color-mix(in srgb,var(--warn) 50%,transparent)}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th{text-align:left;font-weight:600;color:var(--mut);font-size:12px;padding:4px 8px 4px 0}
+  td{padding:6px 8px 6px 0;border-top:1px solid var(--line);vertical-align:top}
+  td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .why{color:var(--mut);font-size:13px;white-space:normal;overflow-wrap:anywhere}
+  .card{border:1px solid var(--line);border-radius:8px;padding:12px;margin-bottom:10px}
+  .card h3{margin:0 0 6px;font-size:16px}
+  .card p{margin:0 0 6px}
+  .tag{display:inline-block;font-size:11px;color:var(--mut);border:1px solid var(--line);
+       border-radius:99px;padding:1px 8px;margin:2px 4px 0 0}
+  .tag.warn{color:var(--warn);border-color:var(--warn)}
+  tr.exceeds td{background:color-mix(in srgb,var(--warn) 10%,transparent)}
+  .v-recommended{color:var(--accent);font-weight:600}
+  .v-considered{color:var(--warn)}
+  .v-excluded{color:var(--mut)}
+  details summary{cursor:pointer;color:var(--mut);font-size:13px;margin-top:8px}
+  .err{color:var(--bad)}
+  @media(max-width:560px){ td.hide,th.hide{display:none} }
+</style>
+<main>
+  <h1>disco</h1>
+  <p class="sub">Describe a business in a sentence. Get publishers, creatives, and a campaign config.</p>
+
+  <form id="f">
+    <textarea id="brief" placeholder="We sell premium dog food for senior dogs, targeting owners who care about joint health."></textarea>
+    <button id="go">Draft campaign</button>
+  </form>
+  <div class="ex" id="ex"></div>
+
+  <div id="out"></div>
+</main>
+<script>
+const EXAMPLES = [
+  "We sell premium dog food for senior dogs, targeting owners who care about joint health. Grain-free, vet-formulated, subscription-based.",
+  "A sustainable activewear brand for women. Made from recycled ocean plastic.",
+  "B2B SaaS for dental practices. We automate their patient recall workflow.",
+  "idk just try it",
+];
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const usd = (n) => "$" + Math.round(n).toLocaleString();
+const num = (n) => Math.round(n).toLocaleString();
+
+$("#ex").innerHTML = EXAMPLES.map((e,i) =>
+  `<button type="button" data-i="${i}">${esc(e.slice(0,44))}${e.length>44?"…":""}</button>`).join("");
+$("#ex").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  $("#brief").value = EXAMPLES[b.dataset.i];
+});
+
+$("#f").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const brief = $("#brief").value.trim();
+  if (!brief) return;
+  $("#go").disabled = true;
+  $("#out").innerHTML = `<p class="sub">Working…</p>`;
+  try {
+    const r = await fetch("/api/run", {
+      method: "POST", headers: {"content-type": "application/json"},
+      body: JSON.stringify({brief}),
+    });
+    const data = await r.json();
+    if (!r.ok) throw new Error(data.error || r.statusText);
+    render(data);
+  } catch (err) {
+    $("#out").innerHTML = `<p class="err">${esc(err.message)}</p>`;
+  } finally {
+    $("#go").disabled = false;
+  }
+});
+
+const BANNER = {
+  ready: "Campaign draft",
+  needs_clarification: "Provisional — the brief was too vague to place confidently",
+  no_recommendation: "No recommendation — this catalog cannot reach these buyers",
+};
+
+function render(c) {
+  const out = [];
+  out.push(`<div class="banner ${esc(c.status)}">${esc(BANNER[c.status] || c.status)}</div>`);
+
+  if (c.clarifications?.length) {
+    out.push(`<section><h2>What we need to know</h2><ul>` +
+      c.clarifications.map(q => `<li>${esc(q)}</li>`).join("") + `</ul></section>`);
+  }
+  if (c.advertiser?.assumptions?.length) {
+    out.push(`<section><h2>Assumptions</h2><ul class="why">` +
+      c.advertiser.assumptions.map(a => `<li>${esc(a)}</li>`).join("") + `</ul></section>`);
+  }
+
+  if (c.budget?.allocation?.length) {
+    // unallocated_usd is a headline product signal — budget the recommended
+    // publishers physically cannot absorb this flight — not a footnote, so
+    // it renders as its own prominent banner and only when non-zero.
+    const unalloc = c.budget.unallocated_usd
+      ? `<div class="unalloc">${usd(c.budget.unallocated_usd)} of this budget could not be
+         allocated — the recommended publishers' combined inventory cannot absorb it
+         over ${esc(String(c.flight.duration_days))} days.</div>`
+      : "";
+    out.push(`<section><h2>Budget — ${usd(c.budget.total_usd)} over ${esc(String(c.flight.duration_days))} days</h2>` +
+      unalloc +
+      `<table><tr><th>Publisher</th><th class="n">Share</th><th class="n">Spend</th>
+      <th class="n hide">CPM</th><th class="n hide">Impressions</th></tr>` +
+      c.budget.allocation.map(a => `<tr${a.exceeds_max_share ? ' class="exceeds"' : ''}>
+        <td><strong>${esc(a.publisher_name)}</strong>
+            ${a.exceeds_max_share ? '<span class="tag warn">exceeds cap</span>' : ''}
+            <div class="why">${esc(a.rationale)}</div></td>
+        <td class="n">${(a.share*100).toFixed(1)}%</td>
+        <td class="n">${usd(a.amount_usd)}</td>
+        <td class="n hide">$${a.est_cpm_usd.toFixed(2)}</td>
+        <td class="n hide">${num(a.est_impressions)}</td></tr>`).join("") +
+      `</table>
+      <p class="why">Bid: ${esc(c.bid.strategy)} · floor $${c.bid.floor_usd.toFixed(2)} ·
+       target $${c.bid.target_usd.toFixed(2)} · ceiling $${c.bid.ceiling_usd.toFixed(2)}</p>
+      </section>`);
+  }
+
+  if (c.creatives?.length) {
+    out.push(`<section><h2>Creative — ${c.creatives.length} variants</h2>` +
+      c.creatives.map(cr => `<div class="card">
+        <h3>${esc(cr.headline)}</h3><p>${esc(cr.body)}</p>
+        <div class="why">${esc(cr.persona_id)} — ${esc(cr.rationale)}</div>
+        ${(cr.messaging_levers||[]).map(l => `<span class="tag">${esc(l)}</span>`).join("")}
+      </div>`).join("") + `</section>`);
+  }
+
+  const led = c.publisher_ledger || [];
+  const by = v => led.filter(e => e.verdict === v);
+  out.push(`<section><h2>Publisher ledger — ${by("recommended").length} recommended,
+    ${by("considered").length} considered, ${by("excluded").length} excluded</h2>` +
+    ["recommended","considered","excluded"].map(v => {
+      const rows = by(v);
+      if (!rows.length) return "";
+      const body = `<table>` + rows.map(e => `<tr>
+        <td><span class="v-${v}">${esc(e.publisher_name)}</span>
+            ${e.hard_gate ? `<span class="tag">${esc(e.hard_gate)}</span>` : ""}
+            <div class="why">${esc(e.reason)}</div></td>
+        <td class="n">${e.score.toFixed(2)}</td></tr>`).join("") + `</table>`;
+      return v === "excluded"
+        ? `<details><summary>${rows.length} excluded — show reasons</summary>${body}</details>`
+        : body;
+    }).join("") + `</section>`);
+
+  out.push(`<details><summary>Campaign config JSON</summary>
+    <pre style="overflow-x:auto;font-size:12px">${esc(JSON.stringify(c, null, 2))}</pre></details>`);
+
+  $("#out").innerHTML = out.join("");
+}
+</script>

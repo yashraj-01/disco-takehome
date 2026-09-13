@@ -13,6 +13,7 @@ import (
 	"github.com/yashraj/disco/internal/llm"
 	"github.com/yashraj/disco/internal/pipeline"
 	"github.com/yashraj/disco/internal/render"
+	"github.com/yashraj/disco/internal/server"
 )
 
 const usage = `disco — draft an ad campaign from a one-line brief
@@ -156,11 +157,28 @@ func cmdRun(args []string) error {
 	return render.Terminal(os.Stdout, campaign)
 }
 
-// cmdServe will start the browsable results server (Task 15). It is stubbed
-// here so the disco binary has a stable three-command surface from Task 14
-// onward; internal/server does not exist yet and must not be imported until
-// Task 15 adds it.
-func cmdServe(args []string) error { return fmt.Errorf("serve: not implemented yet") }
+// cmdServe starts the browsable results server: one embedded page plus the
+// JSON endpoint it calls, backed by the same pipeline as "disco run".
+func cmdServe(args []string) error {
+	fs := flag.NewFlagSet("serve", flag.ExitOnError)
+	fs.Usage = func() {
+		fmt.Fprintf(fs.Output(), "usage: disco serve [flags]\n\nbrowse campaign drafts at http://localhost:8080\n\nflags:\n")
+		fs.PrintDefaults()
+	}
+	common := registerCommon(fs)
+	addr := fs.String("addr", ":8080", "listen address")
+	if err := fs.Parse(args); err != nil {
+		return err
+	}
+
+	provider, cat, err := buildProvider(common)
+	if err != nil {
+		return err
+	}
+	return server.Run(*addr, pipeline.Options{
+		Provider: provider, Catalog: cat, Params: common.params, Model: common.model,
+	})
+}
 
 // cmdEval will run every example brief and check the invariants (Task 16). It
 // is stubbed here for the same reason as cmdServe; internal/eval does not
