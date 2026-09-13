@@ -132,11 +132,11 @@ func ageScore(p model.AdvertiserProfile, pub *catalog.Publisher) float64 {
 		return 0.5 // profile gave no age signal
 	}
 	lo, hi := max(alo, plo), min(ahi, phi)
-	overlap := hi - lo
+	overlap := hi - lo + 1
 	if overlap <= 0 {
 		return 0
 	}
-	narrower := min(ahi-alo, phi-plo)
+	narrower := min(ahi-alo, phi-plo) + 1
 	if narrower <= 0 {
 		return 0
 	}
@@ -151,11 +151,11 @@ func valuesScore(profileValues, pubKeywords []string) float64 {
 	}
 	have := make(map[string]bool, len(pubKeywords))
 	for _, k := range pubKeywords {
-		have[k] = true
+		have[strings.ToLower(k)] = true
 	}
 	hit := 0
 	for _, v := range profileValues {
-		if have[v] {
+		if have[strings.ToLower(v)] {
 			hit++
 		}
 	}
