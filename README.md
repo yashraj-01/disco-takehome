@@ -24,48 +24,33 @@ again:
 
 ```bash
 go run ./cmd/disco serve      # http://localhost:8080
-go run ./cmd/disco run "We sell premium dog food for senior dogs, vet-formulated, subscription-based."
+go run ./cmd/disco run "We sell premium dog food for senior dogs, targeting owners who care about joint health and longevity. Grain-free, vet-formulated, subscription-based."
 go run ./cmd/disco eval       # all 15 example briefs, offline, against the recorded fixtures
 go test ./...
 ```
 
 ## How it works
 
-Six stages. Four call a model; two are pure functions.
+Six stages — four call a model, two are pure functions:
 
 ```
 brief ─▶ profile ─▶ scoring ─▶ fit ─▶ personas ─▶ creative ─▶ campaign
           LLM        PURE       LLM     LLM         LLM        PURE
 ```
 
-**Every number in the output comes from the pure stages.** Publisher scores,
-CPMs, budget shares, impressions, and bid ranges are computed in
-`internal/pipeline/{scoring,cpm,allocate,campaign}.go`. A model never returns a
-figure that reaches the config; it supplies judgment and prose, arithmetic
-supplies the money.
-
-Three things the model is not trusted with, enforced in code rather than asked
-for in a prompt: hard gates can't be overridden, publisher and persona IDs are
-filtered against the catalog, and a publisher the model forgot is backfilled so
-the ledger always covers all 20.
-
-Two fields in the config exist only because the allocator ran into real
-constraints I hadn't designed for up front. `unallocated_usd` is budget that
-physically cannot be spent: at a $500k budget on the pet brief, one publisher
-qualifies, its inventory caps out at 720,000 impressions, and the system
-reports ~$488,857 unallocated rather than pretending the rest got placed.
-`exceeds_max_share` fires when the 40% concentration cap has to relax because
-it isn't satisfiable — that needs at least three qualifying publishers.
-
-**The catalog has no CPM.** `EstimateCPM` derives one from income tier,
-category, and AOV — a stand-in for a rate card, isolated in one function so
-swapping it changes nothing else.
-
-**Degraded modes.** A B2B brief (#7) returns `no_recommendation` and stops
-after scoring rather than spending three more calls. A vague brief (#5, #8,
-#15) returns `needs_clarification`: the inferred profile shown as a hypothesis,
-the specific questions we'd need answered, and a provisional campaign clearly
-labelled as such.
+**Every number comes from the pure stages** (`internal/pipeline/{scoring,cpm,allocate,campaign}.go`);
+a model supplies judgment and prose, never a figure that reaches the config.
+Hard gates can't be overridden, publisher/persona IDs are filtered against the
+catalog, and a forgotten publisher is backfilled — all enforced in code, not
+asked for in a prompt. `EstimateCPM` derives a rate from income tier, category,
+and AOV, a one-function stand-in for a real rate card. `unallocated_usd`
+reports budget that's physically inventory-capped rather than pretending it
+got placed; `exceeds_max_share` marks a publisher whose share exceeds the 40%
+concentration guideline, relaxed because it couldn't be satisfied for that
+publisher set — worded as an effect, not a claimed cause, since more than one
+condition can trigger it. A B2B brief (#7) returns `no_recommendation` after
+scoring; a vague brief (#5, #8, #15) returns `needs_clarification` with an
+inferred profile and the questions we'd ask.
 
 **The model.** This runs on Gemini 2.5 Flash's free tier — no API budget was
 available. The ad copy is weaker than a frontier model would write, and copy
@@ -75,16 +60,12 @@ regenerating the fixtures against a better model is a one-file change.
 
 ## What I'd do next week
 
-1. **Measure creative quality.** The eval asserts copy is *grounded* — every
-   messaging lever appears verbatim in its persona record — but not that it's
-   *good*. A pairwise LLM-judge over held-out variants, validated against human
-   spot-checks, is the first thing I'd build.
-2. **Learn the scoring weights instead of asserting them.** The six weights in
-   `internal/pipeline/scoring.go` are my judgment; with outcome data they'd be
-   fit, and the pure layer is already shaped to accept that.
-3. **Real inventory and pricing**, replacing `EstimateCPM` and the flat SOV cap
-   with forecasts per placement, plus letting the user edit the derived
-   profile and force a publisher in or out.
+1. **Measure creative quality** with a pairwise LLM-judge, validated against
+   human spot-checks — the eval asserts copy is grounded, not that it's good.
+2. **Learn the scoring weights** in `scoring.go` from outcome data instead of
+   asserting them; the pure layer already accepts fitted weights.
+3. **Real inventory and pricing**, replacing `EstimateCPM` and the flat SOV
+   cap, plus letting the user edit the profile or force a publisher.
 
 ## What I cut, and why
 
@@ -92,8 +73,13 @@ regenerating the fixtures against a better model is a one-file change.
 real in production; none would have told you anything about how I think.
 
 **Vector search.** The catalog is 10KB and fits in a prompt with room to
-spare. Embedding 20 records would have been cargo-culted retrieval — the
-interesting problem here is grounding, not recall.
+spare — embedding 20 records would have been cargo-culted retrieval.
+
+**Eval snapshots, config schema validation, `retry-after`.** No golden-file
+`--update-snapshots` mode; per-stage LLM output is schema-checked but the
+final emitted campaign config isn't; the Gemini client backs off on a fixed
+exponential schedule rather than honoring a 429's `retry-after`. The design
+spec names the serve flag `--port` — the code (and this README) uses `--addr`.
 
 ## What's actually hard here
 

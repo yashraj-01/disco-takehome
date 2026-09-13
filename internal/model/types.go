@@ -110,11 +110,13 @@ type AllocationEntry struct {
 	EstImpressions int64   `json:"est_impressions"`
 	Rationale      string  `json:"rationale"`
 	// ExceedsMaxShare is true when this publisher's final Share exceeds the
-	// allocator's concentration cap (AllocParams.MaxShare). The cap needs at
-	// least ceil(1/MaxShare) survivors to be satisfiable at all, so with only
-	// one or two recommended publishers it is legitimately infeasible and
-	// yields rather than stranding budget or dropping a fitting publisher.
-	// Copied straight through from pipeline.Allocation.
+	// allocator's concentration cap (AllocParams.MaxShare), which was relaxed
+	// because it could not be satisfied for this publisher set. It states
+	// that the cap did not hold, not why: more than one condition can make
+	// the cap infeasible (for example, too few recommended publishers, or
+	// inventory reconciliation redistributing leftover budget among the
+	// survivors), so this field intentionally does not assert a single
+	// cause. Copied straight through from pipeline.Allocation.
 	ExceedsMaxShare bool `json:"exceeds_max_share,omitempty"`
 }
 

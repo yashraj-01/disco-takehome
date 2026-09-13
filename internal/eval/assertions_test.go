@@ -247,6 +247,29 @@ func TestCheckFlagsLowSignalBriefThatSkipsClarification(t *testing.T) {
 	}
 }
 
+// A messaging lever that differs from the persona record only by
+// surrounding whitespace must not be flagged: Check normalizes through
+// model.NormalizeLever, the same helper pipeline.groundedIn uses, so a lever
+// that survived the production filter cannot then fail here as a
+// self-inflicted false failure.
+func TestCheckAcceptsWhitespacePaddedMessagingLever(t *testing.T) {
+	c := cat(t)
+	camp := model.Campaign{Status: model.StatusReady, PublisherLedger: fullLedger(c)}
+	camp.Creatives = []model.Creative{
+		{PersonaID: "persona_004", Headline: "h", Body: "b",
+			MessagingLevers: []string{"  vet-recommended  "}},
+		{PersonaID: "persona_002", Headline: "h", Body: "b",
+			MessagingLevers: []string{"time-saving"}},
+		{PersonaID: "persona_001", Headline: "h", Body: "b",
+			MessagingLevers: []string{"science-backed claims"}},
+	}
+
+	got := Check(Brief{N: 1}, camp, c)
+	if containsSubstr(got, "not in its persona record") {
+		t.Errorf("failures = %v, want the whitespace-padded lever accepted as grounded", got)
+	}
+}
+
 func containsSubstr(xs []string, want string) bool {
 	for _, x := range xs {
 		if strings.Contains(x, want) {

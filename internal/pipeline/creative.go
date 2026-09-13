@@ -98,11 +98,11 @@ func Creatives(ctx context.Context, d Deps, p model.AdvertiserProfile, sel model
 func groundedIn(claimed, actual []string) []string {
 	have := make(map[string]bool, len(actual))
 	for _, a := range actual {
-		have[strings.ToLower(strings.TrimSpace(a))] = true
+		have[model.NormalizeLever(a)] = true
 	}
 	out := make([]string, 0, len(claimed))
 	for _, c := range claimed {
-		if have[strings.ToLower(strings.TrimSpace(c))] {
+		if have[model.NormalizeLever(c)] {
 			out = append(out, c)
 		}
 	}

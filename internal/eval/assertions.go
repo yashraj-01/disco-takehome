@@ -78,13 +78,13 @@ func Check(b Brief, c model.Campaign, cat *catalog.Catalog) []string {
 		p, _ := cat.Persona(cr.PersonaID)
 		have := map[string]bool{}
 		for _, m := range p.MessagingPreferences {
-			have[strings.ToLower(m)] = true
+			have[model.NormalizeLever(m)] = true
 		}
 		if len(cr.MessagingLevers) == 0 {
 			add("%s creative cites no messaging lever from the persona record", cr.PersonaID)
 		}
 		for _, l := range cr.MessagingLevers {
-			if !have[strings.ToLower(l)] {
+			if !have[model.NormalizeLever(l)] {
 				add("%s cites lever %q, which is not in its persona record", cr.PersonaID, l)
 			}
 		}

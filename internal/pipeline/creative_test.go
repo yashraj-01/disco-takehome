@@ -170,6 +170,18 @@ func TestCreativesDropUngroundedAvoided(t *testing.T) {
 	}
 }
 
+// A lever that differs from the persona record only by surrounding
+// whitespace must still be treated as grounded: groundedIn normalizes both
+// sides through model.NormalizeLever, the same helper eval.Check uses, so a
+// lever the model returns with incidental whitespace does not survive the
+// production filter only to fail the eval as a false failure.
+func TestGroundedInIgnoresSurroundingWhitespace(t *testing.T) {
+	got := groundedIn([]string{"  vet-recommended  "}, []string{"vet-recommended"})
+	if len(got) != 1 || got[0] != "  vet-recommended  " {
+		t.Errorf("groundedIn = %v, want the whitespace-padded lever kept", got)
+	}
+}
+
 // A persona ID that is not in the catalog must be skipped rather than
 // producing an empty creative, and the surviving creatives must still be in
 // selection order.
