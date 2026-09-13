@@ -44,6 +44,12 @@ type Candidate struct {
 // amounts; a survivor can end up with a final Share below MinShare once
 // inventory reconciliation redistributes what a capped publisher couldn't
 // absorb.
+//
+// EstImpressions never exceeds MonthlyImpressions*SOVCap for its publisher.
+// That invariant has no exceptions — not for a lone survivor, not for a set
+// the dust floor collapsed down to one. Impressions that do not exist cannot
+// be bought, so a publisher that can deliver nothing is not allocated
+// anything, and allocations below one cent are not emitted at all.
 type Allocation struct {
 	PublisherID string
 	Share       float64
@@ -62,15 +68,39 @@ type Allocation struct {
 
 const maxAllocPasses = 5
 
+// minAllocUSD is the smallest amount worth emitting as an allocation. A
+// survivor clamped below a cent has effectively been allocated nothing, and a
+// zero-dollar row invites a downstream consumer to book a publisher for no
+// money; such rows are dropped from the result instead.
+const minAllocUSD = 0.01
+
+// isFinite reports whether v is a real number we can compute with. NaN and
+// ±Inf are not: they pass ordinary `<= 0` guards silently (NaN compares false
+// against everything) and then poison every arithmetic result downstream, so
+// they are rejected at the boundary and treated as "no usable data" — a zero
+// weight or a zero deliverable — rather than propagated.
+func isFinite(v float64) bool {
+	return !math.IsNaN(v) && !math.IsInf(v, 0)
+}
+
 // deliverableUSD is the dollar value of the most impressions we are willing
 // to buy from c: SOVCap's share of its monthly inventory, priced at its
 // modelled CPM. A publisher with no usable CPM or no impressions can't
-// deliver anything, so it correctly yields zero rather than NaN or +Inf.
+// deliver anything, so it correctly yields zero. Both the inputs and the
+// computed product are checked for finiteness: a NaN CPM would otherwise slip
+// past `<= 0`, and a non-finite result would turn every share into NaN.
 func deliverableUSD(c Candidate, p AllocParams) float64 {
-	if c.EstCPM <= 0 || c.MonthlyImpressions <= 0 {
+	if !isFinite(c.EstCPM) || c.EstCPM <= 0 || c.MonthlyImpressions <= 0 {
 		return 0
 	}
-	return float64(c.MonthlyImpressions) * p.SOVCap / 1000 * c.EstCPM
+	if !isFinite(p.SOVCap) || p.SOVCap <= 0 {
+		return 0
+	}
+	d := float64(c.MonthlyImpressions) * p.SOVCap / 1000 * c.EstCPM
+	if !isFinite(d) || d <= 0 {
+		return 0
+	}
+	return d
 }
 
 // Allocate splits TotalUSD across candidates in proportion to Fit^Gamma, then
@@ -97,13 +127,24 @@ func allocateWithPasses(cands []Candidate, p AllocParams, passes int) []Allocati
 	share := make(map[string]float64, len(cands))
 	var total float64
 	for _, c := range cands {
-		w := math.Pow(math.Max(c.Fit, 0), p.Gamma)
+		// A non-finite Fit is not a very large fit, it is missing data:
+		// math.Max(NaN, 0) is NaN, which would make every share NaN, and an
+		// infinite weight makes the normalisation Inf/Inf. Either way the
+		// candidate contributes no weight.
+		fit := c.Fit
+		if !isFinite(fit) || fit < 0 {
+			fit = 0
+		}
+		w := math.Pow(fit, p.Gamma)
+		if !isFinite(w) || w < 0 {
+			w = 0
+		}
 		byID[c.PublisherID] = c
 		origWeight[c.PublisherID] = w
 		share[c.PublisherID] = w
 		total += w
 	}
-	if total == 0 { // no candidate has any fit; split evenly
+	if !isFinite(total) || total <= 0 { // no candidate has any usable fit; split evenly
 		for id := range share {
 			share[id] = 1 / float64(len(share))
 		}
@@ -195,31 +236,24 @@ func allocateWithPasses(cands []Candidate, p AllocParams, passes int) []Allocati
 		survivors = append(survivors, byID[id])
 	}
 
-	// The pre-existing, separate "single candidate takes everything" rule:
-	// a lone survivor — whether it started that way or the dust floor
-	// reduced the set to it — takes the whole budget outright, exempt from
-	// every cap including SOV. This is orthogonal to inventory
-	// reconciliation below, which only ever applies when there is more than
-	// one survivor to reconcile shares across.
-	if len(survivors) == 1 {
-		c := survivors[0]
-		var impressions int64
-		if c.EstCPM > 0 {
-			impressions = int64(p.TotalUSD / c.EstCPM * 1000)
-		}
-		return []Allocation{{
-			PublisherID: c.PublisherID, Share: 1, AmountUSD: p.TotalUSD,
-			EstCPMUSD: c.EstCPM, EstImpressions: impressions,
-			ExceedsMaxShare: 1 > p.MaxShare+1e-9,
-		}}
-	}
-
+	// Every survivor set — including a set of one — goes through inventory
+	// reconciliation. The "single candidate takes everything" rule is about
+	// share of DEPLOYED spend, not about escaping inventory: those are
+	// different claims, and only the first one is a rule. A lone survivor
+	// still comes out of reconciliation with Share 1.0 (it is the whole of
+	// what was deployed) but with AmountUSD = min(TotalUSD, its own
+	// deliverable), so it can never be booked for impressions its publisher
+	// does not have. If it can deliver nothing at all, there is no allocation
+	// to make and the result is nil. Exempting this path was a back door into
+	// the one invariant that has no exceptions, reachable whenever the dust
+	// floor happened to collapse a multi-candidate set down to one.
 	return reconcileToInventory(survivors, targetShare, origWeight, p)
 }
 
 // reconcileToInventory turns the loop's fit/MaxShare-driven target shares
 // into final amounts that never exceed any survivor's SOV (inventory)
-// ceiling — by construction, not by convergence. Each survivor starts at
+// ceiling — by construction, not by convergence, and for every survivor set
+// including a set of one. Each survivor starts at
 // min(target, its own ceiling); whatever a clipped survivor couldn't absorb
 // is redistributed pro-rata by original fit^gamma weight among survivors that
 // still have headroom under their own ceiling, re-clamping as it goes, until
@@ -239,6 +273,9 @@ func reconcileToInventory(survivors []Candidate, targetShare, origWeight map[str
 		d := deliverableUSD(c, p)
 		deliverable[c.PublisherID] = d
 		target := targetShare[c.PublisherID] * p.TotalUSD
+		if !isFinite(target) || target < 0 {
+			target = 0 // a non-finite budget or share buys nothing, not NaN
+		}
 		amount[c.PublisherID] = math.Min(target, d)
 	}
 
@@ -276,22 +313,33 @@ func reconcileToInventory(survivors []Candidate, targetShare, origWeight map[str
 		}
 	}
 
+	// Only survivors actually carrying money are allocations. Sub-cent rows
+	// are dropped before the deployed total is computed, so the emitted
+	// shares still sum to exactly 1 over what is emitted.
+	kept := make([]Candidate, 0, len(survivors))
 	var deployed float64
-	for _, v := range amount {
-		deployed += v
+	for _, c := range survivors {
+		a := amount[c.PublisherID]
+		if !isFinite(a) || a < minAllocUSD {
+			continue
+		}
+		kept = append(kept, c)
+		deployed += a
 	}
-	if deployed <= 0 {
+	if deployed <= 0 || !isFinite(deployed) {
 		return nil // nothing can be delivered to anyone in this set
 	}
 
-	out := make([]Allocation, 0, len(survivors))
-	for _, c := range survivors {
+	out := make([]Allocation, 0, len(kept))
+	for _, c := range kept {
 		id := c.PublisherID
 		a := amount[id]
 		s := a / deployed
 		var impressions int64
-		if c.EstCPM > 0 {
-			impressions = int64(a / c.EstCPM * 1000)
+		if isFinite(c.EstCPM) && c.EstCPM > 0 {
+			if imp := a / c.EstCPM * 1000; isFinite(imp) && imp > 0 {
+				impressions = int64(imp)
+			}
 		}
 		out = append(out, Allocation{
 			PublisherID: id, Share: s, AmountUSD: a,

@@ -134,18 +134,31 @@ func TestAllocateRespectsAllCapsAfterRedistribution(t *testing.T) {
 
 	// Feasible cases (>=3 survivors, or MaxShare not binding at all): MaxShare
 	// must hold exactly, and nothing is ever marked ExceedsMaxShare. The lone
-	// survivor is exempt by design (the already-established, unrelated "single
-	// candidate takes everything" rule -- see TestAllocateSingleCandidateTakesEverything),
-	// so its cap checks stay gated by len(got) > 1 exactly as the others are.
+	// survivor holds 100% of the deployed spend, so its MaxShare checks stay
+	// gated by len(got) > 1 exactly as the others are -- but it is NOT exempt
+	// from the inventory ceiling; see TestAllocateSingleCandidateTakesEverything
+	// and TestLoneSurvivorStillRespectsInventoryCeiling.
 	feasible := [][]Allocation{
 		Allocate(dogFoodCandidates(), p),     // 4 survivors
-		Allocate(dogFoodCandidates()[:1], p), // lone survivor, exempt from caps
+		Allocate(dogFoodCandidates()[:1], p), // lone survivor: share 1 by definition
 		Allocate(policyOnlyCandidates(), AllocParams{Gamma: 1, MaxShare: 0.40, SOVCap: 0.15, MinShare: 0.05, TotalUSD: 50_000, Days: 30}),
 	}
 	for _, got := range feasible {
 		for _, a := range got {
-			if a.Share < p.MinShare-1e-9 && len(got) > 1 {
-				t.Errorf("%s share %.4f below floor %.2f", a.PublisherID, a.Share, p.MinShare)
+			// MinShare is deliberately NOT asserted on the final share. It is
+			// a floor on the loop's fit-driven TARGET shares, applied before
+			// inventory reconciliation; reconciliation then clamps survivors
+			// to their inventory ceilings and redistributes the remainder, so
+			// a final share below MinShare is a legitimate outcome (the $50k
+			// 4-candidate case here does clip pub_007 to its ceiling). What
+			// actually holds afterwards is that every emitted row carries real
+			// money. Asserting MinShare here previously passed only because
+			// these particular fixtures never happened to trip it; the loop's
+			// own MinShare behaviour is covered by TestFixedPointLoopIsRequired,
+			// whose fixture has non-binding inventory so reconciliation is a
+			// no-op and the loop's output IS the final answer.
+			if a.AmountUSD < 0.01 {
+				t.Errorf("%s emitted with amount %.4f, below one cent", a.PublisherID, a.AmountUSD)
 			}
 			if a.Share > p.MaxShare+1e-9 && len(got) > 1 {
 				t.Errorf("%s share %.4f above cap %.2f", a.PublisherID, a.Share, p.MaxShare)
@@ -199,11 +212,10 @@ func TestAllocateRespectsAllCapsAfterRedistribution(t *testing.T) {
 
 // No allocation may ever exceed its publisher's SOV (inventory) ceiling in
 // impressions, in any of these multi-candidate scenarios — including the
-// infeasible 2-candidate case where MaxShare itself is allowed to yield. This
-// is the cap that must never yield. (The lone-survivor case is deliberately
-// excluded: it is a separately-established, unrelated rule — see
-// TestAllocateSingleCandidateTakesEverything — that a single candidate takes
-// 100% regardless of any cap, SOV included.)
+// infeasible 2-candidate case where MaxShare itself is allowed to yield, and
+// including the lone-survivor case, which is not exempt: a single candidate
+// takes 100% of DEPLOYED spend, which is not the same claim as taking more
+// impressions than its publisher has. This is the cap that must never yield.
 func TestAllocateNeverExceedsSOVCeiling(t *testing.T) {
 	p25 := DefaultAllocParams()
 	p25.TotalUSD = 25_000
@@ -219,6 +231,7 @@ func TestAllocateNeverExceedsSOVCeiling(t *testing.T) {
 		{"4-candidate $25k", dogFoodCandidates(), p25},
 		{"4-candidate $50k", dogFoodCandidates(), p50},
 		{"2-candidate $50k (infeasible MaxShare)", dogFoodCandidates()[:2], p50},
+		{"1-candidate $50k (lone survivor, not exempt)", dogFoodCandidates()[:1], p50},
 		{"cascade", cascadeCandidates(), cascadeParams},
 	}
 	for _, tc := range cases {
@@ -238,13 +251,24 @@ func TestAllocateNeverExceedsSOVCeiling(t *testing.T) {
 	}
 }
 
-// A lone survivor takes the whole budget rather than being dropped by the floor.
+// A lone survivor takes 100% of the deployed spend rather than being dropped
+// by the floor -- but "100%" is a statement about share, not a licence to buy
+// inventory that does not exist. pub_007 can sell $11,143.08 at a 15% SOV cap
+// (720,000 impressions), so a $25,000 budget deploys that much and no more.
+// See TestLoneSurvivorStillRespectsInventoryCeiling for the two counterexamples
+// that made this distinction load-bearing.
 func TestAllocateSingleCandidateTakesEverything(t *testing.T) {
 	p := DefaultAllocParams()
 	p.TotalUSD = 25_000
 	got := Allocate(dogFoodCandidates()[:1], p)
 	if len(got) != 1 || math.Abs(got[0].Share-1) > 1e-9 {
 		t.Fatalf("got %+v, want a single 100%% allocation", got)
+	}
+	if math.Abs(got[0].AmountUSD-11143.08) > 0.01 {
+		t.Errorf("amount = %.2f, want 11143.08 (its whole deliverable inventory)", got[0].AmountUSD)
+	}
+	if got[0].EstImpressions > 720_000 {
+		t.Errorf("impressions = %d, exceeds the 720,000 SOV ceiling", got[0].EstImpressions)
 	}
 }
 
@@ -453,11 +477,14 @@ func TestAllocateNeverExceedsSOVCeilingAcrossBudgetsAndSets(t *testing.T) {
 	cascadeParams := AllocParams{Gamma: 1, MaxShare: 0.40, SOVCap: 0.15, MinShare: 0.05, TotalUSD: 10_000, Days: 30}
 	zeroParams := AllocParams{Gamma: 1.5, MaxShare: 0.40, SOVCap: 0.15, MinShare: 0.05, TotalUSD: 5_000, Days: 30}
 
+	// No row is exempt. An earlier version of this sweep skipped the ceiling
+	// assertion for the single-candidate case, which is precisely why a lone
+	// survivor taking 100% of the budget against a fraction of the inventory
+	// shipped: the sweep that should have caught it was told not to look.
 	type sweepCase struct {
-		name          string
-		cands         []Candidate
-		p             AllocParams
-		skipCeilingOf string // publisher exempt from the ceiling check (the single-candidate rule)
+		name  string
+		cands []Candidate
+		p     AllocParams
 	}
 	var cases []sweepCase
 	// The dog-food shortlist's combined SOV ceiling is ~$159,328: $159k sits
@@ -468,17 +495,19 @@ func TestAllocateNeverExceedsSOVCeilingAcrossBudgetsAndSets(t *testing.T) {
 		p.TotalUSD = budget
 		full := dogFoodCandidates()
 		cases = append(cases,
-			sweepCase{"1-candidate", full[:1], p, full[0].PublisherID},
-			sweepCase{"2-candidate", full[:2], p, ""},
-			sweepCase{"3-candidate", full[:3], p, ""},
-			sweepCase{"4-candidate", full, p, ""},
-			sweepCase{"5-candidate", fiveCandidates(), p, ""},
+			sweepCase{"1-candidate", full[:1], p},
+			sweepCase{"2-candidate", full[:2], p},
+			sweepCase{"3-candidate", full[:3], p},
+			sweepCase{"4-candidate", full, p},
+			sweepCase{"5-candidate", fiveCandidates(), p},
 		)
 	}
 	cases = append(cases,
-		sweepCase{"sub-floor cascade", cascadeCandidates(), cascadeParams, ""},
-		sweepCase{"zero-CPM candidate", zeroCPMCandidates(), zeroParams, ""},
-		sweepCase{"zero-impressions candidate", zeroImpressionsCandidates(), zeroParams, ""},
+		sweepCase{"sub-floor cascade", cascadeCandidates(), cascadeParams},
+		sweepCase{"zero-CPM candidate", zeroCPMCandidates(), zeroParams},
+		sweepCase{"zero-impressions candidate", zeroImpressionsCandidates(), zeroParams},
+		sweepCase{"dust floor collapses to one survivor", dustFloorSurvivorCandidates(), cascadeParams},
+		sweepCase{"negative fits collapse to one survivor", negativeFitSurvivorCandidates(), cascadeParams},
 	)
 
 	for _, tc := range cases {
@@ -488,9 +517,6 @@ func TestAllocateNeverExceedsSOVCeilingAcrossBudgetsAndSets(t *testing.T) {
 		}
 		got := Allocate(tc.cands, tc.p)
 		for _, a := range got {
-			if a.PublisherID == tc.skipCeilingOf {
-				continue // the single-candidate rule is exempt from every cap, SOV included
-			}
 			c := byID[a.PublisherID]
 			ceiling := float64(c.MonthlyImpressions) * tc.p.SOVCap
 			if float64(a.EstImpressions) > ceiling+1 {
@@ -505,10 +531,10 @@ func TestAllocateNeverExceedsSOVCeilingAcrossBudgetsAndSets(t *testing.T) {
 }
 
 // All candidates delivering zero inventory (or having no usable CPM) must
-// return nil -- not a slice of NaN or +Inf shares -- once there is more than
-// one candidate to reconcile. (The single-candidate rule is a separate,
-// unrelated exemption from every cap, SOV included; see
-// TestAllocateSingleCandidateTakesEverything.)
+// return nil -- not a slice of NaN or +Inf shares, and not a slice of
+// zero-dollar rows. This holds however many candidates there are: a lone
+// survivor with nothing to sell is covered by
+// TestZeroInventoryLoneSurvivorReturnsNil.
 func TestAllocateAllZeroDeliverableReturnsNil(t *testing.T) {
 	for _, tc := range []struct {
 		name  string
@@ -570,5 +596,200 @@ func TestFullyStarvedMidLoopRegression(t *testing.T) {
 	}
 	if math.Abs(deployed-9000) > 0.01 {
 		t.Errorf("deployed = %.2f, want 9000.00 ($1,000 underspend)", deployed)
+	}
+}
+
+// dustFloorSurvivorCandidates is the reviewer's counterexample: a single
+// best-fit publisher with a tiny inventory, plus two candidates whose fits are
+// small enough that the dust floor removes them. The removal leaves exactly
+// one survivor -- and a lone survivor must still be bound by its own SOV
+// ceiling. 1,000,000 monthly impressions at a 15% cap is a 150,000-impression
+// ceiling; buying the whole $10,000 budget at a $10 CPM would be 1,000,000
+// impressions, 6.7x more inventory than the publisher has to sell.
+func dustFloorSurvivorCandidates() []Candidate {
+	return []Candidate{
+		{PublisherID: "A", Fit: 1.0, EstCPM: 10, MonthlyImpressions: 1_000_000},
+		{PublisherID: "B", Fit: 0.05, EstCPM: 10, MonthlyImpressions: 50_000_000},
+		{PublisherID: "C", Fit: 0.05, EstCPM: 10, MonthlyImpressions: 50_000_000},
+	}
+}
+
+// negativeFitSurvivorCandidates reaches the same lone-survivor state by the
+// other route: two candidates score zero or below (a negative fit is clamped
+// to a zero weight), so the dust floor removes them and B is left alone.
+func negativeFitSurvivorCandidates() []Candidate {
+	return []Candidate{
+		{PublisherID: "A", Fit: -1, EstCPM: 10, MonthlyImpressions: 50_000_000},
+		{PublisherID: "B", Fit: 0.5, EstCPM: 10, MonthlyImpressions: 1_000_000},
+		{PublisherID: "C", Fit: -0.2, EstCPM: 10, MonthlyImpressions: 50_000_000},
+	}
+}
+
+// A lone survivor takes 100% of what is DEPLOYED -- that rule was always about
+// share of spend, never about escaping inventory. Impressions that do not
+// exist cannot be bought, so the survivor's EstImpressions must still sit at
+// or under its own SOV ceiling, and the budget it cannot absorb is left
+// honestly undeployed rather than spent on inventory nobody has.
+//
+// Deliberately NOT fixed here: the dust-dropped candidates in both fixtures do
+// have inventory, so the undeployed remainder could in principle be placed
+// with them. Reinstating dropped candidates would re-couple the dust floor to
+// inventory reconciliation; the underspend is visible and honest, and is
+// logged as separate follow-up work.
+func TestLoneSurvivorStillRespectsInventoryCeiling(t *testing.T) {
+	p := DefaultAllocParams()
+	p.TotalUSD = 10_000
+
+	for _, tc := range []struct {
+		name       string
+		cands      []Candidate
+		wantID     string
+		wantAmount float64
+		wantImps   int64
+	}{
+		{"dust floor leaves one survivor", dustFloorSurvivorCandidates(), "A", 1500, 150_000},
+		{"negative fits leave one survivor", negativeFitSurvivorCandidates(), "B", 1500, 150_000},
+	} {
+		got := Allocate(tc.cands, p)
+		if len(got) != 1 {
+			t.Fatalf("%s: got %d allocations, want 1: %+v", tc.name, len(got), got)
+		}
+		a := got[0]
+		if a.PublisherID != tc.wantID {
+			t.Fatalf("%s: survivor = %s, want %s", tc.name, a.PublisherID, tc.wantID)
+		}
+		// 100% of deployed spend -- the part of the rule that survives.
+		if math.Abs(a.Share-1) > 1e-9 {
+			t.Errorf("%s: share = %v, want 1", tc.name, a.Share)
+		}
+		// ...but bounded by inventory, which is the part that never yielded.
+		if a.EstImpressions > tc.wantImps {
+			t.Errorf("%s: %s impressions = %d, exceeds SOV ceiling %d",
+				tc.name, a.PublisherID, a.EstImpressions, tc.wantImps)
+		}
+		if math.Abs(a.AmountUSD-tc.wantAmount) > 0.01 {
+			t.Errorf("%s: amount = %.2f, want %.2f (min(budget, deliverable))",
+				tc.name, a.AmountUSD, tc.wantAmount)
+		}
+		if a.AmountUSD >= p.TotalUSD {
+			t.Errorf("%s: amount = %.2f, want strictly less than the %.0f budget",
+				tc.name, a.AmountUSD, p.TotalUSD)
+		}
+	}
+}
+
+// A lone survivor with no inventory at all can be sold nothing, so there is no
+// allocation to make: the answer is nil, not a publisher booked for impressions
+// that do not exist.
+func TestZeroInventoryLoneSurvivorReturnsNil(t *testing.T) {
+	p := DefaultAllocParams()
+	p.TotalUSD = 25_000
+	cands := []Candidate{
+		{PublisherID: "A", Fit: 0.9, EstCPM: 10, MonthlyImpressions: 0},
+		{PublisherID: "B", Fit: 0.01, EstCPM: 10, MonthlyImpressions: 0},
+	}
+	if got := Allocate(cands, p); len(got) != 0 {
+		t.Errorf("got %d allocations, want 0 (nil): %+v", len(got), got)
+	}
+}
+
+// Non-finite inputs must be rejected at the boundary, not propagated. A NaN
+// Fit slips past math.Max(NaN, 0) and a NaN EstCPM slips past a `<= 0` guard;
+// either one, left alone, turns every Share and AmountUSD in the result into
+// NaN. A non-finite value means "no usable data", which is a zero weight or a
+// zero deliverable -- never a reason to emit NaN.
+func TestAllocateRejectsNonFiniteInputs(t *testing.T) {
+	nan := math.NaN()
+	inf := math.Inf(1)
+	p := DefaultAllocParams()
+	p.TotalUSD = 10_000
+
+	for _, tc := range []struct {
+		name  string
+		cands []Candidate
+	}{
+		{"NaN fit", []Candidate{
+			{PublisherID: "bad", Fit: nan, EstCPM: 10, MonthlyImpressions: 50_000_000},
+			{PublisherID: "good", Fit: 0.5, EstCPM: 10, MonthlyImpressions: 50_000_000},
+		}},
+		{"NaN CPM", []Candidate{
+			{PublisherID: "bad", Fit: 0.5, EstCPM: nan, MonthlyImpressions: 50_000_000},
+			{PublisherID: "good", Fit: 0.5, EstCPM: 10, MonthlyImpressions: 50_000_000},
+		}},
+		{"+Inf fit", []Candidate{
+			{PublisherID: "bad", Fit: inf, EstCPM: 10, MonthlyImpressions: 50_000_000},
+			{PublisherID: "good", Fit: 0.5, EstCPM: 10, MonthlyImpressions: 50_000_000},
+		}},
+		{"+Inf CPM", []Candidate{
+			{PublisherID: "bad", Fit: 0.5, EstCPM: inf, MonthlyImpressions: 50_000_000},
+			{PublisherID: "good", Fit: 0.5, EstCPM: 10, MonthlyImpressions: 50_000_000},
+		}},
+		{"every candidate non-finite", []Candidate{
+			{PublisherID: "bad1", Fit: nan, EstCPM: nan, MonthlyImpressions: 50_000_000},
+			{PublisherID: "bad2", Fit: nan, EstCPM: nan, MonthlyImpressions: 50_000_000},
+		}},
+	} {
+		byID := map[string]Candidate{}
+		for _, c := range tc.cands {
+			byID[c.PublisherID] = c
+		}
+		got := Allocate(tc.cands, p) // nil is an acceptable answer; NaN is not
+		for _, a := range got {
+			if math.IsNaN(a.Share) || math.IsInf(a.Share, 0) {
+				t.Errorf("%s: %s share = %v, not finite", tc.name, a.PublisherID, a.Share)
+			}
+			if math.IsNaN(a.AmountUSD) || math.IsInf(a.AmountUSD, 0) {
+				t.Errorf("%s: %s amount = %v, not finite", tc.name, a.PublisherID, a.AmountUSD)
+			}
+			if a.EstImpressions < 0 {
+				t.Errorf("%s: %s impressions = %d, want >= 0", tc.name, a.PublisherID, a.EstImpressions)
+			}
+			c := byID[a.PublisherID]
+			ceiling := float64(c.MonthlyImpressions) * p.SOVCap
+			if float64(a.EstImpressions) > ceiling+1 {
+				t.Errorf("%s: %s impressions = %d, exceeds SOV ceiling %.0f",
+					tc.name, a.PublisherID, a.EstImpressions, ceiling)
+			}
+		}
+		if len(got) > 0 {
+			if s := sumShares(got); math.Abs(s-1) > 1e-9 {
+				t.Errorf("%s: shares sum to %v, want 1", tc.name, s)
+			}
+		}
+	}
+}
+
+// A survivor clamped to nothing is not an allocation. Emitting a
+// "Share 0.000000, AmountUSD 0.00" row invites a downstream consumer to book a
+// publisher for zero dollars; sub-cent rows are dropped instead, and the
+// remaining shares still sum to 1 over what was actually deployed.
+func TestAllocateSuppressesZeroDollarRows(t *testing.T) {
+	p := AllocParams{Gamma: 1.5, MaxShare: 0.40, SOVCap: 0.15, MinShare: 0.05,
+		TotalUSD: 5_000, Days: 30}
+
+	for _, tc := range []struct {
+		name    string
+		cands   []Candidate
+		wantOut string // the publisher that must not appear
+	}{
+		{"zero CPM", zeroCPMCandidates(), "nocpm"},
+		{"zero impressions", zeroImpressionsCandidates(), "noimp"},
+	} {
+		got := Allocate(tc.cands, p)
+		for _, a := range got {
+			if a.PublisherID == tc.wantOut {
+				t.Errorf("%s: %s emitted with share %.6f, amount %.2f; a zero-dollar row is not an allocation",
+					tc.name, a.PublisherID, a.Share, a.AmountUSD)
+			}
+			if a.AmountUSD < 0.01 {
+				t.Errorf("%s: %s amount = %.4f, below one cent", tc.name, a.PublisherID, a.AmountUSD)
+			}
+		}
+		if len(got) != 2 {
+			t.Errorf("%s: got %d allocations, want 2: %+v", tc.name, len(got), got)
+		}
+		if s := sumShares(got); math.Abs(s-1) > 1e-9 {
+			t.Errorf("%s: shares sum to %v, want 1", tc.name, s)
+		}
 	}
 }
