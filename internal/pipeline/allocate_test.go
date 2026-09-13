@@ -110,16 +110,39 @@ func TestAllocateClipsOnDeliverableInventory(t *testing.T) {
 	}
 }
 
+// policyOnlyCandidates has generous inventory on every publisher (SOV never
+// binds below MaxShare), but fit-driven proportional shares (6:3:1 of 10)
+// would put the top publisher at 60% and the second at 45% before capping —
+// both above the 40% concentration cap. With 3 candidates, 3*0.40=1.20>1, so
+// unlike the 2-candidate case this is feasible: MaxShare should hold exactly,
+// with no exception granted.
+func policyOnlyCandidates() []Candidate {
+	return []Candidate{
+		{PublisherID: "X", Fit: 6, EstCPM: 10, MonthlyImpressions: 100_000_000},
+		{PublisherID: "Y", Fit: 3, EstCPM: 10, MonthlyImpressions: 100_000_000},
+		{PublisherID: "Z", Fit: 1, EstCPM: 10, MonthlyImpressions: 100_000_000},
+	}
+}
+
 // Every declared cap must hold in the emitted result, not merely in an
-// intermediate pass.
+// intermediate pass — except MaxShare, which is policy and yields when the
+// candidate set makes it infeasible for everyone to stay under it (fewer
+// than ceil(1/MaxShare) survivors). The SOV cap is physical and never yields.
 func TestAllocateRespectsAllCapsAfterRedistribution(t *testing.T) {
 	p := DefaultAllocParams()
 	p.TotalUSD = 50_000
-	for _, got := range [][]Allocation{
-		Allocate(dogFoodCandidates(), p),
-		Allocate(dogFoodCandidates()[:2], p),
-		Allocate(dogFoodCandidates()[:1], p),
-	} {
+
+	// Feasible cases (>=3 survivors, or MaxShare not binding at all): MaxShare
+	// must hold exactly, and nothing is ever marked ExceedsMaxShare. The lone
+	// survivor is exempt by design (the already-established, unrelated "single
+	// candidate takes everything" rule -- see TestAllocateSingleCandidateTakesEverything),
+	// so its cap checks stay gated by len(got) > 1 exactly as the others are.
+	feasible := [][]Allocation{
+		Allocate(dogFoodCandidates(), p),     // 4 survivors
+		Allocate(dogFoodCandidates()[:1], p), // lone survivor, exempt from caps
+		Allocate(policyOnlyCandidates(), AllocParams{Gamma: 1, MaxShare: 0.40, SOVCap: 0.15, MinShare: 0.05, TotalUSD: 50_000, Days: 30}),
+	}
+	for _, got := range feasible {
 		for _, a := range got {
 			if a.Share < p.MinShare-1e-9 && len(got) > 1 {
 				t.Errorf("%s share %.4f below floor %.2f", a.PublisherID, a.Share, p.MinShare)
@@ -127,9 +150,90 @@ func TestAllocateRespectsAllCapsAfterRedistribution(t *testing.T) {
 			if a.Share > p.MaxShare+1e-9 && len(got) > 1 {
 				t.Errorf("%s share %.4f above cap %.2f", a.PublisherID, a.Share, p.MaxShare)
 			}
+			if a.ExceedsMaxShare && len(got) > 1 {
+				t.Errorf("%s marked ExceedsMaxShare in a feasible case (share %.4f)", a.PublisherID, a.Share)
+			}
 		}
 		if s := sumShares(got); math.Abs(s-1) > 1e-9 {
 			t.Errorf("shares sum to %v, want 1", s)
+		}
+	}
+
+	// Infeasible case: exactly 2 candidates under a 0.40 cap can never both
+	// stay under it and sum to 1 (0.40+0.40 < 1). pub_007's SOV ceiling
+	// (720k impressions) never yields; pub_009's concentration cap does,
+	// absorbing the remainder instead of pub_007 being dropped.
+	got := Allocate(dogFoodCandidates()[:2], p)
+	if s := sumShares(got); math.Abs(s-1) > 1e-9 {
+		t.Errorf("shares sum to %v, want 1", s)
+	}
+	for _, tc := range []struct {
+		id          string
+		wantShare   float64
+		wantExceeds bool
+	}{
+		{"pub_007", 0.22286, false},
+		{"pub_009", 0.77714, true},
+	} {
+		var found bool
+		for _, a := range got {
+			if a.PublisherID != tc.id {
+				continue
+			}
+			found = true
+			if math.Abs(a.Share-tc.wantShare) > 0.0005 {
+				t.Errorf("%s share = %.5f, want %.5f", tc.id, a.Share, tc.wantShare)
+			}
+			if a.ExceedsMaxShare != tc.wantExceeds {
+				t.Errorf("%s ExceedsMaxShare = %v, want %v", tc.id, a.ExceedsMaxShare, tc.wantExceeds)
+			}
+		}
+		if !found {
+			t.Fatalf("no allocation for %s in %+v", tc.id, got)
+		}
+	}
+	if len(got) != 2 {
+		t.Fatalf("expected both publishers to survive (fitting inventory not dropped), got %+v", got)
+	}
+}
+
+// No allocation may ever exceed its publisher's SOV (inventory) ceiling in
+// impressions, in any of these multi-candidate scenarios — including the
+// infeasible 2-candidate case where MaxShare itself is allowed to yield. This
+// is the cap that must never yield. (The lone-survivor case is deliberately
+// excluded: it is a separately-established, unrelated rule — see
+// TestAllocateSingleCandidateTakesEverything — that a single candidate takes
+// 100% regardless of any cap, SOV included.)
+func TestAllocateNeverExceedsSOVCeiling(t *testing.T) {
+	p25 := DefaultAllocParams()
+	p25.TotalUSD = 25_000
+	p50 := DefaultAllocParams()
+	p50.TotalUSD = 50_000
+	cascadeParams := AllocParams{Gamma: 1, MaxShare: 0.40, SOVCap: 0.15, MinShare: 0.05, TotalUSD: 10_000, Days: 30}
+
+	cases := []struct {
+		name  string
+		cands []Candidate
+		p     AllocParams
+	}{
+		{"4-candidate $25k", dogFoodCandidates(), p25},
+		{"4-candidate $50k", dogFoodCandidates(), p50},
+		{"2-candidate $50k (infeasible MaxShare)", dogFoodCandidates()[:2], p50},
+		{"cascade", cascadeCandidates(), cascadeParams},
+	}
+	for _, tc := range cases {
+		got := Allocate(tc.cands, tc.p)
+		byID := map[string]Candidate{}
+		for _, c := range tc.cands {
+			byID[c.PublisherID] = c
+		}
+		for _, a := range got {
+			c := byID[a.PublisherID]
+			ceiling := float64(c.MonthlyImpressions) * tc.p.SOVCap
+			if float64(a.EstImpressions) > ceiling+1 {
+				t.Errorf("%s: %s impressions = %d, exceeds SOV ceiling %.0f",
+					tc.name, a.PublisherID, a.EstImpressions, ceiling)
+			}
 		}
 	}
 }
@@ -191,21 +295,17 @@ func cascadeCandidates() []Candidate {
 // previously-fine survivor (B) over the concentration cap. A single pass sees
 // only A over cap; it takes a second pass, after redistribution, to notice B
 // is now over cap too. This test proves the loop is load-bearing, not
-// decorative: pinning maxAllocPasses to 1 must reproduce the violation, and
-// restoring it must fix it.
+// decorative: calling the unexported allocateWithPasses with passes=1 must
+// reproduce the violation, and the real pass count must fix it.
 func TestFixedPointLoopIsRequired(t *testing.T) {
 	c := cascadeCandidates()
 	p := AllocParams{Gamma: 1, MaxShare: 0.40, SOVCap: 0.15, MinShare: 0.05,
 		TotalUSD: 10_000, Days: 30}
 
-	orig := maxAllocPasses
-	defer func() { maxAllocPasses = orig }()
-
 	// A single pass: prove it actually violates the cap for this input, per
 	// the brief's own warning, rather than merely asserting it in the
 	// abstract.
-	maxAllocPasses = 1
-	single := Allocate(c, p)
+	single := allocateWithPasses(c, p, 1)
 	violated := false
 	for _, a := range single {
 		if a.Share > p.MaxShare+1e-9 {
@@ -220,7 +320,6 @@ func TestFixedPointLoopIsRequired(t *testing.T) {
 	}
 
 	// The real, fully-iterated algorithm must not violate it.
-	maxAllocPasses = orig
 	fixed := Allocate(c, p)
 	for _, a := range fixed {
 		if a.Share > p.MaxShare+1e-9 {

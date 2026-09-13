@@ -33,16 +33,22 @@ type Candidate struct {
 
 // Allocation is one publisher's resulting slice of the budget.
 type Allocation struct {
-	PublisherID    string
-	Share          float64
-	AmountUSD      float64
-	EstCPMUSD      float64
-	EstImpressions int64
+	PublisherID string
+	Share       float64
+	AmountUSD   float64
+	EstCPMUSD   float64
+	// ExceedsMaxShare is true when the final Share exceeds AllocParams.MaxShare.
+	// This only happens when the candidate set makes MaxShare infeasible to
+	// honor for everyone at once (e.g. fewer than ceil(1/MaxShare) survivors) —
+	// the SOV cap always holds, but the concentration cap is policy, not
+	// physics, and yields rather than leave budget stranded or a fitting
+	// publisher dropped. The rationale layer surfaces this rather than hiding
+	// a silently-abandoned cap.
+	ExceedsMaxShare bool
+	EstImpressions  int64
 }
 
-// maxAllocPasses is a var, not a const, solely so a test can prove the loop
-// is load-bearing by pinning it to 1 and observing a cap violation.
-var maxAllocPasses = 5
+const maxAllocPasses = 5
 
 // Allocate splits TotalUSD across candidates in proportion to Fit^Gamma, then
 // applies three caps: a per-publisher concentration cap, a deliverability cap
@@ -54,6 +60,13 @@ var maxAllocPasses = 5
 // redistributes money that can do the same — so they are iterated to a fixed
 // point rather than applied in a single pass.
 func Allocate(cands []Candidate, p AllocParams) []Allocation {
+	return allocateWithPasses(cands, p, maxAllocPasses)
+}
+
+// allocateWithPasses is Allocate's implementation, parameterised on the pass
+// count so a test can pin it to 1 and demonstrate that the fixed-point loop
+// is load-bearing rather than decorative.
+func allocateWithPasses(cands []Candidate, p AllocParams, passes int) []Allocation {
 	if len(cands) == 0 {
 		return nil
 	}
@@ -76,10 +89,36 @@ func Allocate(cands []Candidate, p AllocParams) []Allocation {
 			share[id] /= total
 		}
 	}
+	// origShare is the fit-proportional split before any capping. It is the
+	// basis for pro-rata redistribution when a policy cap has to yield (see
+	// below) — a locked candidate's *current* share is just its cap value,
+	// not a fit-proportional quantity, so it cannot be used for that split.
+	origShare := make(map[string]float64, len(share))
+	for id, v := range share {
+		origShare[id] = v
+	}
 
-	locked := map[string]float64{} // publishers pinned at their cap
+	locked := map[string]float64{} // publishers pinned at a cap
+	// sovBound records, for each locked publisher, whether the pin is the SOV
+	// (physical inventory) cap — which must never yield — as opposed to the
+	// MaxShare (policy) cap, which may yield when the candidate set makes it
+	// infeasible for everyone to stay under it.
+	sovBound := map[string]bool{}
+	// released marks a publisher that has already been granted an exception
+	// from MaxShare because the set was infeasible under it. From then on
+	// only its SOV ceiling is ever enforced for that publisher.
+	released := map[string]bool{}
 
-	for pass := 0; pass < maxAllocPasses; pass++ {
+	sovCapOf := func(id string) float64 {
+		c := byID[id]
+		if c.EstCPM <= 0 || p.TotalUSD <= 0 {
+			return math.Inf(1) // no physical constraint we can compute
+		}
+		deliverableUSD := float64(c.MonthlyImpressions) * p.SOVCap / 1000 * c.EstCPM
+		return deliverableUSD / p.TotalUSD
+	}
+
+	for pass := 0; pass < passes; pass++ {
 		changed := false
 
 		// Redistribute whatever is not locked across the unlocked survivors.
@@ -92,26 +131,56 @@ func Allocate(cands []Candidate, p AllocParams) []Allocation {
 			}
 		}
 
-		// Every survivor is pinned at its cap, but the caps together still
-		// don't cover the whole budget (e.g. two candidates each held under
-		// the 40% concentration cap can never sum past 80%). There is no
-		// unlocked survivor left to carry the shortfall, so the weakest
-		// locked candidate is dropped and its budget freed for the rest —
-		// the same resolution the dust floor uses, just triggered by cap
-		// infeasibility instead of raw smallness. Without this, the final
-		// renormalisation below would inflate every locked share, including
-		// capped ones, back past the very caps that pinned them.
+		// Every survivor is pinned at a cap, but the caps together still
+		// don't cover the whole budget — e.g. two candidates each held under
+		// the 40% concentration cap can never sum past 80%, regardless of
+		// their SOV ceilings. There is no unlocked survivor left to carry the
+		// shortfall. Rather than drop a publisher that genuinely fits and has
+		// inventory (which was tried and rejected: it discards real capacity
+		// and swaps one cap violation for a worse one), let MaxShare yield
+		// for whichever locked publishers are policy-bound, not SOV-bound:
+		// redistribute the whole non-SOV-locked pool pro-rata by original fit
+		// among them, exceeding MaxShare where needed. The SOV cap never
+		// yields — a publisher locked at its physical inventory ceiling stays
+		// there. If nobody has SOV headroom either, there is nothing left to
+		// do: fall through to the closing renormalisation as the last resort.
 		if freeTotal == 0 && lockedTotal < 1-1e-9 && len(share) > 1 {
-			weakest := ""
-			for id, v := range locked {
-				if weakest == "" || v < locked[weakest] ||
-					(v == locked[weakest] && id < weakest) {
-					weakest = id
+			var releasable []string
+			var sovLockedTotal float64
+			for id := range locked {
+				if sovBound[id] {
+					sovLockedTotal += locked[id]
+				} else {
+					releasable = append(releasable, id)
 				}
 			}
-			delete(share, weakest)
-			delete(locked, weakest)
-			continue
+			if len(releasable) > 0 {
+				pool := 1 - sovLockedTotal
+				var w float64
+				for _, id := range releasable {
+					w += origShare[id]
+				}
+				for _, id := range releasable {
+					var v float64
+					if w > 0 {
+						v = origShare[id] / w * pool
+					} else {
+						v = pool / float64(len(releasable))
+					}
+					share[id] = v
+					released[id] = true
+					// Unlock so the cap check below re-validates against the
+					// SOV ceiling only (released publishers never have
+					// MaxShare re-applied) — it may still bind if this
+					// pro-rata split overshoots this publisher's inventory.
+					delete(locked, id)
+					delete(sovBound, id)
+				}
+				changed = true
+				continue
+			}
+			// No releasable candidate: caps are physically infeasible for
+			// this set. Nothing more to try; let the final step renormalise.
 		}
 
 		if freeTotal > 0 {
@@ -123,21 +192,22 @@ func Allocate(cands []Candidate, p AllocParams) []Allocation {
 			}
 		}
 
-		// Concentration and deliverability caps.
+		// Concentration and deliverability caps. A released publisher is only
+		// ever checked against its SOV ceiling from here on.
 		for id, v := range share {
 			if _, isLocked := locked[id]; isLocked {
 				continue
 			}
-			cap := p.MaxShare
-			if c := byID[id]; c.EstCPM > 0 && p.TotalUSD > 0 {
-				deliverableUSD := float64(c.MonthlyImpressions) * p.SOVCap / 1000 * c.EstCPM
-				if s := deliverableUSD / p.TotalUSD; s < cap {
-					cap = s
-				}
+			sovCap := sovCapOf(id)
+			boundBySOV := released[id] || sovCap <= p.MaxShare
+			cap := sovCap
+			if !boundBySOV {
+				cap = p.MaxShare
 			}
 			if v > cap+1e-12 {
 				share[id] = cap
 				locked[id] = cap
+				sovBound[id] = boundBySOV
 				changed = true
 			}
 		}
@@ -177,6 +247,7 @@ func Allocate(cands []Candidate, p AllocParams) []Allocation {
 		out = append(out, Allocation{
 			PublisherID: id, Share: s, AmountUSD: amount,
 			EstCPMUSD: c.EstCPM, EstImpressions: impressions,
+			ExceedsMaxShare: s > p.MaxShare+1e-9,
 		})
 	}
 
