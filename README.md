@@ -13,9 +13,13 @@ could act on.
 error saying exactly this. Fix it once:
 
 ```bash
-export GEMINI_API_KEY=...     # free, no card required: aistudio.google.com
+cp .env.example .env          # then put your key in it
+set -a; source .env; set +a   # no dotenv loader: the shell loads it
 go run ./cmd/disco eval --provider gemini --record
 ```
+
+The key is free and needs no payment method: <https://aistudio.google.com/apikey>.
+`export GEMINI_API_KEY=...` works just as well if you would rather not keep a file.
 
 That's about 120 calls (15 briefs × ~4 model-calling stages) against a 250/day
 free-tier limit, written to `evals/fixtures/` as they come back. After this one
