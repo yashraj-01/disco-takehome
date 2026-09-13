@@ -1,1 +1,12 @@
-{"type":"object"}
+{
+  "type": "object",
+  "description": "One ad creative written for a single shopper persona.",
+  "properties": {
+    "headline": { "type": "string", "description": "60 characters or fewer" },
+    "body": { "type": "string", "description": "200 characters or fewer" },
+    "rationale": { "type": "string" },
+    "messaging_levers": { "type": "array", "items": { "type": "string" } },
+    "avoided": { "type": "array", "items": { "type": "string" } }
+  },
+  "required": ["headline", "body", "rationale", "messaging_levers", "avoided"]
+}
