@@ -34,12 +34,16 @@ type Candidate struct {
 // Allocation is one publisher's resulting slice of the budget.
 //
 // AmountUSD == AllocParams.TotalUSD * Share holds only when the candidate set
-// is not inventory-starved. When every candidate's combined SOV ceiling falls
-// short of TotalUSD (see Allocate), the budget cannot be fully deployed on
-// this set at all: each candidate is instead allocated exactly its SOV
-// ceiling, AmountUSD sums to that (smaller) deliverable total rather than to
-// TotalUSD, and Share is redefined as each candidate's fraction of that
-// deployed total, not of TotalUSD.
+// is not inventory-starved. When the survivors' combined SOV ceilings fall
+// short of TotalUSD, the budget cannot be fully deployed on this set at all:
+// each is allocated up to its own SOV ceiling, AmountUSD sums to that
+// (smaller) deployed total rather than to TotalUSD, and Share is each
+// candidate's fraction of the deployed total, not of TotalUSD. MinShare (the
+// dust floor) does not apply on this path either — it is enforced earlier,
+// against the fit-driven target shares, not against the inventory-clamped
+// amounts; a survivor can end up with a final Share below MinShare once
+// inventory reconciliation redistributes what a capped publisher couldn't
+// absorb.
 type Allocation struct {
 	PublisherID string
 	Share       float64
@@ -58,22 +62,24 @@ type Allocation struct {
 
 const maxAllocPasses = 5
 
+// deliverableUSD is the dollar value of the most impressions we are willing
+// to buy from c: SOVCap's share of its monthly inventory, priced at its
+// modelled CPM. A publisher with no usable CPM or no impressions can't
+// deliver anything, so it correctly yields zero rather than NaN or +Inf.
+func deliverableUSD(c Candidate, p AllocParams) float64 {
+	if c.EstCPM <= 0 || c.MonthlyImpressions <= 0 {
+		return 0
+	}
+	return float64(c.MonthlyImpressions) * p.SOVCap / 1000 * c.EstCPM
+}
+
 // Allocate splits TotalUSD across candidates in proportion to Fit^Gamma, then
-// applies three caps: a per-publisher concentration cap, a deliverability cap
-// derived from the publisher's inventory at its modelled CPM, and a floor below
-// which a slice is too small to be worth buying.
-//
-// The caps interact — releasing money from a clipped publisher can push a
-// survivor over the concentration cap, and dropping a sub-floor publisher
-// redistributes money that can do the same — so they are iterated to a fixed
-// point rather than applied in a single pass.
-//
-// If the candidate set is fully inventory-starved — every candidate's SOV
-// ceiling together still falls short of TotalUSD, reachable at ordinary
-// budgets whenever the shortlist's combined deliverable inventory is modest —
-// the budget cannot be deployed in full on this set at all. See
-// fullyStarvedDeployment for that case; see Allocation's doc comment for how
-// its results differ from the normal case.
+// applies the concentration cap (MaxShare) and a dust floor (MinShare) to
+// produce a target share for each survivor, and finally reconciles those
+// targets against each survivor's SOV (inventory) ceiling — the one cap that
+// must never yield, however the target shares came out. See
+// reconcileToInventory for why that reconciliation, not the fixed-point loop
+// above it, is what guarantees the SOV invariant.
 func Allocate(cands []Candidate, p AllocParams) []Allocation {
 	return allocateWithPasses(cands, p, maxAllocPasses)
 }
@@ -86,28 +92,15 @@ func allocateWithPasses(cands []Candidate, p AllocParams, passes int) []Allocati
 		return nil
 	}
 
-	// A lone candidate is exempt (the pre-existing, separate "single
-	// candidate takes everything" rule handles it below via renormalisation),
-	// but two or more jointly-starved candidates cannot be resolved by the
-	// normal cap-precedence loop: there is no unlocked survivor and no
-	// releasable locked one either, because every one of them is genuinely
-	// at its physical ceiling. Handle that honestly up front rather than
-	// falling into the loop's last-resort renormalisation, which would
-	// inflate shares — and therefore impressions — past SOV ceilings that
-	// must never yield.
-	if len(cands) > 1 {
-		if out, ok := fullyStarvedDeployment(cands, p); ok {
-			return out
-		}
-	}
-
-	share := make(map[string]float64, len(cands))
 	byID := make(map[string]Candidate, len(cands))
+	origWeight := make(map[string]float64, len(cands)) // fit^gamma, unnormalized
+	share := make(map[string]float64, len(cands))
 	var total float64
 	for _, c := range cands {
 		w := math.Pow(math.Max(c.Fit, 0), p.Gamma)
-		share[c.PublisherID] = w
 		byID[c.PublisherID] = c
+		origWeight[c.PublisherID] = w
+		share[c.PublisherID] = w
 		total += w
 	}
 	if total == 0 { // no candidate has any fit; split evenly
@@ -119,39 +112,28 @@ func allocateWithPasses(cands []Candidate, p AllocParams, passes int) []Allocati
 			share[id] /= total
 		}
 	}
-	// origShare is the fit-proportional split before any capping. It is the
-	// basis for pro-rata redistribution when a policy cap has to yield (see
-	// below) — a locked candidate's *current* share is just its cap value,
-	// not a fit-proportional quantity, so it cannot be used for that split.
-	origShare := make(map[string]float64, len(share))
-	for id, v := range share {
-		origShare[id] = v
-	}
 
-	locked := map[string]float64{} // publishers pinned at a cap
-	// sovBound records, for each locked publisher, whether the pin is the SOV
-	// (physical inventory) cap — which must never yield — as opposed to the
-	// MaxShare (policy) cap, which may yield when the candidate set makes it
-	// infeasible for everyone to stay under it.
-	sovBound := map[string]bool{}
-	// released marks a publisher that has already been granted an exception
-	// from MaxShare because the set was infeasible under it. From then on
-	// only its SOV ceiling is ever enforced for that publisher.
-	released := map[string]bool{}
+	locked := map[string]float64{} // publishers pinned at the concentration cap
 
-	sovCapOf := func(id string) float64 {
-		c := byID[id]
-		if c.EstCPM <= 0 || p.TotalUSD <= 0 {
-			return math.Inf(1) // no physical constraint we can compute
-		}
-		deliverableUSD := float64(c.MonthlyImpressions) * p.SOVCap / 1000 * c.EstCPM
-		return deliverableUSD / p.TotalUSD
-	}
-
+	// This loop resolves fit^gamma proportionality against exactly two
+	// things: the concentration cap (MaxShare) and the dust floor (MinShare).
+	// It deliberately knows nothing about SOV (inventory) any more — an
+	// earlier version tried to make it SOV-aware too, so it could let
+	// MaxShare yield precisely when the survivor set made it infeasible
+	// alongside SOV. That was wrong: a dust-drop triggered by *this same
+	// pass* can shrink the survivor set's combined SOV capacity out from
+	// under an interaction the loop had already "resolved" on a now-stale
+	// survivor set, and nothing forced a re-check. No amount of in-loop
+	// bookkeeping converges to a guarantee against that — only a final,
+	// unconditional reconciliation after the loop does (see
+	// reconcileToInventory). So here MaxShare is the only cap, and its own
+	// interactions — releasing a clipped publisher's excess can push a
+	// survivor over MaxShare, and dropping a sub-floor publisher can do the
+	// same — are still genuinely iterative, which is what
+	// TestFixedPointLoopIsRequired demonstrates.
 	for pass := 0; pass < passes; pass++ {
 		changed := false
 
-		// Redistribute whatever is not locked across the unlocked survivors.
 		var freeTotal, lockedTotal float64
 		for id, v := range share {
 			if _, isLocked := locked[id]; isLocked {
@@ -160,59 +142,6 @@ func allocateWithPasses(cands []Candidate, p AllocParams, passes int) []Allocati
 				freeTotal += v
 			}
 		}
-
-		// Every survivor is pinned at a cap, but the caps together still
-		// don't cover the whole budget — e.g. two candidates each held under
-		// the 40% concentration cap can never sum past 80%, regardless of
-		// their SOV ceilings. There is no unlocked survivor left to carry the
-		// shortfall. Rather than drop a publisher that genuinely fits and has
-		// inventory (which was tried and rejected: it discards real capacity
-		// and swaps one cap violation for a worse one), let MaxShare yield
-		// for whichever locked publishers are policy-bound, not SOV-bound:
-		// redistribute the whole non-SOV-locked pool pro-rata by original fit
-		// among them, exceeding MaxShare where needed. The SOV cap never
-		// yields — a publisher locked at its physical inventory ceiling stays
-		// there. If nobody has SOV headroom either, there is nothing left to
-		// do: fall through to the closing renormalisation as the last resort.
-		if freeTotal == 0 && lockedTotal < 1-1e-9 && len(share) > 1 {
-			var releasable []string
-			var sovLockedTotal float64
-			for id := range locked {
-				if sovBound[id] {
-					sovLockedTotal += locked[id]
-				} else {
-					releasable = append(releasable, id)
-				}
-			}
-			if len(releasable) > 0 {
-				pool := 1 - sovLockedTotal
-				var w float64
-				for _, id := range releasable {
-					w += origShare[id]
-				}
-				for _, id := range releasable {
-					var v float64
-					if w > 0 {
-						v = origShare[id] / w * pool
-					} else {
-						v = pool / float64(len(releasable))
-					}
-					share[id] = v
-					released[id] = true
-					// Unlock so the cap check below re-validates against the
-					// SOV ceiling only (released publishers never have
-					// MaxShare re-applied) — it may still bind if this
-					// pro-rata split overshoots this publisher's inventory.
-					delete(locked, id)
-					delete(sovBound, id)
-				}
-				changed = true
-				continue
-			}
-			// No releasable candidate: caps are physically infeasible for
-			// this set. Nothing more to try; let the final step renormalise.
-		}
-
 		if freeTotal > 0 {
 			avail := 1 - lockedTotal
 			for id := range share {
@@ -222,22 +151,13 @@ func allocateWithPasses(cands []Candidate, p AllocParams, passes int) []Allocati
 			}
 		}
 
-		// Concentration and deliverability caps. A released publisher is only
-		// ever checked against its SOV ceiling from here on.
 		for id, v := range share {
 			if _, isLocked := locked[id]; isLocked {
 				continue
 			}
-			sovCap := sovCapOf(id)
-			boundBySOV := released[id] || sovCap <= p.MaxShare
-			cap := sovCap
-			if !boundBySOV {
-				cap = p.MaxShare
-			}
-			if v > cap+1e-12 {
-				share[id] = cap
-				locked[id] = cap
-				sovBound[id] = boundBySOV
+			if v > p.MaxShare+1e-12 {
+				share[id] = p.MaxShare
+				locked[id] = p.MaxShare
 				changed = true
 			}
 		}
@@ -260,70 +180,127 @@ func allocateWithPasses(cands []Candidate, p AllocParams, passes int) []Allocati
 		}
 	}
 
-	// Renormalise so the emitted shares sum to exactly 1.
 	var sum float64
 	for _, v := range share {
 		sum += v
 	}
-	out := make([]Allocation, 0, len(share))
+	if sum <= 0 {
+		return nil
+	}
+
+	survivors := make([]Candidate, 0, len(share))
+	targetShare := make(map[string]float64, len(share))
 	for id, v := range share {
-		c := byID[id]
-		s := v / sum
-		amount := p.TotalUSD * s
+		targetShare[id] = v / sum
+		survivors = append(survivors, byID[id])
+	}
+
+	// The pre-existing, separate "single candidate takes everything" rule:
+	// a lone survivor — whether it started that way or the dust floor
+	// reduced the set to it — takes the whole budget outright, exempt from
+	// every cap including SOV. This is orthogonal to inventory
+	// reconciliation below, which only ever applies when there is more than
+	// one survivor to reconcile shares across.
+	if len(survivors) == 1 {
+		c := survivors[0]
 		var impressions int64
 		if c.EstCPM > 0 {
-			impressions = int64(amount / c.EstCPM * 1000)
+			impressions = int64(p.TotalUSD / c.EstCPM * 1000)
 		}
-		out = append(out, Allocation{
-			PublisherID: id, Share: s, AmountUSD: amount,
+		return []Allocation{{
+			PublisherID: c.PublisherID, Share: 1, AmountUSD: p.TotalUSD,
 			EstCPMUSD: c.EstCPM, EstImpressions: impressions,
-			ExceedsMaxShare: s > p.MaxShare+1e-9,
-		})
+			ExceedsMaxShare: 1 > p.MaxShare+1e-9,
+		}}
 	}
 
-	sortByShareDesc(out)
-	return out
+	return reconcileToInventory(survivors, targetShare, origWeight, p)
 }
 
-// fullyStarvedDeployment handles the case where every candidate's SOV
-// (inventory) ceiling, summed across the whole set, still falls short of
-// TotalUSD: no allocation of any shape can deploy the full budget on this set
-// without buying impressions that don't exist. The SOV cap never yields (see
-// the cap-precedence rule in allocateWithPasses), so the only honest answer
-// is to buy each candidate's full deliverable inventory and leave the rest of
-// the budget undeployed — fit and gamma play no role, because there is no
-// choice left to make: everyone gets their ceiling, full stop.
+// reconcileToInventory turns the loop's fit/MaxShare-driven target shares
+// into final amounts that never exceed any survivor's SOV (inventory)
+// ceiling — by construction, not by convergence. Each survivor starts at
+// min(target, its own ceiling); whatever a clipped survivor couldn't absorb
+// is redistributed pro-rata by original fit^gamma weight among survivors that
+// still have headroom under their own ceiling, re-clamping as it goes, until
+// either the leftover is exhausted or nobody has headroom left — in which
+// case the budget is honestly under-deployed rather than pushing anyone past
+// a physical ceiling that must never yield.
 //
-// ok is false (and the normal algorithm applies) unless every candidate has a
-// computable SOV ceiling and their sum is strictly less than TotalUSD.
-func fullyStarvedDeployment(cands []Candidate, p AllocParams) (out []Allocation, ok bool) {
-	if p.TotalUSD <= 0 {
-		return nil, false
-	}
-	var capacityUSD float64
-	for _, c := range cands {
-		if c.EstCPM <= 0 {
-			return nil, false // no computable ceiling for this one; it can absorb the rest
-		}
-		capacityUSD += float64(c.MonthlyImpressions) * p.SOVCap / 1000 * c.EstCPM
-	}
-	if capacityUSD <= 0 || capacityUSD >= p.TotalUSD {
-		return nil, false
+// This terminates in at most len(survivors) iterations: every iteration
+// either exhausts the leftover (nothing left to place) or newly saturates at
+// least one more survivor (permanently removing it from the headroom set), so
+// there can be at most len(survivors) such saturations before the headroom
+// set is empty and the loop stops regardless of the leftover.
+func reconcileToInventory(survivors []Candidate, targetShare, origWeight map[string]float64, p AllocParams) []Allocation {
+	amount := make(map[string]float64, len(survivors))
+	deliverable := make(map[string]float64, len(survivors))
+	for _, c := range survivors {
+		d := deliverableUSD(c, p)
+		deliverable[c.PublisherID] = d
+		target := targetShare[c.PublisherID] * p.TotalUSD
+		amount[c.PublisherID] = math.Min(target, d)
 	}
 
-	out = make([]Allocation, 0, len(cands))
-	for _, c := range cands {
-		deliverableUSD := float64(c.MonthlyImpressions) * p.SOVCap / 1000 * c.EstCPM
-		s := deliverableUSD / capacityUSD
-		impressions := int64(deliverableUSD / c.EstCPM * 1000)
+	const epsilon = 1e-6
+	for i := 0; i < len(survivors); i++ {
+		var spent float64
+		for _, v := range amount {
+			spent += v
+		}
+		leftover := p.TotalUSD - spent
+		if leftover <= epsilon {
+			break
+		}
+
+		var headroomIDs []string
+		var headroomWeight float64
+		for _, c := range survivors {
+			id := c.PublisherID
+			if h := deliverable[id] - amount[id]; h > epsilon {
+				headroomIDs = append(headroomIDs, id)
+				headroomWeight += origWeight[id]
+			}
+		}
+		if len(headroomIDs) == 0 {
+			break // nobody can absorb more; the shortfall is real
+		}
+		for _, id := range headroomIDs {
+			var add float64
+			if headroomWeight > 0 {
+				add = leftover * origWeight[id] / headroomWeight
+			} else {
+				add = leftover / float64(len(headroomIDs))
+			}
+			amount[id] = math.Min(amount[id]+add, deliverable[id])
+		}
+	}
+
+	var deployed float64
+	for _, v := range amount {
+		deployed += v
+	}
+	if deployed <= 0 {
+		return nil // nothing can be delivered to anyone in this set
+	}
+
+	out := make([]Allocation, 0, len(survivors))
+	for _, c := range survivors {
+		id := c.PublisherID
+		a := amount[id]
+		s := a / deployed
+		var impressions int64
+		if c.EstCPM > 0 {
+			impressions = int64(a / c.EstCPM * 1000)
+		}
 		out = append(out, Allocation{
-			PublisherID: c.PublisherID, Share: s, AmountUSD: deliverableUSD,
+			PublisherID: id, Share: s, AmountUSD: a,
 			EstCPMUSD: c.EstCPM, EstImpressions: impressions,
 			ExceedsMaxShare: s > p.MaxShare+1e-9,
 		})
 	}
 	sortByShareDesc(out)
-	return out, true
+	return out
 }
 
 func sortByShareDesc(out []Allocation) {

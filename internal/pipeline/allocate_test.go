@@ -277,33 +277,34 @@ func TestAllocateComputesDollarsAndImpressions(t *testing.T) {
 	}
 }
 
-// cascadeCandidates is engineered (not the dog-food set) so that a single pass
-// of capping is provably insufficient: A clips hard on its deliverability
-// ceiling (its slice is worth far less than its fit^gamma share implies), and
-// releasing A's excess back to the pool pushes B — which was comfortably under
-// the concentration cap on the first look — over 40%. Gamma is pinned to 1 so
-// the pre-cap shares are exact fractions (5:3:1.4:0.6 of 10 = .50/.30/.14/.06),
-// isolating the cap interaction from gamma's math.
+// cascadeCandidates is engineered so a single pass of the fit/MaxShare/dust
+// loop is provably insufficient, purely from MaxShare + dust-floor
+// interaction (SOV plays no role: every candidate has generous inventory, so
+// reconciliation never touches these numbers -- the loop's own output is the
+// final answer). Gamma is pinned to 1 so the pre-cap shares are exact
+// fractions of 16: A=0.625, B=0.28125, C=0.0625, D=0.03125.
+//
+// Pass 0 locks A at the 0.40 cap and dust-drops D (0.03125 < the 0.05 floor)
+// in the same pass. Only pass 1's redistribution of D's freed share among
+// B and C reveals that B (0.28125 -> 0.490909) now also exceeds 0.40; pass 2
+// stabilizes C. A single pass never reaches that redistribution at all, so
+// A itself -- the very share the single pass just "capped" -- ends up back
+// over 0.40 once the closing renormalisation divides every survivor
+// (including locked A) by a sum that is short of 1.
 func cascadeCandidates() []Candidate {
 	return []Candidate{
-		// EstCPM/MonthlyImpressions chosen so deliverableUSD/TotalUSD == 0.10,
-		// well under both its 0.50 raw share and the 0.40 concentration cap.
-		{PublisherID: "A", Fit: 5, EstCPM: 10, MonthlyImpressions: 666_667},
-		// B, C, D have generous inventory so only the concentration cap (0.40)
-		// can ever bind for them.
-		{PublisherID: "B", Fit: 3, EstCPM: 10, MonthlyImpressions: 10_000_000},
-		{PublisherID: "C", Fit: 1.4, EstCPM: 10, MonthlyImpressions: 10_000_000},
-		{PublisherID: "D", Fit: 0.6, EstCPM: 10, MonthlyImpressions: 10_000_000},
+		{PublisherID: "A", Fit: 10, EstCPM: 10, MonthlyImpressions: 100_000_000},
+		{PublisherID: "B", Fit: 4.5, EstCPM: 10, MonthlyImpressions: 100_000_000},
+		{PublisherID: "C", Fit: 1, EstCPM: 10, MonthlyImpressions: 100_000_000},
+		{PublisherID: "D", Fit: 0.5, EstCPM: 10, MonthlyImpressions: 100_000_000},
 	}
 }
 
-// TestFixedPointLoopIsRequired constructs the textbook cascade the brief
-// warns about: clipping A and releasing its excess back to the pool pushes a
-// previously-fine survivor (B) over the concentration cap. A single pass sees
-// only A over cap; it takes a second pass, after redistribution, to notice B
-// is now over cap too. This test proves the loop is load-bearing, not
+// TestFixedPointLoopIsRequired proves the loop is load-bearing, not
 // decorative: calling the unexported allocateWithPasses with passes=1 must
-// reproduce the violation, and the real pass count must fix it.
+// reproduce a cap violation on cascadeCandidates, and the real pass count
+// must fix it -- with every survivor's SOV ceiling untouched either way,
+// since generous inventory means this is a pure MaxShare/dust-floor test.
 func TestFixedPointLoopIsRequired(t *testing.T) {
 	c := cascadeCandidates()
 	p := AllocParams{Gamma: 1, MaxShare: 0.40, SOVCap: 0.15, MinShare: 0.05,
@@ -410,31 +411,164 @@ func TestAllocateFullyStarvedDeployment(t *testing.T) {
 	}
 }
 
+// fiveCandidates extends the dog-food shortlist with a fifth publisher, for
+// sweep coverage at 5 survivors.
+func fiveCandidates() []Candidate {
+	c := dogFoodCandidates()
+	return append(c, Candidate{PublisherID: "pub_099", Fit: 0.30, EstCPM: 12.0, MonthlyImpressions: 6_000_000})
+}
+
+// zeroCPMCandidates has one candidate with no usable CPM data alongside two
+// normal ones -- its deliverableUSD must come out to exactly zero, not NaN
+// or +Inf, and it must receive nothing rather than crash the reconciliation.
+func zeroCPMCandidates() []Candidate {
+	return []Candidate{
+		{PublisherID: "nocpm", Fit: 0.6, EstCPM: 0, MonthlyImpressions: 5_000_000},
+		{PublisherID: "normal1", Fit: 0.5, EstCPM: 10, MonthlyImpressions: 50_000_000},
+		{PublisherID: "normal2", Fit: 0.3, EstCPM: 10, MonthlyImpressions: 50_000_000},
+	}
+}
+
+// zeroImpressionsCandidates has one candidate with zero monthly inventory
+// alongside two normal ones -- same zero-deliverable requirement as above,
+// via the other input that can produce it.
+func zeroImpressionsCandidates() []Candidate {
+	return []Candidate{
+		{PublisherID: "noimp", Fit: 0.6, EstCPM: 10, MonthlyImpressions: 0},
+		{PublisherID: "normal1", Fit: 0.5, EstCPM: 10, MonthlyImpressions: 50_000_000},
+		{PublisherID: "normal2", Fit: 0.3, EstCPM: 10, MonthlyImpressions: 50_000_000},
+	}
+}
+
 // No allocation may ever exceed its publisher's SOV (inventory) ceiling in
 // impressions, at any budget -- non-starved, at the edge of starvation, or
-// fully starved. This is the one cap the spec says has no exceptions.
-func TestAllocateNeverExceedsSOVCeilingAcrossBudgets(t *testing.T) {
-	cands := dogFoodCandidates()
-	byID := map[string]Candidate{}
-	for _, c := range cands {
-		byID[c.PublisherID] = c
-	}
+// fully starved -- and across varied candidate SETS, not just varied
+// budgets against one fixed set. A fixed-set sweep is exactly what missed
+// the mid-loop starvation regression (TestFullyStarvedMidLoopRegression):
+// the dog-food shortlist's dust floor never fires, so it never exercised the
+// path where a dust-drop shrinks the survivor set's combined capacity. This
+// is the one cap the spec says has no exceptions.
+func TestAllocateNeverExceedsSOVCeilingAcrossBudgetsAndSets(t *testing.T) {
 	base := DefaultAllocParams()
+	cascadeParams := AllocParams{Gamma: 1, MaxShare: 0.40, SOVCap: 0.15, MinShare: 0.05, TotalUSD: 10_000, Days: 30}
+	zeroParams := AllocParams{Gamma: 1.5, MaxShare: 0.40, SOVCap: 0.15, MinShare: 0.05, TotalUSD: 5_000, Days: 30}
 
-	// The shortlist's combined SOV ceiling is ~$159,328: $159k sits just
-	// under it (normal cap-precedence path), $200k and $500k sit over it
-	// (fully-starved path) -- both sides of the boundary are covered.
+	type sweepCase struct {
+		name          string
+		cands         []Candidate
+		p             AllocParams
+		skipCeilingOf string // publisher exempt from the ceiling check (the single-candidate rule)
+	}
+	var cases []sweepCase
+	// The dog-food shortlist's combined SOV ceiling is ~$159,328: $159k sits
+	// just under it (normal path), $200k and $500k sit over it (fully-starved
+	// path) -- both sides of the boundary are covered, at 1/2/3/4/5 survivors.
 	for _, budget := range []float64{25_000, 50_000, 159_000, 200_000, 500_000} {
 		p := base
 		p.TotalUSD = budget
-		got := Allocate(cands, p)
+		full := dogFoodCandidates()
+		cases = append(cases,
+			sweepCase{"1-candidate", full[:1], p, full[0].PublisherID},
+			sweepCase{"2-candidate", full[:2], p, ""},
+			sweepCase{"3-candidate", full[:3], p, ""},
+			sweepCase{"4-candidate", full, p, ""},
+			sweepCase{"5-candidate", fiveCandidates(), p, ""},
+		)
+	}
+	cases = append(cases,
+		sweepCase{"sub-floor cascade", cascadeCandidates(), cascadeParams, ""},
+		sweepCase{"zero-CPM candidate", zeroCPMCandidates(), zeroParams, ""},
+		sweepCase{"zero-impressions candidate", zeroImpressionsCandidates(), zeroParams, ""},
+	)
+
+	for _, tc := range cases {
+		byID := map[string]Candidate{}
+		for _, c := range tc.cands {
+			byID[c.PublisherID] = c
+		}
+		got := Allocate(tc.cands, tc.p)
 		for _, a := range got {
+			if a.PublisherID == tc.skipCeilingOf {
+				continue // the single-candidate rule is exempt from every cap, SOV included
+			}
 			c := byID[a.PublisherID]
-			ceiling := float64(c.MonthlyImpressions) * p.SOVCap
+			ceiling := float64(c.MonthlyImpressions) * tc.p.SOVCap
 			if float64(a.EstImpressions) > ceiling+1 {
-				t.Errorf("budget $%.0f: %s impressions = %d, exceeds SOV ceiling %.0f",
-					budget, a.PublisherID, a.EstImpressions, ceiling)
+				t.Errorf("%s ($%.0f): %s impressions = %d, exceeds SOV ceiling %.0f",
+					tc.name, tc.p.TotalUSD, a.PublisherID, a.EstImpressions, ceiling)
+			}
+			if math.IsNaN(a.Share) || math.IsInf(a.Share, 0) {
+				t.Errorf("%s: %s share = %v, not finite", tc.name, a.PublisherID, a.Share)
 			}
 		}
+	}
+}
+
+// All candidates delivering zero inventory (or having no usable CPM) must
+// return nil -- not a slice of NaN or +Inf shares -- once there is more than
+// one candidate to reconcile. (The single-candidate rule is a separate,
+// unrelated exemption from every cap, SOV included; see
+// TestAllocateSingleCandidateTakesEverything.)
+func TestAllocateAllZeroDeliverableReturnsNil(t *testing.T) {
+	for _, tc := range []struct {
+		name  string
+		cands []Candidate
+	}{
+		{"all zero impressions", []Candidate{
+			{PublisherID: "A", Fit: 0.5, EstCPM: 10, MonthlyImpressions: 0},
+			{PublisherID: "B", Fit: 0.5, EstCPM: 10, MonthlyImpressions: 0},
+		}},
+		{"all zero CPM", []Candidate{
+			{PublisherID: "A", Fit: 0.5, EstCPM: 0, MonthlyImpressions: 5_000_000},
+			{PublisherID: "B", Fit: 0.5, EstCPM: 0, MonthlyImpressions: 5_000_000},
+		}},
+	} {
+		got := Allocate(tc.cands, DefaultAllocParams())
+		if len(got) != 0 {
+			t.Errorf("%s: got %d allocations, want 0 (nil): %+v", tc.name, len(got), got)
+		}
+	}
+}
+
+// TestFullyStarvedMidLoopRegression is the exact counterexample that broke an
+// earlier design (an up-front, one-time starvation check): the candidate set
+// is NOT starved up front ($11,000 combined SOV capacity against a $10,000
+// budget), so the normal path runs. Pass 0 locks A and B at the 0.40 MaxShare
+// cap and dust-drops C (its 0.04 fit gives a raw share under the 0.05 floor)
+// -- and the SURVIVING pair's combined SOV capacity is only $9,000, against
+// the still-unchanged $10,000 budget: the set became starved mid-loop, after
+// a one-time up-front check would already have cleared it. Reconciliation
+// (run unconditionally after the loop finishes, never as a one-time check
+// against the original candidate list) clips both A and B to their $4,500
+// SOV ceilings regardless -- this holds by construction, with no need to
+// re-detect starvation against a shrinking survivor set at all.
+func TestFullyStarvedMidLoopRegression(t *testing.T) {
+	cands := []Candidate{
+		{PublisherID: "A", Fit: .48, EstCPM: 10, MonthlyImpressions: 3_000_000},
+		{PublisherID: "B", Fit: .48, EstCPM: 10, MonthlyImpressions: 3_000_000},
+		{PublisherID: "C", Fit: .04, EstCPM: 10, MonthlyImpressions: 1_333_334},
+	}
+	p := AllocParams{Gamma: 1, MaxShare: 0.40, SOVCap: 0.15, MinShare: 0.05, TotalUSD: 10_000, Days: 30}
+	got := Allocate(cands, p)
+
+	if len(got) != 2 {
+		t.Fatalf("got %d allocations, want 2 (C dust-dropped): %+v", len(got), got)
+	}
+	var deployed float64
+	for _, a := range got {
+		if a.PublisherID != "A" && a.PublisherID != "B" {
+			t.Errorf("unexpected survivor %s", a.PublisherID)
+		}
+		if a.EstImpressions != 450_000 {
+			t.Errorf("%s impressions = %d, want exactly 450,000 (its SOV ceiling)",
+				a.PublisherID, a.EstImpressions)
+		}
+		if math.Abs(a.AmountUSD-4500) > 0.01 {
+			t.Errorf("%s amount = %.2f, want 4500.00", a.PublisherID, a.AmountUSD)
+		}
+		deployed += a.AmountUSD
+	}
+	if math.Abs(deployed-9000) > 0.01 {
+		t.Errorf("deployed = %.2f, want 9000.00 ($1,000 underspend)", deployed)
 	}
 }
