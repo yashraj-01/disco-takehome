@@ -8,7 +8,7 @@ type AdvertiserProfile struct {
 	RawBrief         string   `json:"raw_brief"`
 	PrimaryCategory  string   `json:"primary_category"`
 	Subcategories    []string `json:"subcategories"`
-	PriceTier        string   `json:"price_tier"`  // budget | mid | premium | luxury
+	PriceTier        string   `json:"price_tier"` // budget | mid | premium | luxury
 	EstimatedAOVUSD  int      `json:"estimated_aov_usd"`
 	TargetAgeMin     int      `json:"target_age_min"`
 	TargetAgeMax     int      `json:"target_age_max"`

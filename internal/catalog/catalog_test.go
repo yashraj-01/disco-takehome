@@ -55,9 +55,9 @@ func contains(xs []string, want string) bool {
 
 func TestParseAgeRange(t *testing.T) {
 	for _, tc := range []struct {
-		in       string
-		lo, hi   int
-		wantErr  bool
+		in      string
+		lo, hi  int
+		wantErr bool
 	}{
 		{"18-34", 18, 34, false},
 		{"50-70", 50, 70, false},
