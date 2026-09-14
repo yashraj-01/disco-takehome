@@ -7,13 +7,14 @@ import (
 	"errors"
 	"fmt"
 	"io/fs"
-	"log"
 	"net"
 	"net/http"
 	"strings"
 	"syscall"
 	"time"
 
+	"github.com/yashraj/disco/internal/llm"
+	"github.com/yashraj/disco/internal/logging"
 	"github.com/yashraj/disco/internal/pipeline"
 	"github.com/yashraj/disco/web"
 )
@@ -58,12 +59,18 @@ func New(o pipeline.Options) http.Handler {
 
 		campaign, err := pipeline.Run(ctx, brief, o)
 		if err != nil {
+			// The browser gets this too, but only the person holding the tab
+			// sees it there. A server that 500s silently in its own terminal
+			// is the reason "it just spun forever" bug reports exist.
+			// The hash, not the text: pipeline.Run already logged the text on
+			// its "run started" line, and this must key to that same line.
+			logging.L().Error("run failed", "brief", llm.ShortHash(brief), "err", err)
 			writeErr(w, http.StatusInternalServerError, err.Error())
 			return
 		}
 		w.Header().Set("content-type", "application/json")
 		if err := json.NewEncoder(w).Encode(campaign); err != nil {
-			log.Printf("serve: writing response: %v", err)
+			logging.L().Warn("writing response", "err", err)
 		}
 	})
 

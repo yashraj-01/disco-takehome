@@ -3,6 +3,7 @@ package pipeline
 import (
 	"context"
 
+	"github.com/yashraj/disco/internal/logging"
 	"github.com/yashraj/disco/internal/model"
 )
 
@@ -88,14 +89,23 @@ func Fit(ctx context.Context, d Deps, p model.AdvertiserProfile, scores []model.
 
 	// Enforcement rule 3: a publisher the model omitted is backfilled, in
 	// catalog order, so the ledger always covers every catalog publisher.
+	backfilled := 0
 	for i := range d.Catalog.Publishers {
 		id := d.Catalog.Publishers[i].ID
 		if seen[id] {
 			continue
 		}
+		backfilled++
 		v := model.FitVerdict{PublisherID: id, Verdict: "excluded",
 			Reason: "Not selected; no specific fit identified for this advertiser."}
 		out = append(out, applyGate(v, scoreByID[id].HardGate))
+	}
+	if backfilled > 0 {
+		// Expected, not alarming — the model returns the publishers it has an
+		// opinion about. Logged because a sharp rise here means the ledger is
+		// mostly boilerplate, and nothing else would tell you.
+		logging.L().Debug("publishers backfilled",
+			"count", backfilled, "model_returned", len(d.Catalog.Publishers)-backfilled)
 	}
 
 	return out, nil

@@ -12,6 +12,8 @@ import (
 	"time"
 
 	"google.golang.org/genai"
+
+	"github.com/yashraj/disco/internal/logging"
 )
 
 // GeminiOptions configures the live provider.
@@ -66,6 +68,7 @@ const (
 // failure is a hard error rather than a silently defaulted value.
 func (g *Gemini) Complete(ctx context.Context, r Request) (json.RawMessage, error) {
 	if cached, ok := g.readCache(r); ok {
+		logging.L().Debug("cache hit", "stage", r.Stage)
 		// Record on a cache hit too. The cache and the fixture store answer
 		// different questions — "have I asked this before on this machine" versus
 		// "is this brief part of the committed offline demo" — so a response
@@ -86,17 +89,27 @@ func (g *Gemini) Complete(ctx context.Context, r Request) (json.RawMessage, erro
 	var lastErr error
 
 	for repair := 0; repair < 2; repair++ {
-		out, err := g.generate(ctx, prompt, schema)
+		// INFO, not DEBUG: this is the line that says real quota is about to
+		// be spent. On the free tier that is the scarcest thing in the system,
+		// so it stays visible at the default level.
+		logging.L().Info("calling model", "stage", r.Stage, "model", g.model)
+		start := time.Now()
+
+		out, err := g.generate(ctx, r.Stage, prompt, schema)
 		if err != nil {
 			return nil, err
 		}
 		if err := Validate(r.Schema, out); err == nil {
+			logging.L().Debug("model responded", "stage", r.Stage,
+				"took", logging.Elapsed(time.Since(start)), "bytes", len(out))
 			g.writeCache(r, out)
 			if err := g.record(r, out); err != nil {
 				return nil, err
 			}
 			return out, nil
 		} else {
+			logging.L().Warn("schema rejected, repairing",
+				"stage", r.Stage, "attempt", repair+1, "err", err)
 			lastErr = err
 			prompt = r.Prompt + "\n\nYour previous response was rejected: " + err.Error() +
 				"\nReturn JSON that satisfies the schema exactly."
@@ -120,7 +133,7 @@ func (g *Gemini) record(r Request, out json.RawMessage) error {
 
 // generate issues one request, waiting for a rate-limit slot and backing off on
 // 429 responses.
-func (g *Gemini) generate(ctx context.Context, prompt string, schema *genai.Schema) (json.RawMessage, error) {
+func (g *Gemini) generate(ctx context.Context, stage, prompt string, schema *genai.Schema) (json.RawMessage, error) {
 	for attempt := 0; attempt < maxAttempts; attempt++ {
 		if err := g.limiter.Wait(ctx); err != nil {
 			return nil, err
@@ -142,6 +155,8 @@ func (g *Gemini) generate(ctx context.Context, prompt string, schema *genai.Sche
 			return nil, fmt.Errorf("llm: %w", err)
 		}
 		wait := backoffBase * time.Duration(1<<attempt)
+		logging.L().Warn("rate limited, backing off", "stage", stage,
+			"attempt", attempt+1, "of", maxAttempts, "wait", wait)
 		timer := time.NewTimer(wait)
 		select {
 		case <-timer.C:

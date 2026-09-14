@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/yashraj/disco/internal/logging"
 	"github.com/yashraj/disco/internal/model"
 )
 
@@ -77,6 +78,7 @@ func Personas(ctx context.Context, d Deps, p model.AdvertiserProfile, verdicts [
 	// Backfill deterministically instead, in catalog order, and say plainly in
 	// the rationale that the pick was added — the output must never imply the
 	// model endorsed a persona it did not choose.
+	chosen := len(kept)
 	for i := range d.Catalog.Personas {
 		if len(kept) >= minPersonas {
 			break
@@ -92,6 +94,13 @@ func Personas(ctx context.Context, d Deps, p model.AdvertiserProfile, verdicts [
 				"vague for the model to segment on, so this is a placeholder, not a " +
 				"judgement that this persona fits.",
 		})
+	}
+
+	if len(kept) > chosen {
+		// WARN because it changes what the advertiser is shown: creatives will
+		// be written for personas the model did not actually pick.
+		logging.L().Warn("personas backfilled",
+			"model_chose", chosen, "added", len(kept)-chosen, "minimum", minPersonas)
 	}
 
 	// Structurally impossible with the supplied catalog of ten, but a catalog

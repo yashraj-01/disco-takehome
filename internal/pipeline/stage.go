@@ -4,9 +4,11 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"github.com/yashraj/disco/internal/catalog"
 	"github.com/yashraj/disco/internal/llm"
+	"github.com/yashraj/disco/internal/logging"
 	"github.com/yashraj/disco/prompts"
 )
 
@@ -34,12 +36,18 @@ func callStage[T any](ctx context.Context, d Deps, stage, fixtureKey string, inp
 	}
 	prompt := text + "\n\n## Input\n\n```json\n" + string(payload) + "\n```\n"
 
+	started := time.Now()
 	out, err := d.Provider.Complete(ctx, llm.Request{
 		Stage: stage, Prompt: prompt, Schema: schema, FixtureKey: fixtureKey,
 	})
 	if err != nil {
 		return zero, err
 	}
+	// DEBUG, not INFO: four of these per run is useful when you are asking
+	// where the time went, and noise when you are not. The provider already
+	// logs the one thing that always matters — whether the call was live.
+	logging.L().Debug("stage served", "stage", stage,
+		"took", logging.Elapsed(time.Since(started)), "bytes", len(out))
 	if err := llm.Validate(schema, out); err != nil {
 		return zero, fmt.Errorf("pipeline: %s: %w", stage, err)
 	}

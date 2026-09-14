@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"log/slog"
 	"os"
 	"path/filepath"
 	"strings"
@@ -16,6 +17,7 @@ import (
 	"github.com/yashraj/disco/internal/dashboard"
 	"github.com/yashraj/disco/internal/eval"
 	"github.com/yashraj/disco/internal/llm"
+	"github.com/yashraj/disco/internal/logging"
 	"github.com/yashraj/disco/internal/measure"
 	"github.com/yashraj/disco/internal/pipeline"
 	"github.com/yashraj/disco/internal/render"
@@ -74,6 +76,35 @@ type commonFlags struct {
 	record     bool
 	noCache    bool
 	params     pipeline.AllocParams
+	verbosity  *verbosity
+}
+
+// verbosity is the -v/-q pair. It is separate from commonFlags because
+// "disco metrics" takes no provider or catalog flags at all but still wants a
+// log level.
+type verbosity struct{ verbose, quiet bool }
+
+func registerVerbosity(fs *flag.FlagSet) *verbosity {
+	v := &verbosity{}
+	fs.BoolVar(&v.verbose, "v", false,
+		"log every stage, cache hit and fixture replay (debug level)")
+	fs.BoolVar(&v.quiet, "q", false,
+		"log only warnings and errors")
+	return v
+}
+
+// install sets the process logger, and is the only place in the binary that
+// does. Logs go to stderr: stdout carries the campaign config, and
+// "disco run --json | jq" breaks the moment a log line lands in that stream.
+func (v *verbosity) install() {
+	level := slog.LevelInfo
+	switch {
+	case v.quiet:
+		level = slog.LevelWarn
+	case v.verbose:
+		level = slog.LevelDebug
+	}
+	logging.Set(logging.New(os.Stderr, level))
 }
 
 // registerCommon adds the flags shared by every subcommand to fs. Allocation
@@ -82,6 +113,7 @@ type commonFlags struct {
 // defaults can never drift apart.
 func registerCommon(fs *flag.FlagSet) *commonFlags {
 	c := &commonFlags{params: pipeline.DefaultAllocParams()}
+	c.verbosity = registerVerbosity(fs)
 	fs.StringVar(&c.provider, "provider", "auto",
 		"which LLM backend to use: \"auto\" replays a recorded brief and calls the live "+
 			"model for anything new when GEMINI_API_KEY is set, \"fixture\" replays only "+
@@ -115,6 +147,8 @@ func buildProvider(c *commonFlags) (llm.Provider, *catalog.Catalog, error) {
 	if err != nil {
 		return nil, nil, err
 	}
+	logging.L().Debug("catalog loaded", "dir", c.dataDir,
+		"publishers", len(cat.Publishers), "personas", len(cat.Personas))
 
 	newGemini := func() (llm.Provider, error) {
 		opts := llm.GeminiOptions{
@@ -139,6 +173,11 @@ func buildProvider(c *commonFlags) (llm.Provider, *catalog.Catalog, error) {
 		// works exactly as before.
 		fixture := llm.NewFixture(c.fixtureDir)
 		if os.Getenv("GEMINI_API_KEY") == "" {
+			// WARN, because it silently narrows what the binary can do: any
+			// brief that is not already recorded will fail, and the reason is
+			// a missing environment variable nothing else mentions.
+			logging.L().Warn("no API key, replay only",
+				"env", "GEMINI_API_KEY", "fixtures", c.fixtureDir)
 			return llm.NewChain(fixture, nil), cat, nil
 		}
 		// Anything drafted live is recorded, so the same brief is free next time.
@@ -147,13 +186,23 @@ func buildProvider(c *commonFlags) (llm.Provider, *catalog.Catalog, error) {
 		live, err := newGemini()
 		c.record = saved
 		if err != nil {
+			// This branch used to swallow the error entirely. It is a
+			// degradation the user did not ask for and cannot otherwise see.
+			logging.L().Warn("live provider unavailable", "replay_only", true, "err", err)
 			return llm.NewChain(fixture, nil), cat, nil
 		}
+		logging.L().Info("provider ready", "mode", "auto",
+			"replay", c.fixtureDir, "live", c.model, "rpm", c.rpm)
 		return llm.NewChain(fixture, live), cat, nil
 	case "fixture":
+		logging.L().Info("provider ready", "mode", "fixture", "replay", c.fixtureDir)
 		return llm.NewChain(llm.NewFixture(c.fixtureDir), nil), cat, nil
 	case "gemini":
 		p, err := newGemini()
+		if err == nil {
+			logging.L().Info("provider ready", "mode", "gemini",
+				"model", c.model, "rpm", c.rpm, "record", c.record)
+		}
 		return p, cat, err
 	default:
 		return nil, nil, fmt.Errorf("unknown provider %q: want auto, fixture or gemini", c.provider)
@@ -171,6 +220,7 @@ func cmdRun(args []string) error {
 	if err := fs.Parse(args); err != nil {
 		return err
 	}
+	common.verbosity.install()
 
 	brief := strings.TrimSpace(strings.Join(fs.Args(), " "))
 	if brief == "" {
@@ -208,6 +258,7 @@ func cmdServe(args []string) error {
 	if err := fs.Parse(args); err != nil {
 		return err
 	}
+	common.verbosity.install()
 
 	provider, cat, err := buildProvider(common)
 	if err != nil {
@@ -231,9 +282,11 @@ func cmdMetrics(args []string) error {
 	addr := fs.String("addr", ":8090", "listen address")
 	latestPath := fs.String("latest", "evals/measurements/latest.json", "path to the measurement report written by \"disco measure\"")
 	baselinePath := fs.String("baseline", "evals/measurements/baseline.json", "path to the committed baseline report to diff against")
+	v := registerVerbosity(fs)
 	if err := fs.Parse(args); err != nil {
 		return err
 	}
+	v.install()
 	return dashboard.Run(*addr, *latestPath, *baselinePath)
 }
 
@@ -251,6 +304,7 @@ func cmdEval(args []string) error {
 	if err := fs.Parse(args); err != nil {
 		return err
 	}
+	common.verbosity.install()
 
 	briefs, err := eval.LoadBriefs(*briefsPath)
 	if err != nil {
@@ -304,6 +358,7 @@ func cmdMeasure(args []string) error {
 	if err := fs.Parse(args); err != nil {
 		return err
 	}
+	common.verbosity.install()
 
 	briefs, err := eval.LoadBriefs(*briefsPath)
 	if err != nil {
@@ -317,11 +372,13 @@ func cmdMeasure(args []string) error {
 
 	opts := pipeline.Options{Provider: provider, Catalog: cat, Params: common.params, Model: common.model}
 	campaigns := make([]measure.Campaign, 0, len(briefs))
-	for _, b := range briefs {
+	for i, b := range briefs {
 		c, err := pipeline.Run(context.Background(), b.Text, opts)
 		if err != nil {
 			return fmt.Errorf("brief %d: %w", b.N, err)
 		}
+		logging.L().Info("brief drafted", "n", b.N, "progress",
+			fmt.Sprintf("%d/%d", i+1, len(briefs)), "status", c.Status)
 		campaigns = append(campaigns, measure.Campaign{BriefN: b.N, Campaign: c})
 	}
 
@@ -330,6 +387,7 @@ func cmdMeasure(args []string) error {
 	// reports itself as skipped (see its doc comment) rather than failing
 	// the whole measure run, so a fresh checkout still measures the other
 	// three metrics offline.
+	logging.L().Info("measuring", "campaigns", len(campaigns), "metrics", 4)
 	attribution, err := measure.PersonaAttribution(context.Background(), provider, campaigns, cat)
 	if err != nil {
 		return fmt.Errorf("measure: %w", err)

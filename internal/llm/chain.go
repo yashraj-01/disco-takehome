@@ -5,6 +5,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+
+	"github.com/yashraj/disco/internal/logging"
 )
 
 // Chain tries a primary provider and falls back to a second one when the
@@ -45,6 +47,7 @@ func (c *Chain) Name() string {
 func (c *Chain) Complete(ctx context.Context, r Request) (json.RawMessage, error) {
 	out, err := c.primary.Complete(ctx, r)
 	if err == nil {
+		logging.L().Debug("replayed from "+c.primary.Name(), "stage", r.Stage)
 		return out, nil
 	}
 	var miss *ErrNoFixture
@@ -52,10 +55,14 @@ func (c *Chain) Complete(ctx context.Context, r Request) (json.RawMessage, error
 		return nil, err // a real failure, not an absence
 	}
 	if c.fallback == nil {
+		logging.L().Error("no fixture, no live model", "stage", r.Stage)
 		return nil, fmt.Errorf(
 			"%w\n\nThis brief has no recorded response. The offline demo covers the "+
 				"15 briefs in evals/briefs.txt; set GEMINI_API_KEY to draft campaigns "+
 				"for any brief", err)
 	}
+	// Worth INFO: it is the moment an unrecorded brief stops being free.
+	logging.L().Info("fixture miss, going live",
+		"stage", r.Stage, "fallback", c.fallback.Name())
 	return c.fallback.Complete(ctx, r)
 }

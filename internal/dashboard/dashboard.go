@@ -25,7 +25,6 @@ package dashboard
 import (
 	"fmt"
 	"html/template"
-	"log"
 	"math"
 	"net"
 	"net/http"
@@ -38,6 +37,7 @@ import (
 
 	"encoding/json"
 
+	"github.com/yashraj/disco/internal/logging"
 	"github.com/yashraj/disco/internal/measure"
 	"github.com/yashraj/disco/internal/server"
 	"github.com/yashraj/disco/web"
@@ -533,7 +533,7 @@ func New(latestPath, baselinePath string) http.Handler {
 		data := buildPageData(latestPath, baselinePath, time.Now())
 		w.Header().Set("content-type", "text/html; charset=utf-8")
 		if err := page.Execute(w, data); err != nil {
-			log.Printf("dashboard: rendering page: %v", err)
+			logging.L().Warn("rendering page", "err", err)
 		}
 	})
 	return mux
