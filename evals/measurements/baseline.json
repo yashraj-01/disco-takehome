@@ -1,0 +1,203 @@
+{
+  "generated_at": "2026-09-14T16:18:29.460677Z",
+  "provider": "fixture",
+  "model": "gemini-3.5-flash-lite",
+  "metrics": {
+    "reason_consistency": {
+      "name": "reason_consistency",
+      "summary": "503 citations from 300 ledger entries (20 skipped as code-generated gate reasons): 86.5% consistent, 9.4% contradicted, 4.0% weak, 132 unscored (considered verdict). 2.1% of checkable reasons cited nothing in the phrase map (vague).",
+      "values": {
+        "consistency_rate": 0.8652291105121294,
+        "contradiction_rate": 0.09433962264150944,
+        "vagueness_rate": 0.02142857142857143
+      },
+      "counts": {
+        "citations": 503,
+        "consistent": 321,
+        "contradicted": 35,
+        "entries": 300,
+        "skipped_generated": 20,
+        "unscored": 132,
+        "vague_reasons": 6,
+        "weak": 15
+      },
+      "findings": [
+        {
+          "brief_n": 1,
+          "publisher_id": "pub_003",
+          "detail": "verdict=excluded cited AgeOverlap=0.91 (matched \"age\") — \"Excluded due to hard gate category_mismatch; wellness services and fitness classes do not sell consumer packaged pet food.\""
+        },
+        {
+          "brief_n": 1,
+          "publisher_id": "pub_007",
+          "detail": "verdict=recommended cited ValuesMatch=0.00 (matched \"eco\") — \"Top recommendation due to high subscription overlap and health-conscious pet owners who readily pay a premium for specialized care.\""
+        },
+        {
+          "brief_n": 2,
+          "publisher_id": "pub_006",
+          "detail": "verdict=recommended cited ValuesMatch=0.00 (matched \"values\") — \"Inclusive sizing and a representation-focused audience provide a strong values and category alignment for women's apparel.\""
+        },
+        {
+          "brief_n": 2,
+          "publisher_id": "pub_019",
+          "detail": "verdict=excluded cited AgeOverlap=0.81 (matched \"younger\") — \"Haircare and beauty DTC category distance combined with a younger 18-38 skew make it an unfit pairing for apparel.\""
+        },
+        {
+          "brief_n": 2,
+          "publisher_id": "pub_020",
+          "detail": "verdict=excluded cited AgeOverlap=1.00 (matched \"age\") — \"Excluded due to category_mismatch; functional beverages and gut health products do not overlap with apparel.\""
+        },
+        {
+          "brief_n": 3,
+          "publisher_id": "pub_002",
+          "detail": "verdict=excluded cited AgeOverlap=1.00 (matched \"age\") — \"Excluded due to category_mismatch (apparel vs beverages).\""
+        },
+        {
+          "brief_n": 3,
+          "publisher_id": "pub_009",
+          "detail": "verdict=excluded cited AgeOverlap=0.84 (matched \"age\") — \"Excluded due to category_mismatch (pet vs beverages).\""
+        },
+        {
+          "brief_n": 3,
+          "publisher_id": "pub_010",
+          "detail": "verdict=excluded cited AgeOverlap=0.84 (matched \"age\") — \"Excluded due to category_mismatch (apparel vs beverages).\""
+        },
+        {
+          "brief_n": 3,
+          "publisher_id": "pub_011",
+          "detail": "verdict=excluded cited AgeOverlap=0.86 (matched \"age\") — \"Excluded due to category_mismatch (home textiles vs beverages).\""
+        },
+        {
+          "brief_n": 3,
+          "publisher_id": "pub_013",
+          "detail": "verdict=excluded cited AgeOverlap=0.82 (matched \"age\") — \"Excluded due to category_mismatch (beauty vs beverages).\""
+        },
+        {
+          "brief_n": 3,
+          "publisher_id": "pub_014",
+          "detail": "verdict=excluded cited AgeOverlap=0.86 (matched \"age\") — \"Excluded due to category_mismatch (cookware vs beverages).\""
+        },
+        {
+          "brief_n": 3,
+          "publisher_id": "pub_016",
+          "detail": "verdict=excluded cited AgeOverlap=0.86 (matched \"age\") — \"Excluded due to category_mismatch (apparel vs beverages).\""
+        },
+        {
+          "brief_n": 3,
+          "publisher_id": "pub_017",
+          "detail": "verdict=excluded cited AgeOverlap=1.00 (matched \"age\") — \"Excluded due to category_mismatch (apparel vs beverages).\""
+        },
+        {
+          "brief_n": 3,
+          "publisher_id": "pub_018",
+          "detail": "verdict=excluded cited AgeOverlap=1.00 (matched \"age\") — \"Excluded due to category_mismatch (pet supplies vs beverages).\""
+        },
+        {
+          "brief_n": 3,
+          "publisher_id": "pub_019",
+          "detail": "verdict=excluded cited AgeOverlap=0.86 (matched \"age\") — \"Excluded due to category_mismatch (beauty vs beverages).\""
+        },
+        {
+          "brief_n": 4,
+          "publisher_id": "pub_020",
+          "detail": "verdict=excluded cited AgeOverlap=0.86 (matched \"age\") — \"Excluded due to category mismatch in functional beverages.\""
+        },
+        {
+          "brief_n": 5,
+          "publisher_id": "pub_004",
+          "detail": "verdict=excluded cited AgeOverlap=1.00 (matched \"age\") — \"Audience age skew is 45-65 and apparel-focused, which presents a category and messaging distance from a general wellness service.\""
+        },
+        {
+          "brief_n": 5,
+          "publisher_id": "pub_017",
+          "detail": "verdict=excluded cited AgeOverlap=1.00 (matched \"age\") — \"Tech-adjacent activewear and shoe publisher; despite good age overlap, the apparel category does not fit wellness services.\""
+        },
+        {
+          "brief_n": 5,
+          "publisher_id": "pub_020",
+          "detail": "verdict=excluded cited AgeOverlap=0.86 (matched \"age\") — \"Excluded due to hard gate category_mismatch: functional beverages and gut health products do not align with wellness services.\""
+        },
+        {
+          "brief_n": 6,
+          "publisher_id": "pub_016",
+          "detail": "verdict=recommended cited ValuesMatch=0.00 (matched \"sustainab\") — \"Professional women valuing sustainability and high-performance claims represent a strong audience for premium technical outerwear despite th…\""
+        },
+        {
+          "brief_n": 6,
+          "publisher_id": "pub_017",
+          "detail": "verdict=recommended cited ValuesMatch=0.00 (matched \"sustainab\") — \"Tech-adjacent urban professionals with a balanced gender split, 25-45 age range, and an appreciation for comfort and sustainability make an …\""
+        },
+        {
+          "brief_n": 6,
+          "publisher_id": "pub_020",
+          "detail": "verdict=excluded cited AgeOverlap=0.86 (matched \"age\") — \"category_mismatch — functional beverages and gut health drinks do not align with apparel and outdoor gear.\""
+        },
+        {
+          "brief_n": 8,
+          "publisher_id": "pub_014",
+          "detail": "verdict=excluded cited GenderFit=0.96 (matched \"women\") — \"Excluded due to hard gate: category_mismatch. Kitchenware and home goods do not overlap with the women and family category.\""
+        },
+        {
+          "brief_n": 8,
+          "publisher_id": "pub_020",
+          "detail": "verdict=excluded cited AgeOverlap=0.86 (matched \"age\") — \"Excluded due to hard gate: category_mismatch. Functional beverages do not match the advertiser's brief.\""
+        },
+        {
+          "brief_n": 9,
+          "publisher_id": "pub_011",
+          "detail": "verdict=recommended cited AOVAlignment=0.00 (matched \"aov\") — \"Northbed shares a home category focus and reaches design-conscious consumers who frequently cross-shop premium home and wellness products, d…\""
+        },
+        {
+          "brief_n": 9,
+          "publisher_id": "pub_020",
+          "detail": "verdict=excluded cited AgeOverlap=0.86 (matched \"age\") — \"Excluded due to hard gate category_mismatch; functional beverages and gut health drinks are outside the home cleaning supplies category.\""
+        },
+        {
+          "brief_n": 10,
+          "publisher_id": "pub_004",
+          "detail": "verdict=recommended cited AOVAlignment=0.00 (matched \"aov\") — \"Older affluent female audience with high income and appreciation for quality craftsmanship, well-suited for high-AOV luxury handbag messagin…\""
+        },
+        {
+          "brief_n": 10,
+          "publisher_id": "pub_005",
+          "detail": "verdict=recommended cited AOVAlignment=0.00 (matched \"aov\") — \"Highest AOV apparel publisher in the catalog catering to older, affluent women who appreciate conservative, high-end craftsmanship and timel…\""
+        },
+        {
+          "brief_n": 10,
+          "publisher_id": "pub_008",
+          "detail": "verdict=excluded cited GenderFit=0.82 (matched \"her \") — \"Category mismatch: organic grocery and pantry items do not match luxury leather accessories.\""
+        },
+        {
+          "brief_n": 10,
+          "publisher_id": "pub_008",
+          "detail": "verdict=excluded cited IncomeTier=1.00 (matched \"luxury\") — \"Category mismatch: organic grocery and pantry items do not match luxury leather accessories.\""
+        },
+        {
+          "brief_n": 10,
+          "publisher_id": "pub_016",
+          "detail": "verdict=recommended cited AOVAlignment=0.00 (matched \"premium pricing\") — \"Professional women's footwear and apparel publisher with a high-income audience, strong sustainability and craftsmanship values, and premium…\""
+        },
+        {
+          "brief_n": 10,
+          "publisher_id": "pub_016",
+          "detail": "verdict=recommended cited ValuesMatch=0.00 (matched \"sustainab\") — \"Professional women's footwear and apparel publisher with a high-income audience, strong sustainability and craftsmanship values, and premium…\""
+        },
+        {
+          "brief_n": 12,
+          "publisher_id": "pub_020",
+          "detail": "verdict=excluded cited AgeOverlap=1.00 (matched \"age\") — \"Excluded due to category mismatch in functional beverages.\""
+        },
+        {
+          "brief_n": 13,
+          "publisher_id": "pub_008",
+          "detail": "verdict=recommended cited AOVAlignment=0.13 (matched \"aov\") — \"Organic and natural grocery shoppers heavily index on health, wellness, and clean ingredients, providing an engaged audience for budget-frie…\""
+        },
+        {
+          "brief_n": 14,
+          "publisher_id": "pub_014",
+          "detail": "verdict=recommended cited ValuesMatch=0.00 (matched \"sustainab\") — \"Exceptional fit in sustainability-motivated home goods with an AOV of $198 that nearly matches the $200 target, targeting high-income design…\""
+        }
+      ]
+    }
+  }
+}

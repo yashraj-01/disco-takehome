@@ -3,3 +3,4 @@
 *.exe
 .env
 docs/superpowers/
+evals/measurements/latest.json

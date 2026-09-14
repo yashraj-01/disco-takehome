@@ -4,14 +4,18 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"flag"
 	"fmt"
 	"os"
+	"path/filepath"
 	"strings"
+	"time"
 
 	"github.com/yashraj/disco/internal/catalog"
 	"github.com/yashraj/disco/internal/eval"
 	"github.com/yashraj/disco/internal/llm"
+	"github.com/yashraj/disco/internal/measure"
 	"github.com/yashraj/disco/internal/pipeline"
 	"github.com/yashraj/disco/internal/render"
 	"github.com/yashraj/disco/internal/server"
@@ -22,6 +26,7 @@ const usage = `disco — draft an ad campaign from a one-line brief
   disco run "<brief>"   generate a campaign
   disco serve           browse results at http://localhost:8080
   disco eval            run every example brief and check the invariants
+  disco measure         run every example brief and measure reason quality
 
 Run "disco <command> -h" for the flags of a command.
 `
@@ -39,6 +44,8 @@ func main() {
 		err = cmdServe(os.Args[2:])
 	case "eval":
 		err = cmdEval(os.Args[2:])
+	case "measure":
+		err = cmdMeasure(os.Args[2:])
 	case "-h", "--help", "help":
 		fmt.Print(usage)
 		return
@@ -253,4 +260,102 @@ func cmdEval(args []string) error {
 		return fmt.Errorf("%d of %d briefs failed", failed, len(results))
 	}
 	return nil
+}
+
+// cmdMeasure runs every example brief through the pipeline and computes
+// quality metrics that eval's binary invariants do not capture — measurement
+// rather than a gate. It writes the report as JSON, prints it as text, and
+// (unless --save-baseline is set) diffs it against the last saved baseline
+// when one exists.
+func cmdMeasure(args []string) error {
+	fs := flag.NewFlagSet("measure", flag.ExitOnError)
+	fs.Usage = func() {
+		fmt.Fprintf(fs.Output(), "usage: disco measure [flags]\n\nrun every example brief and measure reason quality\n\nflags:\n")
+		fs.PrintDefaults()
+	}
+	common := registerCommon(fs)
+	briefsPath := fs.String("briefs", "evals/briefs.txt", "file of numbered example briefs")
+	outPath := fs.String("out", "evals/measurements/latest.json", "path to write this run's measurement report as JSON")
+	baselinePath := fs.String("baseline", "evals/measurements/baseline.json", "path to the committed baseline report to diff against")
+	saveBaseline := fs.Bool("save-baseline", false, "write this run's report to --baseline instead of --out, replacing the committed baseline")
+	if err := fs.Parse(args); err != nil {
+		return err
+	}
+
+	briefs, err := eval.LoadBriefs(*briefsPath)
+	if err != nil {
+		return err
+	}
+
+	provider, cat, err := buildProvider(common)
+	if err != nil {
+		return err
+	}
+
+	opts := pipeline.Options{Provider: provider, Catalog: cat, Params: common.params, Model: common.model}
+	campaigns := make([]measure.Campaign, 0, len(briefs))
+	for _, b := range briefs {
+		c, err := pipeline.Run(context.Background(), b.Text, opts)
+		if err != nil {
+			return fmt.Errorf("brief %d: %w", b.N, err)
+		}
+		campaigns = append(campaigns, measure.Campaign{BriefN: b.N, Campaign: c})
+	}
+
+	report := measure.Report{
+		GeneratedAt: time.Now().UTC(),
+		Provider:    provider.Name(),
+		Model:       common.model,
+		Metrics: map[string]measure.Metric{
+			"reason_consistency": measure.ReasonConsistency(campaigns),
+		},
+	}
+
+	dest := *outPath
+	if *saveBaseline {
+		dest = *baselinePath
+	}
+	if err := os.MkdirAll(filepath.Dir(dest), 0o755); err != nil {
+		return fmt.Errorf("measure: %w", err)
+	}
+	f, err := os.Create(dest)
+	if err != nil {
+		return fmt.Errorf("measure: %w", err)
+	}
+	if err := report.WriteJSON(f); err != nil {
+		f.Close()
+		return fmt.Errorf("measure: %w", err)
+	}
+	if err := f.Close(); err != nil {
+		return fmt.Errorf("measure: %w", err)
+	}
+	fmt.Fprintf(os.Stdout, "wrote %s\n", dest)
+
+	if err := report.WriteText(os.Stdout); err != nil {
+		return err
+	}
+
+	if !*saveBaseline {
+		if baseline, err := loadMeasurementReport(*baselinePath); err == nil {
+			fmt.Fprintln(os.Stdout, "\n--- diff vs baseline ---")
+			fmt.Fprint(os.Stdout, measure.Diff(report, baseline))
+		}
+	}
+	return nil
+}
+
+// loadMeasurementReport reads a previously written measure.Report from
+// path. A missing or unreadable baseline is not an error the caller should
+// surface: it just means there is nothing yet to diff against.
+func loadMeasurementReport(path string) (measure.Report, error) {
+	f, err := os.Open(path)
+	if err != nil {
+		return measure.Report{}, err
+	}
+	defer f.Close()
+	var r measure.Report
+	if err := json.NewDecoder(f).Decode(&r); err != nil {
+		return measure.Report{}, err
+	}
+	return r, nil
 }
