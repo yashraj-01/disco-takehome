@@ -3,12 +3,22 @@
 <title>disco — metrics</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
-  :root { --bg:#fbfbf9; --fg:#1c1c1a; --mut:#6b6b66; --line:#e3e3dd; --accent:#1a5c3a; --warn:#8a5a12; --bad:#8a2a2a; }
-  @media (prefers-color-scheme:dark){ :root{ --bg:#16161a; --fg:#e8e8e4; --mut:#9a9a94; --line:#2e2e34; --accent:#6fbf90; --warn:#d8a94a; --bad:#e08080; } }
+  :root {
+    --bg:#fbfbf9; --fg:#1c1c1a; --mut:#6b6b66; --line:#e3e3dd;
+    --accent:#1a5c3a; --warn:#8a5a12; --bad:#8a2a2a;
+    --c-good:#1f8a5b; --c-warn:#d98c0a; --c-crit:#c2453a;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --bg:#16161a; --fg:#e8e8e4; --mut:#9a9a94; --line:#2e2e34;
+      --accent:#6fbf90; --warn:#d8a94a; --bad:#e08080;
+      --c-good:#2f9a70; --c-warn:#ad8129; --c-crit:#c74a63;
+    }
+  }
   *{box-sizing:border-box}
   body{margin:0;padding:24px 16px;background:var(--bg);color:var(--fg);
        font:15px/1.5 ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
-  main{max-width:900px;margin:0 auto}
+  main{max-width:960px;margin:0 auto}
   h1{font-size:20px;margin:0 0 4px} .sub{color:var(--mut);margin:0 0 20px}
   code,pre{font:12px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace}
   code{background:color-mix(in srgb,var(--fg) 8%,transparent);padding:1px 5px;border-radius:4px}
@@ -29,16 +39,44 @@
   .interp{color:var(--mut);font-size:13px;margin:0 0 10px}
   .summary{margin:0 0 10px;font-size:14px}
   .delta.good{color:var(--accent)} .delta.bad{color:var(--bad)} .delta.neutral{color:var(--mut)}
-  .bar{display:flex;align-items:center;gap:8px;margin:5px 0;font-size:13px}
-  .bar .label{width:130px;flex:0 0 auto;overflow-wrap:anywhere;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
-  .barwrap{flex:1 1 auto;background:color-mix(in srgb,var(--line) 70%,transparent);border-radius:4px;height:10px;overflow:hidden;min-width:60px}
-  .barfill{height:100%;background:var(--accent)}
-  .bar .val{width:52px;flex:0 0 auto;text-align:right;font-variant-numeric:tabular-nums}
   .rankshift{color:var(--mut)}
   details summary{cursor:pointer;color:var(--mut);font-size:13px;margin-top:8px}
   .why{color:var(--mut);font-size:13px;white-space:normal;overflow-wrap:anywhere}
   .footer{color:var(--mut);font-size:12px;margin-top:32px}
-  @media(max-width:480px){ .bar .label{width:82px} .card{padding:10px} }
+
+  /* -- chart chrome, shared by every metric's figure -- */
+  figure{margin:0} figcaption{color:var(--mut);font-size:12px;margin-top:6px}
+  .chart-scroll{overflow-x:auto}
+  svg{max-width:100%;height:auto;display:block}
+  svg text{fill:var(--fg)}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--mut);margin:8px 0 0}
+  .legend .swatch{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;vertical-align:middle}
+
+  /* -- reason_consistency: stacked bar + coverage figure -- */
+  .coverage{margin-top:12px;padding-top:10px;border-top:1px solid var(--line);display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+  .coverage .value{font-size:22px;font-weight:600}
+  .coverage .note{color:var(--mut);font-size:12.5px;flex:1 1 240px}
+
+  /* -- scoring_ablation: two small-multiple bar charts -- */
+  .chart-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:8px}
+  @media(max-width:700px){.chart-row{grid-template-columns:1fr}}
+  .chart-row h4{margin:0 0 6px;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--mut);font-weight:600}
+
+  /* -- persona_attribution: hero number + paired bars -- */
+  .hero-wrap{display:flex;gap:28px;flex-wrap:wrap;align-items:flex-start;margin-bottom:8px}
+  .hero{min-width:110px}
+  .hero-value{font-size:48px;font-weight:600;line-height:1;font-variant-numeric:normal}
+  .hero-label{color:var(--mut);font-size:13px;margin-top:4px}
+  .pairedbars{flex:1 1 220px;min-width:220px}
+  .pairedbars + .pairedbars{border-top:1px solid var(--line);margin-top:10px;padding-top:10px}
+  .pairedbars h4{margin:0 0 6px;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--mut);font-weight:600}
+  .pbar-row{display:flex;align-items:center;gap:8px;margin:6px 0;font-size:13px}
+  .pbar-row .plabel{width:170px;flex:0 0 auto;color:var(--mut);font-size:12px;overflow-wrap:anywhere}
+  .pbar-track{flex:1 1 auto;background:color-mix(in srgb,var(--line) 70%,transparent);border-radius:4px;height:12px;overflow:hidden;min-width:50px}
+  .pbar-fill{height:100%;background:var(--fg);border-radius:4px}
+  .pbar-row .pval{width:52px;flex:0 0 auto;text-align:right;font-variant-numeric:tabular-nums}
+
+  @media(max-width:480px){ .card{padding:10px} .pbar-row .plabel{width:104px} .hero-value{font-size:40px} }
 </style>
 <main>
   <h1>disco — metrics</h1>
@@ -63,37 +101,146 @@
   {{end}}
 
   {{range .Metrics}}
+  {{$m := .}}
   <div class="card">
     <h3>{{.Name}}</h3>
     {{if .Interpretation}}<p class="interp">{{.Interpretation}}</p>
     {{else}}<p class="interp">No hand-written interpretation recorded yet for this metric — read the summary and values below directly.</p>{{end}}
     {{if .Summary}}<p class="summary">{{.Summary}}</p>{{end}}
 
-    {{if .Ablation}}
-    <div class="overflow">
-      {{range .Ablation}}
-      <div class="bar">
-        <span class="label">{{.SubScore}}</span>
-        <span class="barwrap"><span class="barfill" style="{{.BarStyle}}"></span></span>
-        <span class="val">{{.Top5Pct}}</span>
+    {{if .ReasonBar}}
+    <figure>
+      <div class="chart-scroll">
+        <svg viewBox="0 0 1000 170" role="img" aria-label="{{.ReasonBar.AriaLabel}}" style="min-width:340px">
+          <defs>
+            <clipPath id="reasonbar-clip">
+              <rect x="0" y="70" width="1000" height="40" rx="6" ry="6"/>
+            </clipPath>
+          </defs>
+          <g clip-path="url(#reasonbar-clip)">
+            {{range .ReasonBar.Segments}}
+            <rect x="{{.X}}" y="70" width="{{.W}}" height="40" fill="var({{.ColorVar}})"><title>{{.Label}}: {{.Count}} ({{.PctLabel}})</title></rect>
+            {{end}}
+          </g>
+          {{range .ReasonBar.Segments}}
+            {{if .Inside}}
+            <text x="{{.CenterX}}" y="96" text-anchor="middle" font-size="24" fill="#fff">{{.Label}} {{.Count}}</text>
+            {{else if .Status}}
+            <line x1="{{.CenterX}}" y1="70" x2="{{.CenterX}}" y2="{{.LeaderMid}}" stroke="var(--line)" stroke-width="1.5"/>
+            <text x="{{.CenterX}}" y="{{.LeaderTop}}" text-anchor="middle" font-size="20">{{.Label}} {{.Count}}</text>
+            {{else}}
+            <text x="{{.CenterX}}" y="130" text-anchor="middle" font-size="20" fill="var(--mut)">{{.Label}} {{.Count}} ({{.PctLabel}})</text>
+            {{end}}
+          {{end}}
+        </svg>
       </div>
-      {{end}}
+      <figcaption>Part-to-whole across {{.ReasonBar.Total}} citations, by disposition. Hover (or focus) a segment for its exact count — colour: consistent = good, weak = warning, contradicted = critical; abstentions and unscored are neutral grey, not a status.</figcaption>
+    </figure>
+    <div class="coverage">
+      <div class="value">{{.ReasonBar.CoverageRatePct}}</div>
+      <div class="note"><strong>coverage_rate</strong> — the share of citations this metric could adjudicate at all. It is not a quality score: the rest are deliberate abstentions where the referent was ambiguous.</div>
     </div>
-    <p class="rankshift">bars show top5_change_rate (share of briefs where zeroing this sub-score changed the top 5); mean_rank_shift per sub-score is in the table below</p>
+    {{end}}
+
+    {{if .AblationChart}}
+    <div class="chart-row">
+      <figure>
+        <h4>top5_change_rate</h4>
+        <div class="chart-scroll">
+          <svg viewBox="0 0 1000 {{.AblationChart.Height}}" role="img" aria-label="{{.AblationChart.Top5AriaLabel}}" style="min-width:300px">
+            {{range .AblationChart.Rows}}
+            <text x="0" y="{{.Y}}" dy="0.35em" font-size="22">{{.SubScore}}</text>
+            <rect x="250" y="{{.Y}}" width="{{.Top5W}}" height="22" rx="4" fill="var(--fg)" transform="translate(0,-11)"><title>{{.SubScore}}: {{.Top5Label}}</title></rect>
+            <text x="818" y="{{.Y}}" dy="0.35em" font-size="20" fill="var(--mut)">{{.Top5Label}}</text>
+            {{end}}
+          </svg>
+        </div>
+      </figure>
+      <figure>
+        <h4>mean_rank_shift</h4>
+        <div class="chart-scroll">
+          <svg viewBox="0 0 1000 {{.AblationChart.Height}}" role="img" aria-label="{{.AblationChart.RankAriaLabel}}" style="min-width:300px">
+            {{range .AblationChart.Rows}}
+            <text x="0" y="{{.Y}}" dy="0.35em" font-size="22">{{.SubScore}}</text>
+            <rect x="250" y="{{.Y}}" width="{{.RankW}}" height="22" rx="4" fill="var(--mut)" transform="translate(0,-11)"><title>{{.SubScore}}: {{.RankLabel}}</title></rect>
+            <text x="818" y="{{.Y}}" dy="0.35em" font-size="20" fill="var(--mut)">{{.RankLabel}}</text>
+            {{end}}
+          </svg>
+        </div>
+      </figure>
+    </div>
+    <p class="rankshift">Same sub-score order in both charts (sorted by top5_change_rate, descending) so disagreement between the two measures is visible at a glance. <code>mean_ungated_per_brief</code> = {{.AblationChart.MeanUngated}} — hard gates eliminate most of the catalog before any weight applies.</p>
+    {{end}}
+
+    {{if .Distinctiveness}}
+    <figure>
+      <div class="chart-scroll">
+        <svg viewBox="0 0 1200 {{.Distinctiveness.Height}}" role="img" aria-label="{{.Distinctiveness.AriaLabel}}" style="min-width:420px">
+          {{range .Distinctiveness.Ticks}}
+          <line x1="{{.X}}" y1="10" x2="{{.X}}" y2="{{$m.Distinctiveness.Height}}" stroke="var(--line)" stroke-width="1"/>
+          <text x="{{.X}}" y="12" font-size="18" fill="var(--mut)" text-anchor="middle">{{.Label}}</text>
+          {{end}}
+          <line x1="{{.Distinctiveness.MeanCopyX}}" y1="10" x2="{{.Distinctiveness.MeanCopyX}}" y2="{{.Distinctiveness.Height}}" stroke="var(--fg)" stroke-width="1.5" opacity="0.55"/>
+          <text x="{{.Distinctiveness.MeanCopyX}}" y="12" font-size="18" text-anchor="middle">{{.Distinctiveness.MeanCopyLabel}}</text>
+          {{range .Distinctiveness.Points}}
+          <text x="0" y="{{.Y}}" dy="0.35em" font-size="20" fill="var(--mut)">{{.Label}}</text>
+          <circle cx="{{.LeverX}}" cy="{{.Y}}" r="6" fill="var(--mut)" opacity="0.55" stroke="var(--bg)" stroke-width="2"><title>lever overlap: {{.LeverLabel}}</title></circle>
+          <circle cx="{{.CopyX}}" cy="{{.Y}}" r="7" fill="var(--fg)" stroke="var(--bg)" stroke-width="2"><title>copy overlap: {{.CopyLabel}}</title></circle>
+          <text x="{{.CopyX}}" y="{{.Y}}" dx="14" dy="0.35em" font-size="18" fill="var(--mut)">{{.CopyLabel}}</text>
+          {{end}}
+        </svg>
+      </div>
+      <figcaption>Worst pairs by copy overlap, on a 0–1 axis. The gap between the two dots per row is the story: copy can share product nouns while the targeting (lever overlap) stays distinct.</figcaption>
+    </figure>
+    <div class="legend">
+      <span><span class="swatch" style="background:var(--fg)"></span>copy overlap</span>
+      <span><span class="swatch" style="background:var(--mut);opacity:.55"></span>lever overlap</span>
+    </div>
+    {{end}}
+
+    {{if .Attribution}}
+    <div class="hero-wrap">
+      <div class="hero">
+        <div class="hero-value">{{.Attribution.AccuracyPct}}</div>
+        <div class="hero-label">attribution accuracy</div>
+      </div>
+      <div class="pairedbars">
+        <h4>lift over chance</h4>
+        {{range .Attribution.Bars}}
+        <div class="pbar-row" title="{{.Label}}: {{.ValueLabel}}">
+          <span class="plabel">{{.Label}}</span>
+          <span class="pbar-track"><span class="pbar-fill" style="width:{{.WidthPct}}%"></span></span>
+          <span class="pval">{{.ValueLabel}}</span>
+        </div>
+        {{end}}
+        <h4>judge-validity check</h4>
+        {{range .Attribution.ConfBars}}
+        <div class="pbar-row" title="{{.Label}}: {{.ValueLabel}}">
+          <span class="plabel">{{.Label}}</span>
+          <span class="pbar-track"><span class="pbar-fill" style="width:{{.WidthPct}}%"></span></span>
+          <span class="pval">{{.ValueLabel}}</span>
+        </div>
+        {{end}}
+      </div>
+    </div>
+    <p class="rankshift">A perfect accuracy shows the copy is targeted, not that it is excellent — there is no headroom left to demonstrate quality above chance.</p>
     {{end}}
 
     {{if .ExtraValues}}
-    <div class="overflow"><table>
-      <tr><th>value</th><th class="n">current</th>{{if $.HasBaseline}}<th class="n">baseline</th><th class="n">&Delta;</th>{{end}}</tr>
-      {{range .ExtraValues}}
-      <tr><td>{{.Key}}</td><td class="n">{{.Value}}</td>
-        {{if $.HasBaseline}}
-          {{if .HasBase}}<td class="n">{{.Base}}</td><td class="n delta {{.ColorClass}}">{{.Arrow}} {{.Delta}}</td>
-          {{else}}<td class="n">—</td><td class="n">—</td>{{end}}
+    <details>
+      <summary>values as table</summary>
+      <div class="overflow"><table>
+        <tr><th>value</th><th class="n">current</th>{{if $.HasBaseline}}<th class="n">baseline</th><th class="n">&Delta;</th>{{end}}</tr>
+        {{range .ExtraValues}}
+        <tr><td>{{.Key}}</td><td class="n">{{.Value}}</td>
+          {{if $.HasBaseline}}
+            {{if .HasBase}}<td class="n">{{.Base}}</td><td class="n delta {{.ColorClass}}">{{.Arrow}} {{.Delta}}</td>
+            {{else}}<td class="n">—</td><td class="n">—</td>{{end}}
+          {{end}}
+        </tr>
         {{end}}
-      </tr>
-      {{end}}
-    </table></div>
+      </table></div>
+    </details>
     {{end}}
 
     {{if .Findings}}
