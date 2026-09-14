@@ -1,0 +1,124 @@
+{
+  "verdicts": [
+    {
+      "publisher_id": "pub_001",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Swiftcart has high impulse-friendly grocery traffic and a close AOV ($28), but lacks the specific science-backed superfood positioning required for makhana."
+    },
+    {
+      "publisher_id": "pub_002",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category_mismatch: apparel activewear is far from grocery superfood snacks."
+    },
+    {
+      "publisher_id": "pub_003",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category_mismatch: wellness services and fitness classes do not sell physical food products."
+    },
+    {
+      "publisher_id": "pub_004",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category_mismatch: apparel for older women has no category overlap and an overly mature age skew."
+    },
+    {
+      "publisher_id": "pub_005",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category_mismatch: classic workwear apparel with high AOV ($128) does not match grocery snack buyers."
+    },
+    {
+      "publisher_id": "pub_006",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category_mismatch: plus-size apparel and intimates are outside the grocery and healthy snack category."
+    },
+    {
+      "publisher_id": "pub_007",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category_mismatch: pet food and supplies target animals, not human superfood snacks."
+    },
+    {
+      "publisher_id": "pub_008",
+      "verdict": "recommended",
+      "rank": 2,
+      "reason": "Pantrygood features values-driven shoppers who are highly responsive to clean-ingredient and wellness claims, aligning well with a healthy superfood snack brand despite a slightly higher AOV ($86)."
+    },
+    {
+      "publisher_id": "pub_009",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category_mismatch: pet products have no category overlap with human food brands."
+    },
+    {
+      "publisher_id": "pub_010",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category_mismatch: socks and basics apparel do not match grocery or snack offerings."
+    },
+    {
+      "publisher_id": "pub_011",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Northbed shares design-conscious urban buyers with high wellness cross-sell, but home textiles and high AOV ($164) make it less efficient than grocery placements for a $10k budget."
+    },
+    {
+      "publisher_id": "pub_012",
+      "verdict": "recommended",
+      "rank": 1,
+      "reason": "Daily Form is an ideal fit; its science-forward wellness audience actively seeks out substantiated health benefits, closely matching the target demographic and $30 AOV point."
+    },
+    {
+      "publisher_id": "pub_013",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category_mismatch: beauty and skincare products do not overlap with edible superfood snacks."
+    },
+    {
+      "publisher_id": "pub_014",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Hearthstone Goods attracts sustainability-motivated kitchen buyers, but their $198 AOV cookware catalog is too far from a $30 snack purchase."
+    },
+    {
+      "publisher_id": "pub_015",
+      "verdict": "recommended",
+      "rank": 4,
+      "reason": "Kitchenly reaches food-interested households at scale with a $74 AOV, providing strong cross-category potential for a healthy snack brand seeking broad exposure."
+    },
+    {
+      "publisher_id": "pub_016",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category_mismatch: sustainable women's shoes are not food or grocery items."
+    },
+    {
+      "publisher_id": "pub_017",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category_mismatch: athletic footwear has no category intersection with foxnuts or snacks."
+    },
+    {
+      "publisher_id": "pub_018",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category_mismatch: pet subscription crates target dogs and cats rather than human grocery buyers."
+    },
+    {
+      "publisher_id": "pub_019",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to category_mismatch: personalized haircare is a beauty DTC vertical unrelated to superfood snacks."
+    },
+    {
+      "publisher_id": "pub_020",
+      "verdict": "recommended",
+      "rank": 3,
+      "reason": "Pop & Sip reaches health-curious, indulgence-seeking beverage consumers who represent a direct audience overlap for premium, health-conscious grocery snacks."
+    }
+  ]
+}

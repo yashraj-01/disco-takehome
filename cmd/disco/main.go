@@ -83,7 +83,9 @@ func registerCommon(fs *flag.FlagSet) *commonFlags {
 	fs.BoolVar(&c.record, "record", false, "with --provider=gemini, also write each live response to --fixtures so it can be replayed later with --provider=fixture")
 	fs.BoolVar(&c.noCache, "no-cache", false, "with --provider=gemini, bypass the on-disk response cache")
 
-	fs.Float64Var(&c.params.TotalUSD, "budget", c.params.TotalUSD, "total campaign budget in USD to split across publishers")
+	fs.Float64Var(&c.params.TotalUSD, "budget", c.params.TotalUSD,
+		"total campaign budget in USD to split across publishers; 0 (the default) "+
+			"sizes the campaign to what the recommended publishers can actually deliver")
 	fs.IntVar(&c.params.Days, "days", c.params.Days, "flight length in days")
 	fs.Float64Var(&c.params.Gamma, "gamma", c.params.Gamma,
 		"how strongly budget concentrates on the best-fit publishers; 1.0 splits budget in direct proportion to fit, higher values concentrate more of it on the top publishers")

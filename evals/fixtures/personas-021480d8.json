@@ -1,0 +1,57 @@
+{
+  "selected": [
+    {
+      "persona_id": "persona_001",
+      "rationale": "The Wellness Optimizer tracks supplements and workouts, and responds well to science-backed claims and ingredient transparency. This directly aligns with the advertiser's value of being science-backed and offering a healthy superfood snack.",
+      "primary_publishers": [
+        "pub_012",
+        "pub_008"
+      ]
+    },
+    {
+      "persona_id": "persona_003",
+      "rationale": "The Gen Z Aesthete discovers through TikTok and Instagram, caring about packaging and brand voice, which provides a strong creative angle for a modern direct-to-consumer superfood snack targeting younger demographics.",
+      "primary_publishers": [
+        "pub_020"
+      ]
+    },
+    {
+      "persona_id": "persona_009",
+      "rationale": "The Fitness Enthusiast works out frequently and buys functional snacks and recovery products, making them a natural fit for a healthy makhana superfood snack that matches their performance-oriented lifestyle.",
+      "primary_publishers": [
+        "pub_012",
+        "pub_020"
+      ]
+    }
+  ],
+  "rejected": [
+    {
+      "persona_id": "persona_002",
+      "reason": "The Busy Parent loves subscriptions, whereas the advertiser's business model is explicitly a one-off purchase."
+    },
+    {
+      "persona_id": "persona_004",
+      "reason": "The Pet Parent focuses entirely on pet food and supplies, which has no overlap with human grocery snacks."
+    },
+    {
+      "persona_id": "persona_005",
+      "reason": "The Affluent Classic is disinterested in influencer positioning and trendy language, whereas a modern DTC superfood snack relies heavily on contemporary digital marketing."
+    },
+    {
+      "persona_id": "persona_006",
+      "reason": "The Sustainability Buyer focuses strictly on environmental footprints and supply chain transparency, whereas the advertiser's core differentiator is science-backed health rather than eco-certifications."
+    },
+    {
+      "persona_id": "persona_007",
+      "reason": "The Convenience-First Millennial relies on instant delivery and heavy subscription services, contradicting the advertiser's one-off purchase model."
+    },
+    {
+      "persona_id": "persona_008",
+      "reason": "The Value-Conscious Shopper requires discount-forward messaging and bundle offers, whereas the advertiser is positioned as a mid-tier superfood brand."
+    },
+    {
+      "persona_id": "persona_010",
+      "reason": "The Gifter is explicitly disinterested in self-care-only framing and relies on gifting holidays, whereas a daily grocery snack is an everyday self-purchase."
+    }
+  ]
+}

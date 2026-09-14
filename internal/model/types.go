@@ -122,6 +122,12 @@ type AllocationEntry struct {
 
 // Budget is the total and its split.
 type Budget struct {
+	// RecommendedUSD is the most this publisher set can absorb in one flight —
+	// every publisher at its inventory ceiling. When the advertiser named no
+	// budget this is also TotalUSD; when they named one it is the comparison
+	// that says whether they over- or under-reached.
+	RecommendedUSD float64 `json:"recommended_usd,omitempty"`
+
 	TotalUSD    float64           `json:"total_usd"`
 	DailyCapUSD float64           `json:"daily_cap_usd"`
 	Allocation  []AllocationEntry `json:"allocation"`

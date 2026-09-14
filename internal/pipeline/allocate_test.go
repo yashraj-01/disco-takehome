@@ -793,3 +793,100 @@ func TestAllocateSuppressesZeroDollarRows(t *testing.T) {
 		}
 	}
 }
+
+// The recommended budget is the point where the FIRST publisher clips, not the
+// sum of all capacity. Corruption it catches: summing capacities instead, which
+// on this set returns $159,328 rather than ~$29,454.
+func TestRecommendedBudgetIsTheUndistortedCeiling(t *testing.T) {
+	p := DefaultAllocParams()
+	got := RecommendedBudgetUSD(dogFoodCandidates(), p)
+
+	if math.Abs(got-29454) > 60 {
+		t.Errorf("recommended = %.0f, want ~29454 (pub_007 binds: $11,143 capacity at a 37.8%% share)", got)
+	}
+	var capacitySum float64
+	for _, c := range dogFoodCandidates() {
+		capacitySum += deliverableUSD(c, p)
+	}
+	if math.Abs(got-capacitySum) < 1000 {
+		t.Errorf("recommended %.0f looks like the capacity sum %.0f — that shape is dictated by inventory, not fit", got, capacitySum)
+	}
+}
+
+// At the recommended budget nothing clips, so the split is pure fit^gamma and
+// no allocation is flagged as exceeding the concentration guideline.
+func TestNothingClipsAtTheRecommendedBudget(t *testing.T) {
+	p := DefaultAllocParams()
+	p.TotalUSD = RecommendedBudgetUSD(dogFoodCandidates(), p)
+	got := Allocate(dogFoodCandidates(), p)
+
+	if len(got) != 4 {
+		t.Fatalf("got %d allocations, want all 4 funded", len(got))
+	}
+	for _, a := range got {
+		c := candidateByID(t, a.PublisherID)
+		if ceiling := deliverableUSD(c, p); a.AmountUSD > ceiling+0.01 {
+			t.Errorf("%s spends %.2f against a %.2f ceiling", a.PublisherID, a.AmountUSD, ceiling)
+		}
+	}
+	// Shares must match the uncapped fit^gamma proportions.
+	for _, tc := range []struct {
+		id   string
+		want float64
+	}{{"pub_007", 0.37832}, {"pub_009", 0.29399}, {"pub_008", 0.18427}, {"pub_018", 0.14342}} {
+		if g := shareOf(t, got, tc.id); math.Abs(g-tc.want) > 0.0005 {
+			t.Errorf("%s share = %.5f, want the undistorted %.5f", tc.id, g, tc.want)
+		}
+	}
+}
+
+// A zero budget means "not stated" and must size the campaign to the
+// recommendation, not to an arbitrary constant. Corruption: reinstating a
+// hardcoded default inside Allocate.
+func TestZeroBudgetSizesToTheRecommendation(t *testing.T) {
+	p := DefaultAllocParams()
+	if p.TotalUSD != 0 {
+		t.Fatalf("DefaultAllocParams().TotalUSD = %v, want 0 (no budget stated)", p.TotalUSD)
+	}
+	got := Allocate(dogFoodCandidates(), p)
+
+	var deployed float64
+	for _, a := range got {
+		deployed += a.AmountUSD
+	}
+	want := RecommendedBudgetUSD(dogFoodCandidates(), p)
+	if math.Abs(deployed-want) > 1 {
+		t.Errorf("deployed %.2f on a zero budget, want the recommendation %.2f", deployed, want)
+	}
+}
+
+func TestRecommendedBudgetDegenerateInputs(t *testing.T) {
+	p := DefaultAllocParams()
+	if got := RecommendedBudgetUSD(nil, p); got != 0 {
+		t.Errorf("no candidates → %v, want 0", got)
+	}
+	zeroCap := []Candidate{{PublisherID: "a", Fit: 0.9, EstCPM: 0, MonthlyImpressions: 0}}
+	if got := RecommendedBudgetUSD(zeroCap, p); got != 0 {
+		t.Errorf("no deliverable inventory → %v, want 0", got)
+	}
+	// All-zero fit falls back to an even split, so the smallest capacity binds.
+	even := []Candidate{
+		{PublisherID: "a", Fit: 0, EstCPM: 10, MonthlyImpressions: 1_000_000},
+		{PublisherID: "b", Fit: 0, EstCPM: 10, MonthlyImpressions: 2_000_000},
+	}
+	// smallest capacity = 1M*0.15/1000*10 = 1500; two candidates → 3000
+	if got := RecommendedBudgetUSD(even, p); math.Abs(got-3000) > 1 {
+		t.Errorf("all-zero fit → %v, want 3000", got)
+	}
+}
+
+func candidateByID(t *testing.T, id string) Candidate {
+	t.Helper()
+	for _, c := range dogFoodCandidates() {
+		if c.PublisherID == id {
+			return c
+		}
+	}
+	t.Fatalf("no candidate %s", id)
+	return Candidate{}
+}

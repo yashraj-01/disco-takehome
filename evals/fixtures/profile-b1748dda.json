@@ -1,0 +1,32 @@
+{
+  "primary_category": "groceries",
+  "subcategories": [
+    "snacks",
+    "healthy_snacks",
+    "superfood"
+  ],
+  "price_tier": "mid",
+  "estimated_aov_usd": 25,
+  "target_age_min": 20,
+  "target_age_max": 45,
+  "target_gender_skew": "balanced",
+  "values": [
+    "science_backed",
+    "convenience"
+  ],
+  "business_model": "one_off",
+  "is_consumer_dtc": true,
+  "confidence": "low",
+  "assumptions": [
+    "Assumed price tier is mid based on typical packaged healthy snack pricing",
+    "Assumed estimated AOV of $25 for a multi-pack or bundle purchase online",
+    "Assumed target age range based on health-conscious snack demographic",
+    "Assumed business model is one_off e-commerce purchase"
+  ],
+  "missing_signals": [
+    "Exact pricing and product packaging sizes",
+    "Target audience demographic data",
+    "Subscription availability versus single-purchase",
+    "Primary sales channel (DTC website vs retail)"
+  ]
+}

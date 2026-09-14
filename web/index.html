@@ -25,6 +25,8 @@
   .ready{background:color-mix(in srgb,var(--accent) 15%,transparent)}
   .needs_clarification{background:color-mix(in srgb,var(--warn) 18%,transparent)}
   .no_recommendation{background:color-mix(in srgb,var(--bad) 18%,transparent)}
+  .rec{margin:6px 0 10px;padding:9px 12px;border-left:3px solid var(--accent);background:color-mix(in srgb,var(--accent) 10%,transparent);border-radius:0 4px 4px 0;font-size:13px}
+  .rec b{font-variant-numeric:tabular-nums}
   .unalloc{padding:10px 14px;border-radius:8px;margin:0 0 14px;font-weight:600;
            background:color-mix(in srgb,var(--warn) 22%,transparent);color:var(--fg);
            border:1px solid color-mix(in srgb,var(--warn) 50%,transparent)}
@@ -122,6 +124,9 @@ function render(c) {
     // unallocated_usd is a headline product signal — budget the recommended
     // publishers physically cannot absorb this flight — not a footnote, so
     // it renders as its own prominent banner and only when non-zero.
+    const rec = c.budget.recommended_usd
+      ? `<div class="rec">Recommended budget <b>${usd(c.budget.recommended_usd)}</b> — the most these publishers absorb before inventory limits start redirecting spend.</div>`
+      : "";
     const unalloc = c.budget.unallocated_usd
       ? `<div class="unalloc">${usd(c.budget.unallocated_usd)} of this budget could not be
          allocated — the recommended publishers' combined inventory cannot absorb it

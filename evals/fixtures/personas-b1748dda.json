@@ -1,0 +1,55 @@
+{
+  "selected": [
+    {
+      "persona_id": "persona_001",
+      "rationale": "The Wellness Optimizer matches the advertiser's value of science-backed products and aligns with the mid-high income wellness audience on Daily Form.",
+      "primary_publishers": [
+        "pub_012"
+      ]
+    },
+    {
+      "persona_id": "persona_007",
+      "rationale": "The Convenience-First Millennial matches the impulse-friendly, rapid-fulfillment nature of Swiftcart and aligns with the snack category.",
+      "primary_publishers": [
+        "pub_001"
+      ]
+    },
+    {
+      "persona_id": "persona_009",
+      "rationale": "The Fitness Enthusiast seeks performance and functional snacks, fitting the healthy superfood positioning and overlapping with the health-curious beverage audience.",
+      "primary_publishers": [
+        "pub_020"
+      ]
+    }
+  ],
+  "rejected": [
+    {
+      "persona_id": "persona_002",
+      "reason": "The Busy Parent prioritizes family-oriented bulk purchases and subscriptions, whereas this advertiser features a one-off business model and a mid-tier $25 AOV."
+    },
+    {
+      "persona_id": "persona_003",
+      "reason": "The Gen Z Aesthete focuses heavily on beauty, fashion, and social-first visual identity rather than functional grocery superfoods."
+    },
+    {
+      "persona_id": "persona_004",
+      "reason": "The Pet Parent focuses strictly on animal food and supplies, which does not align with a human-grade grocery superfood brand."
+    },
+    {
+      "persona_id": "persona_005",
+      "reason": "The Affluent Classic is older and shops primarily for classic apparel, home goods, and travel with a much higher AOV than the brand's $25 target."
+    },
+    {
+      "persona_id": "persona_006",
+      "reason": "The Sustainability Buyer demands deep supply chain transparency and specific eco-certifications, whereas the brief focuses on science-backed convenience rather than explicit eco claims."
+    },
+    {
+      "persona_id": "persona_008",
+      "reason": "The Value-Conscious Shopper is discount-focused and comparison-driven, which clashes with the mid-tier specialty positioning of a healthy superfood snack."
+    },
+    {
+      "persona_id": "persona_010",
+      "reason": "The Gifter looks specifically for premium presentation and gift sets, whereas this product is an everyday grocery snack rather than a gifting item."
+    }
+  ]
+}

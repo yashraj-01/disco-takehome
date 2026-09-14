@@ -147,16 +147,27 @@ func Build(in BuildInput) model.Campaign {
 		weightedCPM += a.Share * a.EstCPMUSD
 		deployed += a.AmountUSD
 	}
-	c.Budget.TotalUSD = in.Params.TotalUSD
+	// The most this publisher set can absorb in one flight. Always reported:
+	// as the budget itself when the advertiser named none, and as a comparison
+	// when they did.
+	c.Budget.RecommendedUSD = RecommendedBudgetUSD(cands, in.Params)
+
+	total := in.Params.TotalUSD
+	if total <= 0 {
+		// No budget stated — size the campaign to deliverable inventory rather
+		// than to an invented constant.
+		total = c.Budget.RecommendedUSD
+	}
+	c.Budget.TotalUSD = total
 	if in.Params.Days > 0 {
-		c.Budget.DailyCapUSD = in.Params.TotalUSD / float64(in.Params.Days)
+		c.Budget.DailyCapUSD = total / float64(in.Params.Days)
 	}
 	// AmountUSD is read straight off each Allocation above, never derived as
 	// TotalUSD*Share: when the recommended set's deliverable inventory falls
 	// short of the budget, AmountUSD sums to less than TotalUSD even though
 	// Share still sums to 1.0 over what was actually deployed. UnallocatedUSD
 	// is exactly that shortfall.
-	c.Budget.UnallocatedUSD = clampUnallocated(in.Params.TotalUSD - deployed)
+	c.Budget.UnallocatedUSD = clampUnallocated(total - deployed)
 
 	c.Bid = buildBid(in.Profile, weightedCPM)
 	c.Targeting = buildTargeting(in, c.Budget.Allocation)

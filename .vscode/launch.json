@@ -1,0 +1,93 @@
+{
+  // The disco binary takes a subcommand: run | serve | eval.
+  // The subcommand and its flags go in "args" — that is the piece the
+  // original config was missing, which is why it did nothing useful.
+  "version": "0.2.0",
+  "configurations": [
+    {
+      // Web UI. Prints the port it actually bound; if 8080 is taken it falls
+      // back to a free one, so watch the Debug Console for the real URL.
+      "name": "disco serve",
+      "type": "go",
+      "request": "launch",
+      "mode": "auto",
+      "program": "${workspaceFolder}/cmd/disco",
+      "cwd": "${workspaceFolder}",
+      "envFile": "${workspaceFolder}/.env",
+      "args": ["serve"]
+    },
+    {
+      // Asks for a brief when you hit F5. Leave the box empty to accept the
+      // dog-food default.
+      "name": "disco run — ask me for a brief",
+      "type": "go",
+      "request": "launch",
+      "mode": "auto",
+      "program": "${workspaceFolder}/cmd/disco",
+      "cwd": "${workspaceFolder}",
+      "envFile": "${workspaceFolder}/.env",
+      "args": ["run", "${input:brief}"]
+    },
+    {
+      // A recorded brief — replays from fixtures, spends no quota.
+      "name": "disco run — recorded brief",
+      "type": "go",
+      "request": "launch",
+      "mode": "auto",
+      "program": "${workspaceFolder}/cmd/disco",
+      "cwd": "${workspaceFolder}",
+      "envFile": "${workspaceFolder}/.env",
+      "args": [
+        "run",
+        "A sustainable activewear brand for women. Made from recycled ocean plastic. Price point sits between Lululemon and Girlfriend Collective."
+      ]
+    },
+    {
+      // The $500k case: one publisher qualifies, its inventory caps out, and
+      // the config reports the budget that physically cannot be spent.
+      "name": "disco run — inventory-starved budget",
+      "type": "go",
+      "request": "launch",
+      "mode": "auto",
+      "program": "${workspaceFolder}/cmd/disco",
+      "cwd": "${workspaceFolder}",
+      "envFile": "${workspaceFolder}/.env",
+      "args": [
+        "run",
+        "--budget=500000",
+        "We sell premium dog food for senior dogs, targeting owners who care about joint health and longevity. Grain-free, vet-formulated, subscription-based."
+      ]
+    },
+    {
+      // All 15 example briefs. Pinned to --provider=fixture so a stray key in
+      // .env cannot turn a hermetic check into a live run that spends quota.
+      "name": "disco eval — offline",
+      "type": "go",
+      "request": "launch",
+      "mode": "auto",
+      "program": "${workspaceFolder}/cmd/disco",
+      "cwd": "${workspaceFolder}",
+      "args": ["eval", "--provider=fixture"]
+    },
+    {
+      // Re-record every fixture against the live model. Costs real quota —
+      // the free tier is small and per-model.
+      "name": "disco eval — record fixtures (spends quota)",
+      "type": "go",
+      "request": "launch",
+      "mode": "auto",
+      "program": "${workspaceFolder}/cmd/disco",
+      "cwd": "${workspaceFolder}",
+      "envFile": "${workspaceFolder}/.env",
+      "args": ["eval", "--provider=gemini", "--record"]
+    }
+  ],
+  "inputs": [
+    {
+      "id": "brief",
+      "type": "promptString",
+      "description": "Describe the business in a sentence",
+      "default": "We sell premium dog food for senior dogs, targeting owners who care about joint health and longevity. Grain-free, vet-formulated, subscription-based."
+    }
+  ]
+}

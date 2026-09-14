@@ -17,9 +17,83 @@ type AllocParams struct {
 }
 
 // DefaultAllocParams returns the documented defaults.
+//
+// TotalUSD is deliberately zero, meaning "no budget stated". A fixed default
+// would be an invented number presented as a recommendation; instead the
+// allocator sizes the campaign to what the recommended publishers can actually
+// deliver. See RecommendedBudgetUSD.
 func DefaultAllocParams() AllocParams {
 	return AllocParams{Gamma: 1.5, MaxShare: 0.40, SOVCap: 0.15, MinShare: 0.05,
-		TotalUSD: 25_000, Days: 30}
+		TotalUSD: 0, Days: 30}
+}
+
+// RecommendedBudgetUSD is the largest budget this candidate set can absorb
+// without distorting the allocation — the point at which the first publisher
+// hits its inventory ceiling.
+//
+// It is deliberately NOT the sum of every publisher's capacity. Spending that
+// much forces every publisher to its ceiling, so the split ends up dictated by
+// which publisher happens to hold the most inventory rather than which one fits
+// the advertiser best. On the supplied catalog a pet brief tops out around
+// $29,000 because the best-fitting publisher is also the smallest; beyond that
+// its share clips and money redistributes toward worse-fitting inventory.
+//
+// Below this figure every dollar lands where fit says it should. Above it the
+// campaign still runs — the allocator redistributes, and reports any genuinely
+// unspendable remainder as unallocated — but the shape is no longer the one
+// scoring asked for. That is the number worth telling an advertiser.
+func RecommendedBudgetUSD(cands []Candidate, p AllocParams) float64 {
+	type live struct {
+		capacity float64
+		weight   float64
+	}
+	var xs []live
+	var totalWeight float64
+	for _, c := range cands {
+		capacity := deliverableUSD(c, p)
+		if capacity <= 0 {
+			continue // cannot take money at all; it is dropped from the split
+		}
+		fit := c.Fit
+		if !isFinite(fit) || fit < 0 {
+			fit = 0
+		}
+		w := math.Pow(fit, p.Gamma)
+		if !isFinite(w) || w < 0 {
+			w = 0
+		}
+		xs = append(xs, live{capacity: capacity, weight: w})
+		totalWeight += w
+	}
+	if len(xs) == 0 {
+		return 0
+	}
+	if totalWeight <= 0 {
+		// No candidate has any fit: an even split, so the smallest capacity
+		// binds at n times itself.
+		smallest := xs[0].capacity
+		for _, x := range xs[1:] {
+			if x.capacity < smallest {
+				smallest = x.capacity
+			}
+		}
+		return smallest * float64(len(xs))
+	}
+
+	best := math.Inf(1)
+	for _, x := range xs {
+		share := x.weight / totalWeight
+		if share <= 0 {
+			continue // takes nothing, so it never binds
+		}
+		if ceiling := x.capacity / share; ceiling < best {
+			best = ceiling
+		}
+	}
+	if !isFinite(best) || best < 0 {
+		return 0
+	}
+	return best
 }
 
 // Candidate is one publisher competing for budget. Fit is the deterministic
@@ -111,6 +185,11 @@ func deliverableUSD(c Candidate, p AllocParams) float64 {
 // reconcileToInventory for why that reconciliation, not the fixed-point loop
 // above it, is what guarantees the SOV invariant.
 func Allocate(cands []Candidate, p AllocParams) []Allocation {
+	// No budget stated: size the campaign to what these publishers can deliver
+	// rather than to an arbitrary constant.
+	if p.TotalUSD <= 0 {
+		p.TotalUSD = RecommendedBudgetUSD(cands, p)
+	}
 	return allocateWithPasses(cands, p, maxAllocPasses)
 }
 

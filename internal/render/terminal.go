@@ -3,6 +3,7 @@ package render
 import (
 	"fmt"
 	"io"
+	"math"
 	"strings"
 
 	"github.com/yashraj/disco/internal/model"
@@ -65,6 +66,19 @@ func Terminal(w io.Writer, c model.Campaign) error {
 			c.Objective, c.Flight.Start, c.Flight.DurationDays, c.Advertiser.Confidence)
 
 		p("\nBUDGET  $%s total, $%s/day", comma(c.Budget.TotalUSD), comma(c.Budget.DailyCapUSD))
+		// The budget these publishers can absorb before the allocation stops
+		// following fit. Stated as the basis when the advertiser named no
+		// budget, and as a comparison when they named one.
+		if r := c.Budget.RecommendedUSD; r > 0 {
+			switch {
+			case math.Abs(c.Budget.TotalUSD-r) < 1:
+				p("  no budget given — sized to $%s, the most these publishers absorb before inventory limits start redirecting spend", comma(r))
+			case c.Budget.TotalUSD > r:
+				p("  recommended $%s — beyond it a publisher hits its inventory ceiling and spend shifts to whoever has room", comma(r))
+			default:
+				p("  recommended $%s — room for $%s more before inventory limits bind", comma(r), comma(r-c.Budget.TotalUSD))
+			}
+		}
 		// UnallocatedUSD is a headline product signal — the budget exceeds
 		// what these recommended publishers can physically deliver this
 		// flight — so it is printed right under the budget header, before
