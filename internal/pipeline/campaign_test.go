@@ -546,3 +546,27 @@ func TestBuildSurfacesExceedsMaxShare(t *testing.T) {
 		t.Errorf("rationale does not mention the forced concentration: %q", a.Rationale)
 	}
 }
+
+// TestGeneratedReasonMatchesEveryGate locks GeneratedReason to gateReason's
+// actual output for every real gate constant, so the two cannot silently
+// drift apart (GeneratedReason exists specifically so other packages, like
+// internal/measure, don't have to hand-copy these strings).
+func TestGeneratedReasonMatchesEveryGate(t *testing.T) {
+	for _, gate := range []string{GateNotConsumerDTC, GateCategoryMismatch, GateDemographicMismatch} {
+		if !GeneratedReason(gateReason(gate)) {
+			t.Errorf("GeneratedReason(gateReason(%q)) = false, want true", gate)
+		}
+	}
+}
+
+// TestGeneratedReasonRejectsModelText checks that GeneratedReason does not
+// mistake ordinary model-written prose for a code-generated gate reason,
+// even when it shares words with one.
+func TestGeneratedReasonRejectsModelText(t *testing.T) {
+	if GeneratedReason("This audience's age range does not overlap ours much.") {
+		t.Error("GeneratedReason should not match model-written prose that merely resembles a gate reason")
+	}
+	if GeneratedReason("") {
+		t.Error("GeneratedReason(\"\") should be false: GateNone never produces gate-written text")
+	}
+}

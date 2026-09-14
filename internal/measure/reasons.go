@@ -2,9 +2,11 @@ package measure
 
 import (
 	"fmt"
+	"regexp"
 	"strings"
 
 	"github.com/yashraj/disco/internal/model"
+	"github.com/yashraj/disco/internal/pipeline"
 )
 
 // Campaign pairs a brief number with the campaign it produced, so findings
@@ -46,63 +48,68 @@ const (
 // detailTruncateLen bounds how much of a reason a Finding quotes.
 const detailTruncateLen = 140
 
-// generatedGateReasons mirrors gateReason in internal/pipeline/campaign.go
-// exactly, keyed by that package's exported gate constants. gateReason
-// itself is unexported and internal/pipeline must not be modified, so this
-// table is a deliberate, commented duplicate rather than a call across the
-// package boundary. Measuring these strings would be measuring our own
-// code, not the model, so any exact match is skipped rather than scored.
-//
-// If gateReason's fixed strings ever change, this table must change with it
-// — that coupling is intentional and documented here so it isn't missed.
-var generatedGateReasons = map[string]string{
-	"not_consumer_dtc":     "This catalog reaches consumer DTC shoppers; this advertiser does not sell to them.",
-	"category_mismatch":    "No category or subcategory overlap with this advertiser.",
-	"demographic_mismatch": "Audience age range does not overlap the advertiser's target at all.",
-}
-
-// isGeneratedReason reports whether reason is exactly one of the fixed
-// strings the pipeline's own code writes for a hard-gated publisher (see
-// gateReason in internal/pipeline/campaign.go), as opposed to text a model
-// wrote.
+// isGeneratedReason reports whether reason is one of the fixed strings the
+// pipeline's own code writes for a hard-gated publisher, as opposed to text
+// a model wrote. It delegates to pipeline.GeneratedReason rather than
+// hand-duplicating gateReason's strings here, so the two can never drift
+// apart.
 func isGeneratedReason(reason string) bool {
-	for _, s := range generatedGateReasons {
-		if reason == s {
-			return true
-		}
-	}
-	return false
+	return pipeline.GeneratedReason(reason)
 }
 
 // subScorePhrases maps each sub-score to the phrases that count as citing
-// it, checked case-insensitively as substrings. One table, easy to extend.
+// it, checked case-insensitively.
 //
-// Order within a category matters: phrases are tried in the order listed
-// here and the first match wins, so a category is cited at most once per
-// reason no matter how many of its phrases match. For GenderFit specifically
-// this also defuses a substring trap — "women shoppers" contains "men " as a
-// literal substring (the "wo-MEN- " in "women"), so "women" and "female" are
-// listed, and therefore checked, before "men " and "male".
+// Convention for anyone adding a phrase: matching is regexp, anchored to a
+// leading word boundary only (`\b` + the literal phrase) — not a bare
+// substring, and not anchored on the trailing end. A leading boundary alone
+// is enough to stop "age" matching inside "beverages" or "package", and
+// "her"/"male" matching inside "leather" or "female", while still letting a
+// stem like "spend" match "spending" and "sustainab" match "sustainability".
+// Patterns are compiled once, at package init, not per call.
+//
+// Order within a category no longer affects correctness (the boundary
+// anchor disambiguates "women" from "men" on its own), but the first match
+// in table order is still what a Finding quotes, so list the more specific
+// or more informative phrase first where it's a toss-up.
 type subScoreCategory struct {
-	Name    string
-	Phrases []string
+	Name     string
+	Patterns []phrasePattern
+}
+
+// phrasePattern is one phrase and its compiled, word-boundary-anchored
+// regexp.
+type phrasePattern struct {
+	Phrase string
+	re     *regexp.Regexp
+}
+
+// compilePatterns compiles each phrase as `\b` + the literal phrase, so the
+// match requires a word boundary immediately before it but not after.
+func compilePatterns(phrases []string) []phrasePattern {
+	out := make([]phrasePattern, len(phrases))
+	for i, p := range phrases {
+		out[i] = phrasePattern{Phrase: p, re: regexp.MustCompile(`\b` + regexp.QuoteMeta(p))}
+	}
+	return out
 }
 
 var subScorePhrases = []subScoreCategory{
-	{"Category", []string{"category", "unrelated", "adjacent", "vertical", "product type", "assortment", "different space", "not a fit for"}},
-	{"AOVAlignment", []string{"order value", "aov", "price point", "basket", "spend", "cheaper", "expensive", "affordab", "premium pricing", "far less than", "far more than"}},
-	{"AgeOverlap", []string{"age", "older", "younger", "skew", "demographic", "generation", "millennial", "gen z", "mid-life", "retire"}},
-	{"ValuesMatch", []string{"sustainab", "values", "eco", "ethical", "craftsman", "heritage", "clean-ingredient", "transparen", "science-backed", "vet-recommend", "greenwash"}},
-	{"GenderFit", []string{"women", "female", "men ", "male", "gender", "she ", "her "}},
-	{"IncomeTier", []string{"income", "affluent", "wealthy", "disposable", "high-end", "mid-market", "budget-conscious", "luxury"}},
+	{"Category", compilePatterns([]string{"category", "unrelated", "adjacent", "vertical", "product type", "assortment", "different space", "not a fit for"})},
+	{"AOVAlignment", compilePatterns([]string{"order value", "aov", "price point", "basket", "spend", "cheaper", "expensive", "affordab", "premium pricing", "far less than", "far more than"})},
+	{"AgeOverlap", compilePatterns([]string{"age", "older", "younger", "skew", "demographic", "generation", "millennial", "gen z", "mid-life", "retire"})},
+	{"ValuesMatch", compilePatterns([]string{"sustainab", "values", "eco", "ethical", "craftsman", "heritage", "clean-ingredient", "transparen", "science-backed", "vet-recommend", "greenwash"})},
+	{"GenderFit", compilePatterns([]string{"women", "female", "men", "male", "gender", "she", "her"})},
+	{"IncomeTier", compilePatterns([]string{"income", "affluent", "wealthy", "disposable", "high-end", "mid-market", "budget-conscious", "luxury"})},
 }
 
-// firstMatch returns the first phrase (in table order) for category that is
-// a substring of reasonLower, and whether one was found.
+// firstMatch returns the first phrase (in table order) for category whose
+// word-boundary-anchored pattern matches reasonLower, and whether one was
+// found.
 func firstMatch(category subScoreCategory, reasonLower string) (string, bool) {
-	for _, p := range category.Phrases {
-		if strings.Contains(reasonLower, p) {
-			return p, true
+	for _, p := range category.Patterns {
+		if p.re.MatchString(reasonLower) {
+			return p.Phrase, true
 		}
 	}
 	return "", false
@@ -166,6 +173,10 @@ func truncate(s string, n int) string {
 // It is a heuristic detector with high precision and unknown recall. A
 // contradiction it reports is real. A reason it counts as vague may simply
 // use words the phrase map does not contain — see the package doc comment.
+//
+// Phrase matching is word-boundary anchored (see subScorePhrases), not bare
+// substring matching, so it does not fire on "age" inside "beverages" or
+// "her" inside "leather".
 func ReasonConsistency(campaigns []Campaign) Metric {
 	var (
 		entries, skippedGenerated                           int

@@ -86,7 +86,7 @@ func TestConsistentCitationNotFlagged(t *testing.T) {
 // of verdict.
 func TestPolarityFlipsWithVerdict(t *testing.T) {
 	recommended := entry("pub_1", "recommended", "strong values alignment with this advertiser", "ValuesMatch", 0.9)
-	excluded := entry("pub_2", "excluded", "values alignment is the issue here", "ValuesMatch", 0.9)
+	excluded := entry("pub_2", "excluded", "values alignment is the core problem for this campaign", "ValuesMatch", 0.9)
 
 	mRec := ReasonConsistency(campaignOf(recommended))
 	if got := mRec.Counts["consistent"]; got != 1 {
@@ -142,27 +142,26 @@ func TestVagueReasonCounted(t *testing.T) {
 	}
 }
 
-// "women" must not be mis-attributed to the "men " phrase. "women shoppers"
-// literally contains "men " as a substring (the "wo-MEN- " span), so this
-// guards the table-order fix rather than just the final classification,
-// which would look identical either way since both phrases map to the same
-// sub-score.
-// Corruption this catches: reordering the GenderFit phrase list (or
-// building the match from an unordered map) so "men "/"male" is tested
-// before "women"/"female".
+// "women" must not be mis-attributed to the "men" phrase: bare-substring
+// matching finds "men" inside "women" (the "wo-MEN-" span), so without the
+// leading word-boundary anchor this would be a false GenderFit citation
+// whenever "women" appears at all.
+// Corruption this catches: matching phrases as a bare substring instead of
+// `\b` + the phrase (e.g. dropping the anchor, or using
+// strings.Contains directly).
 func TestWomenDoesNotMatchMenPattern(t *testing.T) {
 	reason := "our audience is mostly women shoppers, a mismatch for this advertiser"
-	if !strings.Contains(strings.ToLower(reason), "men ") {
+	if !strings.Contains(strings.ToLower(reason), "men") {
 		t.Fatalf("test fixture invalid: expected %q to literally contain the substring trap", reason)
+	}
+	if patternMatches(t, "GenderFit", "men", reason) {
+		t.Fatalf(`\bmen matched inside "women" — the word-boundary anchor did not disambiguate them`)
 	}
 
 	cat := genderFitCategory(t)
 	phrase, ok := firstMatch(cat, strings.ToLower(reason))
 	if !ok {
 		t.Fatalf("expected a GenderFit match")
-	}
-	if phrase == "men " {
-		t.Fatalf("matched phrase = %q, want \"women\" (order must check women/female before men/male)", phrase)
 	}
 	if phrase != "women" {
 		t.Fatalf("matched phrase = %q, want \"women\"", phrase)
@@ -186,6 +185,107 @@ func genderFitCategory(t *testing.T) subScoreCategory {
 	}
 	t.Fatal("GenderFit category not found in subScorePhrases")
 	return subScoreCategory{}
+}
+
+// patternMatches reports whether category's compiled pattern for phrase
+// matches text (lowercased first, as ReasonConsistency does). It fails the
+// test outright if no such phrase is registered for that category, so a
+// typo in a test's phrase argument cannot silently read as "no match".
+func patternMatches(t *testing.T, categoryName, phrase, text string) bool {
+	t.Helper()
+	for _, c := range subScorePhrases {
+		if c.Name != categoryName {
+			continue
+		}
+		for _, p := range c.Patterns {
+			if p.Phrase == phrase {
+				return p.re.MatchString(strings.ToLower(text))
+			}
+		}
+		t.Fatalf("phrase %q not registered under category %q", phrase, categoryName)
+	}
+	t.Fatalf("category %q not found in subScorePhrases", categoryName)
+	return false
+}
+
+// The word-boundary anchor must reject "age" inside "beverages" and
+// "package" — this is the specific false positive that inflated the
+// contradiction rate before the fix (nearly every excluded beverage
+// publisher's reason mentions "beverages", which bare-substring matching
+// misread as an AgeOverlap citation).
+// Corruption this catches: matching "age" (or any phrase) as a bare
+// substring instead of anchoring it to a leading word boundary.
+func TestAgeDoesNotMatchInsideBeveragesOrPackage(t *testing.T) {
+	for _, text := range []string{
+		"Excluded due to category_mismatch (apparel vs beverages).",
+		"A budget-friendly package aimed at value shoppers.",
+	} {
+		if patternMatches(t, "AgeOverlap", "age", text) {
+			t.Fatalf("\\bage matched inside %q; the word-boundary anchor did not stop the substring trap", text)
+		}
+	}
+}
+
+// The word-boundary anchor must reject "her" inside "leather".
+// Corruption this catches: matching "her" as a bare substring, or relying
+// only on the old trailing-space hack ("her ") instead of a leading
+// boundary.
+func TestHerDoesNotMatchInsideLeather(t *testing.T) {
+	text := "Category mismatch: organic grocery does not match luxury leather accessories."
+	if patternMatches(t, "GenderFit", "her", text) {
+		t.Fatalf("\\bher matched inside %q", text)
+	}
+}
+
+// "male" must not match inside "female", the mirror image of men/women.
+// Corruption this catches: fixing only the men/women pair (e.g. keeping a
+// trailing-space hack for one but not the other) instead of applying one
+// general leading-boundary rule to every phrase.
+func TestMaleDoesNotMatchInsideFemale(t *testing.T) {
+	text := "This publisher over-indexes on a female audience."
+	if patternMatches(t, "GenderFit", "male", text) {
+		t.Fatalf("\\bmale matched inside %q", text)
+	}
+	if patternMatches(t, "GenderFit", "men", "a strongly women-led brand") {
+		t.Fatalf(`\bmen matched inside "women-led"`)
+	}
+}
+
+// "age" must still match as a real word or stem: "ages" and "aged" are
+// exactly the citations the phrase exists to catch.
+// Corruption this catches: over-correcting into a whole-word-only match
+// (anchoring both ends) so a stem like "ages"/"aged" stops matching.
+func TestAgeMatchesRealAgeMentions(t *testing.T) {
+	for _, text := range []string{
+		"The audience ages 50-70, well outside our target.",
+		"An aged demographic that skews older than ideal.",
+	} {
+		if !patternMatches(t, "AgeOverlap", "age", text) {
+			t.Fatalf("\\bage did not match %q, want a match", text)
+		}
+	}
+}
+
+// "spend" must still match "spending" — the anchor is leading-only, so a
+// stem still works.
+// Corruption this catches: anchoring both the leading and trailing edge of
+// the phrase (making it whole-word-only), which would break every stem
+// phrase in the table ("spend", "sustainab", "affordab", "transparen", …).
+func TestSpendMatchesSpending(t *testing.T) {
+	if !patternMatches(t, "AOVAlignment", "spend", "Way outside their typical spending habits.") {
+		t.Fatalf(`\bspend did not match "spending"`)
+	}
+}
+
+// A phrase at the end of a sentence, with no trailing space (only
+// punctuation), must still match — this is exactly the case the old
+// trailing-space hack ("men ") got wrong.
+// Corruption this catches: reverting to the old trailing-space convention
+// instead of a real word-boundary anchor.
+func TestPatternMatchesEndOfSentenceNoTrailingSpace(t *testing.T) {
+	if !patternMatches(t, "GenderFit", "men", "This publisher's catalog is aimed at men.") {
+		t.Fatalf(`\bmen did not match "...aimed at men." (no trailing space before the period)`)
+	}
 }
 
 // A reason citing two sub-scores produces two citations.

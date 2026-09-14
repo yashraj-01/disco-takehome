@@ -226,6 +226,28 @@ func gateReason(gate string) string {
 	}
 }
 
+// generatedGates lists every hard-gate constant gateReason produces fixed
+// text for. GateNone is deliberately excluded: it is never passed to
+// gateReason (a publisher with no hard gate has no gate-written reason), so
+// including it would make GeneratedReason("Excluded.") true for text that
+// never actually occurs from GateNone.
+var generatedGates = []string{GateNotConsumerDTC, GateCategoryMismatch, GateDemographicMismatch}
+
+// GeneratedReason reports whether s is one of the fixed reasons this package
+// writes for a hard-gated publisher (see gateReason above), rather than
+// prose a model produced. It exists so other packages — notably
+// internal/measure, which scores the truthfulness of model-written reasons
+// — can tell the two apart without measuring our own code as if it were the
+// model's.
+func GeneratedReason(s string) bool {
+	for _, gate := range generatedGates {
+		if s == gateReason(gate) {
+			return true
+		}
+	}
+	return false
+}
+
 func buildBid(p model.AdvertiserProfile, weightedCPM float64) model.Bid {
 	b := model.Bid{
 		Model:      "CPM",
