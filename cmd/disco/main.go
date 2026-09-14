@@ -26,7 +26,7 @@ const usage = `disco — draft an ad campaign from a one-line brief
   disco run "<brief>"   generate a campaign
   disco serve           browse results at http://localhost:8080
   disco eval            run every example brief and check the invariants
-  disco measure         run every example brief and measure reason quality
+  disco measure         run every example brief and measure reason & scoring quality
 
 Run "disco <command> -h" for the flags of a command.
 `
@@ -270,7 +270,7 @@ func cmdEval(args []string) error {
 func cmdMeasure(args []string) error {
 	fs := flag.NewFlagSet("measure", flag.ExitOnError)
 	fs.Usage = func() {
-		fmt.Fprintf(fs.Output(), "usage: disco measure [flags]\n\nrun every example brief and measure reason quality\n\nflags:\n")
+		fmt.Fprintf(fs.Output(), "usage: disco measure [flags]\n\nrun every example brief and measure reason & scoring quality\n\nflags:\n")
 		fs.PrintDefaults()
 	}
 	common := registerCommon(fs)
@@ -308,6 +308,7 @@ func cmdMeasure(args []string) error {
 		Model:       common.model,
 		Metrics: map[string]measure.Metric{
 			"reason_consistency": measure.ReasonConsistency(campaigns, cat),
+			"scoring_ablation":   measure.ScoringAblation(campaigns, cat),
 		},
 	}
 

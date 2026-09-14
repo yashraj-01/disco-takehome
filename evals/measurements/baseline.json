@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T17:06:04.487851Z",
+  "generated_at": "2026-09-14T17:21:25.322138Z",
   "provider": "fixture",
   "model": "gemini-3.5-flash-lite",
   "metrics": {
@@ -94,6 +94,66 @@
           "brief_n": 15,
           "publisher_id": "pub_018",
           "detail": "verdict=excluded cited AgeOverlap=1.00 (matched \"millennial\") — \"Engages millennial dog owners through pet toys and treat subscriptions, completely detached from the advertiser's unknown offerings.\""
+        }
+      ]
+    },
+    "scoring_ablation": {
+      "name": "scoring_ablation",
+      "summary": "sub-scores ranked by influence on ranking (top5_change_rate, ties broken by mean_rank_shift), most to least: AOVAlignment (0.333) \u003e ValuesMatch (0.333) \u003e Category (0.267) \u003e AgeOverlap (0.200) \u003e IncomeTier (0.133) \u003e GenderFit (0.133)",
+      "values": {
+        "mean_rank_shift.AOVAlignment": 0.7104088504088504,
+        "mean_rank_shift.AgeOverlap": 0.3647715247715248,
+        "mean_rank_shift.Category": 0.7711014911014913,
+        "mean_rank_shift.GenderFit": 0.11111111111111112,
+        "mean_rank_shift.IncomeTier": 0.4127080327080327,
+        "mean_rank_shift.ValuesMatch": 0.4725252525252525,
+        "mean_ungated_per_brief": 6.933333333333334,
+        "top5_change_rate.AOVAlignment": 0.3333333333333333,
+        "top5_change_rate.AgeOverlap": 0.2,
+        "top5_change_rate.Category": 0.26666666666666666,
+        "top5_change_rate.GenderFit": 0.13333333333333333,
+        "top5_change_rate.IncomeTier": 0.13333333333333333,
+        "top5_change_rate.ValuesMatch": 0.3333333333333333
+      },
+      "counts": {
+        "briefs": 15,
+        "top5_changed.AOVAlignment": 5,
+        "top5_changed.AgeOverlap": 3,
+        "top5_changed.Category": 4,
+        "top5_changed.GenderFit": 2,
+        "top5_changed.IncomeTier": 2,
+        "top5_changed.ValuesMatch": 5
+      },
+      "findings": [
+        {
+          "brief_n": 4,
+          "publisher_id": "pub_002",
+          "detail": "zeroing Category's weight changed the top 5: entered [pub_002, pub_006], left [pub_011, pub_014]"
+        },
+        {
+          "brief_n": 2,
+          "publisher_id": "pub_010",
+          "detail": "zeroing AOVAlignment's weight changed the top 5: entered [pub_010], left [pub_006]"
+        },
+        {
+          "brief_n": 2,
+          "publisher_id": "pub_004",
+          "detail": "zeroing AgeOverlap's weight changed the top 5: entered [pub_004], left [pub_014]"
+        },
+        {
+          "brief_n": 2,
+          "publisher_id": "pub_004",
+          "detail": "zeroing ValuesMatch's weight changed the top 5: entered [pub_004], left [pub_014]"
+        },
+        {
+          "brief_n": 2,
+          "publisher_id": "pub_010",
+          "detail": "zeroing GenderFit's weight changed the top 5: entered [pub_010], left [pub_014]"
+        },
+        {
+          "brief_n": 6,
+          "publisher_id": "pub_006",
+          "detail": "zeroing IncomeTier's weight changed the top 5: entered [pub_006], left [pub_017]"
         }
       ]
     }
