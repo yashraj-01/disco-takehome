@@ -73,7 +73,7 @@ func registerCommon(fs *flag.FlagSet) *commonFlags {
 	c := &commonFlags{params: pipeline.DefaultAllocParams()}
 	fs.StringVar(&c.provider, "provider", "fixture",
 		"which LLM backend to use: \"fixture\" replays recorded responses (no API key or network needed) or \"gemini\" calls the live Gemini API")
-	fs.StringVar(&c.model, "model", "gemini-3.6-flash", "model id to request when --provider=gemini")
+	fs.StringVar(&c.model, "model", "gemini-3.5-flash-lite", "model id to request when --provider=gemini (the one the committed fixtures were recorded against)")
 	fs.StringVar(&c.dataDir, "data", "data", "directory holding publishers.json and shopper_personas.json")
 	fs.StringVar(&c.fixtureDir, "fixtures", "evals/fixtures", "directory of recorded provider responses used by --provider=fixture, and written to by --provider=gemini --record")
 	fs.StringVar(&c.cacheDir, "cache", ".cache", "directory used to cache live --provider=gemini responses on disk so repeat runs of the same brief cost nothing")

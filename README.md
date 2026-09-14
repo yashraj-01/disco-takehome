@@ -26,16 +26,12 @@ go run ./cmd/disco eval --provider gemini --record
 ```
 
 Mind the free-tier daily cap — it is per model and small (20/day on
-`gemini-3.6-flash` at time of writing). `--model` picks a different quota pool.
+20/day on some models). `--model` picks a different quota pool.
 
 ## How it works
 
-Six stages — four call a model, two are pure functions:
-
-```
-brief ─▶ profile ─▶ scoring ─▶ fit ─▶ personas ─▶ creative ─▶ campaign
-          LLM        PURE       LLM     LLM         LLM        PURE
-```
+Six stages — profile, scoring, fit, personas, creative, campaign. Four call a
+model; scoring and campaign are pure functions.
 
 **Every number comes from the pure stages** (`internal/pipeline/{scoring,cpm,allocate,campaign}.go`);
 a model supplies judgment and prose, never a figure that reaches the config.
@@ -59,20 +55,18 @@ regenerating the fixtures against a better model is a one-file change.
 
 ## What I'd do next week
 
-1. **Measure creative quality** with a pairwise LLM-judge, validated against
-   human spot-checks — the eval asserts copy is grounded, not that it's good.
+1. **Measure creative quality** with a pairwise LLM-judge — the eval asserts
+   copy is grounded, not that it's good.
 2. **Learn the scoring weights** in `scoring.go` from outcome data instead of
-   asserting them; the pure layer already accepts fitted weights.
-3. **Real inventory and pricing**, replacing `EstimateCPM` and the flat SOV
-   cap, plus letting the user edit the profile or force a publisher.
+   asserting them.
+3. **Real inventory and pricing**, replacing `EstimateCPM` and the flat SOV cap.
 
 ## What I cut, and why
 
 **Image creative, auction simulation, multi-tenancy, auth, persistence.** All
-real in production; none would have told you anything about how I think.
-
-**Vector search.** The catalog is 10KB and fits in a prompt with room to
-spare — embedding 20 records would have been cargo-culted retrieval.
+real in production; none would have told you anything about how I think. Same
+for **vector search** — the catalog is 10KB and fits in a prompt, so embedding
+20 records would have been cargo-culted retrieval.
 
 **Eval snapshots, config schema validation, `retry-after`.** No golden-file
 `--update-snapshots` mode; per-stage LLM output is schema-checked but the

@@ -17,7 +17,7 @@ import (
 // GeminiOptions configures the live provider.
 type GeminiOptions struct {
 	APIKey   string
-	Model    string // e.g. gemini-3.6-flash
+	Model    string // e.g. gemini-3.5-flash-lite
 	CacheDir string // "" disables the disk cache
 	RPM      int    // provider requests-per-minute quota; 0 disables limiting
 	Recorder *Fixture
