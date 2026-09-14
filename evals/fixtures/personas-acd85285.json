@@ -1,0 +1,57 @@
+{
+  "selected": [
+    {
+      "persona_id": "persona_001",
+      "rationale": "The Wellness Optimizer tracks sleep, supplements, and workouts, aligning directly with the advertiser's health-tracking and fitness subcategories. Her low price sensitivity and preference for science-backed messaging match the app's mid-tier price point and science_backed core value.",
+      "primary_publishers": [
+        "pub_012",
+        "pub_003"
+      ]
+    },
+    {
+      "persona_id": "persona_009",
+      "rationale": "The Fitness Enthusiast works out frequently and buys fitness services and recovery products, making them an ideal target for an AI-powered fitness and health app. Their appreciation for performance-oriented tools connects seamlessly to the app's tracking and metric optimization features.",
+      "primary_publishers": [
+        "pub_003",
+        "pub_012"
+      ]
+    },
+    {
+      "persona_id": "persona_007",
+      "rationale": "The Convenience-First Millennial is a heavy subscription user who values speed and frictionlessness, directly matching the advertiser's subscription business model and convenience value. Their urban, mid-to-high income profile fits the target demographic for digital health applications found on publishers like Daily Form and Studiogrid.",
+      "primary_publishers": [
+        "pub_012"
+      ]
+    }
+  ],
+  "rejected": [
+    {
+      "persona_id": "persona_002",
+      "reason": "The Busy Parent focuses on household, kids' products, and meal kits, which do not align with the core wellness_services and health_tracking focus of the advertiser."
+    },
+    {
+      "persona_id": "persona_003",
+      "reason": "The Gen Z Aesthete focuses on beauty, fashion, and functional beverages discovered via TikTok and Instagram, whereas the advertiser's app targets a slightly older demographic (25-55) seeking clinical, science-backed health metrics."
+    },
+    {
+      "persona_id": "persona_004",
+      "reason": "The Pet Parent is centered on pet food, pet supplies, and veterinary care, which has no logical intersection with a human health and fitness tracking application."
+    },
+    {
+      "persona_id": "persona_005",
+      "reason": "The Affluent Classic skews toward older demographics (50-68) focused on classic apparel and home goods rather than mobile app-based health tracking and telehealth services."
+    },
+    {
+      "persona_id": "persona_006",
+      "reason": "The Sustainability Buyer focuses on ethical supply chains and clean beauty rather than personal fitness metrics, testing, and AI health monitoring."
+    },
+    {
+      "persona_id": "persona_008",
+      "reason": "The Value-Conscious Shopper looks for discount-forward messaging, bundles, and bargain grocery or apparel options, which misaligns with the app's mid-tier subscription pricing model."
+    },
+    {
+      "persona_id": "persona_010",
+      "reason": "The Gifter is explicitly disinterested in subscription-only models, making them incompatible with the advertiser's primary subscription business model."
+    }
+  ]
+}

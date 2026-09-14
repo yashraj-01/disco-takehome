@@ -1,0 +1,31 @@
+{
+  "primary_category": "wellness_services",
+  "subcategories": [
+    "health_tracking",
+    "fitness",
+    "telehealth",
+    "ai_health"
+  ],
+  "price_tier": "mid",
+  "estimated_aov_usd": 30,
+  "target_age_min": 25,
+  "target_age_max": 55,
+  "target_gender_skew": "balanced",
+  "values": [
+    "science_backed",
+    "convenience"
+  ],
+  "business_model": "subscription",
+  "is_consumer_dtc": true,
+  "confidence": "medium",
+  "assumptions": [
+    "Assumed a monthly subscription model typical for consumer health and fitness apps",
+    "Assumed an estimated AOV of 30 dollars based on standard health app subscription pricing",
+    "Assumed target age range of 25 to 55 for smartphone app users interested in proactive health tracking"
+  ],
+  "missing_signals": [
+    "Exact pricing and subscription tier details",
+    "Specific target demographic age and gender data",
+    "Monetization details regarding tests and doctor referrals"
+  ]
+}

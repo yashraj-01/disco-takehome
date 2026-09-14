@@ -4,3 +4,4 @@
 .env
 docs/superpowers/
 evals/measurements/latest.json
+__debug_bin*

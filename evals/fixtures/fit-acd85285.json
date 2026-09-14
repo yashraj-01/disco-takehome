@@ -1,0 +1,124 @@
+{
+  "verdicts": [
+    {
+      "publisher_id": "pub_001",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate category_mismatch: instant delivery and groceries cannot reach our health app users."
+    },
+    {
+      "publisher_id": "pub_002",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Fitness-engaged apparel shoppers have strong crossover with wellness apps, but the apparel category is secondary to direct wellness and the AOV is higher than our app subscription."
+    },
+    {
+      "publisher_id": "pub_003",
+      "verdict": "recommended",
+      "rank": 1,
+      "reason": "Direct overlap in wellness services and fitness classes. Their appointment-based users are actively investing in self-care, making them a prime audience for health metric tracking."
+    },
+    {
+      "publisher_id": "pub_004",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Audience skew of 45-65 is older than our core demographic, and the 112 dollar apparel AOV misaligns with our lower subscription pricing tier."
+    },
+    {
+      "publisher_id": "pub_005",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Audience age skew of 50-70 falls largely outside our target range, and the 128 dollar AOV represents a significant gap from our app pricing."
+    },
+    {
+      "publisher_id": "pub_006",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Good demographic overlap in the 30-55 age band, but apparel and sizing focus are less relevant than direct health-tracking intent."
+    },
+    {
+      "publisher_id": "pub_007",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate category_mismatch: pet supplies and pet food do not align with a human healthcare app."
+    },
+    {
+      "publisher_id": "pub_008",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate category_mismatch: organic pantry groceries cannot support a health and fitness software app."
+    },
+    {
+      "publisher_id": "pub_009",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate category_mismatch: pet retail audience does not match human wellness app consumers."
+    },
+    {
+      "publisher_id": "pub_010",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Demographics and AOV align well, but basics apparel lacks the intent-driven mindset needed for an AI health app."
+    },
+    {
+      "publisher_id": "pub_011",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate category_mismatch: home textiles and bedding category does not match wellness services."
+    },
+    {
+      "publisher_id": "pub_012",
+      "verdict": "recommended",
+      "rank": 2,
+      "reason": "Science-forward wellness supplement buyers share an identical audience mindset with our health app users, matching our science-backed value proposition perfectly."
+    },
+    {
+      "publisher_id": "pub_013",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate category_mismatch: Gen Z beauty and skincare audience is younger and out of category."
+    },
+    {
+      "publisher_id": "pub_014",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate category_mismatch: kitchenware and cookware category does not match health tracking apps."
+    },
+    {
+      "publisher_id": "pub_015",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate category_mismatch: meal kits category does not provide overlap for healthcare apps."
+    },
+    {
+      "publisher_id": "pub_016",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Professional women audience has high income and values sustainability, but footwear and apparel distance limits conversion for software."
+    },
+    {
+      "publisher_id": "pub_017",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Tech-adjacent urban professionals match our demographic nicely, but activewear shoes is an adjacent rather than direct category fit."
+    },
+    {
+      "publisher_id": "pub_018",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate category_mismatch: pet subscription boxes do not reach human health app buyers."
+    },
+    {
+      "publisher_id": "pub_019",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate category_mismatch: personalized haircare is a beauty category mismatch."
+    },
+    {
+      "publisher_id": "pub_020",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Excluded due to hard gate category_mismatch: functional beverages and gut health sodas are in the beverages category, missing our wellness services scope."
+    }
+  ]
+}
