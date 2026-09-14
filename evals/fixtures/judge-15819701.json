@@ -1,0 +1,22 @@
+{
+  "assignments": [
+    {
+      "creative_index": 0,
+      "persona_id": "persona_001",
+      "confidence": "high",
+      "rationale": "The copy explicitly focuses on home wellness and toxic-free ingredients, matching the wellness optimizer's health-centric focus."
+    },
+    {
+      "creative_index": 1,
+      "persona_id": "persona_002",
+      "confidence": "high",
+      "rationale": "The copy highlights saving time and being loved by parents, directly aligning with the busy parent persona."
+    },
+    {
+      "creative_index": 2,
+      "persona_id": "persona_006",
+      "confidence": "high",
+      "rationale": "The copy emphasizes transparent supply chain and zero single-use plastic, directly matching the sustainability buyer persona."
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "assignments": [
+    {
+      "creative_index": 0,
+      "persona_id": "persona_005",
+      "confidence": "low",
+      "rationale": "The copy mentions home wellness and plant-based ingredients, but none of the provided personas match eco-friendly cleaning products well, leading to a low confidence guess matching home goods."
+    },
+    {
+      "creative_index": 1,
+      "persona_id": "persona_010",
+      "confidence": "low",
+      "rationale": "The copy mentions parents and saving time, but there is no specific persona for parents in the list, forcing an arbitrary assignment."
+    },
+    {
+      "creative_index": 2,
+      "persona_id": "persona_009",
+      "confidence": "low",
+      "rationale": "The copy focuses on traceable supply chains and environmental impact, which does not genuinely align with the fitness enthusiast persona, but all other personas are exhausted."
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T18:08:34.124126Z",
+  "generated_at": "2026-09-14T18:39:31.661945Z",
   "provider": "fixture",
   "model": "gemini-3.5-flash-lite",
   "metrics": {
@@ -45,6 +45,28 @@
           "detail": "copy_overlap=0.219 lever_overlap=0.000 — \"A healthy start for your new kitten\" vs \"One-click cat supplies delivered\""
         }
       ]
+    },
+    "persona_attribution": {
+      "name": "persona_attribution",
+      "summary": "14 campaigns judged (1 skipped for fewer than 2 creatives): attribution_accuracy=1.000 vs chance_baseline=0.333 (lift=+0.667). high_confidence_rate real=1.000 vs control=0.167 (confidence_separation=0.833, threshold=0.10). Judge validity: VALID — the judge is meaningfully more confident on the real task than on the control it cannot possibly solve, so the accuracy numbers above reflect real signal.",
+      "values": {
+        "attribution_accuracy": 1,
+        "chance_baseline": 0.3333333333333333,
+        "confidence_separation": 0.8333333333333334,
+        "high_confidence_rate_control": 0.16666666666666666,
+        "high_confidence_rate_real": 1,
+        "lift": 0.6666666666666667
+      },
+      "counts": {
+        "campaigns_judged": 14,
+        "correct": 42,
+        "creatives_matched": 42,
+        "dropped_duplicate_persona": 0,
+        "dropped_out_of_range_index": 0,
+        "dropped_unknown_persona": 0,
+        "judge_calls": 28,
+        "skipped_too_few": 1
+      }
     },
     "reason_consistency": {
       "name": "reason_consistency",

@@ -1,0 +1,22 @@
+{
+  "assignments": [
+    {
+      "creative_index": 0,
+      "persona_id": "persona_008",
+      "confidence": "high",
+      "rationale": "Headline features 'Save 20%' and 'first bundle', matching the value-conscious shopper's preference for discounts and bundle offers."
+    },
+    {
+      "creative_index": 1,
+      "persona_id": "persona_001",
+      "confidence": "high",
+      "rationale": "Copy mentions 'physiological recovery', 'cellular health', and 'evidence-backed formulations', directly aligning with wellness optimizer messaging preferences."
+    },
+    {
+      "creative_index": 2,
+      "persona_id": "persona_003",
+      "confidence": "high",
+      "rationale": "Headline mentions the user's 'feed' and 'vibe', while body refers to 'small-batch pieces' and says 'your shelf', matching the Gen Z Aesthete's aesthetic and social-first discovery."
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "assignments": [
+    {
+      "creative_index": 0,
+      "persona_id": "persona_001",
+      "confidence": "high",
+      "rationale": "The copy explicitly mentions 'Optimize your daily intake' and 'Full ingredient transparency', which directly aligns with The Wellness Optimizer's messaging preferences for ingredient transparency and outcome-focused systems."
+    },
+    {
+      "creative_index": 1,
+      "persona_id": "persona_007",
+      "confidence": "high",
+      "rationale": "The headline and body emphasize 'delivered in minutes', 'skip... the store trip', and 'regular subscription schedule', directly matching The Convenience-First Millennial's affinity for instant delivery and subscription services."
+    },
+    {
+      "creative_index": 2,
+      "persona_id": "persona_009",
+      "confidence": "high",
+      "rationale": "The copy mentions 'Fuel your next PR', 'Built for active days and heavy lifts', and performance nutrition, which directly appeals to The Fitness Enthusiast's workout-heavy lifestyle and performance claims."
+    }
+  ]
+}

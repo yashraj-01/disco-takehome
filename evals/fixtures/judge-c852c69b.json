@@ -1,0 +1,22 @@
+{
+  "assignments": [
+    {
+      "creative_index": 0,
+      "persona_id": "persona_007",
+      "confidence": "low",
+      "rationale": "The copy mentions daily grind and workouts, but none of the personas specifically match activewear categories, making this assignment uncertain."
+    },
+    {
+      "creative_index": 1,
+      "persona_id": "persona_003",
+      "confidence": "low",
+      "rationale": "The copy emphasizes performance and material sourcing, which does not cleanly map to any specific persona's distinct category affinities."
+    },
+    {
+      "creative_index": 2,
+      "persona_id": "persona_010",
+      "confidence": "low",
+      "rationale": "The copy discusses supply chain transparency and environmental impact, which lacks direct signals pointing to gifting or any single persona."
+    }
+  ]
+}

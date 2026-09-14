@@ -1,0 +1,22 @@
+{
+  "assignments": [
+    {
+      "creative_index": 0,
+      "persona_id": "persona_001",
+      "confidence": "low",
+      "rationale": "None of the personas match the luxury leather goods category; assigning by elimination."
+    },
+    {
+      "creative_index": 1,
+      "persona_id": "persona_007",
+      "confidence": "low",
+      "rationale": "None of the personas match the luxury leather goods category; assigning by elimination."
+    },
+    {
+      "creative_index": 2,
+      "persona_id": "persona_009",
+      "confidence": "low",
+      "rationale": "None of the personas match the luxury leather goods category; assigning by elimination."
+    }
+  ]
+}

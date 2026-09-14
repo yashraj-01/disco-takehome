@@ -1,0 +1,22 @@
+{
+  "assignments": [
+    {
+      "creative_index": 0,
+      "persona_id": "persona_006",
+      "confidence": "high",
+      "rationale": "The copy explicitly focuses on avoiding mass production, eliminating surplus waste, and custom cutting to ensure durability, aligning with the sustainability buyer's focus on ethical footprint and waste reduction."
+    },
+    {
+      "creative_index": 1,
+      "persona_id": "persona_005",
+      "confidence": "high",
+      "rationale": "The headline and body emphasize lasting elegance, heritage, and traditional craftsmanship designed for decades of use, matching the affluent classic persona's preference for craftsmanship and longevity over trends."
+    },
+    {
+      "creative_index": 2,
+      "persona_id": "persona_010",
+      "confidence": "high",
+      "rationale": "The copy explicitly highlights a custom gift, premium presentation packaging, and milestone moments, directly targeting the gifter persona's responsiveness to presentation and giftable messaging."
+    }
+  ]
+}

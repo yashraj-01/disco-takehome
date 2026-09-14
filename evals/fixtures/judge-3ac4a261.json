@@ -1,0 +1,22 @@
+{
+  "assignments": [
+    {
+      "creative_index": 0,
+      "persona_id": "persona_004",
+      "confidence": "medium",
+      "rationale": "The copy mentions ingredient transparency, which aligns with persona_004's messaging preferences, though the product itself is protein bars rather than pet food."
+    },
+    {
+      "creative_index": 1,
+      "persona_id": "persona_002",
+      "confidence": "high",
+      "rationale": "The copy explicitly highlights subscription schedules, skipped store trips, and delivered-in-minutes convenience, which directly targets persona_002's time-poor, subscription-loving profile."
+    },
+    {
+      "creative_index": 2,
+      "persona_id": "persona_008",
+      "confidence": "low",
+      "rationale": "The copy targets heavy lifts and personal records (PRs), but none of the provided personas naturally align with athletic performance nutrition; this is a low-confidence assignment due to a mismatch in category affinities."
+    }
+  ]
+}

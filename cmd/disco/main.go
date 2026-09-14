@@ -302,6 +302,16 @@ func cmdMeasure(args []string) error {
 		campaigns = append(campaigns, measure.Campaign{BriefN: b.N, Campaign: c})
 	}
 
+	// PersonaAttribution is the only metric that makes model calls: under
+	// --provider=fixture with nothing yet recorded for stage "judge" it
+	// reports itself as skipped (see its doc comment) rather than failing
+	// the whole measure run, so a fresh checkout still measures the other
+	// three metrics offline.
+	attribution, err := measure.PersonaAttribution(context.Background(), provider, campaigns, cat)
+	if err != nil {
+		return fmt.Errorf("measure: %w", err)
+	}
+
 	report := measure.Report{
 		GeneratedAt: time.Now().UTC(),
 		Provider:    provider.Name(),
@@ -310,6 +320,7 @@ func cmdMeasure(args []string) error {
 			"reason_consistency":       measure.ReasonConsistency(campaigns, cat),
 			"scoring_ablation":         measure.ScoringAblation(campaigns, cat),
 			"creative_distinctiveness": measure.CreativeDistinctiveness(campaigns, cat),
+			"persona_attribution":      attribution,
 		},
 	}
 

@@ -1,0 +1,22 @@
+{
+  "assignments": [
+    {
+      "creative_index": 0,
+      "persona_id": "persona_001",
+      "confidence": "high",
+      "rationale": "The copy emphasizes canine longevity and pure active ingredients, aligning with the wellness optimizer's focus on evidence-backed outcomes."
+    },
+    {
+      "creative_index": 1,
+      "persona_id": "persona_004",
+      "confidence": "high",
+      "rationale": "The headline refers to the pet as a furry family member and the body mentions ingredient transparency, matching the pet parent persona's emotional connection and label reading."
+    },
+    {
+      "creative_index": 2,
+      "persona_id": "persona_002",
+      "confidence": "high",
+      "rationale": "The copy highlights skipping the pet store run, flexible subscriptions, and easy ordering for busy households, matching the busy parent's convenience motivation."
+    }
+  ]
+}

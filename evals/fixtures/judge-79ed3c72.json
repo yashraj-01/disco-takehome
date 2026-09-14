@@ -1,0 +1,22 @@
+{
+  "assignments": [
+    {
+      "creative_index": 0,
+      "persona_id": "persona_007",
+      "confidence": "low",
+      "rationale": "The copy mentions gift sets and ordering today, but contains virtually no distinctive signals aligning with the specific lifestyle of the convenience-first persona."
+    },
+    {
+      "creative_index": 1,
+      "persona_id": "persona_001",
+      "confidence": "low",
+      "rationale": "Mentions a transparent supply chain, but lacks specific wellness or optimization claims that would definitively separate it from the other profiles."
+    },
+    {
+      "creative_index": 2,
+      "persona_id": "persona_009",
+      "confidence": "low",
+      "rationale": "Mentions an aesthetic room refresh and slow-morning glow, but there are no true fitness, performance, or active lifestyle hooks to make this a high-confidence match."
+    }
+  ]
+}

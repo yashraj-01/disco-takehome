@@ -63,7 +63,7 @@ func TestToGenaiSchemaRejectsUnknownType(t *testing.T) {
 // Every shipped schema file must survive conversion, or a stage fails at
 // runtime rather than at build time.
 func TestShippedSchemasConvert(t *testing.T) {
-	for _, stage := range []string{"profile", "fit", "personas", "creative"} {
+	for _, stage := range []string{"profile", "fit", "personas", "creative", "judge"} {
 		_, schema, err := prompts.Load(stage)
 		if err != nil {
 			t.Fatalf("prompts.Load(%q): %v", stage, err)

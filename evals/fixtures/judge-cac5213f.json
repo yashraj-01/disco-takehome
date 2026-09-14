@@ -1,0 +1,22 @@
+{
+  "assignments": [
+    {
+      "creative_index": 0,
+      "persona_id": "persona_010",
+      "confidence": "low",
+      "rationale": "The copy mentions showing off on your feed, which could appeal to general aesthetics, but none of the standard persona rules have strong overlap."
+    },
+    {
+      "creative_index": 1,
+      "persona_id": "persona_006",
+      "confidence": "low",
+      "rationale": "Mentions clinical-grade adaptogens and sleep metrics, which loosely matches structured health protocols."
+    },
+    {
+      "creative_index": 2,
+      "persona_id": "persona_007",
+      "confidence": "low",
+      "rationale": "Focuses on post-workout and daily recovery routines, leaving the remaining persona by elimination."
+    }
+  ]
+}

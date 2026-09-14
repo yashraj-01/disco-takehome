@@ -1,0 +1,22 @@
+{
+  "assignments": [
+    {
+      "creative_index": 0,
+      "persona_id": "persona_006",
+      "confidence": "high",
+      "rationale": "Headline explicitly mentions zero greenwashing and body highlights supply chain sharing and traceable, sustainable methods, matching The Sustainability Buyer's preferences."
+    },
+    {
+      "creative_index": 1,
+      "persona_id": "persona_003",
+      "confidence": "high",
+      "rationale": "Copy mentions aesthetics, small-batch, and looking incredible on your feed, which directly aligns with The Gen Z Aesthete's visual and social-first preferences."
+    },
+    {
+      "creative_index": 2,
+      "persona_id": "persona_005",
+      "confidence": "high",
+      "rationale": "Copy emphasizes heritage bedding, lasting quality, investment, and understated elegance, perfectly matching The Affluent Classic's focus on longevity and craftsmanship."
+    }
+  ]
+}

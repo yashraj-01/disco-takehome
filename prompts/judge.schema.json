@@ -1,0 +1,20 @@
+{
+  "type": "object",
+  "description": "Which persona each numbered creative was written for.",
+  "properties": {
+    "assignments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "creative_index": { "type": "integer" },
+          "persona_id": { "type": "string" },
+          "confidence": { "type": "string", "enum": ["high", "medium", "low"] },
+          "rationale": { "type": "string" }
+        },
+        "required": ["creative_index", "persona_id", "confidence", "rationale"]
+      }
+    }
+  },
+  "required": ["assignments"]
+}
