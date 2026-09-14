@@ -1,0 +1,124 @@
+{
+  "verdicts": [
+    {
+      "publisher_id": "pub_001",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Sells convenience groceries and late-night impulse items; nothing in the assortment reaches shoppers looking for sustainable women's activewear."
+    },
+    {
+      "publisher_id": "pub_002",
+      "verdict": "recommended",
+      "rank": 1,
+      "reason": "Fitness-engaged female shoppers with strong crossover in wellness and beauty who naturally align with activewear purchases."
+    },
+    {
+      "publisher_id": "pub_003",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Users are actively spending on fitness and self-care, but appointment-based booking and a lower order value make it a near-miss compared to dedicated apparel destinations."
+    },
+    {
+      "publisher_id": "pub_004",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "The audience skews to older, mid-life women aged 45-65, missing the target demographic range for this younger activewear brand."
+    },
+    {
+      "publisher_id": "pub_005",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Audience age spans 50 to 70 with a conservative brand sensibility, failing to meet the younger target demographic for eco-conscious activewear."
+    },
+    {
+      "publisher_id": "pub_006",
+      "verdict": "recommended",
+      "rank": 2,
+      "reason": "Inclusive sizing and a predominantly female audience that deeply values representation and fit-focused messaging."
+    },
+    {
+      "publisher_id": "pub_007",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Dedicated to pet food and supplies; shoppers here are looking after animals rather than shopping for women's apparel."
+    },
+    {
+      "publisher_id": "pub_008",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Operates entirely in organic groceries and pantry goods, offering no path to reach buyers seeking activewear."
+    },
+    {
+      "publisher_id": "pub_009",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "A pet-focused publisher providing pet food and pharmacy items, which has no category overlap with sustainable fashion."
+    },
+    {
+      "publisher_id": "pub_010",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Basics and gifting audience responds well to social-good messaging, though the lower average order value presents a slight mismatch."
+    },
+    {
+      "publisher_id": "pub_011",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Design-conscious home and bedding shoppers have great cross-sell potential with wellness, but the price point and home focus keep it just outside top placement."
+    },
+    {
+      "publisher_id": "pub_012",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Sells vitamins and supplements rather than apparel, leaving a complete category gap despite the healthy age overlap."
+    },
+    {
+      "publisher_id": "pub_013",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Focused purely on skincare and makeup with a younger demographic seeking beauty products rather than activewear."
+    },
+    {
+      "publisher_id": "pub_014",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Sustainability-motivated kitchen buyers share the brand's environmental ethos, but cookware is too far removed from apparel to justify primary funding."
+    },
+    {
+      "publisher_id": "pub_015",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Provides meal kits and groceries, meaning food-interested households will not find women's activewear here."
+    },
+    {
+      "publisher_id": "pub_016",
+      "verdict": "recommended",
+      "rank": 3,
+      "reason": "Professional women who purchase sustainability-driven footwear, making eco-friendly activewear an effortless extension of their wardrobe."
+    },
+    {
+      "publisher_id": "pub_017",
+      "verdict": "recommended",
+      "rank": 4,
+      "reason": "Tech-adjacent urban professionals whose comfort and sustainability mindset matches recycled ocean plastic apparel perfectly."
+    },
+    {
+      "publisher_id": "pub_018",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "A pet supplies and subscription publisher where consumers shop for their dogs, not for themselves."
+    },
+    {
+      "publisher_id": "pub_019",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Haircare and personalized beauty publisher; audience is looking for hair solutions rather than activewear."
+    },
+    {
+      "publisher_id": "pub_020",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Offers functional beverages and gut health soda alternatives, failing to connect with shoppers looking for apparel."
+    }
+  ]
+}

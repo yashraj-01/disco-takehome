@@ -1,0 +1,60 @@
+{
+  "selected": [
+    {
+      "persona_id": "persona_009",
+      "rationale": "The Fitness Enthusiast matches the activewear category and works out 4+ times a week, aligning with the brand's primary product. Their preference for technical fabrics and performance claims fits a mid-tier activewear brand.",
+      "primary_publishers": [
+        "pub_002",
+        "pub_017"
+      ]
+    },
+    {
+      "persona_id": "persona_006",
+      "rationale": "The Sustainability Buyer focuses on environmental footprint and supply chain transparency, which directly connects to the advertiser's core value of using recycled ocean plastic for sustainable activewear.",
+      "primary_publishers": [
+        "pub_016",
+        "pub_017"
+      ]
+    },
+    {
+      "persona_id": "persona_001",
+      "rationale": "The Wellness Optimizer has a low price sensitivity and treats her body like a system to optimize, making her an ideal target for a $120 AOV sustainable activewear brand that values health, fitness, and clean living.",
+      "primary_publishers": [
+        "pub_002"
+      ]
+    },
+    {
+      "persona_id": "persona_003",
+      "rationale": "The Gen Z Aesthete is highly visual and cares about whether a brand stands for something, which matches the mission-driven nature of an eco-friendly ocean plastic activewear brand targeted at younger demographics.",
+      "primary_publishers": [
+        "pub_006"
+      ]
+    }
+  ],
+  "rejected": [
+    {
+      "persona_id": "persona_002",
+      "reason": "The Busy Parent prioritizes time-saving, convenience, and subscriptions, whereas this brand is a one-off apparel purchase rather than a household consumable or meal kit."
+    },
+    {
+      "persona_id": "persona_004",
+      "reason": "The Pet Parent focuses strictly on pet health, food, and supplies, which has no direct overlap with women's activewear."
+    },
+    {
+      "persona_id": "persona_005",
+      "reason": "The Affluent Classic is aged 50-68 and prefers classic apparel, heritage, and understated luxury, which falls outside the target age range of 22 to 40 for this modern activewear brand."
+    },
+    {
+      "persona_id": "persona_007",
+      "reason": "The Convenience-First Millennial looks for instant delivery and quick commerce grocery or meal services, which does not align with a specialized D2C apparel brand."
+    },
+    {
+      "persona_id": "persona_008",
+      "reason": "The Value-Conscious Shopper has high price sensitivity and seeks deep discounts and budget-aware bundles, conflicting with the mid-tier $120 AOV positioning of the brand."
+    },
+    {
+      "persona_id": "persona_010",
+      "reason": "The Gifter is focused on seasonal gift-wrapping and holiday purchases rather than personal wellness and activewear adoption, making them too transient for a brand-focused campaign."
+    }
+  ]
+}

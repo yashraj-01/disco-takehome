@@ -1,0 +1,28 @@
+{
+  "primary_category": "apparel",
+  "subcategories": [
+    "activewear",
+    "women",
+    "sustainable_fashion"
+  ],
+  "price_tier": "mid",
+  "estimated_aov_usd": 120,
+  "target_age_min": 22,
+  "target_age_max": 40,
+  "target_gender_skew": "female",
+  "values": [
+    "sustainability"
+  ],
+  "business_model": "one_off",
+  "is_consumer_dtc": true,
+  "confidence": "medium",
+  "assumptions": [
+    "Assumed mid price tier ($120 AOV) based on typical sustainable activewear market positioning since no price was stated.",
+    "Assumed target age range of 22 to 40 as the primary demographic for eco-conscious activewear brands."
+  ],
+  "missing_signals": [
+    "Exact pricing or average order value.",
+    "Precise target age demographic.",
+    "Whether subscription options are offered alongside one-off purchases."
+  ]
+}
