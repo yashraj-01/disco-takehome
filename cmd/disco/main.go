@@ -307,7 +307,7 @@ func cmdMeasure(args []string) error {
 		Provider:    provider.Name(),
 		Model:       common.model,
 		Metrics: map[string]measure.Metric{
-			"reason_consistency": measure.ReasonConsistency(campaigns),
+			"reason_consistency": measure.ReasonConsistency(campaigns, cat),
 		},
 	}
 

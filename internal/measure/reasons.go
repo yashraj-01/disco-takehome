@@ -5,6 +5,7 @@ import (
 	"regexp"
 	"strings"
 
+	"github.com/yashraj/disco/internal/catalog"
 	"github.com/yashraj/disco/internal/model"
 	"github.com/yashraj/disco/internal/pipeline"
 )
@@ -116,25 +117,57 @@ func compilePatterns(phrases []string) []phrasePattern {
 	return out
 }
 
+// dollarAmountPattern flags an explicit dollar figure ("$198"), one of two
+// publisher-independent regex additions to the hand-written keyword lists
+// (see the FIX-4 doc comment on augmentedCategories). It deliberately has no
+// leading \b: "$" is not a word character, so a boundary assertion right
+// before it would require the *preceding* character to be a word character
+// too, which is never true in practice (a dollar figure is always preceded
+// by whitespace or punctuation) — the anchor would silently never fire.
+var dollarAmountPattern = phrasePattern{Phrase: "<dollar-amount>", re: regexp.MustCompile(`\$\d+`)}
+
+// ageRangePattern flags an explicit age range ("25-45", "50–70": two 2-digit
+// numbers separated by a hyphen or en dash). Leading-boundary anchored like
+// everything else, so it doesn't fire in the middle of a longer digit run.
+var ageRangePattern = phrasePattern{Phrase: "<age-range>", re: regexp.MustCompile(`\b\d{2}[-–]\d{2}`)}
+
 var subScorePhrases = []subScoreCategory{
 	{"Category", compilePatterns([]string{"category", "unrelated", "adjacent", "vertical", "product type", "assortment", "different space", "not a fit for"})},
-	{"AOVAlignment", compilePatterns([]string{"order value", "aov", "price point", "basket", "spend", "cheaper", "expensive", "affordab", "premium pricing", "far less than", "far more than"})},
-	{"AgeOverlap", compilePatterns([]string{"age", "older", "younger", "skew", "demographic", "generation", "millennial", "gen z", "mid-life", "retire"})},
+	{"AOVAlignment", append(compilePatterns([]string{"order value", "aov", "price point", "basket", "spend", "cheaper", "expensive", "affordab", "premium pricing", "far less than", "far more than"}), dollarAmountPattern)},
+	{"AgeOverlap", append(compilePatterns([]string{"age", "older", "younger", "skew", "demographic", "generation", "millennial", "gen z", "mid-life", "retire"}), ageRangePattern)},
 	{"ValuesMatch", compilePatterns([]string{"sustainab", "values", "eco", "ethical", "craftsman", "heritage", "clean-ingredient", "transparen", "science-backed", "vet-recommend", "greenwash"})},
 	{"GenderFit", compilePatterns([]string{"women", "female", "men", "male", "gender", "she", "her"})},
 	{"IncomeTier", compilePatterns([]string{"income", "affluent", "wealthy", "disposable", "high-end", "mid-market", "budget-conscious", "luxury"})},
 }
 
-// firstMatch returns the first phrasePattern (in table order) for category
-// whose word-boundary-anchored pattern matches reasonLower, the byte offset
-// of that match, and whether one was found.
-func firstMatch(category subScoreCategory, reasonLower string) (phrasePattern, int, bool) {
-	for _, p := range category.Patterns {
-		if loc := p.re.FindStringIndex(reasonLower); loc != nil {
-			return p, loc[0], true
+// nonCategoryKeywords is the set of every hand-written phrase configured for
+// a sub-score OTHER than Category. It backs ambiguity rule 3 in
+// augmentedCategories: a publisher subcategory of "women" must not also
+// register as a Category citation, because GenderFit's keyword list already
+// claims that exact word.
+var nonCategoryKeywords = func() map[string]bool {
+	set := map[string]bool{}
+	for _, cat := range subScorePhrases {
+		if cat.Name == "Category" {
+			continue
+		}
+		for _, p := range cat.Patterns {
+			set[p.Phrase] = true
 		}
 	}
-	return phrasePattern{}, -1, false
+	return set
+}()
+
+// firstMatch returns the first phrasePattern (in table order) for category
+// whose word-boundary-anchored pattern matches reasonLower, the byte offsets
+// of that match, and whether one was found.
+func firstMatch(category subScoreCategory, reasonLower string) (p phrasePattern, start, end int, ok bool) {
+	for _, p := range category.Patterns {
+		if loc := p.re.FindStringIndex(reasonLower); loc != nil {
+			return p, loc[0], loc[1], true
+		}
+	}
+	return phrasePattern{}, -1, -1, false
 }
 
 // Abstention reasons: the citation was found, but the metric declines to
@@ -204,7 +237,9 @@ func advertiserDescriptorText(p model.AdvertiserProfile) string {
 
 // citation is one (entry, sub-score) pair extracted from a reason. Abstain
 // is empty for a normally-scored citation, or one of the abstain* constants
-// when the metric declined to score it.
+// when the metric declined to score it. MatchedOn is the actual matched
+// excerpt from the reason (not a static label), so a regex-derived citation
+// (an age range, a dollar figure) reports what it really found.
 type citation struct {
 	SubScore  string
 	MatchedOn string
@@ -212,20 +247,114 @@ type citation struct {
 	Abstain   string
 }
 
+// normalizeUnderscores lowercases s and turns underscores into spaces, so a
+// catalog value like "pet_food" can match the phrase "pet food".
+func normalizeUnderscores(s string) string {
+	return strings.ReplaceAll(strings.ToLower(s), "_", " ")
+}
+
+// categoryDynamicPatterns derives Category vocabulary from pub's own
+// catalog record: its Category value always counts (ambiguity rule 4 — the
+// ten category values don't collide with any other sub-score's keywords),
+// and each Subcategory counts if it's a multi-word term (rule 2, a strong
+// signal on its own) or a single-word term that no OTHER sub-score's
+// keyword list already claims (rule 3 — e.g. a subcategory of "women" is
+// GenderFit's word, not Category's, so it is left for GenderFit to match).
+func categoryDynamicPatterns(pub *catalog.Publisher) []phrasePattern {
+	terms := []string{normalizeUnderscores(pub.Category)}
+	for _, sub := range pub.Subcategories {
+		term := normalizeUnderscores(sub)
+		if strings.Contains(term, " ") || !nonCategoryKeywords[term] {
+			terms = append(terms, term)
+		}
+	}
+	return compilePatterns(terms)
+}
+
+// keywordDynamicPatterns derives ValuesMatch vocabulary from the
+// publisher's own precomputed Keywords (the value vocabulary catalog.Load
+// already derives from that publisher's notes and subcategories).
+func keywordDynamicPatterns(pub *catalog.Publisher) []phrasePattern {
+	terms := make([]string, len(pub.Keywords))
+	for i, k := range pub.Keywords {
+		terms[i] = normalizeUnderscores(k)
+	}
+	return compilePatterns(terms)
+}
+
+// incomeDynamicPatterns derives IncomeTier vocabulary from the publisher's
+// own audience income tier ("mid-high", "high", "mid", ...).
+func incomeDynamicPatterns(pub *catalog.Publisher) []phrasePattern {
+	if pub.Audience.IncomeTier == "" {
+		return nil
+	}
+	return compilePatterns([]string{strings.ToLower(pub.Audience.IncomeTier)})
+}
+
+// ageSkewDynamicPatterns derives an additional AgeOverlap term from the
+// publisher's own literal audience age-skew string, alongside the general
+// age-range regex already in subScorePhrases.
+func ageSkewDynamicPatterns(pub *catalog.Publisher) []phrasePattern {
+	if pub.Audience.AgeSkew == "" {
+		return nil
+	}
+	return compilePatterns([]string{strings.ToLower(pub.Audience.AgeSkew)})
+}
+
+// augmentedCategories returns subScorePhrases augmented with vocabulary
+// derived from pub's own catalog record — the same principle behind the
+// advertiser-term abstention: prefer data the pipeline already holds over a
+// hand-maintained word list. pub may be nil (no catalog available, as in a
+// unit test with a synthetic publisher ID), in which case the static table
+// alone is returned unchanged.
+//
+// GenderFit gets no augmentation: the catalog has no vocabulary for it
+// beyond what the hand-written keywords already cover.
+func augmentedCategories(pub *catalog.Publisher) []subScoreCategory {
+	if pub == nil {
+		return subScorePhrases
+	}
+	out := make([]subScoreCategory, len(subScorePhrases))
+	for i, cat := range subScorePhrases {
+		var extra []phrasePattern
+		switch cat.Name {
+		case "Category":
+			extra = categoryDynamicPatterns(pub)
+		case "ValuesMatch":
+			extra = keywordDynamicPatterns(pub)
+		case "IncomeTier":
+			extra = incomeDynamicPatterns(pub)
+		case "AgeOverlap":
+			extra = ageSkewDynamicPatterns(pub)
+		}
+		if len(extra) == 0 {
+			out[i] = cat
+			continue
+		}
+		patterns := make([]phrasePattern, 0, len(cat.Patterns)+len(extra))
+		patterns = append(patterns, cat.Patterns...)
+		patterns = append(patterns, extra...)
+		out[i] = subScoreCategory{Name: cat.Name, Patterns: patterns}
+	}
+	return out
+}
+
 // citedSubScores returns every sub-score category cited by reasonLower
 // (already lowercased), in table order, each at most once. advertiserText
 // is the advertiser's own descriptor text (see advertiserDescriptorText),
-// used to detect and abstain on FIX-2-style ambiguity.
-func citedSubScores(reasonLower string, sub model.SubScores, advertiserText string) []citation {
+// used to detect and abstain on FIX-2-style ambiguity. categories is the
+// (possibly per-publisher-augmented) pattern table to scan — see
+// augmentedCategories.
+func citedSubScores(reasonLower string, sub model.SubScores, advertiserText string, categories []subScoreCategory) []citation {
 	var out []citation
-	for _, cat := range subScorePhrases {
-		p, pos, ok := firstMatch(cat, reasonLower)
+	for _, cat := range categories {
+		p, start, end, ok := firstMatch(cat, reasonLower)
 		if !ok {
 			continue
 		}
-		cit := citation{SubScore: cat.Name, MatchedOn: p.Phrase, Value: subScoreValue(sub, cat.Name)}
+		cit := citation{SubScore: cat.Name, MatchedOn: reasonLower[start:end], Value: subScoreValue(sub, cat.Name)}
 		switch {
-		case containsConcessiveMarker(clausePrefix(reasonLower, pos)):
+		case containsConcessiveMarker(clausePrefix(reasonLower, start)):
 			cit.Abstain = abstainConcessive
 		case advertiserText != "" && p.re.MatchString(advertiserText):
 			cit.Abstain = abstainAdvertiserTerm
@@ -292,7 +421,20 @@ func truncate(s string, n int) string {
 // Phrase matching is word-boundary anchored (see subScorePhrases), not bare
 // substring matching, so it does not fire on "age" inside "beverages" or
 // "her" inside "leather".
-func ReasonConsistency(campaigns []Campaign) Metric {
+//
+// The vocabulary a citation is checked against is not a fixed list alone: it
+// is derived per (entry, publisher) from that publisher's own catalog
+// record (see augmentedCategories) and unioned with the hand-written
+// phrases. A fixed list goes stale the moment the model's phrasing improves
+// — when a prompt change stopped the model naming gate identifiers like
+// "category_mismatch" and it started describing publishers in plain
+// language instead ("Sells workout apparel and activewear subscriptions"),
+// a fixed meta-vocabulary list went blind to that plain language and
+// vagueness_rate spiked, penalizing the model for getting better. cat may
+// be nil (as in a unit test with a synthetic publisher ID not in any real
+// catalog), in which case matching falls back to the hand-written lists
+// alone.
+func ReasonConsistency(campaigns []Campaign, cat *catalog.Catalog) Metric {
 	var (
 		entries, skippedGenerated                           int
 		citations, consistent, contradicted, weak, unscored int
@@ -312,7 +454,13 @@ func ReasonConsistency(campaigns []Campaign) Metric {
 				continue
 			}
 
-			cited := citedSubScores(strings.ToLower(reason), e.SubScores, advertiserText)
+			var pub *catalog.Publisher
+			if cat != nil {
+				pub, _ = cat.Publisher(e.PublisherID)
+			}
+			categories := augmentedCategories(pub)
+
+			cited := citedSubScores(strings.ToLower(reason), e.SubScores, advertiserText, categories)
 			if len(cited) == 0 {
 				vague++
 				continue
@@ -387,7 +535,10 @@ func ReasonConsistency(campaigns []Campaign) Metric {
 			"%d abstained as concessive constructions, %d abstained as advertiser-described terms "+
 			"(coverage_rate=%.3f: scored citations / all citations found — abstention is deliberate, "+
 			"precision is prioritized over recall). "+
-			"%.1f%% of checkable reasons cited nothing in the phrase map (vague).",
+			"%.1f%% of checkable reasons cited nothing in the phrase map (vague) — checked against "+
+			"the hand-written phrases UNIONED with vocabulary derived per publisher from the catalog "+
+			"(its Category, Subcategories, Keywords, and Audience fields), not a fixed list alone, so "+
+			"the metric doesn't go blind the moment the model's phrasing improves.",
 		citations, entries, skippedGenerated,
 		pct(consistent, scored), pct(contradicted, scored), pct(weak, scored), unscored,
 		concessive, advertiserTerm, safeDiv(scored, citations),
