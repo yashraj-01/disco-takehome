@@ -80,6 +80,13 @@ func contextWithTimeout(r *http.Request, d time.Duration) (context.Context, cont
 	return context.WithTimeout(r.Context(), d)
 }
 
+// Listen exposes listen (see below) to other subcommands — namely
+// "disco metrics" (internal/dashboard) — so the bind-with-fallback
+// behaviour lives in exactly one place instead of being duplicated.
+func Listen(addr string) (net.Listener, bool, error) {
+	return listen(addr)
+}
+
 // listen binds addr, retrying once against an OS-assigned port (host with
 // port 0) if the requested address is already in use. Any other bind error
 // (a malformed address, a permissions error on a low port, ...) is returned

@@ -13,6 +13,7 @@ import (
 	"time"
 
 	"github.com/yashraj/disco/internal/catalog"
+	"github.com/yashraj/disco/internal/dashboard"
 	"github.com/yashraj/disco/internal/eval"
 	"github.com/yashraj/disco/internal/llm"
 	"github.com/yashraj/disco/internal/measure"
@@ -27,6 +28,7 @@ const usage = `disco — draft an ad campaign from a one-line brief
   disco serve           browse results at http://localhost:8080
   disco eval            run every example brief and check the invariants
   disco measure         run every example brief and measure reason & scoring quality
+  disco metrics         browse quality metrics at http://localhost:8090 (read-only; refreshes only via "disco measure")
 
 Run "disco <command> -h" for the flags of a command.
 `
@@ -46,6 +48,8 @@ func main() {
 		err = cmdEval(os.Args[2:])
 	case "measure":
 		err = cmdMeasure(os.Args[2:])
+	case "metrics":
+		err = cmdMetrics(os.Args[2:])
 	case "-h", "--help", "help":
 		fmt.Print(usage)
 		return
@@ -212,6 +216,25 @@ func cmdServe(args []string) error {
 	return server.Run(*addr, pipeline.Options{
 		Provider: provider, Catalog: cat, Params: common.params, Model: common.model,
 	})
+}
+
+// cmdMetrics starts the read-only quality-metrics dashboard: it renders
+// whatever "disco measure" last wrote to --latest (diffed against
+// --baseline when present) and never touches the pipeline or a model, so it
+// takes no provider/catalog flags at all.
+func cmdMetrics(args []string) error {
+	fs := flag.NewFlagSet("metrics", flag.ExitOnError)
+	fs.Usage = func() {
+		fmt.Fprintf(fs.Output(), "usage: disco metrics [flags]\n\nbrowse quality metrics at http://localhost:8090 (read-only: reads evals/measurements/*.json, never runs the pipeline)\n\nflags:\n")
+		fs.PrintDefaults()
+	}
+	addr := fs.String("addr", ":8090", "listen address")
+	latestPath := fs.String("latest", "evals/measurements/latest.json", "path to the measurement report written by \"disco measure\"")
+	baselinePath := fs.String("baseline", "evals/measurements/baseline.json", "path to the committed baseline report to diff against")
+	if err := fs.Parse(args); err != nil {
+		return err
+	}
+	return dashboard.Run(*addr, *latestPath, *baselinePath)
 }
 
 // cmdEval runs every example brief through the pipeline and checks the

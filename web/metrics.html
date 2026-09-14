@@ -1,0 +1,122 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>disco — metrics</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+  :root { --bg:#fbfbf9; --fg:#1c1c1a; --mut:#6b6b66; --line:#e3e3dd; --accent:#1a5c3a; --warn:#8a5a12; --bad:#8a2a2a; }
+  @media (prefers-color-scheme:dark){ :root{ --bg:#16161a; --fg:#e8e8e4; --mut:#9a9a94; --line:#2e2e34; --accent:#6fbf90; --warn:#d8a94a; --bad:#e08080; } }
+  *{box-sizing:border-box}
+  body{margin:0;padding:24px 16px;background:var(--bg);color:var(--fg);
+       font:15px/1.5 ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
+  main{max-width:900px;margin:0 auto}
+  h1{font-size:20px;margin:0 0 4px} .sub{color:var(--mut);margin:0 0 20px}
+  code,pre{font:12px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace}
+  code{background:color-mix(in srgb,var(--fg) 8%,transparent);padding:1px 5px;border-radius:4px}
+  pre{overflow-x:auto;background:color-mix(in srgb,var(--fg) 5%,transparent);padding:10px;border-radius:6px}
+  section{border-top:1px solid var(--line);padding-top:16px;margin-top:20px}
+  h2{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);margin:0 0 12px}
+  .banner{padding:10px 14px;border-radius:8px;margin-bottom:16px;font-weight:600}
+  .stale{background:color-mix(in srgb,var(--warn) 18%,transparent)}
+  .empty{background:color-mix(in srgb,var(--mut) 10%,transparent);padding:16px;border-radius:8px;margin-top:8px}
+  .meta{color:var(--mut);font-size:13px;margin:0 0 6px}
+  .overflow{overflow-x:auto}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th{text-align:left;font-weight:600;color:var(--mut);font-size:12px;padding:4px 8px 4px 0}
+  td{padding:6px 8px 6px 0;border-top:1px solid var(--line);vertical-align:top}
+  td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .card{border:1px solid var(--line);border-radius:8px;padding:14px;margin-bottom:16px}
+  .card h3{margin:0 0 4px;font-size:16px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  .interp{color:var(--mut);font-size:13px;margin:0 0 10px}
+  .summary{margin:0 0 10px;font-size:14px}
+  .delta.good{color:var(--accent)} .delta.bad{color:var(--bad)} .delta.neutral{color:var(--mut)}
+  .bar{display:flex;align-items:center;gap:8px;margin:5px 0;font-size:13px}
+  .bar .label{width:130px;flex:0 0 auto;overflow-wrap:anywhere;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  .barwrap{flex:1 1 auto;background:color-mix(in srgb,var(--line) 70%,transparent);border-radius:4px;height:10px;overflow:hidden;min-width:60px}
+  .barfill{height:100%;background:var(--accent)}
+  .bar .val{width:52px;flex:0 0 auto;text-align:right;font-variant-numeric:tabular-nums}
+  .rankshift{color:var(--mut)}
+  details summary{cursor:pointer;color:var(--mut);font-size:13px;margin-top:8px}
+  .why{color:var(--mut);font-size:13px;white-space:normal;overflow-wrap:anywhere}
+  .footer{color:var(--mut);font-size:12px;margin-top:32px}
+  @media(max-width:480px){ .bar .label{width:82px} .card{padding:10px} }
+</style>
+<main>
+  <h1>disco — metrics</h1>
+  <p class="sub">Read-only quality metrics for the ad-campaign pipeline. This page only reads
+  files from disk; it never runs the pipeline and never calls a model. Metrics refresh only
+  when someone runs <code>disco measure</code> — not on <code>disco run</code> or <code>disco serve</code>.</p>
+
+{{if not .HasLatest}}
+  <div class="empty">
+    <strong>No measurement has been run yet.</strong>
+    <p>This page reads <code>evals/measurements/latest.json</code>, which {{if .LoadErr}}could not be read ({{.LoadErr}}){{else}}does not exist yet{{end}}.
+    Run the measurement suite once to populate it:</p>
+    <pre>go run ./cmd/disco measure</pre>
+  </div>
+{{else}}
+  <p class="meta">Generated <strong>{{.GeneratedAbs}}</strong> ({{.GeneratedRel}}) &middot; provider={{.Provider}} &middot; model={{.Model}}</p>
+  {{if .Stale}}
+    <div class="banner stale">This report is more than 24 hours old — it may not reflect the current code or prompts.</div>
+  {{end}}
+  {{if .HasBaseline}}
+    <p class="meta">Baseline generated {{.BaselineAbs}}. Per-value deltas below are current vs. that baseline; arrows show direction only — colour is shown only for the values below where "better" has an agreed direction.</p>
+  {{end}}
+
+  {{range .Metrics}}
+  <div class="card">
+    <h3>{{.Name}}</h3>
+    {{if .Interpretation}}<p class="interp">{{.Interpretation}}</p>
+    {{else}}<p class="interp">No hand-written interpretation recorded yet for this metric — read the summary and values below directly.</p>{{end}}
+    {{if .Summary}}<p class="summary">{{.Summary}}</p>{{end}}
+
+    {{if .Ablation}}
+    <div class="overflow">
+      {{range .Ablation}}
+      <div class="bar">
+        <span class="label">{{.SubScore}}</span>
+        <span class="barwrap"><span class="barfill" style="{{.BarStyle}}"></span></span>
+        <span class="val">{{.Top5Pct}}</span>
+      </div>
+      {{end}}
+    </div>
+    <p class="rankshift">bars show top5_change_rate (share of briefs where zeroing this sub-score changed the top 5); mean_rank_shift per sub-score is in the table below</p>
+    {{end}}
+
+    {{if .ExtraValues}}
+    <div class="overflow"><table>
+      <tr><th>value</th><th class="n">current</th>{{if $.HasBaseline}}<th class="n">baseline</th><th class="n">&Delta;</th>{{end}}</tr>
+      {{range .ExtraValues}}
+      <tr><td>{{.Key}}</td><td class="n">{{.Value}}</td>
+        {{if $.HasBaseline}}
+          {{if .HasBase}}<td class="n">{{.Base}}</td><td class="n delta {{.ColorClass}}">{{.Arrow}} {{.Delta}}</td>
+          {{else}}<td class="n">—</td><td class="n">—</td>{{end}}
+        {{end}}
+      </tr>
+      {{end}}
+    </table></div>
+    {{end}}
+
+    {{if .Findings}}
+    <details>
+      <summary>{{len .Findings}} finding{{if ne (len .Findings) 1}}s{{end}} — show details</summary>
+      <div class="overflow"><table>
+        <tr><th>brief</th><th>who</th><th>detail</th></tr>
+        {{range .Findings}}
+        <tr><td class="n">{{.BriefN}}</td><td>{{.PublisherID}}</td><td class="why">{{.Detail}}</td></tr>
+        {{end}}
+      </table></div>
+    </details>
+    {{end}}
+  </div>
+  {{end}}
+
+  {{if .RawDiff}}
+  <section>
+    <h2>Raw diff vs. baseline</h2>
+    <details><summary>show measure.Diff output</summary><pre class="overflow">{{.RawDiff}}</pre></details>
+  </section>
+  {{end}}
+{{end}}
+
+  <p class="footer">Reads <code>evals/measurements/latest.json</code> and <code>evals/measurements/baseline.json</code> from disk on every load. Nothing on this page triggers the pipeline or a model call.</p>
+</main>
