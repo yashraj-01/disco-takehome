@@ -41,6 +41,16 @@ func campaignOf(entries ...model.LedgerEntry) []Campaign {
 	return []Campaign{{BriefN: 1, Campaign: model.Campaign{PublisherLedger: entries}}}
 }
 
+// campaignWithProfile builds a campaign carrying an advertiser profile, for
+// tests of the advertiser_term abstention (FIX 2), which reads
+// Campaign.Advertiser.DerivedProfile.
+func campaignWithProfile(profile model.AdvertiserProfile, entries ...model.LedgerEntry) []Campaign {
+	return []Campaign{{BriefN: 1, Campaign: model.Campaign{
+		Advertiser:      model.AdvertiserBlock{DerivedProfile: profile},
+		PublisherLedger: entries,
+	}}}
+}
+
 // A contradiction: excluded publisher, cited AgeOverlap sub-score is 1.0
 // (a perfect overlap), while the reason claims age is the problem.
 func TestContradictionDetected(t *testing.T) {
@@ -159,12 +169,12 @@ func TestWomenDoesNotMatchMenPattern(t *testing.T) {
 	}
 
 	cat := genderFitCategory(t)
-	phrase, ok := firstMatch(cat, strings.ToLower(reason))
+	p, _, ok := firstMatch(cat, strings.ToLower(reason))
 	if !ok {
 		t.Fatalf("expected a GenderFit match")
 	}
-	if phrase != "women" {
-		t.Fatalf("matched phrase = %q, want \"women\"", phrase)
+	if p.Phrase != "women" {
+		t.Fatalf("matched phrase = %q, want \"women\"", p.Phrase)
 	}
 
 	// And end to end: a single reason mentioning "women" must produce
@@ -390,5 +400,173 @@ func TestWeakCitationCounted(t *testing.T) {
 	}
 	if got := m.Counts["contradicted"]; got != 0 {
 		t.Fatalf("contradicted = %d, want 0", got)
+	}
+}
+
+// A concessive clause abstains: the model concedes a signal is fine
+// ("despite good age overlap") while excluding for a different, unrelated
+// reason (category). Verbatim shape of the real brief 5 / pub_017 finding
+// that motivated FIX 1.
+// Corruption this catches: removing concessive-marker detection entirely,
+// which would score AgeOverlap=1.00 against the excluded verdict as a
+// contradiction — exactly the false positive this fix exists to remove.
+func TestConcessiveClauseAbstains(t *testing.T) {
+	e := entry("pub_017", "excluded",
+		"Tech-adjacent activewear and shoe publisher; despite good age overlap, "+
+			"the apparel category does not fit wellness services.",
+		"AgeOverlap", 1.0)
+	m := ReasonConsistency(campaignOf(e))
+
+	if got := m.Counts["concessive"]; got != 1 {
+		t.Fatalf("concessive = %d, want 1", got)
+	}
+	if got := m.Counts["contradicted"]; got != 0 {
+		t.Fatalf("contradicted = %d, want 0 (the AgeOverlap citation must abstain, not score as a contradiction)", got)
+	}
+}
+
+// A concessive marker in a different clause must not suppress an unrelated
+// citation in the same reason: the same sentence above also cites Category
+// (in the clause after the comma, with no concessive marker of its own),
+// and that citation must still be scored normally.
+// Corruption this catches: scoping concessive detection to the whole reason
+// instead of the clause containing the match, which would also abstain the
+// Category citation and drop "consistent" to 0.
+func TestConcessiveInDifferentClauseDoesNotSuppressOtherCitation(t *testing.T) {
+	e := entry("pub_017", "excluded",
+		"Tech-adjacent activewear and shoe publisher; despite good age overlap, "+
+			"the apparel category does not fit wellness services.",
+		"AgeOverlap", 1.0)
+	m := ReasonConsistency(campaignOf(e))
+
+	if got := m.Counts["citations"]; got != 2 {
+		t.Fatalf("citations = %d, want 2 (AgeOverlap + Category)", got)
+	}
+	if got := m.Counts["consistent"]; got != 1 {
+		t.Fatalf("consistent = %d, want 1 (the Category citation, unaffected by the earlier clause's \"despite\")", got)
+	}
+}
+
+// A phrase appearing in the advertiser's own PriceTier abstains: "luxury"
+// in "...do not match luxury leather accessories" describes the
+// advertiser's product (PriceTier=luxury), not the publisher's IncomeTier.
+// Verbatim shape of the real brief 10 / pub_008 finding.
+// Corruption this catches: removing the advertiser-descriptor check, which
+// would score IncomeTier=1.00 against the excluded verdict as a
+// contradiction.
+func TestAdvertiserPriceTierAbstains(t *testing.T) {
+	e := entry("pub_008", "excluded",
+		"Category mismatch: organic grocery and pantry items do not match luxury leather accessories.",
+		"IncomeTier", 1.0)
+	profile := model.AdvertiserProfile{PriceTier: "luxury"}
+	m := ReasonConsistency(campaignWithProfile(profile, e))
+
+	if got := m.Counts["advertiser_term"]; got != 1 {
+		t.Fatalf("advertiser_term = %d, want 1", got)
+	}
+	if got := m.Counts["contradicted"]; got != 0 {
+		t.Fatalf("contradicted = %d, want 0 (the IncomeTier citation must abstain as an advertiser term)", got)
+	}
+}
+
+// A phrase appearing in Subcategories abstains too, including the
+// underscore-to-space normalization: the two-word phrase "product type"
+// only appears in "specialty_product_type_goods" once underscores become
+// spaces ("specialty product type goods"). Raw, un-normalized, the
+// Subcategory has no literal "product type" substring at all (an
+// underscore sits where the phrase needs a space), so this specifically
+// requires the normalization step, not just an advertiser-profile check.
+// Corruption this catches: comparing the raw (underscored) Subcategories
+// text instead of normalizing it first, which would fail to match
+// "product type" against "specialty_product_type_goods" and let the
+// citation score as a contradiction.
+func TestAdvertiserSubcategoryAbstainsWithUnderscoreNormalization(t *testing.T) {
+	e := entry("pub_014", "excluded",
+		"This publisher's readership is a different product type than what this advertiser sells.",
+		"Category", 1.0)
+	profile := model.AdvertiserProfile{Subcategories: []string{"specialty_product_type_goods"}}
+	m := ReasonConsistency(campaignWithProfile(profile, e))
+
+	if got := m.Counts["advertiser_term"]; got != 1 {
+		t.Fatalf("advertiser_term = %d, want 1", got)
+	}
+	if got := m.Counts["contradicted"]; got != 0 {
+		t.Fatalf("contradicted = %d, want 0", got)
+	}
+}
+
+// The same phrase, when the advertiser's profile does NOT contain it, must
+// still be scored normally — the abstention is conditional on an actual
+// match against the advertiser's descriptors, not a blanket rule for
+// certain phrases.
+// Corruption this catches: abstaining on any GenderFit/IncomeTier citation
+// unconditionally (or on any phrase in some hardcoded list) instead of
+// actually checking the advertiser profile.
+func TestAdvertiserTermNotAbstainedWhenAbsentFromProfile(t *testing.T) {
+	e := entry("pub_014", "excluded",
+		"Excluded due to category mismatch. Kitchenware and home goods do not overlap with the women and family category.",
+		"GenderFit", 0.96)
+	m := ReasonConsistency(campaignOf(e)) // no advertiser profile at all
+
+	if got := m.Counts["advertiser_term"]; got != 0 {
+		t.Fatalf("advertiser_term = %d, want 0 (nothing in an empty profile should match)", got)
+	}
+	if got := m.Counts["contradicted"]; got != 1 {
+		t.Fatalf("contradicted = %d, want 1 (GenderFit=0.96 against excluded, with no advertiser-term ambiguity, is a real contradiction)", got)
+	}
+}
+
+// A reason that echoes a gate identifier ("category_mismatch") even without
+// matching gateReason's exact prose is skipped like any other
+// code-generated reason. Verbatim shape of the real brief 8 / pub_014
+// reason.
+// Corruption this catches: only checking pipeline.GeneratedReason's exact
+// strings and not the raw gate-identifier substrings, which would measure
+// this as if it were the model's own reasoning.
+func TestGateIdentifierSubstringSkipped(t *testing.T) {
+	e := entry("pub_014", "excluded", "Excluded due to hard gate: category_mismatch.", "Category", 0.05)
+	m := ReasonConsistency(campaignOf(e))
+
+	if got := m.Counts["skipped_generated"]; got != 1 {
+		t.Fatalf("skipped_generated = %d, want 1", got)
+	}
+	if got := m.Counts["citations"]; got != 0 {
+		t.Fatalf("citations = %d, want 0", got)
+	}
+}
+
+// coverage_rate must be scored citations / all citations found — including
+// unscored, concessive, and advertiser_term citations in the denominator,
+// but only consistent+contradicted+weak in the numerator.
+// Corruption this catches: computing coverage_rate over entries, or over
+// only scored+unscored (omitting the new abstention counts) instead of the
+// full citation count.
+func TestCoverageRateDenominator(t *testing.T) {
+	profile := model.AdvertiserProfile{PriceTier: "luxury"}
+
+	concessiveCase := entry("pub_A", "excluded",
+		"Tech-adjacent activewear and shoe publisher; despite good age overlap, "+
+			"the apparel category does not fit wellness services.",
+		"AgeOverlap", 1.0) // -> Category consistent, AgeOverlap concessive
+
+	advertiserTermCase := entry("pub_B", "excluded",
+		"Category mismatch: organic grocery and pantry items do not match luxury leather accessories.",
+		"IncomeTier", 1.0) // -> Category consistent, IncomeTier advertiser_term
+
+	contradictionCase := entry("pub_C", "excluded", "the audience skews too old for our brand", "AgeOverlap", 1.0) // -> AgeOverlap contradicted
+
+	consideredCase := entry("pub_D", "considered", "audience skews a bit older than ideal", "AgeOverlap", 0.9) // -> AgeOverlap unscored
+
+	m := ReasonConsistency(campaignWithProfile(profile,
+		concessiveCase, advertiserTermCase, contradictionCase, consideredCase))
+
+	if got := m.Counts["citations"]; got != 6 {
+		t.Fatalf("citations = %d, want 6", got)
+	}
+	if got := m.Counts["consistent"] + m.Counts["contradicted"] + m.Counts["weak"]; got != 3 {
+		t.Fatalf("scored (consistent+contradicted+weak) = %d, want 3", got)
+	}
+	if got := m.Values["coverage_rate"]; got != 0.5 {
+		t.Fatalf("coverage_rate = %v, want 0.5 (3 scored of 6 citations found)", got)
 	}
 }

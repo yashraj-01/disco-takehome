@@ -1,25 +1,28 @@
 {
-  "generated_at": "2026-09-14T16:26:05.988409Z",
+  "generated_at": "2026-09-14T16:40:18.017785Z",
   "provider": "fixture",
   "model": "gemini-3.5-flash-lite",
   "metrics": {
     "reason_consistency": {
       "name": "reason_consistency",
-      "summary": "423 citations from 300 ledger entries (20 skipped as code-generated gate reasons): 93.2% consistent, 4.8% contradicted, 1.9% weak, 112 unscored (considered verdict). 3.2% of checkable reasons cited nothing in the phrase map (vague).",
+      "summary": "302 citations from 300 ledger entries (127 skipped as code-generated gate reasons): 91.7% consistent, 5.9% contradicted, 2.4% weak, 103 unscored (considered verdict), 7 abstained as concessive constructions, 23 abstained as advertiser-described terms (coverage_rate=0.560: scored citations / all citations found — abstention is deliberate, precision is prioritized over recall). 5.2% of checkable reasons cited nothing in the phrase map (vague).",
       "values": {
-        "consistency_rate": 0.932475884244373,
-        "contradiction_rate": 0.04823151125401929,
-        "vagueness_rate": 0.03214285714285714
+        "consistency_rate": 0.9171597633136095,
+        "contradiction_rate": 0.05917159763313609,
+        "coverage_rate": 0.5596026490066225,
+        "vagueness_rate": 0.05202312138728324
       },
       "counts": {
-        "citations": 423,
-        "consistent": 290,
-        "contradicted": 15,
+        "advertiser_term": 23,
+        "citations": 302,
+        "concessive": 7,
+        "consistent": 155,
+        "contradicted": 10,
         "entries": 300,
-        "skipped_generated": 20,
-        "unscored": 112,
+        "skipped_generated": 127,
+        "unscored": 103,
         "vague_reasons": 9,
-        "weak": 6
+        "weak": 4
       },
       "findings": [
         {
@@ -38,11 +41,6 @@
           "detail": "verdict=excluded cited AgeOverlap=1.00 (matched \"age\") — \"Audience age skew is 45-65 and apparel-focused, which presents a category and messaging distance from a general wellness service.\""
         },
         {
-          "brief_n": 5,
-          "publisher_id": "pub_017",
-          "detail": "verdict=excluded cited AgeOverlap=1.00 (matched \"age\") — \"Tech-adjacent activewear and shoe publisher; despite good age overlap, the apparel category does not fit wellness services.\""
-        },
-        {
           "brief_n": 6,
           "publisher_id": "pub_016",
           "detail": "verdict=recommended cited ValuesMatch=0.00 (matched \"sustainab\") — \"Professional women valuing sustainability and high-performance claims represent a strong audience for premium technical outerwear despite th…\""
@@ -51,16 +49,6 @@
           "brief_n": 6,
           "publisher_id": "pub_017",
           "detail": "verdict=recommended cited ValuesMatch=0.00 (matched \"sustainab\") — \"Tech-adjacent urban professionals with a balanced gender split, 25-45 age range, and an appreciation for comfort and sustainability make an …\""
-        },
-        {
-          "brief_n": 8,
-          "publisher_id": "pub_014",
-          "detail": "verdict=excluded cited GenderFit=0.96 (matched \"women\") — \"Excluded due to hard gate: category_mismatch. Kitchenware and home goods do not overlap with the women and family category.\""
-        },
-        {
-          "brief_n": 9,
-          "publisher_id": "pub_011",
-          "detail": "verdict=recommended cited AOVAlignment=0.00 (matched \"aov\") — \"Northbed shares a home category focus and reaches design-conscious consumers who frequently cross-shop premium home and wellness products, d…\""
         },
         {
           "brief_n": 10,
@@ -74,11 +62,6 @@
         },
         {
           "brief_n": 10,
-          "publisher_id": "pub_008",
-          "detail": "verdict=excluded cited IncomeTier=1.00 (matched \"luxury\") — \"Category mismatch: organic grocery and pantry items do not match luxury leather accessories.\""
-        },
-        {
-          "brief_n": 10,
           "publisher_id": "pub_016",
           "detail": "verdict=recommended cited AOVAlignment=0.00 (matched \"premium pricing\") — \"Professional women's footwear and apparel publisher with a high-income audience, strong sustainability and craftsmanship values, and premium…\""
         },
@@ -86,11 +69,6 @@
           "brief_n": 10,
           "publisher_id": "pub_016",
           "detail": "verdict=recommended cited ValuesMatch=0.00 (matched \"sustainab\") — \"Professional women's footwear and apparel publisher with a high-income audience, strong sustainability and craftsmanship values, and premium…\""
-        },
-        {
-          "brief_n": 13,
-          "publisher_id": "pub_008",
-          "detail": "verdict=recommended cited AOVAlignment=0.13 (matched \"aov\") — \"Organic and natural grocery shoppers heavily index on health, wellness, and clean ingredients, providing an engaged audience for budget-frie…\""
         },
         {
           "brief_n": 14,

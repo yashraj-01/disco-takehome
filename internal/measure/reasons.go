@@ -48,13 +48,35 @@ const (
 // detailTruncateLen bounds how much of a reason a Finding quotes.
 const detailTruncateLen = 140
 
-// isGeneratedReason reports whether reason is one of the fixed strings the
-// pipeline's own code writes for a hard-gated publisher, as opposed to text
-// a model wrote. It delegates to pipeline.GeneratedReason rather than
-// hand-duplicating gateReason's strings here, so the two can never drift
-// apart.
+// gateIdentifiers are the raw hard-gate string identifiers (as opposed to
+// gateReason's full prose). A model that writes "Excluded due to hard gate:
+// category_mismatch." is parroting our own machinery, not reasoning in its
+// own words, even though that exact sentence never comes from gateReason
+// itself — so it is skipped like any other generated reason. Reusing
+// pipeline's exported gate constants (rather than retyping the strings)
+// keeps this list in sync with pipeline automatically.
+var gateIdentifiers = []string{
+	pipeline.GateNotConsumerDTC,
+	pipeline.GateCategoryMismatch,
+	pipeline.GateDemographicMismatch,
+}
+
+// isGeneratedReason reports whether reason is code-written rather than
+// model-written: either an exact match on one of gateReason's fixed
+// strings (delegated to pipeline.GeneratedReason so the two can never drift
+// apart), or a reason that merely echoes one of our internal gate
+// identifiers.
 func isGeneratedReason(reason string) bool {
-	return pipeline.GeneratedReason(reason)
+	if pipeline.GeneratedReason(reason) {
+		return true
+	}
+	lower := strings.ToLower(reason)
+	for _, g := range gateIdentifiers {
+		if g != "" && strings.Contains(lower, g) {
+			return true
+		}
+	}
+	return false
 }
 
 // subScorePhrases maps each sub-score to the phrases that count as citing
@@ -103,35 +125,112 @@ var subScorePhrases = []subScoreCategory{
 	{"IncomeTier", compilePatterns([]string{"income", "affluent", "wealthy", "disposable", "high-end", "mid-market", "budget-conscious", "luxury"})},
 }
 
-// firstMatch returns the first phrase (in table order) for category whose
-// word-boundary-anchored pattern matches reasonLower, and whether one was
-// found.
-func firstMatch(category subScoreCategory, reasonLower string) (string, bool) {
+// firstMatch returns the first phrasePattern (in table order) for category
+// whose word-boundary-anchored pattern matches reasonLower, the byte offset
+// of that match, and whether one was found.
+func firstMatch(category subScoreCategory, reasonLower string) (phrasePattern, int, bool) {
 	for _, p := range category.Patterns {
-		if p.re.MatchString(reasonLower) {
-			return p.Phrase, true
+		if loc := p.re.FindStringIndex(reasonLower); loc != nil {
+			return p, loc[0], true
 		}
 	}
-	return "", false
+	return phrasePattern{}, -1, false
 }
 
-// citation is one (entry, sub-score) pair extracted from a reason.
+// Abstention reasons: the citation was found, but the metric declines to
+// score its polarity because doing so would require guessing rather than
+// reading arithmetic. See ReasonConsistency's doc comment: precision is
+// prioritized over recall, so an ambiguous citation is classified and
+// excluded from the rate rather than scored either way.
+const (
+	abstainConcessive     = "concessive"
+	abstainAdvertiserTerm = "advertiser_term"
+)
+
+// concessivePatterns flag a concessive construction: the model conceding a
+// signal ("despite good age overlap") while excluding — or recommending —
+// for a different reason entirely. Same leading-word-boundary convention as
+// subScorePhrases.
+var concessivePatterns = compilePatterns([]string{
+	"despite", "although", "even though", "though", "while", "whilst",
+	"notwithstanding", "in spite of", "granted", "admittedly",
+	"aside from", "apart from", "setting aside",
+})
+
+func containsConcessiveMarker(text string) bool {
+	for _, p := range concessivePatterns {
+		if p.re.MatchString(text) {
+			return true
+		}
+	}
+	return false
+}
+
+// clausePrefix returns the portion of reasonLower from the start of the
+// clause containing byte offset pos up to pos itself. A clause is delimited
+// by ',', ';', or '.', so a concessive marker elsewhere in a long reason —
+// in a different clause — does not suppress an unrelated citation: only a
+// marker in the same clause, at or before the citation, does.
+func clausePrefix(reasonLower string, pos int) string {
+	start := 0
+	for i := 0; i < pos && i < len(reasonLower); i++ {
+		switch reasonLower[i] {
+		case ',', ';', '.':
+			start = i + 1
+		}
+	}
+	if start > pos {
+		start = pos
+	}
+	return reasonLower[start:pos]
+}
+
+// advertiserDescriptorText concatenates the advertiser's own descriptor
+// fields into one lowercased string with underscores normalized to spaces
+// (so "pet_food" can match the phrase "pet food"). A citation phrase that
+// also appears here is ambiguous between describing the publisher's
+// audience and describing the advertiser's own product — e.g. "luxury" in
+// "...do not match luxury leather accessories" names the advertiser's
+// product, not the publisher's IncomeTier — so it is abstained on rather
+// than scored as if it plainly described the publisher.
+func advertiserDescriptorText(p model.AdvertiserProfile) string {
+	parts := make([]string, 0, 3+len(p.Subcategories)+len(p.Values))
+	parts = append(parts, p.PrimaryCategory, p.PriceTier, p.BusinessModel)
+	parts = append(parts, p.Subcategories...)
+	parts = append(parts, p.Values...)
+	text := strings.ToLower(strings.Join(parts, " "))
+	return strings.ReplaceAll(text, "_", " ")
+}
+
+// citation is one (entry, sub-score) pair extracted from a reason. Abstain
+// is empty for a normally-scored citation, or one of the abstain* constants
+// when the metric declined to score it.
 type citation struct {
 	SubScore  string
 	MatchedOn string
 	Value     float64
+	Abstain   string
 }
 
 // citedSubScores returns every sub-score category cited by reasonLower
-// (already lowercased), in table order, each at most once.
-func citedSubScores(reasonLower string, sub model.SubScores) []citation {
+// (already lowercased), in table order, each at most once. advertiserText
+// is the advertiser's own descriptor text (see advertiserDescriptorText),
+// used to detect and abstain on FIX-2-style ambiguity.
+func citedSubScores(reasonLower string, sub model.SubScores, advertiserText string) []citation {
 	var out []citation
 	for _, cat := range subScorePhrases {
-		phrase, ok := firstMatch(cat, reasonLower)
+		p, pos, ok := firstMatch(cat, reasonLower)
 		if !ok {
 			continue
 		}
-		out = append(out, citation{SubScore: cat.Name, MatchedOn: phrase, Value: subScoreValue(sub, cat.Name)})
+		cit := citation{SubScore: cat.Name, MatchedOn: p.Phrase, Value: subScoreValue(sub, cat.Name)}
+		switch {
+		case containsConcessiveMarker(clausePrefix(reasonLower, pos)):
+			cit.Abstain = abstainConcessive
+		case advertiserText != "" && p.re.MatchString(advertiserText):
+			cit.Abstain = abstainAdvertiserTerm
+		}
+		out = append(out, cit)
 	}
 	return out
 }
@@ -170,9 +269,25 @@ func truncate(s string, n int) string {
 // labels, no judge, and no invented ground truth: the truth is arithmetic
 // the pipeline already computed.
 //
-// It is a heuristic detector with high precision and unknown recall. A
-// contradiction it reports is real. A reason it counts as vague may simply
-// use words the phrase map does not contain — see the package doc comment.
+// It is a heuristic detector with high precision and unknown recall, and it
+// is built to keep that precision even at recall's expense: wherever it
+// cannot read a citation's polarity or referent confidently, it abstains —
+// classifies the citation and excludes it from the rate — rather than
+// guessing. Two abstention modes exist for exactly this reason: a
+// concessive construction ("despite good age overlap, the category doesn't
+// fit") states a polarity opposite the verdict's default assumption, and
+// guessing which way to score it would be worse than not scoring it at all;
+// a phrase that also appears in the advertiser's own descriptor fields
+// (e.g. "luxury" naming the advertiser's product, not the publisher's
+// income tier) is ambiguous about which side of the match it describes.
+// Both are counted and reported (see the concessive and advertiser_term
+// counts) so the abstentions stay visible rather than quietly shrinking the
+// denominator. coverage_rate says how much of the found evidence the
+// metric could actually adjudicate.
+//
+// A contradiction this metric does report is real. A reason it counts as
+// vague may simply use words the phrase map does not contain — see the
+// package doc comment.
 //
 // Phrase matching is word-boundary anchored (see subScorePhrases), not bare
 // substring matching, so it does not fire on "age" inside "beverages" or
@@ -181,11 +296,13 @@ func ReasonConsistency(campaigns []Campaign) Metric {
 	var (
 		entries, skippedGenerated                           int
 		citations, consistent, contradicted, weak, unscored int
-		vague                                               int
+		concessive, advertiserTerm, vague                   int
 		findings                                            []Finding
 	)
 
 	for _, c := range campaigns {
+		advertiserText := advertiserDescriptorText(c.Campaign.Advertiser.DerivedProfile)
+
 		for _, e := range c.Campaign.PublisherLedger {
 			entries++
 
@@ -195,7 +312,7 @@ func ReasonConsistency(campaigns []Campaign) Metric {
 				continue
 			}
 
-			cited := citedSubScores(strings.ToLower(reason), e.SubScores)
+			cited := citedSubScores(strings.ToLower(reason), e.SubScores, advertiserText)
 			if len(cited) == 0 {
 				vague++
 				continue
@@ -203,6 +320,14 @@ func ReasonConsistency(campaigns []Campaign) Metric {
 
 			for _, cit := range cited {
 				citations++
+				switch cit.Abstain {
+				case abstainConcessive:
+					concessive++
+					continue
+				case abstainAdvertiserTerm:
+					advertiserTerm++
+					continue
+				}
 				switch e.Verdict {
 				case "excluded":
 					switch {
@@ -240,6 +365,7 @@ func ReasonConsistency(campaigns []Campaign) Metric {
 			"consistency_rate":   safeDiv(consistent, scored),
 			"contradiction_rate": safeDiv(contradicted, scored),
 			"vagueness_rate":     safeDiv(vague, checkable),
+			"coverage_rate":      safeDiv(scored, citations),
 		},
 		Counts: map[string]int{
 			"entries":           entries,
@@ -249,16 +375,22 @@ func ReasonConsistency(campaigns []Campaign) Metric {
 			"contradicted":      contradicted,
 			"weak":              weak,
 			"unscored":          unscored,
+			"concessive":        concessive,
+			"advertiser_term":   advertiserTerm,
 			"vague_reasons":     vague,
 		},
 		Findings: findings,
 	}
 	m.Summary = fmt.Sprintf(
 		"%d citations from %d ledger entries (%d skipped as code-generated gate reasons): "+
-			"%.1f%% consistent, %.1f%% contradicted, %.1f%% weak, %d unscored (considered verdict). "+
+			"%.1f%% consistent, %.1f%% contradicted, %.1f%% weak, %d unscored (considered verdict), "+
+			"%d abstained as concessive constructions, %d abstained as advertiser-described terms "+
+			"(coverage_rate=%.3f: scored citations / all citations found — abstention is deliberate, "+
+			"precision is prioritized over recall). "+
 			"%.1f%% of checkable reasons cited nothing in the phrase map (vague).",
 		citations, entries, skippedGenerated,
 		pct(consistent, scored), pct(contradicted, scored), pct(weak, scored), unscored,
+		concessive, advertiserTerm, safeDiv(scored, citations),
 		pct(vague, checkable))
 	return m
 }
