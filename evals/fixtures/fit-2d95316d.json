@@ -4,121 +4,121 @@
       "publisher_id": "pub_001",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category mismatch in instant grocery and convenience delivery."
+      "reason": "Delivers groceries and everyday essentials within minutes, which does not align with artisanal, gift-oriented home fragrance."
     },
     {
       "publisher_id": "pub_002",
       "verdict": "considered",
       "rank": 0,
-      "reason": "Plausible fitness and wellness audience crossover, but apparel focus makes it a near-miss compared to home and lifestyle publishers."
+      "reason": "Reaches fitness and wellness shoppers who frequently purchase self-care items, but apparel is a secondary category fit for candles."
     },
     {
       "publisher_id": "pub_003",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category mismatch in wellness booking services."
+      "reason": "Provides fitness and spa booking services, completely missing the retail product assortment required for home goods and gifting."
     },
     {
       "publisher_id": "pub_004",
       "verdict": "considered",
       "rank": 0,
-      "reason": "Strong affinity for quality messaging among older women, but the higher AOV and older age skew make it less optimal than core gifting publishers."
+      "reason": "Engages older, affluent women who appreciate quality craftsmanship, though the high average order value indicates a luxury tier above standard artisan candles."
     },
     {
       "publisher_id": "pub_005",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to an older demographic skew (50-70) and high AOV apparel focus that diverges from the 25-54 target age."
+      "reason": "Sells high-end classic apparel to an older demographic with a significantly higher price point, leaving little room for mid-tier home gifts."
     },
     {
       "publisher_id": "pub_006",
       "verdict": "considered",
       "rank": 0,
-      "reason": "Good demographic overlap and values alignment, but apparel focus limits conversion compared to home goods platforms."
+      "reason": "Features an inclusive and values-driven audience that aligns with sustainable ethos, but the focus remains strictly on apparel and intimates."
     },
     {
       "publisher_id": "pub_007",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category mismatch in pet food and supplies."
+      "reason": "Focuses entirely on pet food and animal supplies, offering no crossover for human home decor or gifting."
     },
     {
       "publisher_id": "pub_008",
       "verdict": "recommended",
       "rank": 2,
-      "reason": "Values-driven grocery shoppers who are highly responsive to clean-ingredient, sustainability, and wellness positioning."
+      "reason": "Reaches values-driven grocery shoppers who actively respond to sustainability, clean ingredients, and wellness messaging."
     },
     {
       "publisher_id": "pub_009",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category mismatch in pet pharmacy and supplies."
+      "reason": "Caters exclusively to pet owners buying animal care products and pharmacy items."
     },
     {
       "publisher_id": "pub_010",
       "verdict": "recommended",
-      "rank": 3,
-      "reason": "Strong gifting season uplift with an audience that responds well to social-good and artisan messaging."
+      "rank": 4,
+      "reason": "Attracts shoppers with a strong gifting season uplift who actively respond to social-good and artisan messaging."
     },
     {
       "publisher_id": "pub_011",
-      "verdict": "considered",
-      "rank": 0,
-      "reason": "Design-conscious home audience with great category overlap, but the higher AOV ($164) pushes the price tier mismatch."
+      "verdict": "recommended",
+      "rank": 3,
+      "reason": "Features design-conscious urban and suburban buyers who frequently cross-shop premium home textiles and artisanal decor."
     },
     {
       "publisher_id": "pub_012",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category mismatch in vitamins and supplements DTC."
+      "reason": "Specializes in ingestible vitamins and supplements with a science-forward approach, which does not match home fragrance products."
     },
     {
       "publisher_id": "pub_013",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category mismatch in skincare and makeup beauty DTC."
+      "reason": "Focuses on minimalist skincare and cosmetics for a younger demographic rather than home goods."
     },
     {
       "publisher_id": "pub_014",
       "verdict": "recommended",
       "rank": 1,
-      "reason": "Sustainability-motivated home goods buyers with life events and gifting drivers that align perfectly with hand-poured soy candles."
+      "reason": "Sells non-toxic kitchenware to sustainability-motivated buyers where new-home life events and gifting heavily drive purchases."
     },
     {
       "publisher_id": "pub_015",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category mismatch in meal kits and grocery delivery."
+      "reason": "Delivers meal kits and food subscriptions, lacking any inventory related to home goods or decorative gifts."
     },
     {
       "publisher_id": "pub_016",
       "verdict": "considered",
       "rank": 0,
-      "reason": "Professional women with strong sustainability alignment, but footwear category distance makes it secondary to home-focused placements."
+      "reason": "Appeals to professional women who value sustainability, but the footwear category has limited natural synergy with hand-poured soy candles."
     },
     {
       "publisher_id": "pub_017",
-      "verdict": "recommended",
-      "rank": 4,
-      "reason": "Tech-adjacent urban professionals who respond strongly to comfort and sustainability messaging for gifts and home use."
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Engages tech-adjacent urban professionals who appreciate comfort and sustainability, though the audience primarily buys active lifestyle products."
     },
     {
       "publisher_id": "pub_018",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category mismatch in pet subscription boxes."
+      "reason": "Provides subscription boxes and toys specifically designed for pets rather than human home gifts."
     },
     {
       "publisher_id": "pub_019",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category mismatch in haircare DTC."
+      "reason": "Offers personalized haircare products, failing to connect with home decor and fragrance buyers."
     },
     {
       "publisher_id": "pub_020",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category mismatch in functional beverages."
+      "reason": "Sells functional gut-health beverages and soda alternatives instead of home goods."
     }
   ]
 }

@@ -1,24 +1,8 @@
 {
   "selected": [
     {
-      "persona_id": "persona_001",
-      "rationale": "The Wellness Optimizer tracks workouts and has low price sensitivity, matching the premium pricing tier and activewear category of the brand. She responds to science-backed claims and ingredient transparency, which aligns well with messaging around recycled ocean plastic and sustainability.",
-      "primary_publishers": [
-        "pub_002",
-        "pub_016"
-      ]
-    },
-    {
-      "persona_id": "persona_003",
-      "rationale": "The Gen Z Aesthete is highly visual and cares about whether a brand stands for something, which connects directly to the advertiser's core values of sustainability and being made from recycled ocean plastic.",
-      "primary_publishers": [
-        "pub_002",
-        "pub_017"
-      ]
-    },
-    {
       "persona_id": "persona_006",
-      "rationale": "The Sustainability Buyer specifically researches supply chains and will pay more for genuinely sustainable options, making them a direct fit for a brand whose primary value and material sourcing focus is sustainability and recycled ocean plastic.",
+      "rationale": "The Sustainability Buyer has a core category affinity for sustainable apparel and actively researches supply chains, making them a direct match for a brand made from recycled ocean plastic with sustainability as its primary value.",
       "primary_publishers": [
         "pub_016",
         "pub_017"
@@ -26,37 +10,49 @@
     },
     {
       "persona_id": "persona_009",
-      "rationale": "The Fitness Enthusiast works out 4+ times a week and buys performance apparel, which maps directly to the activewear category and the premium tier sitting between Lululemon and Girlfriend Collective.",
+      "rationale": "The Fitness Enthusiast focuses heavily on performance apparel and technical fabrics, fitting the activewear category and pricing tier of the brand.",
       "primary_publishers": [
         "pub_002",
         "pub_017"
+      ]
+    },
+    {
+      "persona_id": "persona_001",
+      "rationale": "The Wellness Optimizer has a low price sensitivity and affinity for fitness, aligning with the premium positioning between Lululemon and Girlfriend Collective and responding well to science-backed or material transparency claims.",
+      "primary_publishers": [
+        "pub_002",
+        "pub_016"
       ]
     }
   ],
   "rejected": [
     {
       "persona_id": "persona_002",
-      "reason": "The Busy Parent loves subscriptions, whereas the advertiser's business model is explicitly a one-off purchase."
+      "reason": "The Busy Parent prioritizes convenience and meal kits, and explicitly dislikes luxury positioning, whereas the brand is a premium-tier one-off purchase."
+    },
+    {
+      "persona_id": "persona_003",
+      "reason": "The Gen Z Aesthete has a typical AOV of $48, which is far too low for a brand positioned between Lululemon and Girlfriend Collective with an estimated AOV of $100."
     },
     {
       "persona_id": "persona_004",
-      "reason": "The Pet Parent focuses entirely on pet-related categories like pet food and pet health, which has no overlap with women's activewear."
+      "reason": "The Pet Parent focuses strictly on pet food, supplies, and health rather than women's activewear."
     },
     {
       "persona_id": "persona_005",
-      "reason": "The Affluent Classic prefers classic apparel and heritage messaging and is explicitly disinterested in influencer positioning and trendy language, making her a poor fit for a modern activewear brand."
+      "reason": "The Affluent Classic prefers classic apparel, home goods, and travel with a messaging focus on heritage and craftsmanship, which does not fit a modern sustainable activewear brand."
     },
     {
       "persona_id": "persona_007",
-      "reason": "The Convenience-First Millennial focuses on instant delivery and quick commerce, which does not align with a specialized D2C apparel brand."
+      "reason": "The Convenience-First Millennial focuses on instant delivery and subscription services, whereas the advertiser is a one-off apparel purchase brand."
     },
     {
       "persona_id": "persona_008",
-      "reason": "The Value-Conscious Shopper has high price sensitivity and responds to discount-forward messaging, which conflicts with the brand's premium price tier."
+      "reason": "The Value-Conscious Shopper has high price sensitivity and looks for discount-forward messaging, conflicting with the premium price tier of the brand."
     },
     {
       "persona_id": "persona_010",
-      "reason": "The Gifter is explicitly disinterested in self-care-only framing and relies heavily on gifting occasions, whereas activewear is typically purchased for personal use."
+      "reason": "The Gifter is disinterested in self-care-only framing and relies heavily on holiday timing or gifting presentation rather than core activewear buying behavior."
     }
   ]
 }

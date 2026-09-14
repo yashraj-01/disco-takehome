@@ -1,58 +1,58 @@
 {
   "selected": [
     {
-      "persona_id": "persona_009",
-      "rationale": "The Fitness Enthusiast works out 4+ times a week and actively buys supplements, matching the core workout supplements, creatine, and protein offering of this advertiser. Their price sensitivity is low-medium, meaning they appreciate the high-performance formulations while being highly receptive to the advertiser's value proposition of getting the same results for half the cost.",
+      "persona_id": "persona_001",
+      "rationale": "The Wellness Optimizer matches the advertiser's wellness category and appreciates evidence-backed products. While they typically have low price sensitivity, the advertiser's value proposition of same formulations for half the cost can appeal to their smart system-optimization approach.",
+      "primary_publishers": [
+        "pub_012",
+        "pub_019"
+      ]
+    },
+    {
+      "persona_id": "persona_008",
+      "rationale": "The Value-Conscious Shopper directly aligns with the advertiser's competitive edge on price and half-the-cost positioning. Their high price sensitivity and focus on budget-aware purchasing make them an ideal target for budget workout supplements.",
       "primary_publishers": [
         "pub_012",
         "pub_020"
       ]
     },
     {
-      "persona_id": "persona_001",
-      "rationale": "The Wellness Optimizer tracks supplements and workouts as part of a systematic approach to health. They align well with the advertiser's wellness_dtc category and will respond strongly to ingredient transparency, matching the scientific integrity needed to trust a budget-friendly alternative to expensive supplement brands.",
+      "persona_id": "persona_009",
+      "rationale": "The Fitness Enthusiast is a direct fit for the advertiser's core subcategories including pre-workout, creatine, and protein. Their workout frequency and affinity for performance supplements match the advertiser's product line.",
       "primary_publishers": [
         "pub_012",
-        "pub_008"
-      ]
-    },
-    {
-      "persona_id": "persona_008",
-      "rationale": "The Value-Conscious Shopper is budget-aware, reads reviews, and comparison shops. This directly corresponds to the advertiser's competitive strategy of competing on price and providing the exact same formulations as expensive brands for half the cost.",
-      "primary_publishers": [
-        "pub_008",
-        "pub_012"
+        "pub_020"
       ]
     }
   ],
   "rejected": [
     {
       "persona_id": "persona_002",
-      "reason": "The Busy Parent focuses on meal kits, household items, and kids products rather than workout supplements, and their affinity for subscriptions conflicts with the advertiser's one-off business model."
+      "reason": "The Busy Parent prioritizes subscriptions, whereas the advertiser operates on a one-off business model."
     },
     {
       "persona_id": "persona_003",
-      "reason": "The Gen Z Aesthete focuses on beauty, fashion, and visual brand identity discovered through TikTok, whereas this advertiser competes strictly on price and formulation functionality rather than aesthetic-forward lifestyle branding."
+      "reason": "The Gen Z Aesthete focuses on aesthetic-forward packaging and brand values, which conflicts with an advertiser that explicitly competes purely on price rather than marketing."
     },
     {
       "persona_id": "persona_004",
-      "reason": "The Pet Parent focuses entirely on pet food, pet supplies, and pet health, which has no overlap with human workout supplements."
+      "reason": "The Pet Parent focuses entirely on pet health and supplies, which is irrelevant to human workout supplements."
     },
     {
       "persona_id": "persona_005",
-      "reason": "The Affluent Classic has an age range of 50-68 and focuses on luxury home goods and classic apparel, completely missing the 18-45 age demographic and wellness focus of this advertiser."
+      "reason": "The Affluent Classic has a target age range of 50-68, which falls completely outside the advertiser's target demographic of 18-45."
     },
     {
       "persona_id": "persona_006",
-      "reason": "The Sustainability Buyer focuses on environmental footprint, supply chain transparency, and sustainable apparel, whereas the advertiser's brief centres strictly on athletic formulation equivalence and price competition rather than eco-friendly positioning."
+      "reason": "The Sustainability Buyer focuses on environmental footprint and supply chain transparency, which are not mentioned in the advertiser's price-focused value proposition."
     },
     {
       "persona_id": "persona_007",
-      "reason": "The Convenience-First Millennial relies heavily on instant delivery and subscription services, which contradicts the advertiser's one-off purchase business model and focus on raw product pricing."
+      "reason": "The Convenience-First Millennial relies heavily on subscription services and instant delivery, whereas the advertiser uses a one-off business model."
     },
     {
       "persona_id": "persona_010",
-      "reason": "The Gifter buys for others during holidays and special events with a focus on premium presentation and gift-wrapping, which is fundamentally misaligned with self-use routine workout supplements bought for functional value."
+      "reason": "The Gifter is looking for gift sets and premium presentation for gifting holidays, which does not match a budget-focused, one-off workout supplement brand."
     }
   ]
 }

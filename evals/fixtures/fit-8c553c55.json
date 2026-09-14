@@ -4,121 +4,121 @@
       "publisher_id": "pub_001",
       "verdict": "recommended",
       "rank": 1,
-      "reason": "Swiftcart aligns exceptionally well with a $28 AOV that matches our $30 target and an 18-34 young consumer demographic looking for impulse-friendly snack options."
+      "reason": "High-frequency instant delivery grocery buyers looking for impulse snacks, perfectly aligning with a $30 protein bar purchase."
     },
     {
       "publisher_id": "pub_002",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category_mismatch hard gate; apparel activewear does not reach grocery snack buyers."
+      "reason": "Sells apparel and activewear; nothing in the inventory offers food products or grocery items."
     },
     {
       "publisher_id": "pub_003",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category_mismatch hard gate; wellness services and fitness classes lack category overlap with packaged grocery snacks."
+      "reason": "Offers wellness services, fitness classes, and spa bookings rather than physical food and snack products."
     },
     {
       "publisher_id": "pub_004",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category_mismatch hard gate; mid-life women's apparel publisher does not match groceries."
+      "reason": "Apparel retailer catering exclusively to mid-life and older women, which does not match a broad snack and protein bar buyer demographic."
     },
     {
       "publisher_id": "pub_005",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category_mismatch hard gate; classic women's workwear apparel has no overlap with our protein bar product category."
+      "reason": "Focuses on classic workwear apparel with high order values, completely outside the grocery and snack category."
     },
     {
       "publisher_id": "pub_006",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category_mismatch hard gate; plus-size apparel and intimates do not align with grocery snacks."
+      "reason": "Apparel and intimates platform; its audience is shopping for clothing rather than consumables."
     },
     {
       "publisher_id": "pub_007",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category_mismatch hard gate; pet food and supplies publisher cannot reach human protein bar buyers."
+      "reason": "Dedicated entirely to pet food and supplies; does not reach human grocery shoppers or snack buyers."
     },
     {
       "publisher_id": "pub_008",
       "verdict": "recommended",
       "rank": 2,
-      "reason": "Pantrygood is a direct grocery match with a health-conscious, clean-ingredient audience that responds well to premium food and wellness claims."
+      "reason": "Organic and natural pantry shoppers who actively look for clean-ingredient wellness products and healthy snacks."
     },
     {
       "publisher_id": "pub_009",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category_mismatch hard gate; pet pharmacy and supplies publisher fails category alignment."
+      "reason": "Operates as a pet supply and pharmacy retailer with zero overlap in human food or snacks."
     },
     {
       "publisher_id": "pub_010",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category_mismatch hard gate; basics and gifting apparel publisher does not match grocery snacks."
+      "reason": "Sells basic apparel and socks, offering no connection to groceries or snack bars."
     },
     {
       "publisher_id": "pub_011",
       "verdict": "considered",
       "rank": 0,
-      "reason": "While home textiles and bedding reach a design-conscious audience, the $164 AOV is far too high for a $30 protein bar brand."
+      "reason": "Features design-conscious home and bedding shoppers who appreciate wellness brands, but the average order value of $164 points to a home-goods mindset rather than quick snack purchases."
     },
     {
       "publisher_id": "pub_012",
       "verdict": "recommended",
       "rank": 3,
-      "reason": "Daily Form provides a science-forward wellness audience that is deeply engaged with supplements and health-oriented nutrition, making protein bars a natural cross-sell."
+      "reason": "Science-forward wellness audience buying vitamins and supplements, highly receptive to functional nutrition like protein bars."
     },
     {
       "publisher_id": "pub_013",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category_mismatch hard gate; beauty skincare and makeup has no category overlap with food products."
+      "reason": "Beauty and skincare platform; the audience is focused on cosmetics rather than food and grocery items."
     },
     {
       "publisher_id": "pub_014",
       "verdict": "considered",
       "rank": 0,
-      "reason": "Hearthstone Goods attracts sustainability-motivated kitchen buyers, but their $198 AOV is out of step with our $30 price tier."
+      "reason": "Reaches sustainability-motivated kitchenware buyers who value non-toxic goods, but the high $198 order value leans toward cookware rather than everyday snacks."
     },
     {
       "publisher_id": "pub_015",
       "verdict": "recommended",
       "rank": 4,
-      "reason": "Kitchenly reaches a massive audience of family and couple households interested in food and meal solutions, matching our grocery subcategories."
+      "reason": "Family and couples households using meal kits who have a strong appetite for convenient, high-quality food solutions."
     },
     {
       "publisher_id": "pub_016",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category_mismatch hard gate; sustainable women's shoes publisher does not overlap with grocery snack buyers."
+      "reason": "Apparel and sustainable footwear brand; footwear shoppers are not looking for snacks."
     },
     {
       "publisher_id": "pub_017",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category_mismatch hard gate; sustainable activewear shoes publisher fails category alignment."
+      "reason": "Sells sustainable shoes and activewear, lacking any catalog alignment with grocery or food items."
     },
     {
       "publisher_id": "pub_018",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category_mismatch hard gate; pet subscription boxes cannot market human protein snacks."
+      "reason": "Focused entirely on pet treats and toy subscription crates, failing to reach human grocery buyers."
     },
     {
       "publisher_id": "pub_019",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category_mismatch hard gate; personalized haircare beauty publisher does not match groceries."
+      "reason": "Personalized haircare and beauty brand, which has no category overlap with snack bars."
     },
     {
       "publisher_id": "pub_020",
       "verdict": "recommended",
       "rank": 5,
-      "reason": "Pop & Sip shares a functional beverage and gut-health audience that strongly overlaps with health-curious snack buyers looking for better-for-you alternatives."
+      "reason": "Health-conscious consumers purchasing functional beverages and gut-health soda alternatives, providing a natural cross-sell for better-for-you protein snacks."
     }
   ]
 }

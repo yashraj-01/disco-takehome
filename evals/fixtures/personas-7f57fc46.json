@@ -2,7 +2,7 @@
   "selected": [
     {
       "persona_id": "persona_004",
-      "rationale": "The Pet Parent explicitly focuses on pet health and treats their pet as a family member, aligning directly with our senior dog food's subcategories of pet_health and senior_dogs. Furthermore, their preference for 'vet-recommended' and 'ingredient transparency' messaging matches our vet-formulated, grain-free advertiser profile.",
+      "rationale": "The Pet Parent specifically features pet_food and pet_health category affinities and is willing to pay a premium for health and quality, directly matching our senior dog food product and $60 AOV. Their messaging preferences include vet-recommended and ingredient transparency, aligning perfectly with our vet-formulated, science-backed positioning.",
       "primary_publishers": [
         "pub_007",
         "pub_009"
@@ -10,14 +10,14 @@
     },
     {
       "persona_id": "persona_001",
-      "rationale": "The Wellness Optimizer views health through a systematic lens and is willing to pay premiums for evidence-backed products, perfectly matching our science-backed value proposition and premium price tier. Their affinity for supplements and organic grocery translates naturally to functional, vet-formulated senior dog nutrition.",
+      "rationale": "The Wellness Optimizer treats their body like a system and values evidence-backed products, mirroring the science-backed, health-conscious mindset of senior dog owners who care deeply about joint health and longevity. They have low price sensitivity and are willing to pay premiums for outcome-focused benefits.",
       "primary_publishers": [
         "pub_007"
       ]
     },
     {
       "persona_id": "persona_002",
-      "rationale": "The Busy Parent is time-poor, convenience-motivated, and loves subscriptions, which directly complements our subscription-based business model for dog food. Their mid-tier price sensitivity and preference for trusted brands match our estimated $60 AOV and quality-focused positioning.",
+      "rationale": "The Busy Parent loves subscriptions and convenience-motivated purchasing, perfectly matching our business model and the subscription-heavy nature of our recommended publishers. They seek trusted brand recommendations, which fits our vet-formulated senior dog food value proposition.",
       "primary_publishers": [
         "pub_007",
         "pub_009"
@@ -27,31 +27,31 @@
   "rejected": [
     {
       "persona_id": "persona_003",
-      "reason": "The Gen Z Aesthete focuses heavily on fast fashion, beauty, and functional beverages, with a disinterest in performance claims without vibe, which conflicts with our science-backed senior dog food brand."
+      "reason": "The Gen Z Aesthete focuses on fast fashion, beauty, and functional beverages rather than pet care, and specifically dislikes performance claims without a vibe, which contradicts our clinical, science-backed messaging."
     },
     {
       "persona_id": "persona_005",
-      "reason": "The Affluent Classic focuses on classic apparel, travel, and home goods rather than pet care, making their core categories irrelevant to dog nutrition."
+      "reason": "The Affluent Classic focuses on classic apparel, travel, and home goods rather than pet products, and prefers heritage and craftsmanship messaging over vet-formulated pet health."
     },
     {
       "persona_id": "persona_006",
-      "reason": "The Sustainability Buyer focuses primarily on sustainable apparel, clean beauty, and refillable products rather than specialized pet health and senior nutrition."
+      "reason": "The Sustainability Buyer focuses on sustainable apparel, clean beauty, and refillable products rather than pet food, and looks for specific supply chain eco-certifications rather than joint health and longevity claims."
     },
     {
       "persona_id": "persona_007",
-      "reason": "The Convenience-First Millennial defaults to instant delivery and quick commerce for personal convenience rather than long-term pet health and specialized senior dog subscriptions."
+      "reason": "The Convenience-First Millennial prioritizes instant delivery and quick commerce rather than specialized health products, and has low brand loyalty which conflicts with our targeted subscription model for senior dog care."
     },
     {
       "persona_id": "persona_008",
-      "reason": "The Value-Conscious Shopper has high price sensitivity and looks for discount-forward bundles, which clashes with our premium-tier, $60 AOV pricing model."
+      "reason": "The Value-Conscious Shopper has high price sensitivity and relies heavily on discount-forward messaging and first-order deals, which conflicts with our premium price tier and $60 AOV."
     },
     {
       "persona_id": "persona_009",
-      "reason": "The Fitness Enthusiast focuses on personal activewear, supplements, and recovery for humans rather than canine health or senior dog care."
+      "reason": "The Fitness Enthusiast focuses on personal activewear, supplements, and recovery for humans rather than pet health and senior dog nutrition."
     },
     {
       "persona_id": "persona_010",
-      "reason": "The Gifter is explicitly disinterested in subscription-only products, which directly contradicts our subscription-based business model."
+      "reason": "The Gifter is explicitly disinterested in subscription-only models, making them an incompatible match for our subscription-based business model."
     }
   ]
 }

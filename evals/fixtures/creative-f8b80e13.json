@@ -1,11 +1,10 @@
 {
-  "headline": "Vet-formulated nutrition for your older dog",
-  "body": "Every ingredient is listed clearly so you know exactly what goes into your family member's bowl. Keep them active and comfortable with our grain-free senior recipe delivered monthly.",
-  "rationale": "This ad speaks directly to the Pet Parent who views their dog as a family member and demands clear ingredient labels. It uses the exact requested messaging preferences and steers clear of generic or cheap framing, matching their willingness to pay for high quality.",
+  "headline": "Vet-formulated nutrition for your senior dog",
+  "body": "Your older dog deserves complete ingredient transparency. Our vet-recommended recipe is crafted exclusively for senior joint health and longevity, delivered right to your door every month.",
+  "rationale": "This copy directly incorporates the persona's preference for vet-recommended formulas and ingredient transparency while speaking to their view of the pet as a family member who needs senior care. It avoids generic pet framing and ultra-cheap positioning.",
   "messaging_levers": [
     "vet-recommended",
-    "ingredient transparency",
-    "emotional connection"
+    "ingredient transparency"
   ],
   "avoided": [
     "generic pet brands",

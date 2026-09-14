@@ -1,11 +1,11 @@
 {
-  "headline": "Portuguese linen with transparent supply chains",
-  "body": "Know exactly where your bedding comes from. Crafted in Portugal with certified sustainable methods for breathable comfort without the greenwashing.",
-  "rationale": "This persona requires specific proof of origin and supply chain accountability to trust a brand. By explicitly stating the made-in-Portugal origin and referencing verified sustainable methods, the copy targets their need for supply chain transparency while strictly avoiding vague marketing buzzwords.",
+  "headline": "Portuguese linen made in ethical family-run mills",
+  "body": "We share our exact supply chain from harvest to loom. Certified European flax woven with zero plastic packaging for true sustainability.",
+  "rationale": "This copy targets the Sustainability Buyer by focusing explicitly on the Portuguese supply chain and certified European materials, avoiding vague eco claims while respecting their medium price sensitivity through a focus on verified ethical production.",
   "messaging_levers": [
+    "specific sustainability claims",
     "supply chain transparency",
-    "certifications",
-    "specific sustainability claims"
+    "certifications"
   ],
   "avoided": [
     "vague eco claims",

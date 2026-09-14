@@ -4,121 +4,121 @@
       "publisher_id": "pub_001",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to hard gate category_mismatch; instant delivery and convenience groceries do not align with home bedding."
+      "reason": "Sells instant delivery convenience goods and groceries with a low order value; nothing in the assortment reaches people shopping for premium Portugal-made bedding."
     },
     {
       "publisher_id": "pub_002",
       "verdict": "considered",
       "rank": 0,
-      "reason": "Plausible fit given the activewear and wellness crossover, but AOV of $78 is significantly lower than the brand's estimated $200 AOV and apparel is adjacent rather than core home goods."
+      "reason": "While it reaches fitness and wellness shoppers in the right age bracket, apparel activewear is adjacent rather than core to a home textile and bedding brand."
     },
     {
       "publisher_id": "pub_003",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to hard gate category_mismatch; wellness services and fitness classes do not match home and bedding."
+      "reason": "Operates as an appointment-based wellness and fitness booking service, offering no category overlap with physical home goods."
     },
     {
       "publisher_id": "pub_004",
       "verdict": "considered",
       "rank": 0,
-      "reason": "Affluent older women audience aligns with the grown-up aesthetic, but the 45-65 age skew leans slightly older than the target, and apparel is not a direct category match."
+      "reason": "Reaches older affluent women responsive to quality messaging, but the audience skew trends somewhat older than the core 30-55 bracket for this bedding brand."
     },
     {
       "publisher_id": "pub_005",
-      "verdict": "considered",
+      "verdict": "excluded",
       "rank": 0,
-      "reason": "Features high AOV ($128) which is closer to the target, but the 50-70 age skew misses a large portion of the 30-55 target demographic and the catalog is apparel-focused."
+      "reason": "Targets an older demographic aged 50-70 with a conservative apparel sensibility, missing the younger end of the 30-55 bedding buyer profile."
     },
     {
       "publisher_id": "pub_006",
-      "verdict": "excluded",
+      "verdict": "considered",
       "rank": 0,
-      "reason": "Apparel category mismatch for a home bedding brand, and the mid-income tier conflicts with the premium pricing positioning."
+      "reason": "Shares the exact age demographic, but focuses on inclusive apparel sizing and fit-related intimates rather than home textiles and aesthetic bedding."
     },
     {
       "publisher_id": "pub_007",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to hard gate category_mismatch; pet supplies and food are unrelated to home linens."
+      "reason": "Focuses entirely on pet food and supplies subscriptions, providing no category overlap for home decor or bedding buyers."
     },
     {
       "publisher_id": "pub_008",
       "verdict": "considered",
       "rank": 0,
-      "reason": "Values-driven organic grocery shoppers share sustainability traits, but the $86 AOV and grocery catalog make it a secondary fit compared to direct home publishers."
+      "reason": "Engages high-income, values-driven shoppers who appreciate sustainability claims, but the grocery and pantry focus sits outside the home and bedding category."
     },
     {
       "publisher_id": "pub_009",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to hard gate category_mismatch; pet products have no category overlap with bedding and linen."
+      "reason": "Caters to pet owners looking for animal feed and pharmacy products, entirely disconnected from a direct-to-consumer bedding catalog."
     },
     {
       "publisher_id": "pub_010",
-      "verdict": "excluded",
+      "verdict": "considered",
       "rank": 0,
-      "reason": "Apparel category mismatch; socks and basics publisher with a low $52 AOV does not match premium Portuguese bedding."
+      "reason": "Features a strong demographic overlap and gifting uplift, but basic socks and underwear are too far removed from premium woven home linens."
     },
     {
       "publisher_id": "pub_011",
       "verdict": "recommended",
       "rank": 1,
-      "reason": "Direct category alignment in home textiles with a design-conscious urban audience, excellent $164 AOV alignment with the estimated $200 target, and strong cross-sell potential for grown-up aesthetic bedding."
+      "reason": "Directly targets design-conscious urban and suburban buyers looking for premium home textiles and bath items with an aligned high-end price point."
     },
     {
       "publisher_id": "pub_012",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to hard gate category_mismatch; vitamins and supplements do not match home goods."
+      "reason": "Sells science-forward vitamins and supplements subscriptions, creating a complete category mismatch for a Portugal-made bedding brand."
     },
     {
       "publisher_id": "pub_013",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to hard gate category_mismatch; beauty and skincare cannot reach bedding buyers."
+      "reason": "Targets a younger Gen Z beauty audience searching for minimalist skincare and makeup, failing to match the target age and home category."
     },
     {
       "publisher_id": "pub_014",
       "verdict": "recommended",
       "rank": 2,
-      "reason": "Exceptional fit in sustainability-motivated home goods with an AOV of $198 that nearly matches the $200 target, targeting high-income design-conscious buyers seeking non-toxic premium upgrades."
+      "reason": "Serves sustainability-motivated home buyers with a nearly identical high-end average order value and strong life-event purchase drivers."
     },
     {
       "publisher_id": "pub_015",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to hard gate category_mismatch; meal kits and groceries do not share a category with home and linen."
+      "reason": "Provides meal kit subscriptions to family households, offering no relevance to shoppers seeking breathable European bedding."
     },
     {
       "publisher_id": "pub_016",
       "verdict": "considered",
       "rank": 0,
-      "reason": "Strong professional female audience and sustainable messaging fit well, but the $142 AOV and apparel category place it behind direct home publishers."
+      "reason": "Appeals to professional women through sustainability and quality claims, but shoe apparel is a close vertical rather than a true home goods match."
     },
     {
       "publisher_id": "pub_017",
       "verdict": "considered",
       "rank": 0,
-      "reason": "Tech-adjacent urban professional audience matches the demographic, but shoes and apparel are adjacent categories rather than home and linen."
+      "reason": "Reaches tech-adjacent urban professionals who value comfort and sustainability, though footwear does not align with a bedding assortment."
     },
     {
       "publisher_id": "pub_018",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to hard gate category_mismatch; pet subscription boxes are irrelevant to home bedding."
+      "reason": "Offers pet toy and treat subscription boxes for dog owners, lacking any intersection with human bedding or home decor."
     },
     {
       "publisher_id": "pub_019",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to hard gate category_mismatch; haircare and beauty do not align with bedding."
+      "reason": "Focuses on personalized haircare solutions for a younger demographic, presenting a clear category mismatch for home textiles."
     },
     {
       "publisher_id": "pub_020",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to hard gate category_mismatch; functional beverages and gut health have no category overlap with home textiles."
+      "reason": "Markets functional gut-health beverages and soda alternatives, which bears no connection to home linens and aesthetic bedroom upgrades."
     }
   ]
 }

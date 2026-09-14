@@ -1,55 +1,58 @@
 {
   "selected": [
     {
-      "persona_id": "persona_001",
-      "rationale": "The Wellness Optimizer fits the 28-40 female demographic and mid-to-high price tier of the advertiser's target audience, aligning well with the science-focused wellness publisher Daily Form.",
-      "primary_publishers": [
-        "pub_012"
-      ]
-    },
-    {
       "persona_id": "persona_002",
-      "rationale": "The Busy Parent directly targets the 32-45 age bracket and the 'moms' subcategory orientation of the brand, resonating with family-friendly messaging suitable for inclusive apparel on Everbody.",
+      "rationale": "The advertiser focuses on moms and family with a mid-tier price point, making The Busy Parent a direct match due to their category affinities for kids products and household, and their messaging preference for family-friendly and time-saving features.",
       "primary_publishers": [
+        "pub_002",
         "pub_006"
       ]
     },
     {
-      "persona_id": "persona_009",
-      "rationale": "The Fitness Enthusiast matches the 22-42 age range and female skew of Movewell, capturing active mothers who prioritize performance and activewear.",
+      "persona_id": "persona_001",
+      "rationale": "Given the advertiser's target demographic of women aged 25-45 and wellness crossover on publishers like Daily Form, The Wellness Optimizer aligns well with her focus on self-care, wellness, and her low price sensitivity matching the mid-tier estimated AOV.",
       "primary_publishers": [
+        "pub_012",
         "pub_002"
+      ]
+    },
+    {
+      "persona_id": "persona_006",
+      "rationale": "The advertiser's focus on family and women intersects with the sustainable-leaning publishers like Stride & Stem, allowing The Sustainability Buyer to evaluate the brand through supply chain transparency and specific sustainability messaging.",
+      "primary_publishers": [
+        "pub_016",
+        "pub_006"
       ]
     }
   ],
   "rejected": [
     {
       "persona_id": "persona_003",
-      "reason": "The Gen Z Aesthete is too young (19-27) for the advertiser's target age range of 25-45 moms."
+      "reason": "The Gen Z Aesthete targets a younger demographic (19-27) that falls below the advertiser's target age range of 25-45."
     },
     {
       "persona_id": "persona_004",
-      "reason": "The Pet Parent focuses entirely on pet products rather than the family and women subcategories relevant to this advertiser."
+      "reason": "The Pet Parent focuses strictly on pet-related categories and supplies, which does not align with the advertiser's stated subcategories of moms, women, and family."
     },
     {
       "persona_id": "persona_005",
-      "reason": "The Affluent Classic is too old (50-68) compared to the advertiser's target age maximum of 45."
-    },
-    {
-      "persona_id": "persona_006",
-      "reason": "The Sustainability Buyer prioritizes specific eco-certifications and supply chains, which are not mentioned in the advertiser's core product profile."
+      "reason": "The Affluent Classic skews older (50-68) with a higher AOV of $145, exceeding the advertiser's target age range and estimated AOV of $50."
     },
     {
       "persona_id": "persona_007",
-      "reason": "The Convenience-First Millennial relies on instant delivery and quick commerce, which do not align with the recommended publishers."
+      "reason": "The Convenience-First Millennial heavily relies on subscription services, whereas the advertiser operates on a one-off purchase business model."
     },
     {
       "persona_id": "persona_008",
-      "reason": "The Value-Conscious Shopper seeks discount-forward messaging and bundles, which conflicts with the mid-tier $50 estimated AOV profile."
+      "reason": "The Value-Conscious Shopper requires discount-forward messaging and bundle offers, which does not fit the mid-tier general positioning assumed for the brand."
+    },
+    {
+      "persona_id": "persona_009",
+      "reason": "The Fitness Enthusiast focuses specifically on activewear, supplements, and recovery, which is too narrow for a general mom and family product."
     },
     {
       "persona_id": "persona_010",
-      "reason": "The Gifter is a temporary gifting mode rather than a persistent demographic segment, and the record explicitly disinterests them in subscription-only or self-care-only framing."
+      "reason": "The Gifter focuses primarily on gifting holidays and life events with a preference for gift sets, whereas the advertiser is positioned for everyday moms and women."
     }
   ]
 }

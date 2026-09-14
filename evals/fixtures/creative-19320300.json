@@ -1,12 +1,11 @@
 {
-  "headline": "Fuel your workout without tasting cardboard",
-  "body": "Protein bars built for heavy training sessions. No chalky textures, just the fuel you need to push through your next lift.",
-  "rationale": "Targeted specifically at The Fitness Enthusiast by focusing on workout performance and functional nutrition, while completely avoiding sedentary-lifestyle products or fashion-only positioning.",
+  "headline": "Protein bars built for heavy training sessions",
+  "body": "Stop chewing chalk. Grab a protein bar that fuels your workout without tasting like cardboard. Designed for athletes who demand real performance.",
+  "rationale": "This copy addresses the fitness enthusiast by focusing strictly on workout fueling and performance, directly using their preferred messaging lever while avoiding sedentary appeals.",
   "messaging_levers": [
     "performance claims"
   ],
   "avoided": [
-    "sedentary-lifestyle products",
-    "fashion-only positioning"
+    "sedentary-lifestyle products"
   ]
 }

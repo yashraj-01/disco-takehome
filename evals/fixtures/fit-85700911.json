@@ -4,121 +4,121 @@
       "publisher_id": "pub_001",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category mismatch in instant grocery delivery, failing category overlap."
+      "reason": "Sells instant delivery groceries and household goods; nothing in the assortment reaches people shopping for pet food and supplies."
     },
     {
       "publisher_id": "pub_002",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category mismatch in apparel and activewear."
+      "reason": "Sells activewear apparel; nothing in the assortment reaches people shopping for pet food and supplies."
     },
     {
       "publisher_id": "pub_003",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category mismatch in wellness services and fitness booking."
+      "reason": "Sells wellness and fitness booking services; nothing in the assortment reaches people shopping for pet food and supplies."
     },
     {
       "publisher_id": "pub_004",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category mismatch and an audience age skew of 45-65, which misses the target demographic."
+      "reason": "Sells women's workwear and casual apparel; nothing in the assortment reaches people shopping for pet food and supplies."
     },
     {
       "publisher_id": "pub_005",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category mismatch and an older audience demographic skewing 50-70."
+      "reason": "Sells classic women's apparel; nothing in the assortment reaches people shopping for pet food and supplies."
     },
     {
       "publisher_id": "pub_006",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category mismatch in apparel."
+      "reason": "Sells plus-size women's workwear and intimates; nothing in the assortment reaches people shopping for pet food and supplies."
     },
     {
       "publisher_id": "pub_007",
       "verdict": "recommended",
       "rank": 2,
-      "reason": "Subscription-heavy pet buyers who are health-conscious and responsive to premium positioning, aligning well with a $64 AOV and a $35 subscription box."
+      "reason": "Subscription-heavy pet supply audience with health-conscious owners who respond well to premium positioning."
     },
     {
       "publisher_id": "pub_008",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category mismatch in organic groceries."
+      "reason": "Sells organic pantry groceries; nothing in the assortment reaches people shopping for pet food and supplies."
     },
     {
       "publisher_id": "pub_009",
       "verdict": "considered",
       "rank": 0,
-      "reason": "Plausible pet publisher with the largest audience in the catalog, but notes mention broad demographics rather than specifically targeting new pet owners or subscription buyers."
+      "reason": "Massive nationwide pet audience with repeat-purchase behavior, but lacks the specific playbook for early-stage subscription onboarding."
     },
     {
       "publisher_id": "pub_010",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category mismatch in apparel, socks, and basics."
+      "reason": "Sells socks, underwear, and basics apparel; nothing in the assortment reaches people shopping for pet food and supplies."
     },
     {
       "publisher_id": "pub_011",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category mismatch in home textiles and bedding."
+      "reason": "Sells home textiles and bedding; nothing in the assortment reaches people shopping for pet food and supplies."
     },
     {
       "publisher_id": "pub_012",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category mismatch in vitamins and wellness DTC."
+      "reason": "Sells human vitamins and supplements; nothing in the assortment reaches people shopping for pet food and supplies."
     },
     {
       "publisher_id": "pub_013",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category mismatch in beauty and skincare."
+      "reason": "Sells skincare and makeup beauty products; nothing in the assortment reaches people shopping for pet food and supplies."
     },
     {
       "publisher_id": "pub_014",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category mismatch in kitchenware and home goods."
+      "reason": "Sells non-toxic cookware and kitchen goods; nothing in the assortment reaches people shopping for pet food and supplies."
     },
     {
       "publisher_id": "pub_015",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category mismatch in meal kits."
+      "reason": "Sells human meal kits and groceries; nothing in the assortment reaches people shopping for pet food and supplies."
     },
     {
       "publisher_id": "pub_016",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category mismatch in sustainable footwear."
+      "reason": "Sells sustainable shoes and women's apparel; nothing in the assortment reaches people shopping for pet food and supplies."
     },
     {
       "publisher_id": "pub_017",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category mismatch in apparel and active footwear."
+      "reason": "Sells activewear shoes; nothing in the assortment reaches people shopping for pet food and supplies."
     },
     {
       "publisher_id": "pub_018",
       "verdict": "recommended",
       "rank": 1,
-      "reason": "Millennials treating pets as family with a matching $35 AOV and a playful brand voice that perfectly converts subscription boxes for new pet owners."
+      "reason": "Millennials treating dogs as family with a playful brand voice that converts best for subscription boxes."
     },
     {
       "publisher_id": "pub_019",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category mismatch in haircare and beauty."
+      "reason": "Sells personalized haircare beauty products; nothing in the assortment reaches people shopping for pet food and supplies."
     },
     {
       "publisher_id": "pub_020",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category mismatch in functional beverages."
+      "reason": "Sells functional beverages and gut health drinks; nothing in the assortment reaches people shopping for pet food and supplies."
     }
   ]
 }

@@ -1,13 +1,15 @@
 {
-  "headline": "Adaptogens for deep sleep recovery",
-  "body": "Optimize your nightly recovery without alcohol. Formulated with clinical adaptogens to support restorative sleep and cellular repair so you wake up sharp.",
-  "rationale": "This persona treats her body as a system and relies on clinical framing rather than vague lifestyle language. Focusing on sleep recovery matches her tracking habits while avoiding novelty.",
+  "headline": "Functional adaptogens for recovery and focus",
+  "body": "Optimize your daily wellness routine with our sparkling functional drink. Clear ingredient lists and science-backed adaptogens help you feel your best without alcohol.",
+  "rationale": "This copy addresses the Wellness Optimizer's desire for system optimization by focusing directly on functional recovery and clear ingredients. It avoids trendy novelties and low-price callouts, respecting her low price sensitivity and demand for substance.",
   "messaging_levers": [
     "science-backed claims",
     "ingredient transparency",
     "outcome-focused"
   ],
   "avoided": [
+    "fast_fashion",
+    "ultra-processed food",
     "novelty"
   ]
 }

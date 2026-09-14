@@ -1,15 +1,13 @@
 {
-  "headline": "Optimize your daily recovery with transparent science",
-  "body": "Track your physiological markers and improve your baseline wellness with clear, outcome-focused service protocols built for high performers.",
-  "rationale": "This persona treats her body like a system, has low price sensitivity, and demands empirical substance. The copy focuses entirely on measurable outcomes and scientific transparency while ignoring discounts or novelty.",
+  "headline": "Optimize your daily recovery metrics",
+  "body": "View complete active ingredient profiles and clinical trial data for every wellness service we offer so you can fine tune your physical performance.",
+  "rationale": "This persona treats her body like a system and values concrete evidence over vague lifestyle marketing. The copy uses outcome-focused phrasing and transparency around ingredients and data without triggering her aversion to novelty or low-quality positioning.",
   "messaging_levers": [
     "science-backed claims",
     "ingredient transparency",
     "outcome-focused"
   ],
   "avoided": [
-    "fast_fashion",
-    "ultra-processed food",
     "novelty"
   ]
 }

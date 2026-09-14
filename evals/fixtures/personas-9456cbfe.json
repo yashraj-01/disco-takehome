@@ -2,55 +2,56 @@
   "selected": [
     {
       "persona_id": "persona_009",
-      "rationale": "The Fitness Enthusiast focuses on activewear, technical fabrics, and performance claims, perfectly matching the advertiser's technical backcountry ski shells and professional patroller-grade positioning.",
+      "rationale": "The Fitness Enthusiast focuses heavily on performance apparel, technical fabrics, and athlete endorsements. This aligns directly with the advertiser's high-end technical outerwear for backcountry skiers worn by professional patrollers.",
       "primary_publishers": [
+        "pub_002",
         "pub_017"
+      ]
+    },
+    {
+      "persona_id": "persona_005",
+      "rationale": "The Affluent Classic values quality, longevity, heritage, and craftsmanship over trends, matching the $650+ luxury price tier and craftsmanship values of the technical outerwear shells.",
+      "primary_publishers": [
+        "pub_004"
       ]
     },
     {
       "persona_id": "persona_006",
-      "rationale": "The Sustainability Buyer expects supply chain transparency and high-quality materials, aligning with the advertiser's value of craftsmanship and the sustainable apparel affinities emphasized by the recommended publishers.",
+      "rationale": "The Sustainability Buyer researches supply chains and looks for specific sustainability claims and certifications, fitting the durable, long-lasting gear philosophy required for serious backcountry skiing.",
       "primary_publishers": [
         "pub_016",
         "pub_017"
-      ]
-    },
-    {
-      "persona_id": "persona_001",
-      "rationale": "The Wellness Optimizer has low price sensitivity and demands science-backed claims, matching the premium $650+ price tier and the high-performance technical nature of the ski shells.",
-      "primary_publishers": [
-        "pub_016"
       ]
     }
   ],
   "rejected": [
     {
+      "persona_id": "persona_001",
+      "reason": "The Wellness Optimizer focuses on supplements, clean beauty, and sleep tracking rather than outdoor technical apparel and gear."
+    },
+    {
       "persona_id": "persona_002",
-      "reason": "The Busy Parent prioritizes subscriptions, household convenience, and family-friendly messaging, which conflicts with the advertiser's luxury one-off business model and technical outdoor gear category."
+      "reason": "The Busy Parent seeks convenience-motivated household products and subscriptions, whereas this advertiser sells high-end one-off luxury ski shells."
     },
     {
       "persona_id": "persona_003",
-      "reason": "The Gen Z Aesthete has a typical AOV of $48 and seeks fast-moving trends and playful novelty, making them a poor fit for a $650+ luxury technical outerwear brand."
+      "reason": "The Gen Z Aesthete prefers low-cost aesthetic-forward items with typical AOV around $48, which clashes with a luxury $650+ technical product."
     },
     {
       "persona_id": "persona_004",
-      "reason": "The Pet Parent focuses on pet food, pet supplies, and veterinary recommendations, which are completely irrelevant to human technical apparel and backcountry ski gear."
-    },
-    {
-      "persona_id": "persona_005",
-      "reason": "The Affluent Classic prefers classic apparel, home goods, and travel with understated heritage styling, rather than high-performance technical gear used by ski patrollers."
+      "reason": "The Pet Parent focuses strictly on pet food, supplies, and veterinary recommendations, which is entirely irrelevant to technical backcountry ski shells."
     },
     {
       "persona_id": "persona_007",
-      "reason": "The Convenience-First Millennial is motivated by speed, instant delivery, and subscription services, which contradicts the advertiser's one-off purchase model for specialized ski equipment."
+      "reason": "The Convenience-First Millennial relies on instant delivery and quick commerce, contrasting with a high-consideration $650+ luxury purchase."
     },
     {
       "persona_id": "persona_008",
-      "reason": "The Value-Conscious Shopper has a high price sensitivity and relies on discount-forward messaging and bundle offers, directly contradicting the advertiser's luxury $650+ price tier."
+      "reason": "The Value-Conscious Shopper has high price sensitivity and looks for discount-forward bundles, which directly contradicts the luxury pricing tier of the advertiser."
     },
     {
       "persona_id": "persona_010",
-      "reason": "The Gifter is driven by gifting holidays, gift sets, and last-minute shipping wrappers, which is too transient and misaligned with the technical product-focused research required for backcountry gear."
+      "reason": "The Gifter is focused on temporary gifting holidays and gift-wrap messaging rather than core technical gear functionality needed by backcountry skiers."
     }
   ]
 }

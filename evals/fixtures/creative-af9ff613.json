@@ -1,13 +1,14 @@
 {
-  "headline": "Patroller-Grade Technical Fabrics For Peak Performance",
-  "body": "Tested by professionals in the harshest backcountry terrain. Built with technical fabrics that deliver uncompromising performance when you push your limits.",
-  "rationale": "This copy targets the Fitness Enthusiast by directly using their required messaging preferences of technical fabrics and performance claims, while leaning into the professional patroller pedigree to satisfy their demand for items that truly perform.",
+  "headline": "Tested by patrollers. Built for heavy training.",
+  "body": "When you work out four days a week, your gear needs to perform. Our technical shells are what ski patrollers wear when the weather turns.",
+  "rationale": "This persona is driven by rigorous performance and professional proof. I used the advertiser's exact fact about ski patrollers combined with the persona's workout frequency to build trust without relying on fashion tropes.",
   "messaging_levers": [
     "performance claims",
+    "athlete endorsements",
     "technical fabrics"
   ],
   "avoided": [
-    "fashion-only positioning",
-    "sedentary-lifestyle products"
+    "sedentary-lifestyle products",
+    "fashion-only positioning"
   ]
 }

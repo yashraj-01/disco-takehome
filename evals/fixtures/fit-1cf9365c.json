@@ -4,121 +4,121 @@
       "publisher_id": "pub_001",
       "verdict": "considered",
       "rank": 0,
-      "reason": "Offers great convenience and impulse-friendly purchase behavior matching the advertiser's convenience value, but the $28 AOV and lower income tier make it a near-miss compared to dedicated functional beverage audiences."
+      "reason": "Offers rapid delivery and impulse-friendly beverage traffic that matches our price point, but the late-night spike and convenience focus skew away from our science-backed positioning."
     },
     {
       "publisher_id": "pub_002",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category_mismatch (apparel vs beverages)."
+      "reason": "Sells workout apparel and activewear subscriptions; nothing in the assortment reaches shoppers looking for non-alcoholic functional drinks."
     },
     {
       "publisher_id": "pub_003",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category_mismatch (wellness services vs beverages)."
+      "reason": "Operates appointment-based fitness classes and spa services, which does not overlap with packaged beverage retail."
     },
     {
       "publisher_id": "pub_004",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category_mismatch (apparel vs beverages)."
+      "reason": "Focuses on older career women seeking high-end workwear and fashion, missing our younger adult demographic entirely."
     },
     {
       "publisher_id": "pub_005",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category_mismatch (apparel vs beverages)."
+      "reason": "Features classic women's work apparel with a mature customer base that does not align with our beverage audience age range."
     },
     {
       "publisher_id": "pub_006",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category_mismatch (apparel vs beverages)."
+      "reason": "Provides inclusive-sized women's clothing and intimates, completely outside the food and beverage category."
     },
     {
       "publisher_id": "pub_007",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category_mismatch (pet supplies vs beverages)."
+      "reason": "Caters specifically to pet owners buying animal food and supplies, with no overlap for human refreshments."
     },
     {
       "publisher_id": "pub_008",
       "verdict": "recommended",
-      "rank": 3,
-      "reason": "High values match for clean-ingredient and sustainability claims. While categorized in groceries rather than direct beverages, the values alignment and health-conscious audience make it a strong fit for functional drink messaging."
+      "rank": 2,
+      "reason": "Aligns strongly with our values-driven shoppers who actively seek out clean ingredients, natural formulations, and wellness-oriented pantry additions."
     },
     {
       "publisher_id": "pub_009",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category_mismatch (pet vs beverages)."
+      "reason": "Supplies pet food and veterinary products, whereas we manufacture human beverages."
     },
     {
       "publisher_id": "pub_010",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category_mismatch (apparel vs beverages)."
+      "reason": "Sells basic apparel like socks and underwear, offering no relevance to functional beverage consumers."
     },
     {
       "publisher_id": "pub_011",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category_mismatch (home textiles vs beverages)."
+      "reason": "Focuses on home textiles and bedding, which has no connection to liquid refreshments."
     },
     {
       "publisher_id": "pub_012",
       "verdict": "recommended",
-      "rank": 2,
-      "reason": "Science-forward wellness audience that explicitly seeks out substantiated health claims, aligning perfectly with the advertiser's science-backed adaptogen beverage positioning and $38 AOV."
+      "rank": 3,
+      "reason": "Reaches a science-forward wellness audience that values substantiated health claims and functional formulations, closely mirroring our target buyer."
     },
     {
       "publisher_id": "pub_013",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category_mismatch (beauty vs beverages)."
+      "reason": "Offers skincare and makeup products, failing to connect with beverage purchasers."
     },
     {
       "publisher_id": "pub_014",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category_mismatch (cookware vs beverages)."
+      "reason": "Sells non-toxic cookware and kitchen items, which is unrelated to consumable drinks."
     },
     {
       "publisher_id": "pub_015",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category_mismatch (meal kits vs beverages)."
+      "reason": "Provides home meal kits and food subscriptions rather than standalone functional beverages."
     },
     {
       "publisher_id": "pub_016",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category_mismatch (apparel vs beverages)."
+      "reason": "Features sustainable women's footwear, which is irrelevant to our drink brand."
     },
     {
       "publisher_id": "pub_017",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category_mismatch (apparel vs beverages)."
+      "reason": "Markets sustainable athletic shoes and apparel, missing our beverage category."
     },
     {
       "publisher_id": "pub_018",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category_mismatch (pet supplies vs beverages)."
+      "reason": "Delivers pet toys and treats for dogs, completely outside the human beverage market."
     },
     {
       "publisher_id": "pub_019",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category_mismatch (beauty vs beverages)."
+      "reason": "Focuses on personalized hair care routines, which has no relation to functional drinks."
     },
     {
       "publisher_id": "pub_020",
       "verdict": "recommended",
       "rank": 1,
-      "reason": "Direct category overlap in functional beverages and soda alternatives, perfectly matching the 22-42 age skew and the $42 AOV for health-curious consumers seeking a cocktail alternative."
+      "reason": "Directly targets health-curious individuals seeking soda alternatives and gut health support, making it the most natural fit for our adaptogenic sparkling beverages."
     }
   ]
 }

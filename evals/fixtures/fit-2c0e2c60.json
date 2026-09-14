@@ -2,123 +2,123 @@
   "verdicts": [
     {
       "publisher_id": "pub_001",
-      "verdict": "recommended",
-      "rank": 1,
-      "reason": "Swiftcart provides massive reach among high-frequency instant delivery shoppers, and its $28 average order value closely mirrors the advertiser's estimated $30 AOV for starter kits."
-    },
-    {
-      "publisher_id": "pub_008",
-      "verdict": "recommended",
-      "rank": 2,
-      "reason": "Pantrygood's values-driven, clean-ingredient grocery shoppers exhibit a direct alignment with the advertiser's core focus on sustainability and eco-friendly household goods."
-    },
-    {
-      "publisher_id": "pub_011",
-      "verdict": "recommended",
-      "rank": 3,
-      "reason": "Northbed shares a home category focus and reaches design-conscious consumers who frequently cross-shop premium home and wellness products, despite a higher AOV."
-    },
-    {
-      "publisher_id": "pub_014",
-      "verdict": "recommended",
-      "rank": 4,
-      "reason": "Hearthstone Goods directly targets sustainability-motivated kitchen buyers during major life events, providing an exceptional context for eco-friendly concentrated cleaning products."
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "High-frequency shoppers with late-night traffic and impulse-friendly behavior align well with quick household purchases, but the younger age skew leans slightly outside the primary target."
     },
     {
       "publisher_id": "pub_002",
       "verdict": "considered",
       "rank": 0,
-      "reason": "While Movewell's fitness-engaged audience overlaps well in age, its activewear category and higher $78 AOV make it a secondary priority compared to core home and grocery publishers."
-    },
-    {
-      "publisher_id": "pub_004",
-      "verdict": "excluded",
-      "rank": 0,
-      "reason": "Marlowe & Co. targets an older demographic (45-65 age skew) with a significantly higher AOV of $112, missing the advertiser's target age range and price tier."
+      "reason": "Fitness-engaged shoppers who crossover into wellness and beauty provide a strong demographic match, though activewear apparel has a higher order value than the target cleaning products."
     },
     {
       "publisher_id": "pub_003",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to hard gate category_mismatch; wellness services do not align with the advertiser's home cleaning supplies category."
+      "reason": "Operates appointment-based booking for fitness and spa services, which does not reach people shopping for household cleaning supplies."
+    },
+    {
+      "publisher_id": "pub_004",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Reaches older, affluent women focused on workwear and apparel with an order value significantly higher than a standard cleaning product starter kit."
     },
     {
       "publisher_id": "pub_005",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Linden Park's audience skew of 50-70 and very high AOV of $128 conflict with the advertiser's younger demographic targets and mid-tier pricing."
+      "reason": "Caters to an older demographic with a conservative brand sensibility and an order value four times higher than the advertiser's average."
     },
     {
       "publisher_id": "pub_006",
-      "verdict": "excluded",
+      "verdict": "considered",
       "rank": 0,
-      "reason": "Everbody focuses on inclusive apparel sizing and intimates, presenting a category distance too wide for a household cleaning product."
+      "reason": "Inclusive sizing and fit-focused messaging resonate with the target age band, though apparel and intimates are outside the home cleaning category."
     },
     {
       "publisher_id": "pub_007",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to hard gate category_mismatch; pet supplies and pet food categories have no subcategory overlap with home cleaning."
+      "reason": "Sells pet food and supplies, reaching pet owners rather than consumers looking for sustainable home cleaning products."
+    },
+    {
+      "publisher_id": "pub_008",
+      "verdict": "recommended",
+      "rank": 1,
+      "reason": "Values-driven grocery shoppers who are highly responsive to clean-ingredient, wellness, and sustainability claims, making them an ideal match for refillable household products."
     },
     {
       "publisher_id": "pub_009",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to hard gate category_mismatch; Ruffco operates entirely within the pet category."
+      "reason": "Focuses on pet food, supplies, and pharmacy, serving animal care needs rather than household cleaning."
     },
     {
       "publisher_id": "pub_010",
       "verdict": "considered",
       "rank": 0,
-      "reason": "Heartfoot features a matching age demographic and social-good messaging, but its socks and basics apparel focus makes it less synergistic than dedicated home and grocery partners."
+      "reason": "Audience responds to social-good messaging and spans the target age range, though the catalog focuses on basics and gifting rather than home care."
+    },
+    {
+      "publisher_id": "pub_011",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Design-conscious home textiles buyers share a strong cross-sell affinity with household goods, but the higher order value and bedding focus make it a secondary fit."
     },
     {
       "publisher_id": "pub_012",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to hard gate category_mismatch; wellness DTC vitamins and supplements lack category overlap with home cleaning supplies."
+      "reason": "Offers vitamins and supplements, catering to a science-forward wellness audience rather than household goods shoppers."
     },
     {
       "publisher_id": "pub_013",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to hard gate category_mismatch; skincare and makeup beauty products do not match household cleaning."
+      "reason": "Features skincare and makeup with a minimalist aesthetic, completely missing the home cleaning and sustainability product category."
+    },
+    {
+      "publisher_id": "pub_014",
+      "verdict": "recommended",
+      "rank": 2,
+      "reason": "Sustainability-motivated kitchenware buyers who frequently invest in non-toxic home upgrades, aligning perfectly with eco-friendly cleaning solutions."
     },
     {
       "publisher_id": "pub_015",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to hard gate category_mismatch; meal kits are food-focused rather than home and cleaning focused."
+      "reason": "Delivers meal kits and groceries for couples and families, offering food subscription services rather than home cleaning supplies."
     },
     {
       "publisher_id": "pub_016",
       "verdict": "considered",
       "rank": 0,
-      "reason": "Stride & Stem features professional women who value sustainable claims, but its focus on shoes and high $142 AOV limit direct conversion potential."
+      "reason": "Professional women respond well to sustainability and machine-washable claims, though shoes and apparel diverge from the core home category."
     },
     {
       "publisher_id": "pub_017",
       "verdict": "considered",
       "rank": 0,
-      "reason": "Cloudfoot engages tech-adjacent urban professionals with sustainability messaging, but its core shoe offering represents a category mismatch for household cleaning."
+      "reason": "Tech-adjacent urban professionals appreciate comfort and sustainability messaging, but activewear shoes do not align with cleaning supplies."
     },
     {
       "publisher_id": "pub_018",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to hard gate category_mismatch; pet supplies and toys are outside the home cleaning category."
+      "reason": "Provides pet treats, toys, and supplies, appealing to dog owners rather than consumers shopping for household products."
     },
     {
       "publisher_id": "pub_019",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to hard gate category_mismatch; haircare and beauty DTC products do not match the advertiser's category."
+      "reason": "Specializes in personalized haircare and beauty routines, which has no overlap with home cleaning."
     },
     {
       "publisher_id": "pub_020",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to hard gate category_mismatch; functional beverages and gut health drinks are outside the home cleaning supplies category."
+      "reason": "Focuses on functional beverages and gut health alternatives, targeting beverage consumers rather than home cleaning buyers."
     }
   ]
 }

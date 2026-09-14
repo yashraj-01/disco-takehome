@@ -2,7 +2,7 @@
   "selected": [
     {
       "persona_id": "persona_006",
-      "rationale": "The Sustainability Buyer has a direct category affinity for refillable_products and home_goods, and demands specific sustainability claims and supply chain transparency. This directly aligns with the advertiser's core offering of refillable, concentrated cleaning products that eliminate single-use plastics.",
+      "rationale": "The Sustainability Buyer explicitly features category affinities for refillable products and home goods, perfectly matching the advertiser's core offering of refillable, concentrated cleaning products and value of sustainability.",
       "primary_publishers": [
         "pub_008",
         "pub_014"
@@ -10,49 +10,48 @@
     },
     {
       "persona_id": "persona_002",
-      "rationale": "The Busy Parent prioritizes household goods and convenience, and responds well to time-saving, family-friendly messaging. This matches the advertiser's stated value of convenience and their target age range of 25-54, offering a practical angle for everyday home cleaning.",
+      "rationale": "The Busy Parent looks for household solutions that balance convenience and family-friendly features, aligning with the advertiser's secondary value of convenience and household subcategory.",
       "primary_publishers": [
-        "pub_001",
+        "pub_008",
         "pub_014"
       ]
     },
     {
       "persona_id": "persona_003",
-      "rationale": "The Gen Z Aesthete focuses on home decor and small-batch items while seeking out brands with an aesthetic-forward and values-aligned voice. This maps onto the advertiser's direct-to-consumer model and desire to reach conscious consumers through modern channels.",
+      "rationale": "The Gen Z Aesthete cares about packaging, brand voice, and whether a brand stands for something, which matches the modern, single-use plastic reduction mission of the advertiser.",
       "primary_publishers": [
-        "pub_011",
-        "pub_001"
+        "pub_014"
       ]
     }
   ],
   "rejected": [
     {
       "persona_id": "persona_001",
-      "reason": "The Wellness Optimizer focuses primarily on ingestible wellness, supplements, and clean beauty with an AOV of $95, which is much higher than the advertiser's estimated $30 AOV and does not directly connect to household cleaning supplies."
+      "reason": "The Wellness Optimizer focuses primarily on personal health, supplements, and clean beauty rather than household cleaning supplies."
     },
     {
       "persona_id": "persona_004",
-      "reason": "The Pet Parent centers their purchasing entirely around pet health and pet supplies, which lacks relevance for a human household cleaning brand."
+      "reason": "The Pet Parent centers their purchasing decisions strictly on pet health, pet food, and pet supplies, which is outside the human household cleaning category."
     },
     {
       "persona_id": "persona_005",
-      "reason": "The Affluent Classic looks for craftsmanship, heritage, and luxury positioning in classic apparel and home goods, which contradicts the modern, accessible DTC positioning of the advertiser."
+      "reason": "The Affluent Classic is disinterested in trendy language and influencer positioning, and typically buys luxury or classic apparel and home goods rather than everyday functional cleaning supplies."
     },
     {
       "persona_id": "persona_007",
-      "reason": "The Convenience-First Millennial focuses on instant delivery and quick commerce with low brand loyalty, whereas the advertiser's core differentiator is sustainability messaging rather than pure speed."
+      "reason": "The Convenience-First Millennial focuses on instant delivery and quick commerce rather than eco-conscious household cleaning products."
     },
     {
       "persona_id": "persona_008",
-      "reason": "The Value-Conscious Shopper requires discount-forward messaging and bundle offers, which misaligns with the mid-tier, sustainability-led positioning where value is placed on ecological impact rather than pure bargain-hunting."
+      "reason": "The Value-Conscious Shopper seeks discount-forward messaging and bundle offers, whereas the advertiser operates as a mid-tier eco-friendly brand focused on sustainability rather than low-end discounting."
     },
     {
       "persona_id": "persona_009",
-      "reason": "The Fitness Enthusiast is exclusively focused on activewear, supplements, and physical recovery, showing no affinity for household cleaning products."
+      "reason": "The Fitness Enthusiast targets activewear, supplements, and recovery products, which have no overlap with household cleaning supplies."
     },
     {
       "persona_id": "persona_010",
-      "reason": "The Gifter looks for gift sets and self-care or presentation-heavy holiday items and explicitly dislikes subscription-only or basic utility framing, making them a poor fit for everyday household refill products."
+      "reason": "The Gifter is explicitly disinterested in self-care-only or subscription-only framing, and cleaning products do not fit the traditional gifting occasions this persona seeks."
     }
   ]
 }

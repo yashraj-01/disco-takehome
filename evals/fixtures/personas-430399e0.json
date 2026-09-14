@@ -2,7 +2,7 @@
   "selected": [
     {
       "persona_id": "persona_005",
-      "rationale": "The Affluent Classic demographic matches the high-end $1,200 price point and luxury positioning of Florence-crafted leather handbags. Their preference for heritage and craftsmanship aligns directly with the advertiser's core values, and they match publishers pub_004 and pub_005.",
+      "rationale": "The Affluent Classic persona matches the luxury price tier ($1,200) and craftsmanship values of the Italian leather handbags. Their low price sensitivity and preference for heritage messaging align directly with the publisher Marlowe & Co. and Linden Park audiences.",
       "primary_publishers": [
         "pub_004",
         "pub_005"
@@ -10,48 +10,47 @@
     },
     {
       "persona_id": "persona_006",
-      "rationale": "The Sustainability Buyer values supply chain transparency and artisanal sourcing over mass-produced fast fashion, directly connecting to handcrafted Florentine leather goods. They can be effectively targeted on publisher pub_016.",
+      "rationale": "The Sustainability Buyer cares about ethical footprints and supply chain transparency. Handcrafted in Florence, small-batch Italian goods resonate with this mindset, and they can be efficiently reached on Stride & Stem which highlights sustainable attributes.",
       "primary_publishers": [
         "pub_016"
       ]
     },
     {
       "persona_id": "persona_010",
-      "rationale": "The Gifter looks for impressive, high-AOV statement pieces with premium presentation, which fits custom-made luxury handbags. They align with the affluent demographics on publishers pub_004 and pub_005.",
+      "rationale": "The Gifter looks for impressive-looking purchases with high AOV and premium presentation, making a $1,200 handcrafted luxury handbag an ideal gift item for significant life events. They can be targeted via high-end lifestyle publishers like Marlowe & Co.",
       "primary_publishers": [
-        "pub_004",
-        "pub_005"
+        "pub_004"
       ]
     }
   ],
   "rejected": [
     {
       "persona_id": "persona_001",
-      "reason": "The Wellness Optimizer focuses on supplements, fitness, and clean beauty with a low typical AOV of $95, making them a poor fit for luxury fashion accessories priced at $1,200."
+      "reason": "The Wellness Optimizer focuses strictly on health, sleep, and fitness supplements rather than luxury fashion accessories, making them an irrelevant match for high-end leather goods."
     },
     {
       "persona_id": "persona_002",
-      "reason": "The Busy Parent explicitly lists a disinterest in luxury positioning and values convenience and speed, whereas custom-fit handbags require a 6-week fulfillment window."
+      "reason": "The Busy Parent explicitly lists a disinterest in luxury positioning and has a typical AOV of $78, which is far too low for a $1,200 custom luxury product."
     },
     {
       "persona_id": "persona_003",
-      "reason": "The Gen Z Aesthete has a low typical AOV of $48 and relies on TikTok discovery, whereas the recommended publishers cater to older, highly affluent demographics."
+      "reason": "The Gen Z Aesthete has a typical AOV of $48 and high-to-medium price sensitivity, conflicting completely with the $1,200 luxury price point of the advertised handbags."
     },
     {
       "persona_id": "persona_004",
-      "reason": "The Pet Parent focuses strictly on animal-related health and supplies, having no category overlap with luxury leather handbags."
+      "reason": "The Pet Parent focuses entirely on pet food, supplies, and health, sharing zero category affinities with apparel, handbags, or luxury leather goods."
     },
     {
       "persona_id": "persona_007",
-      "reason": "The Convenience-First Millennial prioritizes fast delivery and instant gratification, which conflicts directly with the 6-week custom manufacturing and shipping timeframe."
+      "reason": "The Convenience-First Millennial looks for instant delivery, quick commerce, and subscriptions, whereas this advertiser features a 6-week minimum order shipping window for custom items."
     },
     {
       "persona_id": "persona_008",
-      "reason": "The Value-Conscious Shopper seeks discount-forward messaging and bundle offers, which sharply contradicts the luxury, non-discounted pricing of a $1,200 handmade Italian handbag."
+      "reason": "The Value-Conscious Shopper seeks discount-forward messaging and bundle offers, which clashes with the luxury, handcrafted, and non-discounted positioning of $1,200 Italian leather goods."
     },
     {
       "persona_id": "persona_009",
-      "reason": "The Fitness Enthusiast focuses on activewear, supplements, and recovery gear, showing no affinity for luxury leather goods or high-end apparel publishers."
+      "reason": "The Fitness Enthusiast is solely interested in activewear, supplements, and recovery gear rather than luxury lifestyle accessories and leather goods."
     }
   ]
 }

@@ -1,13 +1,12 @@
 {
-  "headline": "Hand-poured Vermont candles ready for gifting",
-  "body": "Made with natural soy wax and no synthetic fragrances. A premium artisanal candle that arrives ready to impress for any celebration.",
-  "rationale": "This copy targets The Gifter by focusing explicitly on the giftable nature and premium presentation of the Vermont soy candles, while deliberately avoiding self-care-only framing and subscription angles.",
+  "headline": "Hand-poured soy candles ready to gift",
+  "body": "Check off your list with a Vermont soy candle in premium presentation packaging. Natural wax and zero synthetic fragrances make it an impressive present.",
+  "rationale": "This copy targets The Gifter persona by directly highlighting gift readiness and premium presentation, while avoiding self-care framing and acknowledging their low price sensitivity.",
   "messaging_levers": [
     "giftable",
     "premium presentation"
   ],
   "avoided": [
-    "self-care-only framing",
-    "subscription-only"
+    "self-care-only framing"
   ]
 }

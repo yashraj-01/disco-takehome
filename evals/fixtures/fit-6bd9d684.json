@@ -4,121 +4,121 @@
       "publisher_id": "pub_001",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category_mismatch; instant delivery groceries and convenience items do not share category overlap with apparel."
+      "reason": "Sells convenience groceries and household goods; nothing in the assortment reaches people shopping for sustainable women's activewear."
     },
     {
       "publisher_id": "pub_002",
       "verdict": "recommended",
       "rank": 1,
-      "reason": "Strong category and demographic match with 82 percent female audience and fitness-engaged shoppers who cross over with wellness and activewear."
+      "reason": "Fitness-engaged female shoppers with strong crossover into wellness and beauty, perfectly matching the target demographic for premium activewear."
     },
     {
       "publisher_id": "pub_003",
       "verdict": "considered",
       "rank": 0,
-      "reason": "Plausible fitness and wellness service audience, but lower average order value and appointment booking focus make it a near-miss compared to direct apparel publishers."
+      "reason": "Reaches fitness-focused women spending on self-care, but the lower order value and service-booking nature make it a near-miss compared to dedicated apparel publishers."
     },
     {
       "publisher_id": "pub_004",
-      "verdict": "considered",
+      "verdict": "excluded",
       "rank": 0,
-      "reason": "High average order value, but the audience age skew of 45-65 misses the core target age range of 22 to 45."
+      "reason": "Audience age skew of 45-65 is older than the target maximum age of 45 for this activewear brand."
     },
     {
       "publisher_id": "pub_005",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to demographic_mismatch; the audience age skew of 50-70 does not overlap with the target age range of 22 to 45."
+      "reason": "Audience age skew of 50-70 falls completely outside the target age range of 22 to 45."
     },
     {
       "publisher_id": "pub_006",
       "verdict": "recommended",
       "rank": 2,
-      "reason": "Inclusive sizing and a representation-focused audience provide a strong values and category alignment for women's apparel."
+      "reason": "Inclusive sizing and a values-driven audience that responds strongly to fit-focused messaging and representation."
     },
     {
       "publisher_id": "pub_007",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category_mismatch; pet food and supplies do not overlap with apparel."
+      "reason": "Sells pet food and supplies; nothing in the catalog reaches people shopping for women's activewear."
     },
     {
       "publisher_id": "pub_008",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category_mismatch; organic groceries and pantry items do not overlap with apparel."
+      "reason": "Sells organic groceries and pantry items; nothing in the catalog reaches people shopping for apparel."
     },
     {
       "publisher_id": "pub_009",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category_mismatch; pet supplies and pharmacy do not overlap with apparel."
+      "reason": "Sells pet food, supplies, and pharmacy items; nothing in the catalog reaches people shopping for women's activewear."
     },
     {
       "publisher_id": "pub_010",
       "verdict": "considered",
       "rank": 0,
-      "reason": "Apparel basics publisher with social-good messaging, but lower average order value of $52 creates a pricing tier gap against the $100 AOV positioning."
+      "reason": "Audience responds well to social-good messaging, but selling basics and underwear rather than performance activewear makes conversion less certain."
     },
     {
       "publisher_id": "pub_011",
       "verdict": "considered",
       "rank": 0,
-      "reason": "Design-conscious urban buyers with high income, but home textiles and bedding is a secondary category distance from apparel."
+      "reason": "Design-conscious urban buyers with high cross-sell potential for home and wellness, though bedding and bath textiles are adjacent rather than core activewear."
     },
     {
       "publisher_id": "pub_012",
       "verdict": "considered",
       "rank": 0,
-      "reason": "Excellent age and gender alignment in wellness, but lower AOV and supplement category distance make it a near-miss."
+      "reason": "Strong age and gender overlap with health-conscious women, but vitamins and supplements represent a different category than apparel."
     },
     {
       "publisher_id": "pub_013",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Younger Gen Z audience skew (18-34) and lower income tier present an age and demographic distance from the target profile."
+      "reason": "Skincare and makeup publisher focused primarily on Gen Z aesthetics, which sits outside the core target age range and product category."
     },
     {
       "publisher_id": "pub_014",
       "verdict": "considered",
       "rank": 0,
-      "reason": "Shared sustainability values and high-income audience, but kitchenware is a category mismatch for an activewear brand."
+      "reason": "Sustainability-motivated kitchenware buyers share the brand's values, but cookware is too distant from activewear for a primary recommendation."
     },
     {
       "publisher_id": "pub_015",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category_mismatch; meal kits and groceries have no category overlap with apparel."
+      "reason": "Sells meal kits and groceries; nothing in the catalog reaches people shopping for women's activewear."
     },
     {
       "publisher_id": "pub_016",
       "verdict": "recommended",
       "rank": 3,
-      "reason": "High affinity professional women's audience with explicit sustainability values alignment and strong AOV proximity."
+      "reason": "Professional women who respond strongly to sustainability and machine-washable claims, aligning closely with premium eco-friendly apparel."
     },
     {
       "publisher_id": "pub_017",
       "verdict": "recommended",
       "rank": 4,
-      "reason": "Outstanding overlap in sustainable activewear shoes with tech-adjacent urban professionals who respond well to comfort and sustainability messaging."
+      "reason": "Tech-adjacent urban professionals whose demand for comfort and sustainability makes them an ideal fit despite a more balanced gender split."
     },
     {
       "publisher_id": "pub_018",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category_mismatch; pet supplies and subscription toys do not overlap with apparel."
+      "reason": "Sells pet supplies and treats; nothing in the catalog reaches people shopping for women's activewear."
     },
     {
       "publisher_id": "pub_019",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Haircare and beauty DTC category distance combined with a younger 18-38 skew make it an unfit pairing for apparel."
+      "reason": "Haircare and personalized beauty DTC brand, which does not overlap with apparel or activewear categories."
     },
     {
       "publisher_id": "pub_020",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Excluded due to category_mismatch; functional beverages and gut health products do not overlap with apparel."
+      "reason": "Sells functional beverages and soda alternatives; nothing in the catalog reaches people shopping for apparel."
     }
   ]
 }

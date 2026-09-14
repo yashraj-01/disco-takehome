@@ -4,121 +4,121 @@
       "publisher_id": "pub_001",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Category mismatch: instant delivery convenience platform with low order values ($28) does not align with a $1,200 luxury custom leather handbag brand."
+      "reason": "Sells convenience groceries and household essentials; nothing in the assortment reaches shoppers looking for luxury leather goods."
     },
     {
       "publisher_id": "pub_002",
       "verdict": "considered",
       "rank": 0,
-      "reason": "Apparel category and strong female audience fit, but the $78 average order value is far below the $1,200 luxury threshold, representing a major pricing tier gap."
+      "reason": "Reaches fitness-engaged women with a strong demographic overlap, but the activewear focus and lower average order value make it a near-miss compared to higher-end apparel options."
     },
     {
       "publisher_id": "pub_003",
       "verdict": "considered",
       "rank": 0,
-      "reason": "High-income self-care audience with great age overlap, but wellness services lack category alignment with luxury leather goods and have an AOV of only $42."
+      "reason": "Attracts high-income women investing in self-care, yet the appointment-based wellness booking format does not align naturally with luxury leather accessories."
     },
     {
       "publisher_id": "pub_004",
       "verdict": "recommended",
-      "rank": 2,
-      "reason": "Older affluent female audience with high income and appreciation for quality craftsmanship, well-suited for high-AOV luxury handbag messaging."
+      "rank": 1,
+      "reason": "Reaches older affluent women with high purchasing power who respond well to quality and craftsmanship messaging, perfectly aligning with a luxury $1,200 price point."
     },
     {
       "publisher_id": "pub_005",
       "verdict": "recommended",
-      "rank": 1,
-      "reason": "Highest AOV apparel publisher in the catalog catering to older, affluent women who appreciate conservative, high-end craftsmanship and timeless aesthetic value."
+      "rank": 2,
+      "reason": "Features the highest average order value in the apparel category alongside a conservative, high-income audience that naturally fits handcrafted Italian leather goods."
     },
     {
       "publisher_id": "pub_006",
       "verdict": "considered",
       "rank": 0,
-      "reason": "Solid apparel category overlap and female audience, but restricted by a mid-tier income audience and an $89 AOV that falls short of luxury positioning."
+      "reason": "Offers strong female demographic alignment and inclusive sizing, but the mid-tier income audience and lower order value present an economic gap for a $1,200 luxury brand."
     },
     {
       "publisher_id": "pub_007",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Category mismatch: pet supply and subscription publisher cannot reach luxury handbag buyers."
+      "reason": "Focuses entirely on pet food and subscription supplies; pet owners in this audience are not shopping for luxury fashion accessories."
     },
     {
       "publisher_id": "pub_008",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Category mismatch: organic grocery and pantry items do not match luxury leather accessories."
+      "reason": "Caters to organic grocery and clean-ingredient pantry shoppers with no crossover into luxury apparel or leather goods."
     },
     {
       "publisher_id": "pub_009",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Category mismatch: pet products catalog with a hard category gate."
+      "reason": "Operates as a pet supply retailer with zero connection to luxury accessories or apparel."
     },
     {
       "publisher_id": "pub_010",
       "verdict": "considered",
       "rank": 0,
-      "reason": "Apparel category overlap with gifting potential, but low $52 AOV and mid-high income tier are too low for custom $1,200 Italian leather goods."
+      "reason": "Provides a strong gifting season uplift and values-driven audience, but the lower price point and casual basics focus create a mismatch for high-end artisanal leather."
     },
     {
       "publisher_id": "pub_011",
       "verdict": "considered",
       "rank": 0,
-      "reason": "Design-conscious high-income home textiles audience with a solid $164 AOV, but home goods is adjacent rather than a direct apparel/luxury handbag fit."
+      "reason": "Attracts design-conscious, high-income urban buyers who appreciate aesthetics, though home textiles and bedding do not bridge directly to custom handbags."
     },
     {
       "publisher_id": "pub_012",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Category mismatch: wellness DTC and vitamin supplements publisher."
+      "reason": "Sells vitamins and science-forward wellness supplements; its audience is looking for ingestible health products rather than luxury fashion."
     },
     {
       "publisher_id": "pub_013",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Younger Gen Z/millennial audience (18-34 skew) fails the target age minimum of 30 and mid income tier fails to match luxury price point."
+      "reason": "Targets Gen Z and younger millennial beauty consumers with a minimalist identity, whose age skew and lower spending tier do not align with a mature luxury demographic."
     },
     {
       "publisher_id": "pub_014",
       "verdict": "considered",
       "rank": 0,
-      "reason": "High-income sustainability-motivated home buyers with a strong $198 AOV, but kitchenware is a category distance away from luxury handcrafted leather handbags."
+      "reason": "Reaches sustainability-motivated, high-income buyers with a strong average order value, but kitchenware and non-toxic cookware do not translate into leather goods."
     },
     {
       "publisher_id": "pub_015",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Category mismatch: meal kit delivery service."
+      "reason": "Provides meal kits and food subscriptions; household food planning does not connect to the luxury handbag buyer."
     },
     {
       "publisher_id": "pub_016",
       "verdict": "recommended",
       "rank": 3,
-      "reason": "Professional women's footwear and apparel publisher with a high-income audience, strong sustainability and craftsmanship values, and premium pricing that aligns well with luxury accessories."
+      "reason": "Connects directly with professional women seeking sustainable luxury, making its high-income audience an ideal fit for handcrafted Italian leather accessories."
     },
     {
       "publisher_id": "pub_017",
       "verdict": "considered",
       "rank": 0,
-      "reason": "Sustainable apparel publisher with urban professional appeal, but a balanced 52/47 gender split misses the targeted female skew."
+      "reason": "Appeals to tech-adjacent urban professionals valuing comfort and sustainability, but the active footwear focus represents a different purchasing intent than luxury handbags."
     },
     {
       "publisher_id": "pub_018",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Category mismatch: pet subscription box service."
+      "reason": "Centres around dog toys and treat subscriptions; pet owners browsing here are shopping for animals, not high-end personal leather goods."
     },
     {
       "publisher_id": "pub_019",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Audience skew is 18-38, failing the target age minimum of 30, alongside a mid-income tier unsuited for luxury goods."
+      "reason": "Specializes in personalized hair care products with a younger audience skew, failing to reach the mature luxury demographic required for $1,200 handbags."
     },
     {
       "publisher_id": "pub_020",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Category mismatch: functional beverage publisher."
+      "reason": "Offers functional gut-health beverages and soda alternatives, which falls completely outside the apparel and luxury accessories market."
     }
   ]
 }

@@ -1,9 +1,11 @@
 {
-  "headline": "Patrol-grade shells built for a lifetime.",
-  "body": "Our technical outerwear is crafted for serious backcountry skiers who value transparent supply chains and durable materials that last season after season.",
-  "rationale": "This persona requires explicit craftsmanship and material longevity alongside supply chain transparency rather than generic eco-marketing. It respects their medium price sensitivity by focusing on long-term durability over discounts, while appealing directly to their values.",
+  "headline": "Built for patrollers. Backed by supply chain transparency.",
+  "body": "Our backcountry shells are crafted to last decades, reducing replace-often waste. Read our exact material sourcing and production audits before investing in $650 pro-grade gear.",
+  "rationale": "This persona is skeptical of greenwashing and requires hard supply chain facts rather than vague eco claims. The copy addresses their medium price sensitivity by framing the $650 price tag as a long-term investment against fast fashion waste, utilizing their exact messaging preferences.",
   "messaging_levers": [
-    "supply chain transparency"
+    "specific sustainability claims",
+    "supply chain transparency",
+    "certifications"
   ],
   "avoided": [
     "vague eco claims",

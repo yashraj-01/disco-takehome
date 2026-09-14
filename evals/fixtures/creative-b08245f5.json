@@ -1,14 +1,15 @@
 {
-  "headline": "Vet-formulated senior dog food with joint support",
-  "body": "Optimize your older dog's daily vitality with exact nutrient ratios and transparent ingredients. Backed by clinical research for lasting mobility.",
-  "rationale": "This copy targets the Wellness Optimizer by framing senior dog health as a system to optimize through precise science and transparent ingredients. It avoids discount messaging and novel gimmicks, appealing directly to her low price sensitivity and demand for evidence.",
+  "headline": "Vet-formulated joint support for your senior dog",
+  "body": "Optimize your aging dog's cellular longevity with precise glucosamine ratios. Grain-free and backed by clinical research to preserve mobility.",
+  "rationale": "This copy targets the Wellness Optimizer by framing senior dog joint health as a biological system optimization. It uses precise scientific terminology and ingredient transparency while ignoring price because of her low price sensitivity.",
   "messaging_levers": [
     "science-backed claims",
     "ingredient transparency",
     "outcome-focused"
   ],
   "avoided": [
-    "novelty",
-    "fast_fashion"
+    "fast_fashion",
+    "ultra-processed food",
+    "novelty"
   ]
 }

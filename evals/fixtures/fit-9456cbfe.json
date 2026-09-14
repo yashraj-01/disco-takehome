@@ -4,121 +4,121 @@
       "publisher_id": "pub_001",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "category_mismatch — instant delivery convenience groceries do not align with technical outerwear and luxury ski gear."
+      "reason": "Sells fast-moving instant delivery groceries and household goods; nothing in the assortment reaches people shopping for luxury backcountry ski gear."
     },
     {
       "publisher_id": "pub_002",
-      "verdict": "considered",
-      "rank": 0,
-      "reason": "Apparel category match with high age overlap, but the audience is 82 percent female fitness shoppers with a $78 AOV, which is too low for $650 technical backcountry shells."
+      "verdict": "recommended",
+      "rank": 2,
+      "reason": "Apparel category match with a fitness-engaged audience that indexes well on wellness and performance gear, fitting the outdoor skier profile."
     },
     {
       "publisher_id": "pub_003",
-      "verdict": "excluded",
+      "verdict": "considered",
       "rank": 0,
-      "reason": "Wellness services category distance; local fitness classes and spa booking users do not match technical apparel buyers."
+      "reason": "Wellness service audience is actively spending on fitness, but the $42 average order value is far below the $650 luxury price point of technical outerwear."
     },
     {
       "publisher_id": "pub_004",
-      "verdict": "considered",
-      "rank": 0,
-      "reason": "Strong values match and high AOV, but the 45-65 age skew and 96 percent female audience miss the balanced gender skew and younger entry age of 25 for backcountry skiers."
+      "verdict": "recommended",
+      "rank": 1,
+      "reason": "Apparel publisher with an affluent older audience that values quality and craftsmanship, aligning closely with premium technical shells."
     },
     {
       "publisher_id": "pub_005",
-      "verdict": "excluded",
+      "verdict": "considered",
       "rank": 0,
-      "reason": "The 50-70 age skew is too old for serious backcountry skiing, and the conservative brand sensibility conflicts with extreme outdoor performance."
+      "reason": "Features high-AOV apparel buyers, but the 50-70 age skew sits older than the core backcountry skiing demographic."
     },
     {
       "publisher_id": "pub_006",
-      "verdict": "excluded",
+      "verdict": "considered",
       "rank": 0,
-      "reason": "Plus-size workwear and intimates focus does not align with technical outerwear and ski gear."
+      "reason": "Apparel alignment is correct, but the catalog focuses heavily on plus-size and workwear intimates rather than technical outdoor performance wear."
     },
     {
       "publisher_id": "pub_007",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "category_mismatch — pet food and subscription supplies publisher cannot reach backcountry skiers."
+      "reason": "Sells pet food and supplies; absolute category mismatch for an apparel brand selling backcountry ski shells."
     },
     {
       "publisher_id": "pub_008",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "category_mismatch — organic pantry groceries do not overlap with apparel and technical ski gear."
+      "reason": "Operates entirely within organic groceries and pantry items, which does not overlap with technical outerwear."
     },
     {
       "publisher_id": "pub_009",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "category_mismatch — pet supply catalog cannot reach outerwear buyers."
+      "reason": "Dedicated pet care retailer with zero relevance to outdoor technical apparel shoppers."
     },
     {
       "publisher_id": "pub_010",
       "verdict": "considered",
       "rank": 0,
-      "reason": "Apparel category match with 25-54 age overlap, but socks and basics with a $52 AOV are too far below the luxury $650 price tier."
+      "reason": "Apparel category overlap exists, but basic socks and gifting items at a $52 order value do not match luxury technical outerwear."
     },
     {
       "publisher_id": "pub_011",
       "verdict": "considered",
       "rank": 0,
-      "reason": "High income tier and design-conscious audience, but home bedding and bath is a category mismatch for technical apparel and outerwear."
+      "reason": "Design-conscious home textiles audience has high income, but home goods do not connect with outdoor ski equipment buyers."
     },
     {
       "publisher_id": "pub_012",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "category_mismatch — vitamins and supplements DTC does not reach technical clothing buyers."
+      "reason": "Sells vitamins and supplements; no overlap with technical outerwear or apparel."
     },
     {
       "publisher_id": "pub_013",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Gen Z beauty and skincare focus with an 18-34 age skew is too young and misaligned with serious backcountry skiing demographics."
+      "reason": "Skincare and makeup beauty publisher targeting Gen Z, which is too young and far removed from serious backcountry ski apparel."
     },
     {
       "publisher_id": "pub_014",
       "verdict": "considered",
       "rank": 0,
-      "reason": "High income tier and non-toxic kitchen goods fit the sustainability/craftsmanship ethos, but cookware is the wrong category for technical outerwear."
+      "reason": "High-income kitchenware audience, but cookware and non-toxic home goods do not align with technical outerwear."
     },
     {
       "publisher_id": "pub_015",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "category_mismatch — meal kit subscriptions cannot reach backcountry skiers."
+      "reason": "Meal kit subscription service; completely outside the apparel and outdoor gear category."
     },
     {
       "publisher_id": "pub_016",
       "verdict": "recommended",
-      "rank": 1,
-      "reason": "Professional women valuing sustainability and high-performance claims represent a strong audience for premium technical outerwear despite the female gender skew."
+      "rank": 3,
+      "reason": "Professional women's apparel publisher where sustainability and technical fabric claims resonate with high-intent buyers."
     },
     {
       "publisher_id": "pub_017",
       "verdict": "recommended",
-      "rank": 2,
-      "reason": "Tech-adjacent urban professionals with a balanced gender split, 25-45 age range, and an appreciation for comfort and sustainability make an ideal match for high-end backcountry shells."
+      "rank": 4,
+      "reason": "Activewear and sustainable footwear audience of tech-adjacent urban professionals who appreciate performance and comfort messaging."
     },
     {
       "publisher_id": "pub_018",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "category_mismatch — pet toy subscriptions are completely unrelated to technical apparel."
+      "reason": "Subscription box for dog treats and toys; completely unrelated to technical apparel."
     },
     {
       "publisher_id": "pub_019",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Personalized haircare DTC does not overlap with technical outerwear and ski gear."
+      "reason": "Personalized haircare brand whose audience seeks beauty solutions rather than technical ski shells."
     },
     {
       "publisher_id": "pub_020",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "category_mismatch — functional beverages and gut health drinks do not align with apparel and outdoor gear."
+      "reason": "Functional beverage and soda alternative brand; zero category relevance to backcountry ski apparel."
     }
   ]
 }
