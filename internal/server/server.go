@@ -4,11 +4,14 @@ package server
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io/fs"
 	"log"
+	"net"
 	"net/http"
 	"strings"
+	"syscall"
 	"time"
 
 	"github.com/yashraj/disco/internal/pipeline"
@@ -77,13 +80,52 @@ func contextWithTimeout(r *http.Request, d time.Duration) (context.Context, cont
 	return context.WithTimeout(r.Context(), d)
 }
 
+// listen binds addr, retrying once against an OS-assigned port (host with
+// port 0) if the requested address is already in use. Any other bind error
+// (a malformed address, a permissions error on a low port, ...) is returned
+// as-is. The bool result reports whether the fallback was used.
+func listen(addr string) (net.Listener, bool, error) {
+	ln, err := net.Listen("tcp", addr)
+	if err == nil {
+		return ln, false, nil
+	}
+	if !errors.Is(err, syscall.EADDRINUSE) {
+		return nil, false, err
+	}
+
+	host, _, splitErr := net.SplitHostPort(addr)
+	if splitErr != nil {
+		// addr didn't split as host:port; report the original bind error.
+		return nil, false, err
+	}
+	fallback, ferr := net.Listen("tcp", net.JoinHostPort(host, "0"))
+	if ferr != nil {
+		return nil, false, ferr
+	}
+	return fallback, true, nil
+}
+
 // Run serves until the process is stopped.
 func Run(addr string, o pipeline.Options) error {
-	fmt.Printf("disco listening on http://localhost%s\n", addr)
+	ln, fellBack, err := listen(addr)
+	if err != nil {
+		return err
+	}
+	defer ln.Close()
+
+	_, port, err := net.SplitHostPort(ln.Addr().String())
+	if err != nil {
+		port = ln.Addr().String()
+	}
+	if fellBack {
+		fmt.Printf("disco: address %s already in use; listening on http://localhost:%s instead\n", addr, port)
+	} else {
+		fmt.Printf("disco listening on http://localhost:%s\n", port)
+	}
+
 	srv := &http.Server{
-		Addr:              addr,
 		Handler:           New(o),
 		ReadHeaderTimeout: 10 * time.Second,
 	}
-	return srv.ListenAndServe()
+	return srv.Serve(ln)
 }

@@ -2,9 +2,13 @@ package server
 
 import (
 	"encoding/json"
+	"errors"
+	"net"
 	"net/http"
 	"net/http/httptest"
+	"os"
 	"strings"
+	"syscall"
 	"testing"
 
 	"github.com/yashraj/disco/internal/catalog"
@@ -186,5 +190,74 @@ func TestAPIRunSuccess(t *testing.T) {
 	}
 	if len(got.Creatives) == 0 {
 		t.Error("want at least one creative")
+	}
+}
+
+// TestListenFallsBackWhenPortTaken catches a regression to the naive
+// srv.ListenAndServe() path: if listen stopped retrying on EADDRINUSE (or
+// started retrying on the same port instead of ":0"), this would either
+// return a bind error where none is expected, or come back bound to the
+// very port that was already occupied.
+func TestListenFallsBackWhenPortTaken(t *testing.T) {
+	occupied, err := net.Listen("tcp", "127.0.0.1:0")
+	if err != nil {
+		t.Fatalf("net.Listen: %v", err)
+	}
+	defer occupied.Close()
+	addr := occupied.Addr().String()
+
+	ln, fellBack, err := listen(addr)
+	if err != nil {
+		t.Fatalf("listen(%q): %v", addr, err)
+	}
+	defer ln.Close()
+
+	if !fellBack {
+		t.Error("fellBack = false, want true when the requested port was already in use")
+	}
+
+	_, gotPort, err := net.SplitHostPort(ln.Addr().String())
+	if err != nil {
+		t.Fatalf("SplitHostPort(%q): %v", ln.Addr().String(), err)
+	}
+	_, wantNotPort, err := net.SplitHostPort(addr)
+	if err != nil {
+		t.Fatalf("SplitHostPort(%q): %v", addr, err)
+	}
+	if gotPort == "0" || gotPort == "" {
+		t.Errorf("bound port = %q, want a real non-zero port", gotPort)
+	}
+	if gotPort == wantNotPort {
+		t.Errorf("bound port = %q, want a port different from the occupied one %q", gotPort, wantNotPort)
+	}
+}
+
+// TestListenPropagatesMalformedAddr catches listen swallowing a malformed
+// address (one that doesn't even split into host:port) and retrying anyway
+// instead of surfacing the original bind error.
+func TestListenPropagatesMalformedAddr(t *testing.T) {
+	_, _, err := listen("not-a-valid-address")
+	if err == nil {
+		t.Fatal("listen with a malformed address: got nil error, want non-nil")
+	}
+}
+
+// TestListenPropagatesPermissionError catches listen retrying (and thus
+// masking) a non-EADDRINUSE bind failure — here, binding a privileged port
+// without permission — by checking the errors.Is(err, syscall.EADDRINUSE)
+// gate specifically rather than treating every bind error as "port taken".
+// A corrupted listen that always retries on ":0" regardless of error kind
+// would pass this bind (root is never required for port 0) and wrongly
+// report success instead of the permission error.
+func TestListenPropagatesPermissionError(t *testing.T) {
+	if os.Geteuid() == 0 {
+		t.Skip("running as root: privileged ports are not denied")
+	}
+	_, _, err := listen("127.0.0.1:1")
+	if err == nil {
+		t.Fatal("listen(\"127.0.0.1:1\") as non-root: got nil error, want a permission error")
+	}
+	if !errors.Is(err, syscall.EACCES) {
+		t.Errorf("err = %v, want one that errors.Is syscall.EACCES", err)
 	}
 }
