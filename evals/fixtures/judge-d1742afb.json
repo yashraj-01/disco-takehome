@@ -1,0 +1,22 @@
+{
+  "assignments": [
+    {
+      "creative_index": 0,
+      "persona_id": "persona_009",
+      "confidence": "high",
+      "rationale": "Mentions heavy training lifts and top athletes, directly matching the Fitness Enthusiast profile and its performance-focused messaging."
+    },
+    {
+      "creative_index": 1,
+      "persona_id": "persona_008",
+      "confidence": "high",
+      "rationale": "Leans heavily on saving for half the cost, no markup, and first-order discounts, aligning with the Value-Conscious Shopper."
+    },
+    {
+      "creative_index": 2,
+      "persona_id": "persona_001",
+      "confidence": "high",
+      "rationale": "Focuses on clinically validated ingredients, full label transparency, and zero proprietary blends, exactly matching the Wellness Optimizer's preference for science-backed claims and ingredient transparency."
+    }
+  ]
+}

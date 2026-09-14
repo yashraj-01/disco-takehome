@@ -1,0 +1,22 @@
+{
+  "assignments": [
+    {
+      "creative_index": 0,
+      "persona_id": "persona_003",
+      "confidence": "high",
+      "rationale": "The copy mentions showing off the can on your feed, matching the Gen Z Aesthete's focus on aesthetics, visual identity, and social media discovery."
+    },
+    {
+      "creative_index": 1,
+      "persona_id": "persona_001",
+      "confidence": "high",
+      "rationale": "The copy explicitly references sleep metrics and clinical-grade adaptogens for active recovery, aligning directly with the Wellness Optimizer who tracks sleep and demands science-backed claims."
+    },
+    {
+      "creative_index": 2,
+      "persona_id": "persona_009",
+      "confidence": "high",
+      "rationale": "The copy mentions post-workout routines, recovery stacks, and hitting a 6 AM workout, which maps to the Fitness Enthusiast persona who works out frequently and focuses on recovery."
+    }
+  ]
+}

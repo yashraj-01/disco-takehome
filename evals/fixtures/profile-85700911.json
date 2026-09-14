@@ -1,0 +1,29 @@
+{
+  "primary_category": "pet",
+  "subcategories": [
+    "cat",
+    "subscription_box",
+    "pet_food",
+    "pet_toys",
+    "new_pet_owners"
+  ],
+  "price_tier": "mid",
+  "estimated_aov_usd": 35,
+  "target_age_min": 21,
+  "target_age_max": 50,
+  "target_gender_skew": "balanced",
+  "values": [
+    "convenience"
+  ],
+  "business_model": "subscription",
+  "is_consumer_dtc": true,
+  "confidence": "high",
+  "assumptions": [
+    "Estimated AOV of $35 based on typical monthly pet subscription box pricing",
+    "Target age range 21-50 assuming first-time cat owners skew towards young adults and families establishing households"
+  ],
+  "missing_signals": [
+    "Exact monthly subscription price",
+    "Target demographic income level"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "type": "object",
+  "description": "Selected shopper personas and the reasons the rest were passed over.",
+  "properties": {
+    "selected": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "persona_id": { "type": "string" },
+          "rationale": { "type": "string" },
+          "primary_publishers": { "type": "array", "items": { "type": "string" } }
+        },
+        "required": ["persona_id", "rationale", "primary_publishers"]
+      }
+    },
+    "rejected": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "persona_id": { "type": "string" },
+          "reason": { "type": "string" }
+        },
+        "required": ["persona_id", "reason"]
+      }
+    }
+  },
+  "required": ["selected", "rejected"]
+}

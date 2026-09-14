@@ -1,0 +1,124 @@
+{
+  "verdicts": [
+    {
+      "publisher_id": "pub_001",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Sells instant-delivery convenience groceries and household items; nothing in the assortment reaches people shopping for family products."
+    },
+    {
+      "publisher_id": "pub_002",
+      "verdict": "recommended",
+      "rank": 1,
+      "reason": "Fitness-engaged shoppers with a heavy female skew and audience ages aligning closely with family and women's products."
+    },
+    {
+      "publisher_id": "pub_003",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Provides appointment-based wellness and spa bookings; nothing in the assortment reaches people shopping for family products."
+    },
+    {
+      "publisher_id": "pub_004",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Reaches older, affluent women, but the audience age band skews significantly older than the target bracket."
+    },
+    {
+      "publisher_id": "pub_005",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Audience age band skews 50 to 70, which does not overlap with the requested target demographic of 25 to 45."
+    },
+    {
+      "publisher_id": "pub_006",
+      "verdict": "recommended",
+      "rank": 2,
+      "reason": "Inclusive sizing and a predominantly female audience that values fit-focused messaging and representation."
+    },
+    {
+      "publisher_id": "pub_007",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Sells pet food and supplies; nothing in the assortment reaches people shopping for family products."
+    },
+    {
+      "publisher_id": "pub_008",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Sells organic groceries and pantry items; nothing in the assortment reaches people shopping for family products."
+    },
+    {
+      "publisher_id": "pub_009",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Sells pet food and pet pharmacy supplies; nothing in the assortment reaches people shopping for family products."
+    },
+    {
+      "publisher_id": "pub_010",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Sells socks, underwear, and basics; nothing in the assortment reaches people shopping for family products."
+    },
+    {
+      "publisher_id": "pub_011",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Sells bedding and home textiles; nothing in the assortment reaches people shopping for family products."
+    },
+    {
+      "publisher_id": "pub_012",
+      "verdict": "recommended",
+      "rank": 3,
+      "reason": "Science-forward wellness and supplement buyers with a strong female skew and audience ages aligning closely with family and women's products."
+    },
+    {
+      "publisher_id": "pub_013",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Sells skincare and makeup; nothing in the assortment reaches people shopping for family products."
+    },
+    {
+      "publisher_id": "pub_014",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Sells cookware and kitchen goods; nothing in the assortment reaches people shopping for family products."
+    },
+    {
+      "publisher_id": "pub_015",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Sells meal kits and groceries; nothing in the assortment reaches people shopping for family products."
+    },
+    {
+      "publisher_id": "pub_016",
+      "verdict": "recommended",
+      "rank": 4,
+      "reason": "Professional women and footwear buyers whose sustainability and quality messaging aligns with modern women's lifestyle brands."
+    },
+    {
+      "publisher_id": "pub_017",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Sells shoes and activewear; nothing in the assortment reaches people shopping for family products."
+    },
+    {
+      "publisher_id": "pub_018",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Sells pet toys and subscription boxes; nothing in the assortment reaches people shopping for family products."
+    },
+    {
+      "publisher_id": "pub_019",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Sells personalized haircare; nothing in the assortment reaches people shopping for family products."
+    },
+    {
+      "publisher_id": "pub_020",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Sells functional beverages and gut health drinks; nothing in the assortment reaches people shopping for family products."
+    }
+  ]
+}

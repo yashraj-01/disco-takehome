@@ -1,0 +1,22 @@
+{
+  "assignments": [
+    {
+      "creative_index": 0,
+      "persona_id": "persona_009",
+      "confidence": "high",
+      "rationale": "The copy explicitly targets working out four-plus times a week and emphasizes performance claims and technical fabrics, perfectly matching The Fitness Enthusiast persona."
+    },
+    {
+      "creative_index": 1,
+      "persona_id": "persona_001",
+      "confidence": "high",
+      "rationale": "The copy focuses on optimization, recovery, and material sourcing transparency, aligning directly with The Wellness Optimizer's outcome-focused messaging preferences."
+    },
+    {
+      "creative_index": 2,
+      "persona_id": "persona_006",
+      "confidence": "high",
+      "rationale": "The copy explicitly highlights exact supply chain verification and avoiding greenwashing, which directly matches The Sustainability Buyer's skepticism of vague eco claims and demand for supply chain transparency."
+    }
+  ]
+}

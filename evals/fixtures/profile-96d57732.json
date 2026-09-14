@@ -1,0 +1,28 @@
+{
+  "primary_category": "b2b_saas",
+  "subcategories": [
+    "emr",
+    "healthcare_it",
+    "artificial_intelligence"
+  ],
+  "price_tier": "premium",
+  "estimated_aov_usd": 5000,
+  "target_age_min": 30,
+  "target_age_max": 65,
+  "target_gender_skew": "balanced",
+  "values": [
+    "science_backed",
+    "convenience"
+  ],
+  "business_model": "b2b",
+  "is_consumer_dtc": false,
+  "confidence": "high",
+  "assumptions": [
+    "Enterprise pricing model typical for medical software",
+    "Buyers are medical professionals and clinic administrators aged 30-65"
+  ],
+  "missing_signals": [
+    "Exact pricing tier and subscription structure",
+    "Target company size (small practices vs large hospitals)"
+  ]
+}

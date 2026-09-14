@@ -1,0 +1,22 @@
+{
+  "assignments": [
+    {
+      "creative_index": 0,
+      "persona_id": "persona_001",
+      "confidence": "high",
+      "rationale": "The copy mentions traceable materials, zero greenwashing, and supply chain certifications, which directly aligns with the Wellness Optimizer persona's ingredient transparency and evidence-backed messaging preferences."
+    },
+    {
+      "creative_index": 1,
+      "persona_id": "persona_010",
+      "confidence": "medium",
+      "rationale": "Focuses on lasting quality and enduring craftsmanship over fleeting trends, matching the higher-end, quality-focused positioning preferred by gift buyers looking for impressive investments."
+    },
+    {
+      "creative_index": 2,
+      "persona_id": "persona_002",
+      "confidence": "low",
+      "rationale": "Highlights practical utility and being worn by ski patrollers, but the copy lacks strong distinctive markers connecting it uniquely to the Busy Parent compared to other general outdoor personas."
+    }
+  ]
+}

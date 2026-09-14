@@ -1,0 +1,24 @@
+{
+  "primary_category": "pet",
+  "subcategories": [
+    "dog_food",
+    "senior_dogs",
+    "pet_health"
+  ],
+  "price_tier": "premium",
+  "estimated_aov_usd": 60,
+  "target_age_min": 30,
+  "target_age_max": 65,
+  "target_gender_skew": "balanced",
+  "values": [
+    "science_backed"
+  ],
+  "business_model": "subscription",
+  "is_consumer_dtc": true,
+  "confidence": "high",
+  "assumptions": [
+    "Estimated AOV of $60 based on typical monthly premium dog food subscriptions",
+    "Target age range of 30-65 represents typical adult dog owners with disposable income for premium senior care"
+  ],
+  "missing_signals": []
+}

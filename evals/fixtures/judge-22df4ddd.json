@@ -1,0 +1,22 @@
+{
+  "assignments": [
+    {
+      "creative_index": 0,
+      "persona_id": "persona_001",
+      "confidence": "high",
+      "rationale": "The copy emphasizes 'transparent food samples' and knowing 'exactly what goes into their bowl', matching the ingredient transparency messaging preference of persona_001."
+    },
+    {
+      "creative_index": 1,
+      "persona_id": "persona_008",
+      "confidence": "high",
+      "rationale": "The copy mentions saving time and being built for busy parents, aligning with family products and value articulation for persona_008."
+    },
+    {
+      "creative_index": 2,
+      "persona_id": "persona_009",
+      "confidence": "low",
+      "rationale": "The creative has minimal distinctive signals matching persona_009, but it is the remaining assignment after the other two distinct matches."
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "assignments": [
+    {
+      "creative_index": 0,
+      "persona_id": "persona_010",
+      "confidence": "low",
+      "rationale": "The creative mentions conscious moms, but none of the available personas explicitly fit this maternal demographic. Persona_010 is assigned by elimination."
+    },
+    {
+      "creative_index": 1,
+      "persona_id": "persona_009",
+      "confidence": "low",
+      "rationale": "The copy mentions tracking metrics and biological systems, aligning weakly with fitness tracking, but the demographic is busy mothers which does not match persona_009. Assigned by elimination."
+    },
+    {
+      "creative_index": 2,
+      "persona_id": "persona_005",
+      "confidence": "low",
+      "rationale": "The creative focuses on busy family schedules, which does not strongly match any of the persona descriptions provided. Assigned by elimination."
+    }
+  ]
+}

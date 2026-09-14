@@ -1,0 +1,30 @@
+{
+  "primary_category": "home",
+  "subcategories": [
+    "candles",
+    "gifts",
+    "home_fragrance"
+  ],
+  "price_tier": "mid",
+  "estimated_aov_usd": 35,
+  "target_age_min": 25,
+  "target_age_max": 54,
+  "target_gender_skew": "balanced",
+  "values": [
+    "craftsmanship",
+    "sustainability"
+  ],
+  "business_model": "one_off",
+  "is_consumer_dtc": true,
+  "confidence": "medium",
+  "assumptions": [
+    "Estimated AOV of $35 based on typical artisan hand-poured soy candle pricing.",
+    "Target age range 25-54 assumes the demographic most likely to purchase artisanal home goods and gifts.",
+    "Target gender skew balanced assumes candles are bought equally across genders for gifts and home use."
+  ],
+  "missing_signals": [
+    "Exact pricing or average order value.",
+    "Specific target age demographic data.",
+    "Primary purchasing gender skew."
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "primary_category": "unknown",
+  "subcategories": [],
+  "price_tier": "mid",
+  "estimated_aov_usd": 0,
+  "target_age_min": 18,
+  "target_age_max": 65,
+  "target_gender_skew": "unknown",
+  "values": [],
+  "business_model": "one_off",
+  "is_consumer_dtc": true,
+  "confidence": "low",
+  "assumptions": [
+    "Assumed default mid price tier due to lack of information",
+    "Assumed broad adult age range due to lack of target audience data"
+  ],
+  "missing_signals": [
+    "What product or service is being sold",
+    "Pricing and average order value",
+    "Target demographic and buyer persona",
+    "Core brand values and business model"
+  ]
+}

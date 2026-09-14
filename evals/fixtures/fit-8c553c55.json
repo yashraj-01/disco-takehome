@@ -1,0 +1,124 @@
+{
+  "verdicts": [
+    {
+      "publisher_id": "pub_001",
+      "verdict": "recommended",
+      "rank": 1,
+      "reason": "High-frequency instant delivery shoppers making impulse-friendly snack purchases that closely match this product's average order value."
+    },
+    {
+      "publisher_id": "pub_002",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Sells fitness apparel and activewear subscriptions; nothing in the catalog reaches people shopping for packaged groceries."
+    },
+    {
+      "publisher_id": "pub_003",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Provides wellness and fitness booking services rather than consumable food products."
+    },
+    {
+      "publisher_id": "pub_004",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Focuses on mid-life women's apparel with an older demographic skew and higher order values that do not align with grocery snacks."
+    },
+    {
+      "publisher_id": "pub_005",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Apparel catalog featuring classic workwear for older women, presenting a complete category and demographic mismatch."
+    },
+    {
+      "publisher_id": "pub_006",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "An apparel brand centered on inclusive sizing and workwear, offering no crossover with food or snack buyers."
+    },
+    {
+      "publisher_id": "pub_007",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Sells pet food and supplies; audience is shopping for animals rather than human snacks."
+    },
+    {
+      "publisher_id": "pub_008",
+      "verdict": "recommended",
+      "rank": 2,
+      "reason": "Values-driven grocery shoppers who actively respond to clean-ingredient and wellness positioning, perfectly fitting a brand focused on better-tasting protein bars."
+    },
+    {
+      "publisher_id": "pub_009",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Operates entirely in the pet food and pharmacy sector, which is irrelevant to human grocery consumers."
+    },
+    {
+      "publisher_id": "pub_010",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Apparel publisher specializing in socks and underwear basics, completely outside the food category."
+    },
+    {
+      "publisher_id": "pub_011",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Design-conscious home and bedding buyers offer a plausible lifestyle crossover, but their significantly higher average order value and home goods focus make them a secondary priority compared to core food channels."
+    },
+    {
+      "publisher_id": "pub_012",
+      "verdict": "recommended",
+      "rank": 3,
+      "reason": "Science-forward wellness audience that buys supplements and nutrition products, making them highly receptive to functional snacks with substantiated claims."
+    },
+    {
+      "publisher_id": "pub_013",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Beauty and skincare brand for younger demographics, offering no relevance to food products."
+    },
+    {
+      "publisher_id": "pub_014",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Sustainability-motivated kitchenware buyers share strong audience alignment with healthy food consumers, but the high average order value for cookware creates a gap for a modest snack purchase."
+    },
+    {
+      "publisher_id": "pub_015",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Meal kit subscribers are interested in food and convenience, but their primary intent is cooking dinner rather than buying quick snack bars."
+    },
+    {
+      "publisher_id": "pub_016",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Sells sustainable women's shoes rather than consumable groceries."
+    },
+    {
+      "publisher_id": "pub_017",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Activewear and footwear brand targeting tech professionals, sharing no category overlap with protein bars."
+    },
+    {
+      "publisher_id": "pub_018",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Delivers pet toy and treat subscription boxes for dogs, missing human food consumers entirely."
+    },
+    {
+      "publisher_id": "pub_019",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Personalized haircare DTC publisher with no relation to the grocery or snack category."
+    },
+    {
+      "publisher_id": "pub_020",
+      "verdict": "recommended",
+      "rank": 4,
+      "reason": "Health-curious consumers buying functional beverages and gut-health alternatives, representing an ideal adjacent audience looking for better-for-you snacks."
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "assignments": [
+    {
+      "creative_index": 0,
+      "persona_id": "persona_002",
+      "confidence": "high",
+      "rationale": "The headline and body emphasize savings on bundles and getting more for less, aligning directly with The Busy Parent's affinity for buying in bulk, subscriptions, and convenience."
+    },
+    {
+      "creative_index": 1,
+      "persona_id": "persona_004",
+      "confidence": "low",
+      "rationale": "The copy mentions physiological recovery and cellular health, but there are no pet-specific cues in the prompt's personas that closely match this, though pet health is listed in persona_004's affinities."
+    },
+    {
+      "creative_index": 2,
+      "persona_id": "persona_006",
+      "confidence": "low",
+      "rationale": "The copy mentions feed upgrades and small-batch pieces, but this does not strongly trigger specific sustainability claims or supply chain transparency."
+    }
+  ]
+}

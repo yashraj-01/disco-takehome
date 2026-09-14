@@ -1,0 +1,56 @@
+{
+  "selected": [
+    {
+      "persona_id": "persona_009",
+      "rationale": "The Fitness Enthusiast focuses heavily on activewear, technical fabrics, and performance claims, which aligns directly with the advertiser's technical outerwear shells priced at $650+. They can be effectively reached on Cloudfoot (pub_017).",
+      "primary_publishers": [
+        "pub_017"
+      ]
+    },
+    {
+      "persona_id": "persona_006",
+      "rationale": "The Sustainability Buyer values supply chain transparency and specific sustainability claims, matching the advertiser's focus on craftsmanship and professional-grade durability. They match the audience profile of Stride & Stem (pub_016).",
+      "primary_publishers": [
+        "pub_016"
+      ]
+    },
+    {
+      "persona_id": "persona_005",
+      "rationale": "The Affluent Classic has low price sensitivity and high AOV ($145), aligning with the luxury tier and craftsmanship value of $650+ ski shells. They are a strong demographic match for publishers like Marlowe & Co. (pub_004) and Linden Park (pub_005).",
+      "primary_publishers": [
+        "pub_004",
+        "pub_005"
+      ]
+    }
+  ],
+  "rejected": [
+    {
+      "persona_id": "persona_001",
+      "reason": "The Wellness Optimizer focuses on wellness, clean beauty, and supplements rather than technical outerwear, and their typical AOV of $95 is far too low for a $650 luxury item."
+    },
+    {
+      "persona_id": "persona_002",
+      "reason": "The Busy Parent looks for convenience, meal kits, and family-friendly items, and explicitly dislikes luxury positioning, making them a poor fit for a $650 technical ski shell."
+    },
+    {
+      "persona_id": "persona_003",
+      "reason": "The Gen Z Aesthete has a typical AOV of $48 and focuses on fast-moving trends and beauty, which does not match the heavy-duty performance and luxury price tier of backcountry ski patroller shells."
+    },
+    {
+      "persona_id": "persona_004",
+      "reason": "The Pet Parent is entirely focused on pet food, supplies, and health, sharing no category overlap with technical apparel."
+    },
+    {
+      "persona_id": "persona_007",
+      "reason": "The Convenience-First Millennial prioritizes instant delivery, subscriptions, and quick commerce, whereas the advertiser operates on a one-off, high-consideration luxury business model."
+    },
+    {
+      "persona_id": "persona_008",
+      "reason": "The Value-Conscious Shopper has high price sensitivity and responds to discount-forward messaging and bundles, directly conflicting with a $650+ luxury price point."
+    },
+    {
+      "persona_id": "persona_010",
+      "reason": "The Gifter is looking for gift sets and last-minute presentation items rather than specialized technical outdoor gear for serious backcountry skiing."
+    }
+  ]
+}

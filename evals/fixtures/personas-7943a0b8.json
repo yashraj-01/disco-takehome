@@ -1,0 +1,55 @@
+{
+  "selected": [
+    {
+      "persona_id": "persona_001",
+      "rationale": "The Wellness Optimizer tracks supplements and seeks evidence-backed products, perfectly aligning with the advertiser's workout supplement offerings. They can be effectively reached on Daily Form, which features a science-forward wellness audience.",
+      "primary_publishers": [
+        "pub_012"
+      ]
+    },
+    {
+      "persona_id": "persona_008",
+      "rationale": "The Value-Conscious Shopper focuses on clear value articulation and comparison shopping, which directly matches the advertiser's budget-friendly positioning of offering the same formulations as expensive brands for half the cost. They shop on Pantrygood, where they look for high-value essentials.",
+      "primary_publishers": [
+        "pub_008"
+      ]
+    },
+    {
+      "persona_id": "persona_009",
+      "rationale": "The Fitness Enthusiast actively works out and buys performance supplements, aligning directly with the advertiser's core category of pre-workout, creatine, and protein. They will be reached on Studiogrid, which hosts users actively booking fitness classes and personal training.",
+      "primary_publishers": [
+        "pub_003"
+      ]
+    }
+  ],
+  "rejected": [
+    {
+      "persona_id": "persona_002",
+      "reason": "The Busy Parent prioritizes household and convenience products and loves subscriptions, whereas the advertiser operates on a one-off business model for workout supplements."
+    },
+    {
+      "persona_id": "persona_003",
+      "reason": "The Gen Z Aesthete focuses on beauty, fashion, and visual branding, which misaligns with the advertiser's functional, price-competitive workout supplement product line."
+    },
+    {
+      "persona_id": "persona_004",
+      "reason": "The Pet Parent focuses entirely on pet health and pet supplies, which has no relevance to human workout supplements."
+    },
+    {
+      "persona_id": "persona_005",
+      "reason": "The Affluent Classic prefers classic apparel, home goods, and luxury positioning with high AOVs, whereas the advertiser competes strictly on a budget-tier, half-the-cost pricing strategy."
+    },
+    {
+      "persona_id": "persona_006",
+      "reason": "The Sustainability Buyer focuses on environmental footprints, supply chains, and green certifications, whereas the advertiser's primary competitive advantage is price rather than ecological claims."
+    },
+    {
+      "persona_id": "persona_007",
+      "reason": "The Convenience-First Millennial relies heavily on instant delivery and subscription services, whereas the advertiser utilizes a one-off purchase business model."
+    },
+    {
+      "persona_id": "persona_010",
+      "reason": "The Gifter looks for premium presentation and gift-wrap messaging for holidays and life events, which conflicts with the functional, everyday utility of budget workout supplements."
+    }
+  ]
+}

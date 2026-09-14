@@ -1,0 +1,22 @@
+{
+  "assignments": [
+    {
+      "creative_index": 0,
+      "persona_id": "persona_002",
+      "confidence": "high",
+      "rationale": "The copy mentions 'Skip the hassle', 'one-click booking', and 'automatic subscription perks', which directly maps to the Busy Parent persona's motivation around time-saving and love for subscriptions."
+    },
+    {
+      "creative_index": 1,
+      "persona_id": "persona_006",
+      "confidence": "low",
+      "rationale": "The copy emphasizes 'transparent protocols' and clear outcomes. While 'transparent' vaguely echoes supply chain transparency, there are no specific sustainability or eco claims, making this a weak fit."
+    },
+    {
+      "creative_index": 2,
+      "persona_id": "persona_005",
+      "confidence": "low",
+      "rationale": "The copy focuses on high-frequency training and performing at peak, which doesn't clearly map to any specific category or preference of the Affluent Classic persona, but is assigned by elimination."
+    }
+  ]
+}

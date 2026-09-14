@@ -1,0 +1,12 @@
+{
+  "headline": "Track recovery metrics to hit new personal bests",
+  "body": "Use AI health tracking designed for regular training. Monitor your fitness metrics to optimize performance and know when your body is ready for the next workout.",
+  "rationale": "This persona is heavily focused on training performance and fitness tracking. The copy targets their need for metric optimization without mentioning sedentary lifestyles, tailoring the AI tracking specifically to active workout routines.",
+  "messaging_levers": [
+    "performance claims"
+  ],
+  "avoided": [
+    "sedentary-lifestyle products",
+    "fashion-only positioning"
+  ]
+}

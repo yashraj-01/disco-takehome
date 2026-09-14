@@ -1,4 +1,7 @@
 .cache/
-disco
+/disco
 *.exe
 .env
+docs/superpowers/
+evals/measurements/latest.json
+__debug_bin*

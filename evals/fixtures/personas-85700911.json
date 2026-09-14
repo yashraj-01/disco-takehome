@@ -1,0 +1,58 @@
+{
+  "selected": [
+    {
+      "persona_id": "persona_004",
+      "rationale": "The Pet Parent strongly aligns with the advertiser's primary category of pet and subcategories of cat and pet food, and has category affinities for subscription boxes and pet health, matching the new cat owner box contents like food samples and toy curations.",
+      "primary_publishers": [
+        "pub_007",
+        "pub_018"
+      ]
+    },
+    {
+      "persona_id": "persona_002",
+      "rationale": "The Busy Parent loves subscriptions, values convenience, and is time-poor, directly connecting to the advertiser's convenience value and subscription business model for new cat owners who need guidance like booklets on what to expect.",
+      "primary_publishers": [
+        "pub_007",
+        "pub_018"
+      ]
+    },
+    {
+      "persona_id": "persona_007",
+      "rationale": "The Convenience-First Millennial is a heavy subscription user who values frictionlessness and speed, matching the advertiser's subscription model and young adult target demographic.",
+      "primary_publishers": [
+        "pub_007",
+        "pub_018"
+      ]
+    }
+  ],
+  "rejected": [
+    {
+      "persona_id": "persona_001",
+      "reason": "The Wellness Optimizer focuses on human supplements, clean beauty, and workouts, which does not overlap with the advertiser's pet category and new cat owner focus."
+    },
+    {
+      "persona_id": "persona_003",
+      "reason": "The Gen Z Aesthete focuses heavily on beauty, fashion, and functional beverages, whereas the advertiser is a pet-focused subscription box."
+    },
+    {
+      "persona_id": "persona_005",
+      "reason": "The Affluent Classic is aged 50-68 with interests in classic apparel and travel, missing the advertiser's younger target age range of 21-50 for first-time cat owners."
+    },
+    {
+      "persona_id": "persona_006",
+      "reason": "The Sustainability Buyer focuses on sustainable apparel, clean beauty, and refillable products rather than pet care subscription boxes."
+    },
+    {
+      "persona_id": "persona_008",
+      "reason": "The Value-Conscious Shopper seeks apparel, household, and grocery discounts, which doesn't fit the mid-tier pet subscription box offering."
+    },
+    {
+      "persona_id": "persona_009",
+      "reason": "The Fitness Enthusiast focuses on activewear, fitness services, and supplements, which is entirely disconnected from pet supplies."
+    },
+    {
+      "persona_id": "persona_010",
+      "reason": "The Gifter is explicitly disinterested in subscription-only products, which directly conflicts with the advertiser's subscription business model."
+    }
+  ]
+}

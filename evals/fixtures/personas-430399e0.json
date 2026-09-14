@@ -1,0 +1,58 @@
+{
+  "selected": [
+    {
+      "persona_id": "persona_005",
+      "rationale": "The Affluent Classic has a low price sensitivity and an affinity for classic apparel and home goods with a typical AOV of $145, matching the luxury price tier and $1,200 average price point of the Florence-made leather handbags. Her messaging preferences for craftsmanship and heritage align directly with the advertiser's values of craftsmanship and aesthetic.",
+      "primary_publishers": [
+        "pub_004",
+        "pub_005"
+      ]
+    },
+    {
+      "persona_id": "persona_006",
+      "rationale": "The Sustainability Buyer researches supply chains and is willing to pay more for genuinely sustainable and well-crafted options. This connects directly to the advertiser's handcrafted in Florence, custom-fit leather goods model, which emphasizes artisanal production over mass manufacturing.",
+      "primary_publishers": [
+        "pub_016"
+      ]
+    },
+    {
+      "persona_id": "persona_010",
+      "rationale": "The Gifter looks for impressive-looking purchases with a higher AOV and responds to premium presentation and giftable messaging. Custom-fit Italian leather handbags priced at $1,200 serve as an ideal high-end gift item for milestone occasions.",
+      "primary_publishers": [
+        "pub_004",
+        "pub_005",
+        "pub_016"
+      ]
+    }
+  ],
+  "rejected": [
+    {
+      "persona_id": "persona_001",
+      "reason": "The Wellness Optimizer focuses on health, fitness, supplements, and clean beauty with science-backed claims, which does not align with luxury fashion accessories and apparel."
+    },
+    {
+      "persona_id": "persona_002",
+      "reason": "The Busy Parent explicitly lists a disinterest in luxury positioning and prefers convenience and subscriptions, whereas the advertiser offers one-off custom luxury leather handbags with a 6-week shipping window."
+    },
+    {
+      "persona_id": "persona_003",
+      "reason": "The Gen Z Aesthete has a typical AOV of $48 and medium-high price sensitivity, making them an unrealistic buyer for a $1,200 luxury handbag."
+    },
+    {
+      "persona_id": "persona_004",
+      "reason": "The Pet Parent focuses entirely on pet food, supplies, health, and subscription boxes, which has no overlap with luxury leather handbags."
+    },
+    {
+      "persona_id": "persona_007",
+      "reason": "The Convenience-First Millennial prioritizes speed, instant delivery, and low brand loyalty if fulfillment is delayed, whereas the advertiser requires a 6-week minimum order shipping window for custom-made items."
+    },
+    {
+      "persona_id": "persona_008",
+      "reason": "The Value-Conscious Shopper has high price sensitivity and looks for discounts, bundles, and first-order deals, which conflicts with the $1,200 luxury price point."
+    },
+    {
+      "persona_id": "persona_009",
+      "reason": "The Fitness Enthusiast focuses on activewear, supplements, and recovery products with performance claims, which does not relate to luxury leather goods."
+    }
+  ]
+}

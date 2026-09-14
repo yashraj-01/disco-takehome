@@ -1,0 +1,58 @@
+{
+  "selected": [
+    {
+      "persona_id": "persona_005",
+      "rationale": "The Affluent Classic persona aligns directly with the advertiser's premium price tier ($200 AOV) and desire for a 'more grown-up' aesthetic that moves beyond trendy brands like Brooklinen. Her preference for craftsmanship and heritage matches the advertiser's focus on Portuguese-made goods.",
+      "primary_publishers": [
+        "pub_011",
+        "pub_014"
+      ]
+    },
+    {
+      "persona_id": "persona_006",
+      "rationale": "The Sustainability Buyer values transparency and provenance, which connects smoothly with the advertiser's emphasis on items made in Portugal and core value of craftsmanship. They can be effectively reached on publishers like Hearthstone Goods that cater to high-end, conscious home buyers.",
+      "primary_publishers": [
+        "pub_014",
+        "pub_016"
+      ]
+    },
+    {
+      "persona_id": "persona_003",
+      "rationale": "The Gen Z Aesthete represents the younger, design-forward segment of home decorators who discover items visually and care deeply about brand voice and aesthetics. This provides a necessary creative contrast to the older Affluent Classic, capturing buyers looking for an updated home look.",
+      "primary_publishers": [
+        "pub_011",
+        "pub_017"
+      ]
+    }
+  ],
+  "rejected": [
+    {
+      "persona_id": "persona_001",
+      "reason": "The Wellness Optimizer focuses primarily on ingestible supplements, clean beauty, and fitness tracking rather than home textiles or bedding aesthetics."
+    },
+    {
+      "persona_id": "persona_002",
+      "reason": "The Busy Parent seeks convenience-motivated purchases and subscriptions, whereas this advertiser features a one-off business model focused on premium linen craftsmanship."
+    },
+    {
+      "persona_id": "persona_004",
+      "reason": "The Pet Parent centers purchasing decisions strictly around pet health, food, and supplies, making them irrelevant for human bedding and home goods."
+    },
+    {
+      "persona_id": "persona_007",
+      "reason": "The Convenience-First Millennial relies on instant delivery and quick-commerce subscription services, which contradicts the premium, considered purchase cycle of a $200 home linen brand."
+    },
+    {
+      "persona_id": "persona_008",
+      "reason": "The Value-Conscious Shopper has high price sensitivity and responds to discount-forward messaging and bundles, which clashes with the advertiser's premium positioning away from mass-market competitors."
+    },
+    {
+      "persona_id": "persona_009",
+      "reason": "The Fitness Enthusiast looks specifically for activewear, recovery gear, and performance supplements, lacking any affinity for home decor or bedding."
+    },
+    {
+      "persona_id": "persona_010",
+      "reason": "The Gifter is an occasional holiday mode rather than a core year-round shopper profile, and relies on gift-wrap and last-minute messaging rather than long-term aesthetic upgrades."
+    }
+  ]
+}

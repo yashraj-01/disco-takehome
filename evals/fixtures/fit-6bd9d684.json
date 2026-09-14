@@ -1,0 +1,124 @@
+{
+  "verdicts": [
+    {
+      "publisher_id": "pub_001",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Sells convenience groceries and household items via instant delivery; nothing in the assortment reaches shoppers looking for sustainable women's activewear."
+    },
+    {
+      "publisher_id": "pub_002",
+      "verdict": "recommended",
+      "rank": 2,
+      "reason": "Direct crossover in women's activewear with fitness-engaged shoppers and a similar average order value, making it a natural fit for recycled ocean plastic messaging."
+    },
+    {
+      "publisher_id": "pub_003",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Fitness class booking app with a wellness-focused audience, but lower average order value and appointment booking utility make it a near-miss compared to dedicated apparel publishers."
+    },
+    {
+      "publisher_id": "pub_004",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Reaches affluent women who respond to quality messaging, but the audience age skew is older than the target demographic for this activewear brand."
+    },
+    {
+      "publisher_id": "pub_005",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Caters to an older demographic shopping for conservative classic workwear, creating a fundamental audience age gap with a brand targeting younger women."
+    },
+    {
+      "publisher_id": "pub_006",
+      "verdict": "recommended",
+      "rank": 3,
+      "reason": "Offers inclusive activewear and workwear with an audience that deeply values fit and representation, aligning well with a sustainable women's brand."
+    },
+    {
+      "publisher_id": "pub_007",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Operates entirely within pet food and supplies, providing zero category overlap for an activewear apparel brand."
+    },
+    {
+      "publisher_id": "pub_008",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Sells organic pantry goods and groceries online, offering no apparel or activewear products to reach clothing shoppers."
+    },
+    {
+      "publisher_id": "pub_009",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Focuses on pet products and pharmacy supplies, which is completely outside the apparel and activewear category."
+    },
+    {
+      "publisher_id": "pub_010",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Reaches a broad audience that responds to social-good messaging and gifting, but lower order value and basics focus make it a secondary priority to activewear-specific publishers."
+    },
+    {
+      "publisher_id": "pub_011",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Features design-conscious home textiles with strong wellness crossover, but bedding products do not directly translate to apparel purchasing intent."
+    },
+    {
+      "publisher_id": "pub_012",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Attracts science-forward wellness shoppers with perfect age and gender alignment, but sells supplements at a lower price point rather than apparel."
+    },
+    {
+      "publisher_id": "pub_013",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Appeals to younger, identity-driven beauty consumers, but skews younger and focuses on skincare rather than apparel or activewear."
+    },
+    {
+      "publisher_id": "pub_014",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Shares a strong commitment to sustainability and non-toxic products, but sells kitchenware and cookware rather than activewear."
+    },
+    {
+      "publisher_id": "pub_015",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Delivers meal kits and groceries to households, which has no connection to clothing or activewear shopping."
+    },
+    {
+      "publisher_id": "pub_016",
+      "verdict": "recommended",
+      "rank": 4,
+      "reason": "Connects with professional women who actively respond to sustainable materials and machine-washable performance claims."
+    },
+    {
+      "publisher_id": "pub_017",
+      "verdict": "recommended",
+      "rank": 1,
+      "reason": "Reaches tech-adjacent urban professionals who prioritize comfort and sustainability, providing an ideal audience for premium recycled activewear."
+    },
+    {
+      "publisher_id": "pub_018",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Provides dog toys and treats via subscription, entirely missing the apparel and activewear category."
+    },
+    {
+      "publisher_id": "pub_019",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Engages personalized beauty and haircare shoppers, but operates in a different product category than women's activewear."
+    },
+    {
+      "publisher_id": "pub_020",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Offers functional beverages and gut health soda alternatives, offering no overlap with apparel or activewear."
+    }
+  ]
+}

@@ -1,0 +1,138 @@
+{
+  // The disco binary takes a subcommand: run | serve | eval.
+  // The subcommand and its flags go in "args" — that is the piece the
+  // original config was missing, which is why it did nothing useful.
+  "version": "0.2.0",
+  "configurations": [
+    {
+      // Web UI. Prints the port it actually bound; if 8080 is taken it falls
+      // back to a free one, so watch the Debug Console for the real URL.
+      "name": "disco serve",
+      "type": "go",
+      "request": "launch",
+      "mode": "auto",
+      "program": "${workspaceFolder}/cmd/disco",
+      "cwd": "${workspaceFolder}",
+      "envFile": "${workspaceFolder}/.env",
+      "args": ["serve"]
+    },
+    {
+      // Metrics dashboard. Read-only — it never runs the pipeline or calls a
+      // model, so the numbers are whatever the last `measure` wrote. Watch the
+      // Debug Console for the real URL; it falls back off :8090 if that is taken.
+      "name": "disco metrics — dashboard",
+      "type": "go",
+      "request": "launch",
+      "mode": "auto",
+      "program": "${workspaceFolder}/cmd/disco",
+      "cwd": "${workspaceFolder}",
+      "args": ["metrics"]
+    },
+    {
+      // Recompute all four quality metrics from the committed fixtures and
+      // write evals/measurements/latest.json. This is what refreshes the
+      // dashboard — running the pipeline does not. No envFile: pinned to the
+      // fixture provider so a key in .env cannot turn this into a live run.
+      "name": "disco measure — offline",
+      "type": "go",
+      "request": "launch",
+      "mode": "auto",
+      "program": "${workspaceFolder}/cmd/disco",
+      "cwd": "${workspaceFolder}",
+      "args": ["measure", "--provider=fixture"]
+    },
+    {
+      // Same, but replaces the committed baseline the dashboard diffs against.
+      // Do this deliberately — it is the reference every later run is judged by.
+      "name": "disco measure — save new baseline",
+      "type": "go",
+      "request": "launch",
+      "mode": "auto",
+      "program": "${workspaceFolder}/cmd/disco",
+      "cwd": "${workspaceFolder}",
+      "args": ["measure", "--provider=fixture", "--save-baseline"]
+    },
+    {
+      // Asks for a brief when you hit F5. Leave the box empty to accept the
+      // dog-food default.
+      "name": "disco run — ask me for a brief",
+      "type": "go",
+      "request": "launch",
+      "mode": "auto",
+      "program": "${workspaceFolder}/cmd/disco",
+      "cwd": "${workspaceFolder}",
+      "envFile": "${workspaceFolder}/.env",
+      "args": ["run", "${input:brief}"]
+    },
+    {
+      // A recorded brief — replays from fixtures, spends no quota.
+      "name": "disco run — recorded brief",
+      "type": "go",
+      "request": "launch",
+      "mode": "auto",
+      "program": "${workspaceFolder}/cmd/disco",
+      "cwd": "${workspaceFolder}",
+      "envFile": "${workspaceFolder}/.env",
+      "args": [
+        "run",
+        "A sustainable activewear brand for women. Made from recycled ocean plastic. Price point sits between Lululemon and Girlfriend Collective."
+      ]
+    },
+    {
+      // The $500k case: one publisher qualifies, its inventory caps out, and
+      // the config reports the budget that physically cannot be spent.
+      "name": "disco run — inventory-starved budget",
+      "type": "go",
+      "request": "launch",
+      "mode": "auto",
+      "program": "${workspaceFolder}/cmd/disco",
+      "cwd": "${workspaceFolder}",
+      "envFile": "${workspaceFolder}/.env",
+      "args": [
+        "run",
+        "--budget=500000",
+        "We sell premium dog food for senior dogs, targeting owners who care about joint health and longevity. Grain-free, vet-formulated, subscription-based."
+      ]
+    },
+    {
+      // All 15 example briefs. Pinned to --provider=fixture so a stray key in
+      // .env cannot turn a hermetic check into a live run that spends quota.
+      "name": "disco eval — offline",
+      "type": "go",
+      "request": "launch",
+      "mode": "auto",
+      "program": "${workspaceFolder}/cmd/disco",
+      "cwd": "${workspaceFolder}",
+      "args": ["eval", "--provider=fixture"]
+    },
+    {
+      // Re-record every fixture against the live model. Costs real quota —
+      // the free tier is small and per-model.
+      "name": "disco eval — record fixtures (spends quota)",
+      "type": "go",
+      "request": "launch",
+      "mode": "auto",
+      "program": "${workspaceFolder}/cmd/disco",
+      "cwd": "${workspaceFolder}",
+      "envFile": "${workspaceFolder}/.env",
+      "args": ["eval", "--provider=gemini", "--record"]
+    }
+  ],
+  "compounds": [
+    {
+      // Campaign UI on :8080 and the metrics dashboard on :8090 together —
+      // how someone reviewing the system would actually want to look at it.
+      "name": "disco — campaign UI + metrics",
+      "configurations": ["disco serve", "disco metrics — dashboard"],
+      "stopAll": true
+    }
+  ],
+  "inputs": [
+    {
+      "id": "brief",
+      "type": "promptString",
+      "description": "Describe the business in a sentence",
+      "default": "We sell premium dog food for senior dogs, targeting owners who care about joint health and longevity. Grain-free, vet-formulated, subscription-based."
+    }
+  ]
+}

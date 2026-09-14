@@ -1,0 +1,22 @@
+{
+  "assignments": [
+    {
+      "creative_index": 0,
+      "persona_id": "persona_001",
+      "confidence": "high",
+      "rationale": "The headline and body emphasize ingredient/supply chain transparency and zero greenwashing, which aligns directly with the Wellness Optimizer's preference for transparency."
+    },
+    {
+      "creative_index": 1,
+      "persona_id": "persona_008",
+      "confidence": "low",
+      "rationale": "The copy mentions colors missing from your room and making it look incredible on your feed, but none of the personas explicitly match an aesthetics- or social-feed-driven profile, making this assignment a weak fit among the remaining options."
+    },
+    {
+      "creative_index": 2,
+      "persona_id": "persona_002",
+      "confidence": "low",
+      "rationale": "The copy talks about lasting quality and heritage bedding, which doesn't strongly map to the Busy Parent's time-saving or convenience preferences, but fits by process of elimination."
+    }
+  ]
+}

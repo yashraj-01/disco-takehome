@@ -1,0 +1,28 @@
+{
+  "primary_category": "home",
+  "subcategories": [
+    "bedding",
+    "linen"
+  ],
+  "price_tier": "premium",
+  "estimated_aov_usd": 200,
+  "target_age_min": 30,
+  "target_age_max": 55,
+  "target_gender_skew": "balanced",
+  "values": [
+    "craftsmanship",
+    "aesthetic"
+  ],
+  "business_model": "one_off",
+  "is_consumer_dtc": true,
+  "confidence": "medium",
+  "assumptions": [
+    "Assumed premium price tier based on positioning against Brooklinen and Parachute",
+    "Estimated AOV at $200 based on typical bedding bundle pricing for this segment",
+    "Target age 30-55 based on homeowners/renters seeking grown-up aesthetic upgrades"
+  ],
+  "missing_signals": [
+    "Exact pricing or average order value",
+    "Specific target demographic age and gender data"
+  ]
+}

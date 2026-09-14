@@ -1,0 +1,30 @@
+{
+  "primary_category": "home",
+  "subcategories": [
+    "cleaning_supplies",
+    "eco_friendly",
+    "household"
+  ],
+  "price_tier": "mid",
+  "estimated_aov_usd": 30,
+  "target_age_min": 25,
+  "target_age_max": 54,
+  "target_gender_skew": "balanced",
+  "values": [
+    "sustainability",
+    "convenience"
+  ],
+  "business_model": "one_off",
+  "is_consumer_dtc": true,
+  "confidence": "medium",
+  "assumptions": [
+    "Estimated AOV of $30 based on typical refillable household cleaning starter kits.",
+    "Target age range of 25-54 aligns with primary demographic for eco-friendly household products.",
+    "Business model is assumed one_off with potential for subscription refills."
+  ],
+  "missing_signals": [
+    "Exact pricing and starter kit cost",
+    "Whether subscription model is offered for refills",
+    "Specific demographic skew if any exists beyond general sustainability shoppers"
+  ]
+}

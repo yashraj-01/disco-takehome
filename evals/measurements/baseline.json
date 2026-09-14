@@ -1,0 +1,226 @@
+{
+  "generated_at": "2026-09-14T18:39:31.661945Z",
+  "provider": "fixture",
+  "model": "gemini-3.5-flash-lite",
+  "metrics": {
+    "creative_distinctiveness": {
+      "name": "creative_distinctiveness",
+      "summary": "14 campaigns measured (1 skipped for fewer than 2 creatives, 42 creatives total, 42 pairs compared): mean copy overlap 0.109, mean lever overlap 0.005. Worst pair: brief 4, persona_006 vs persona_010, copy overlap 0.250 (\"Vermont soy candles with no synthetic fragrances\" vs \"AVermont soy candle wrapped and ready to gift.\").",
+      "values": {
+        "campaigns_measured": 14,
+        "max_copy_overlap": 0.25,
+        "mean_copy_overlap": 0.10865481912704823,
+        "mean_lever_overlap": 0.0047619047619047615
+      },
+      "counts": {
+        "campaigns": 15,
+        "creatives": 42,
+        "pairs_compared": 42,
+        "skipped_too_few": 1
+      },
+      "findings": [
+        {
+          "brief_n": 4,
+          "publisher_id": "persona_006 vs persona_010",
+          "detail": "copy_overlap=0.250 lever_overlap=0.000 — \"Vermont soy candles with no synthetic fragrances\" vs \"AVermont soy candle wrapped and ready to gift.\""
+        },
+        {
+          "brief_n": 4,
+          "publisher_id": "persona_006 vs persona_003",
+          "detail": "copy_overlap=0.242 lever_overlap=0.000 — \"Vermont soy candles with no synthetic fragrances\" vs \"Vermont soy wax candles for your aesthetic room refresh\""
+        },
+        {
+          "brief_n": 12,
+          "publisher_id": "persona_002 vs persona_007",
+          "detail": "copy_overlap=0.242 lever_overlap=0.000 — \"A kitten box that saves you time\" vs \"One-click cat supplies delivered\""
+        },
+        {
+          "brief_n": 2,
+          "publisher_id": "persona_009 vs persona_001",
+          "detail": "copy_overlap=0.229 lever_overlap=0.000 — \"Technical activewear built for your daily grind\" vs \"Engineered activewear from recycled ocean plastic\""
+        },
+        {
+          "brief_n": 12,
+          "publisher_id": "persona_004 vs persona_007",
+          "detail": "copy_overlap=0.219 lever_overlap=0.000 — \"A healthy start for your new kitten\" vs \"One-click cat supplies delivered\""
+        }
+      ]
+    },
+    "persona_attribution": {
+      "name": "persona_attribution",
+      "summary": "14 campaigns judged (1 skipped for fewer than 2 creatives): attribution_accuracy=1.000 vs chance_baseline=0.333 (lift=+0.667). high_confidence_rate real=1.000 vs control=0.167 (confidence_separation=0.833, threshold=0.10). Judge validity: VALID — the judge is meaningfully more confident on the real task than on the control it cannot possibly solve, so the accuracy numbers above reflect real signal.",
+      "values": {
+        "attribution_accuracy": 1,
+        "chance_baseline": 0.3333333333333333,
+        "confidence_separation": 0.8333333333333334,
+        "high_confidence_rate_control": 0.16666666666666666,
+        "high_confidence_rate_real": 1,
+        "lift": 0.6666666666666667
+      },
+      "counts": {
+        "campaigns_judged": 14,
+        "correct": 42,
+        "creatives_matched": 42,
+        "dropped_duplicate_persona": 0,
+        "dropped_out_of_range_index": 0,
+        "dropped_unknown_persona": 0,
+        "judge_calls": 28,
+        "skipped_too_few": 1
+      }
+    },
+    "reason_consistency": {
+      "name": "reason_consistency",
+      "summary": "518 citations from 300 ledger entries (20 skipped as code-generated gate reasons): 94.1% consistent, 4.1% contradicted, 1.8% weak, 110 unscored (considered verdict), 6 abstained as concessive constructions, 62 abstained as advertiser-described terms (coverage_rate=0.656: scored citations / all citations found — abstention is deliberate, precision is prioritized over recall). 2.1% of checkable reasons cited nothing in the phrase map (vague) — checked against the hand-written phrases UNIONED with vocabulary derived per publisher from the catalog (its Category, Subcategories, Keywords, and Audience fields), not a fixed list alone, so the metric doesn't go blind the moment the model's phrasing improves.",
+      "values": {
+        "consistency_rate": 0.9411764705882353,
+        "contradiction_rate": 0.041176470588235294,
+        "coverage_rate": 0.6563706563706564,
+        "vagueness_rate": 0.02142857142857143
+      },
+      "counts": {
+        "advertiser_term": 62,
+        "citations": 518,
+        "concessive": 6,
+        "consistent": 320,
+        "contradicted": 14,
+        "entries": 300,
+        "skipped_generated": 20,
+        "unscored": 110,
+        "vague_reasons": 6,
+        "weak": 6
+      },
+      "findings": [
+        {
+          "brief_n": 2,
+          "publisher_id": "pub_005",
+          "detail": "verdict=excluded cited Category=1.00 (matched \"classic\") — \"Caters to an older demographic shopping for conservative classic workwear, creating a fundamental audience age gap with a brand targeting yo…\""
+        },
+        {
+          "brief_n": 6,
+          "publisher_id": "pub_005",
+          "detail": "verdict=recommended cited AOVAlignment=0.00 (matched \"order value\") — \"Features the highest average order value in the apparel catalog, aligning well with luxury pricing, though its older audience skew requires …\""
+        },
+        {
+          "brief_n": 6,
+          "publisher_id": "pub_016",
+          "detail": "verdict=recommended cited ValuesMatch=0.00 (matched \"sustainab\") — \"Engages high-income professional women with a strong appreciation for durable, high-ticket items and sustainable performance features.\""
+        },
+        {
+          "brief_n": 10,
+          "publisher_id": "pub_003",
+          "detail": "verdict=excluded cited IncomeTier=1.00 (matched \"high-end\") — \"Offers wellness services and fitness classes rather than retail goods, and its modest booking order value does not align with high-end luxur…\""
+        },
+        {
+          "brief_n": 10,
+          "publisher_id": "pub_004",
+          "detail": "verdict=recommended cited AOVAlignment=0.00 (matched \"order value\") — \"Reaches older affluent women with high order values who naturally respond to premium quality craftsmanship messaging and luxury apparel.\""
+        },
+        {
+          "brief_n": 10,
+          "publisher_id": "pub_005",
+          "detail": "verdict=recommended cited AOVAlignment=0.00 (matched \"order value\") — \"Features the highest order value in the apparel category and caters to conservative, affluent shoppers who appreciate timeless craftsmanship…\""
+        },
+        {
+          "brief_n": 10,
+          "publisher_id": "pub_016",
+          "detail": "verdict=recommended cited AOVAlignment=0.00 (matched \"price point\") — \"Connects directly with professional women who value high-end craftsmanship and are accustomed to premium price points for wardrobe investmen…\""
+        },
+        {
+          "brief_n": 11,
+          "publisher_id": "pub_013",
+          "detail": "verdict=excluded cited AgeOverlap=1.00 (matched \"younger\") — \"Beauty and skincare brand for younger demographics, offering no relevance to food products.\""
+        },
+        {
+          "brief_n": 12,
+          "publisher_id": "pub_013",
+          "detail": "verdict=excluded cited AgeOverlap=0.82 (matched \"younger\") — \"Focuses on skincare and makeup for Gen Z and younger millennials; no overlap with pet care.\""
+        },
+        {
+          "brief_n": 13,
+          "publisher_id": "pub_008",
+          "detail": "verdict=recommended cited AOVAlignment=0.13 (matched \"affordab\") — \"Values-driven grocery shoppers purchasing clean-ingredient items will be receptive to affordable, straightforward protein and creatine formu…\""
+        },
+        {
+          "brief_n": 14,
+          "publisher_id": "pub_014",
+          "detail": "verdict=recommended cited ValuesMatch=0.00 (matched \"sustainab\") — \"Features a nearly identical average order value of $198 and reaches sustainability-motivated home buyers who invest in high-end kitchenware …\""
+        },
+        {
+          "brief_n": 14,
+          "publisher_id": "pub_016",
+          "detail": "verdict=recommended cited ValuesMatch=0.00 (matched \"sustainab\") — \"Reaches professional women with a high order value and strong appreciation for sustainable products, making it a great cross-category fit fo…\""
+        },
+        {
+          "brief_n": 14,
+          "publisher_id": "pub_017",
+          "detail": "verdict=recommended cited ValuesMatch=0.00 (matched \"sustainab\") — \"Engages urban professionals who respond well to comfort and sustainability narratives, aligning nicely with the brand's Portuguese craftsman…\""
+        },
+        {
+          "brief_n": 15,
+          "publisher_id": "pub_004",
+          "detail": "verdict=excluded cited AgeOverlap=1.00 (matched \"older\") — \"Reaches older affluent women shopping specifically for workwear and casual apparel.\""
+        }
+      ]
+    },
+    "scoring_ablation": {
+      "name": "scoring_ablation",
+      "summary": "sub-scores ranked by influence on ranking (top5_change_rate, ties broken by mean_rank_shift), most to least: AOVAlignment (0.333) \u003e ValuesMatch (0.333) \u003e Category (0.267) \u003e AgeOverlap (0.200) \u003e IncomeTier (0.133) \u003e GenderFit (0.133)",
+      "values": {
+        "mean_rank_shift.AOVAlignment": 0.7104088504088504,
+        "mean_rank_shift.AgeOverlap": 0.3647715247715248,
+        "mean_rank_shift.Category": 0.7711014911014913,
+        "mean_rank_shift.GenderFit": 0.11111111111111112,
+        "mean_rank_shift.IncomeTier": 0.4127080327080327,
+        "mean_rank_shift.ValuesMatch": 0.4725252525252525,
+        "mean_ungated_per_brief": 6.933333333333334,
+        "top5_change_rate.AOVAlignment": 0.3333333333333333,
+        "top5_change_rate.AgeOverlap": 0.2,
+        "top5_change_rate.Category": 0.26666666666666666,
+        "top5_change_rate.GenderFit": 0.13333333333333333,
+        "top5_change_rate.IncomeTier": 0.13333333333333333,
+        "top5_change_rate.ValuesMatch": 0.3333333333333333
+      },
+      "counts": {
+        "briefs": 15,
+        "top5_changed.AOVAlignment": 5,
+        "top5_changed.AgeOverlap": 3,
+        "top5_changed.Category": 4,
+        "top5_changed.GenderFit": 2,
+        "top5_changed.IncomeTier": 2,
+        "top5_changed.ValuesMatch": 5
+      },
+      "findings": [
+        {
+          "brief_n": 4,
+          "publisher_id": "pub_002",
+          "detail": "zeroing Category's weight changed the top 5: entered [pub_002, pub_006], left [pub_011, pub_014]"
+        },
+        {
+          "brief_n": 2,
+          "publisher_id": "pub_010",
+          "detail": "zeroing AOVAlignment's weight changed the top 5: entered [pub_010], left [pub_006]"
+        },
+        {
+          "brief_n": 2,
+          "publisher_id": "pub_004",
+          "detail": "zeroing AgeOverlap's weight changed the top 5: entered [pub_004], left [pub_014]"
+        },
+        {
+          "brief_n": 2,
+          "publisher_id": "pub_004",
+          "detail": "zeroing ValuesMatch's weight changed the top 5: entered [pub_004], left [pub_014]"
+        },
+        {
+          "brief_n": 2,
+          "publisher_id": "pub_010",
+          "detail": "zeroing GenderFit's weight changed the top 5: entered [pub_010], left [pub_014]"
+        },
+        {
+          "brief_n": 6,
+          "publisher_id": "pub_006",
+          "detail": "zeroing IncomeTier's weight changed the top 5: entered [pub_006], left [pub_017]"
+        }
+      ]
+    }
+  }
+}

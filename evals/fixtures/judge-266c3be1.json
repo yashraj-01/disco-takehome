@@ -1,0 +1,22 @@
+{
+  "assignments": [
+    {
+      "creative_index": 0,
+      "persona_id": "persona_006",
+      "confidence": "high",
+      "rationale": "The copy explicitly references traceable materials, zero greenwashing, supply chain, and certifications, which directly match persona_006's messaging preferences for supply chain transparency and specific sustainability claims."
+    },
+    {
+      "creative_index": 1,
+      "persona_id": "persona_005",
+      "confidence": "high",
+      "rationale": "The copy highlights lasting quality over fleeting trends, patrolling-grade craftsmanship, and quiet reliability, which strongly align with persona_005's preferences for craftsmanship, heritage, and quality-focus while avoiding trendy language."
+    },
+    {
+      "creative_index": 2,
+      "persona_id": "persona_009",
+      "confidence": "high",
+      "rationale": "The copy focuses on technical fabrics, relentless days in the backcountry, and pushing limits in deep snow, matching persona_009's affinity for activewear and messaging preferences for performance claims and technical fabrics."
+    }
+  ]
+}

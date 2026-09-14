@@ -1,0 +1,57 @@
+{
+  "selected": [
+    {
+      "persona_id": "persona_001",
+      "rationale": "The Wellness Optimizer tracks supplements and workouts and expects science-backed claims, aligning with the advertiser's focus on adaptogens and functional drinks.",
+      "primary_publishers": [
+        "pub_012",
+        "pub_008"
+      ]
+    },
+    {
+      "persona_id": "persona_003",
+      "rationale": "The Gen Z Aesthete has a category affinity for functional beverages and values visual, identity-expressive products, which matches a mid-tier non-alcoholic sparkling drink alternative.",
+      "primary_publishers": [
+        "pub_020"
+      ]
+    },
+    {
+      "persona_id": "persona_009",
+      "rationale": "The Fitness Enthusiast seeks recovery and functional beverages as part of their workout lifestyle, fitting the advertiser's value proposition of feeling good without a hangover.",
+      "primary_publishers": [
+        "pub_020",
+        "pub_012"
+      ]
+    }
+  ],
+  "rejected": [
+    {
+      "persona_id": "persona_002",
+      "reason": "The Busy Parent prioritizes family-friendly products and kids items, which does not match a social functional beverage intended as a cocktail alternative."
+    },
+    {
+      "persona_id": "persona_004",
+      "reason": "The Pet Parent focuses strictly on pet health, supplies, and food, lacking alignment with a human beverage product."
+    },
+    {
+      "persona_id": "persona_005",
+      "reason": "The Affluent Classic prefers heritage apparel, home goods, and travel with a high AOV, which does not align with a trendy mid-tier functional sparkling drink."
+    },
+    {
+      "persona_id": "persona_006",
+      "reason": "The Sustainability Buyer focuses heavily on supply chains and ethical footprints for apparel, clean beauty, and refillables rather than functional beverages."
+    },
+    {
+      "persona_id": "persona_007",
+      "reason": "The Convenience-First Millennial prioritizes instant delivery and quick commerce for meal kits and subscriptions, whereas this advertiser operates on a one-off DTC model."
+    },
+    {
+      "persona_id": "persona_008",
+      "reason": "The Value-Conscious Shopper seeks discount-forward household and grocery items, which contrasts with the mid-tier premium positioning of a functional adaptogenic beverage."
+    },
+    {
+      "persona_id": "persona_010",
+      "reason": "The Gifter looks for gift sets and impressive presentation for holidays, which does not align with a casual functional beverage purchased for personal consumption."
+    }
+  ]
+}

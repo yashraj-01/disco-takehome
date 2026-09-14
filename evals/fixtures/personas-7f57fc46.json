@@ -1,0 +1,59 @@
+{
+  "selected": [
+    {
+      "persona_id": "persona_001",
+      "rationale": "The Wellness Optimizer tracks supplements and workouts, matching the advertiser's focus on joint health, longevity, and science-backed formulations. Her low price sensitivity aligns with the premium price tier and $60 AOV.",
+      "primary_publishers": [
+        "pub_007",
+        "pub_009"
+      ]
+    },
+    {
+      "persona_id": "persona_002",
+      "rationale": "The Busy Parent loves subscriptions and values convenience, which directly targets the advertiser's subscription-based senior dog food model. They match the mid-high income tier and age range of the publisher audience.",
+      "primary_publishers": [
+        "pub_007",
+        "pub_018"
+      ]
+    },
+    {
+      "persona_id": "persona_004",
+      "rationale": "The Pet Parent treats pets as family members and reads ingredient labels, perfectly mirroring the advertiser's focus on premium senior dog food, pet health, and ingredient transparency.",
+      "primary_publishers": [
+        "pub_007",
+        "pub_009",
+        "pub_018"
+      ]
+    }
+  ],
+  "rejected": [
+    {
+      "persona_id": "persona_003",
+      "reason": "The Gen Z Aesthete focuses on beauty, fashion, and functional beverages rather than pet care, and has a lower typical AOV than the advertiser's $60 target."
+    },
+    {
+      "persona_id": "persona_005",
+      "reason": "The Affluent Classic focuses on classic apparel, home goods, and travel rather than pet health, and her typical AOV of $145 is significantly higher than the advertiser's estimated $60 AOV."
+    },
+    {
+      "persona_id": "persona_006",
+      "reason": "The Sustainability Buyer focuses on sustainable apparel, clean beauty, and refillable products rather than pet health, and requires specific supply chain sustainability claims that are not the primary brief."
+    },
+    {
+      "persona_id": "persona_007",
+      "reason": "The Convenience-First Millennial defaults to instant delivery and quick commerce rather than specialized health subscriptions, and has low brand loyalty which conflicts with a retention-focused pet food subscription."
+    },
+    {
+      "persona_id": "persona_008",
+      "reason": "The Value-Conscious Shopper responds best to discount-forward messaging and clear deals, which contradicts the advertiser's premium-tier positioning and quality-focused value proposition."
+    },
+    {
+      "persona_id": "persona_009",
+      "reason": "The Fitness Enthusiast focuses on human activewear, supplements, and fitness services rather than pet care and senior dog longevity."
+    },
+    {
+      "persona_id": "persona_010",
+      "reason": "The Gifter is explicitly disinterested in subscriptions and self-care-only framing, whereas the advertiser sells a subscription-based product that relies on ongoing use."
+    }
+  ]
+}

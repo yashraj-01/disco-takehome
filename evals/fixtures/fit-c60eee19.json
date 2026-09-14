@@ -1,0 +1,124 @@
+{
+  "verdicts": [
+    {
+      "publisher_id": "pub_001",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Sells convenience groceries and impulse items; nothing in the assortment matches this advertiser's offerings."
+    },
+    {
+      "publisher_id": "pub_002",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Focuses on fitness-engaged apparel shoppers, which has no overlap with the advertiser's product range."
+    },
+    {
+      "publisher_id": "pub_003",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Caters to appointment-based wellness and fitness services, making it entirely irrelevant to the advertiser's catalog."
+    },
+    {
+      "publisher_id": "pub_004",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Reaches older affluent women shopping specifically for workwear and casual apparel."
+    },
+    {
+      "publisher_id": "pub_005",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Features classic women's workwear with a conservative brand sensibility completely disconnected from the advertiser."
+    },
+    {
+      "publisher_id": "pub_006",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Specializes in inclusive-sizing apparel and intimates, offering no category relevance."
+    },
+    {
+      "publisher_id": "pub_007",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Exclusively reaches pet owners buying health-conscious pet food and supplies."
+    },
+    {
+      "publisher_id": "pub_008",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Focuses strictly on organic pantry goods and groceries rather than the advertiser's products."
+    },
+    {
+      "publisher_id": "pub_009",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Dedicated entirely to pet food, supplies, and pharmacy."
+    },
+    {
+      "publisher_id": "pub_010",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Offers socks, underwear, and basics with high gifting uplift, unrelated to this brand."
+    },
+    {
+      "publisher_id": "pub_011",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Sells home textiles, bedding, and bath items to design-conscious buyers."
+    },
+    {
+      "publisher_id": "pub_012",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Distributes science-forward vitamins and supplements, missing any category overlap."
+    },
+    {
+      "publisher_id": "pub_013",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Provides skincare and makeup with a minimalist aesthetic, completely outside the advertiser's scope."
+    },
+    {
+      "publisher_id": "pub_014",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Offers non-toxic cookware and kitchen items for sustainability-motivated culinary buyers."
+    },
+    {
+      "publisher_id": "pub_015",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Provides meal kits and groceries for family households, sharing no common ground with the advertiser."
+    },
+    {
+      "publisher_id": "pub_016",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Sells sustainable women's shoes and professional apparel."
+    },
+    {
+      "publisher_id": "pub_017",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Focuses on sustainable active shoes for tech-adjacent urban professionals."
+    },
+    {
+      "publisher_id": "pub_018",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Serves dog owners looking for pet supplies, toys, and treats."
+    },
+    {
+      "publisher_id": "pub_019",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Sells personalized haircare products through a quiz-based onboarding flow."
+    },
+    {
+      "publisher_id": "pub_020",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Reaches buyers interested in functional beverages, gut health, and soda alternatives."
+    }
+  ]
+}

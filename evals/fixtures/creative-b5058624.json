@@ -1,0 +1,13 @@
+{
+  "headline": "Save 20% on your first grocery delivery",
+  "body": "Get household essentials and groceries delivered in 10 minutes. Compare our prices and claim your first-order discount today.",
+  "rationale": "This persona is highly price-sensitive and responds to explicit discounts and clear value props, so the copy leads with a direct percentage off and highlights fast, affordable essentials without using luxury positioning.",
+  "messaging_levers": [
+    "discount-forward",
+    "clear value props"
+  ],
+  "avoided": [
+    "luxury-only messaging",
+    "vague premium positioning"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "primary_category": "instant_delivery",
+  "subcategories": [
+    "groceries",
+    "fast_delivery"
+  ],
+  "price_tier": "mid",
+  "estimated_aov_usd": 30,
+  "target_age_min": 21,
+  "target_age_max": 45,
+  "target_gender_skew": "balanced",
+  "values": [
+    "convenience"
+  ],
+  "business_model": "one_off",
+  "is_consumer_dtc": true,
+  "confidence": "medium",
+  "assumptions": [
+    "Target age range is estimated for urban convenience app users.",
+    "Estimated average order value is based on typical quick-commerce basket sizes.",
+    "Price tier is assumed to be mid-market comparable to standard grocery pricing plus a convenience fee."
+  ],
+  "missing_signals": [
+    "Specific average order value (AOV)",
+    "Exact target demographic data",
+    "Geographic market focus"
+  ]
+}

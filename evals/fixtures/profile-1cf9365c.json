@@ -1,0 +1,30 @@
+{
+  "primary_category": "beverages",
+  "subcategories": [
+    "non_alcoholic",
+    "functional_drinks",
+    "sparkling_drinks"
+  ],
+  "price_tier": "mid",
+  "estimated_aov_usd": 40,
+  "target_age_min": 21,
+  "target_age_max": 45,
+  "target_gender_skew": "balanced",
+  "values": [
+    "science_backed",
+    "convenience"
+  ],
+  "business_model": "one_off",
+  "is_consumer_dtc": true,
+  "confidence": "medium",
+  "assumptions": [
+    "Assumed a mid-tier price point of $40 for a standard case of non-alcoholic functional beverages",
+    "Assumed target age range of 21-45 based on interest in cocktail alternatives and functional beverages",
+    "Assumed one-off purchase model as subscriptions were not explicitly mentioned"
+  ],
+  "missing_signals": [
+    "Exact product pricing and bundle sizes",
+    "Specific target demographic age and gender data",
+    "Whether subscription options are offered"
+  ]
+}

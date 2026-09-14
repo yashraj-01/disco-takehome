@@ -1,0 +1,22 @@
+{
+  "assignments": [
+    {
+      "creative_index": 0,
+      "persona_id": "persona_005",
+      "confidence": "low",
+      "rationale": "The copy mentions athletes and training, but there is no strong direct match with the affluent classic persona's preferences; forced assignment among remaining options."
+    },
+    {
+      "creative_index": 1,
+      "persona_id": "persona_003",
+      "confidence": "low",
+      "rationale": "The copy emphasizes saving costs, but price-sensitivity and savings do not align with sustainability buyer or affluent classic uniquely enough without ambiguity."
+    },
+    {
+      "creative_index": 2,
+      "persona_id": "persona_006",
+      "confidence": "low",
+      "rationale": "The copy highlights label transparency and clinical dosages, which shares a structural overlap with transparency preferences, but the overall supplement context makes this an uncertain fit."
+    }
+  ]
+}

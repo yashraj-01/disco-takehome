@@ -1,0 +1,56 @@
+{
+  "selected": [
+    {
+      "persona_id": "persona_007",
+      "rationale": "The Convenience-First Millennial explicitly lists 'instant_delivery' and 'quick_commerce' in category affinities, aligning directly with the advertiser's core model of 10-minute grocery delivery and messaging preferences for speed and one-click buying.",
+      "primary_publishers": [
+        "pub_001"
+      ]
+    },
+    {
+      "persona_id": "persona_002",
+      "rationale": "The Busy Parent prioritizes convenience and food-related categories like meal kits and household goods, fitting the family household audience of Kitchenly and the time-saving value proposition of rapid grocery delivery.",
+      "primary_publishers": [
+        "pub_015"
+      ]
+    },
+    {
+      "persona_id": "persona_008",
+      "rationale": "The Value-Conscious Shopper focuses on groceries, household items, and clear value propositions, making them an ideal segment for mid-market grocery delivery services seeking everyday utility customers.",
+      "primary_publishers": [
+        "pub_001",
+        "pub_015"
+      ]
+    }
+  ],
+  "rejected": [
+    {
+      "persona_id": "persona_001",
+      "reason": "The Wellness Optimizer focuses on specialized supplements, clean beauty, and organic groceries with low price sensitivity, whereas a 10-minute grocery delivery service relies on broad convenience and mid-market everyday essentials rather than niche health optimization."
+    },
+    {
+      "persona_id": "persona_003",
+      "reason": "The Gen Z Aesthete focuses on beauty, fashion, and identity-expressive items discovered through social media, which does not match the utilitarian and functional nature of rapid grocery delivery."
+    },
+    {
+      "persona_id": "persona_004",
+      "reason": "The Pet Parent is specifically interested in pet food, supplies, and health rather than human grocery delivery, making them a poor fit for general 10-minute grocery ads."
+    },
+    {
+      "persona_id": "persona_005",
+      "reason": "The Affluent Classic has an older age range (50-68) that falls outside the advertiser's target age max of 45 and relies on high-end luxury positioning and craftsmanship rather than speed and convenience."
+    },
+    {
+      "persona_id": "persona_006",
+      "reason": "The Sustainability Buyer focuses heavily on supply chain transparency, clean beauty, and specific eco-certifications, which goes beyond the core convenience-first messaging of a rapid grocery delivery app."
+    },
+    {
+      "persona_id": "persona_009",
+      "reason": "The Fitness Enthusiast focuses on activewear, supplements, and recovery products rather than general household groceries and rapid delivery services."
+    },
+    {
+      "persona_id": "persona_010",
+      "reason": "The Gifter is explicitly disinterested in self-care-only or everyday consumable framing, focusing instead on holiday-specific and premium-wrapped presentation purchases rather than routine grocery delivery."
+    }
+  ]
+}

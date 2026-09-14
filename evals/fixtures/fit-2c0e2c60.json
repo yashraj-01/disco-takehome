@@ -1,0 +1,124 @@
+{
+  "verdicts": [
+    {
+      "publisher_id": "pub_001",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Offers high-frequency grocery and household delivery with a closely aligned order value, but the late-night impulse traffic conflicts with intentional household shopping."
+    },
+    {
+      "publisher_id": "pub_002",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Sells fitness-engaged activewear apparel rather than household cleaning supplies."
+    },
+    {
+      "publisher_id": "pub_003",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Focuses entirely on appointment-based fitness and spa bookings rather than consumer physical products."
+    },
+    {
+      "publisher_id": "pub_004",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Caters to older, affluent women shopping for premium apparel at an order value nearly four times higher than this cleaning brand."
+    },
+    {
+      "publisher_id": "pub_005",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Features classic workwear apparel with an average order value four times greater than the cleaning products."
+    },
+    {
+      "publisher_id": "pub_006",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Sells inclusive-sizing apparel rather than household or cleaning items."
+    },
+    {
+      "publisher_id": "pub_007",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Exclusively serves pet food and subscription supplies."
+    },
+    {
+      "publisher_id": "pub_008",
+      "verdict": "recommended",
+      "rank": 1,
+      "reason": "Pantry-focused shoppers actively seeking clean-ingredient and sustainability claims, creating a direct fit for eco-friendly refills."
+    },
+    {
+      "publisher_id": "pub_009",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Dedicated entirely to pet food, supplies, and pharmacy."
+    },
+    {
+      "publisher_id": "pub_010",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Reaches the right age demographic with gifting potential, but sells apparel basics and underwear rather than household goods."
+    },
+    {
+      "publisher_id": "pub_011",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Attracts design-conscious home buyers who value aesthetics, but their textile products command an order value too high for a starter cleaning kit."
+    },
+    {
+      "publisher_id": "pub_012",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Focuses on science-forward vitamins and supplements rather than home cleaning."
+    },
+    {
+      "publisher_id": "pub_013",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Specializes in minimalist DTC skincare and makeup."
+    },
+    {
+      "publisher_id": "pub_014",
+      "verdict": "recommended",
+      "rank": 2,
+      "reason": "Kitchenware buyers focused on non-toxic, sustainable home products who invest in higher-end home life events."
+    },
+    {
+      "publisher_id": "pub_015",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Delivers meal kits and groceries rather than household cleaning supplies."
+    },
+    {
+      "publisher_id": "pub_016",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Shares an audience that responds well to machine-washable and sustainable claims, but shoe purchases do not align with household cleaning."
+    },
+    {
+      "publisher_id": "pub_017",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Reaches tech-adjacent urban professionals interested in sustainability, but primarily sells footwear rather than home goods."
+    },
+    {
+      "publisher_id": "pub_018",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Provides pet toys, treats, and subscription crates."
+    },
+    {
+      "publisher_id": "pub_019",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Personalized hair care DTC brand with no household category overlap."
+    },
+    {
+      "publisher_id": "pub_020",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Sells functional gut-health beverages and soda alternatives rather than home goods."
+    }
+  ]
+}

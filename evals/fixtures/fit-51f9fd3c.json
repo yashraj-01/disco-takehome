@@ -1,0 +1,124 @@
+{
+  "verdicts": [
+    {
+      "publisher_id": "pub_001",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Sells fast-delivery convenience goods with a low average order value of $28, which completely misses the brand's $200 price point and premium bedding category."
+    },
+    {
+      "publisher_id": "pub_002",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "While it features a younger fitness-focused audience with a reasonable order value, the activewear category is a bit too far removed from the core home and bedding focus."
+    },
+    {
+      "publisher_id": "pub_003",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Operates as an appointment-based wellness and fitness booking service, offering no category overlap with physical home goods and linen products."
+    },
+    {
+      "publisher_id": "pub_004",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Reaches an affluent, older female demographic that appreciates quality, but the apparel offering does not align with the advertiser's home and bedding assortment."
+    },
+    {
+      "publisher_id": "pub_005",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Boasts a high average order value that approaches the brand's tier, but its classic apparel focus and older age skew make it a secondary fit compared to dedicated home publishers."
+    },
+    {
+      "publisher_id": "pub_006",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Shares the right target age group, but operates in inclusive apparel and workwear rather than home textiles and linen."
+    },
+    {
+      "publisher_id": "pub_007",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Focuses entirely on pet food and supplies, providing no common ground for shoppers looking for bedroom linen and home decor."
+    },
+    {
+      "publisher_id": "pub_008",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Attracts high-income, values-driven shoppers who appreciate sustainability, but grocery and organic pantry items do not match a bedding brand's product catalog."
+    },
+    {
+      "publisher_id": "pub_009",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Caters exclusively to pet owners and animal care, which has no relevance to buyers shopping for breathable Portuguese bedding."
+    },
+    {
+      "publisher_id": "pub_010",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Offers strong gifting uplift and resonates with social messaging, but specializes in socks, underwear, and basics rather than home textiles."
+    },
+    {
+      "publisher_id": "pub_011",
+      "verdict": "recommended",
+      "rank": 1,
+      "reason": "Directly targets design-conscious urban and suburban buyers in the home and bedding space with an order value close to the $200 mark."
+    },
+    {
+      "publisher_id": "pub_012",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Focuses on vitamins, supplements, and health subscriptions, creating a complete category disconnect from home textiles."
+    },
+    {
+      "publisher_id": "pub_013",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Operates in skincare and makeup with a younger Gen Z audience, offering no meaningful overlap for grown-up home and linen buyers."
+    },
+    {
+      "publisher_id": "pub_014",
+      "verdict": "recommended",
+      "rank": 2,
+      "reason": "Features a nearly identical average order value of $198 and reaches sustainability-motivated home buyers who invest in high-end kitchenware and living spaces."
+    },
+    {
+      "publisher_id": "pub_015",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Delivers meal kits and food subscriptions, which is too far removed from home goods and bedroom decor."
+    },
+    {
+      "publisher_id": "pub_016",
+      "verdict": "recommended",
+      "rank": 3,
+      "reason": "Reaches professional women with a high order value and strong appreciation for sustainable products, making it a great cross-category fit for aesthetic-driven messaging."
+    },
+    {
+      "publisher_id": "pub_017",
+      "verdict": "recommended",
+      "rank": 4,
+      "reason": "Engages urban professionals who respond well to comfort and sustainability narratives, aligning nicely with the brand's Portuguese craftsmanship angle."
+    },
+    {
+      "publisher_id": "pub_018",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Provides subscription boxes and treats specifically for dogs, sharing no audience intent with premium bedding shoppers."
+    },
+    {
+      "publisher_id": "pub_019",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Specializes in personalized haircare and beauty routines, which does not match the home goods and linen category."
+    },
+    {
+      "publisher_id": "pub_020",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Sells functional beverages and gut health alternatives, presenting a category mismatch for a brand selling breathable linen bedding."
+    }
+  ]
+}

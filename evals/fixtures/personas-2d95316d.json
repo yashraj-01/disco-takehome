@@ -1,0 +1,56 @@
+{
+  "selected": [
+    {
+      "persona_id": "persona_006",
+      "rationale": "The Sustainability Buyer cares about environmental footprint and non-toxic supply chains, which aligns perfectly with the advertiser's natural soy wax, no synthetic fragrances, and Vermont craftsmanship values.",
+      "primary_publishers": [
+        "pub_008",
+        "pub_014"
+      ]
+    },
+    {
+      "persona_id": "persona_010",
+      "rationale": "The Gifter is actively looking for impressive-looking purchases and is very responsive to gift-wrap and gifting messaging, which directly addresses the advertiser's brief that candles are mostly bought as gifts.",
+      "primary_publishers": [
+        "pub_010"
+      ]
+    },
+    {
+      "persona_id": "persona_003",
+      "rationale": "The Gen Z Aesthete focuses on small-batch home decor, visual branding, and whether a brand stands for something, fitting the artisanal nature of hand-poured soy candles.",
+      "primary_publishers": [
+        "pub_014"
+      ]
+    }
+  ],
+  "rejected": [
+    {
+      "persona_id": "persona_001",
+      "reason": "The Wellness Optimizer focuses on health tracking, supplements, and clean beauty rather than home fragrance and gifting."
+    },
+    {
+      "persona_id": "persona_002",
+      "reason": "The Busy Parent prioritizes convenience, bulk buying, and subscriptions, whereas this advertiser is a one-off small-batch DTC brand."
+    },
+    {
+      "persona_id": "persona_004",
+      "reason": "The Pet Parent is strictly focused on pet food, supplies, and health, making human home goods irrelevant."
+    },
+    {
+      "persona_id": "persona_005",
+      "reason": "The Affluent Classic targets luxury home goods with higher typical AOVs of $145, exceeding the estimated $35 AOV of these hand-poured candles."
+    },
+    {
+      "persona_id": "persona_007",
+      "reason": "The Convenience-First Millennial relies on instant delivery and subscriptions, conflicting with the one-off and artisan nature of handmade Vermont candles."
+    },
+    {
+      "persona_id": "persona_008",
+      "reason": "The Value-Conscious Shopper seeks discount-forward messaging and budget-aware household goods rather than mid-tier artisanal crafts."
+    },
+    {
+      "persona_id": "persona_009",
+      "reason": "The Fitness Enthusiast purchases activewear, recovery gear, and supplements, which does not overlap with home decor and candles."
+    }
+  ]
+}

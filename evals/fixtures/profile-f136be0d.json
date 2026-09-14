@@ -1,0 +1,26 @@
+{
+  "primary_category": "wellness_services",
+  "subcategories": [
+    "general_wellness"
+  ],
+  "price_tier": "mid",
+  "estimated_aov_usd": 50,
+  "target_age_min": 25,
+  "target_age_max": 65,
+  "target_gender_skew": "balanced",
+  "values": [],
+  "business_model": "service",
+  "is_consumer_dtc": true,
+  "confidence": "low",
+  "assumptions": [
+    "Assumed general wellness services based on feeling better",
+    "Assumed mid price tier as a default for undefined services",
+    "Assumed standard adult demographic range"
+  ],
+  "missing_signals": [
+    "Specific product or service offerings",
+    "Pricing and average order value",
+    "Target demographic details",
+    "Business model specifics such as subscription versus one-off"
+  ]
+}

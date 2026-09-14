@@ -1,0 +1,22 @@
+{
+  "assignments": [
+    {
+      "creative_index": 0,
+      "persona_id": "persona_006",
+      "confidence": "high",
+      "rationale": "Headline and body explicitly mention traceable supply chains, ethical sourcing, and transparency which directly match persona_006 messaging preferences."
+    },
+    {
+      "creative_index": 1,
+      "persona_id": "persona_001",
+      "confidence": "high",
+      "rationale": "Copy mentions ingredient clarity, biological systems, and tracking metrics, perfectly aligning with persona_001 optimization and wellness traits."
+    },
+    {
+      "creative_index": 2,
+      "persona_id": "persona_002",
+      "confidence": "high",
+      "rationale": "Mentions reclaimed hours, busy family schedule, and being loved by other parents, which directly maps to persona_002 time-saving and parental trust preferences."
+    }
+  ]
+}

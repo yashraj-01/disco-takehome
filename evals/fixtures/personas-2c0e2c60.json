@@ -1,0 +1,56 @@
+{
+  "selected": [
+    {
+      "persona_id": "persona_006",
+      "rationale": "The Sustainability Buyer explicitly lists 'refillable_products' as a core category affinity and demands specific sustainability claims and supply chain transparency. This directly matches the advertiser's core value proposition of refillable, concentrated cleaning products designed to eliminate single-use plastic bottles, aligning seamlessly with the audience of Pantrygood and Hearthstone Goods.",
+      "primary_publishers": [
+        "pub_008",
+        "pub_014"
+      ]
+    },
+    {
+      "persona_id": "persona_001",
+      "rationale": "The Wellness Optimizer prioritizes ingredient transparency, clean products, and health-conscious living, which aligns with the non-toxic nature of eco-friendly household cleaners. They are reachable on premium-leaning values-driven publisher Pantrygood.",
+      "primary_publishers": [
+        "pub_008"
+      ]
+    },
+    {
+      "persona_id": "persona_002",
+      "rationale": "The Busy Parent seeks convenience-motivated household solutions and values trusted, family-friendly products. As heavy purchasers of household goods via publishers like Hearthstone Goods, they represent a strong demographic for practical, time-saving cleaning products that also reduce household clutter.",
+      "primary_publishers": [
+        "pub_014"
+      ]
+    }
+  ],
+  "rejected": [
+    {
+      "persona_id": "persona_003",
+      "reason": "The Gen Z Aesthete focuses heavily on fashion, beauty, and trend-driven novelty rather than practical home cleaning supplies, making them a poor fit for an everyday household functional product."
+    },
+    {
+      "persona_id": "persona_004",
+      "reason": "The Pet Parent is narrowly focused on pet food, pet health, and pet supplies, which does not align with human household cleaning product lines."
+    },
+    {
+      "persona_id": "persona_005",
+      "reason": "The Affluent Classic looks for craftsmanship, heritage, and luxury home goods, which conflicts with the modern, casual, and eco-focused positioning of concentrated refillable cleaners."
+    },
+    {
+      "persona_id": "persona_007",
+      "reason": "The Convenience-First Millennial relies on instant delivery and quick commerce apps rather than the specialty home and grocery publishers recommended for this brand."
+    },
+    {
+      "persona_id": "persona_008",
+      "reason": "The Value-Conscious Shopper seeks deep discounts, bundle offers, and clear bargain price points, which contrasts with the brand's mid-tier pricing and focus on sustainability over pure cost savings."
+    },
+    {
+      "persona_id": "persona_009",
+      "reason": "The Fitness Enthusiast is exclusively focused on activewear, supplements, and physical recovery products, showing no affinity for home or cleaning supplies."
+    },
+    {
+      "persona_id": "persona_010",
+      "reason": "The Gifter requires giftable presentation, last-minute shipping, and gift sets, whereas everyday household cleaning supplies are functional recurring purchases rather than typical gift items."
+    }
+  ]
+}

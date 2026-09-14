@@ -1,0 +1,22 @@
+{
+  "assignments": [
+    {
+      "creative_index": 0,
+      "persona_id": "persona_007",
+      "confidence": "high",
+      "rationale": "The copy explicitly uses messaging preferences aligned with persona_007, such as one-click booking and automatic subscription perks."
+    },
+    {
+      "creative_index": 1,
+      "persona_id": "persona_001",
+      "confidence": "high",
+      "rationale": "The copy features outcome-focused wording and transparent protocols, matching persona_001's messaging preferences for science-backed claims and outcome-focused wellness."
+    },
+    {
+      "creative_index": 2,
+      "persona_id": "persona_009",
+      "confidence": "high",
+      "rationale": "The copy emphasizes high-frequency training and recovery sessions, aligning directly with persona_009's category affinities for recovery and fitness services."
+    }
+  ]
+}

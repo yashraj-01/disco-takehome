@@ -1,0 +1,24 @@
+{
+  "primary_category": "b2b_saas",
+  "subcategories": [
+    "dental",
+    "automation",
+    "workflow"
+  ],
+  "price_tier": "mid",
+  "estimated_aov_usd": 0,
+  "target_age_min": 0,
+  "target_age_max": 0,
+  "target_gender_skew": "unknown",
+  "values": [],
+  "business_model": "b2b",
+  "is_consumer_dtc": false,
+  "confidence": "high",
+  "assumptions": [
+    "Assumed mid price tier as a default for B2B dental software since no pricing was stated."
+  ],
+  "missing_signals": [
+    "Pricing model and exact AOV",
+    "Target decision-maker demographics"
+  ]
+}

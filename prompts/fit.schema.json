@@ -1,0 +1,20 @@
+{
+  "type": "object",
+  "description": "A verdict for every publisher in the catalog.",
+  "properties": {
+    "verdicts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "publisher_id": { "type": "string" },
+          "verdict": { "type": "string", "enum": ["recommended", "considered", "excluded"] },
+          "rank": { "type": "integer", "description": "1-based, recommended only; 0 otherwise" },
+          "reason": { "type": "string" }
+        },
+        "required": ["publisher_id", "verdict", "rank", "reason"]
+      }
+    }
+  },
+  "required": ["verdicts"]
+}

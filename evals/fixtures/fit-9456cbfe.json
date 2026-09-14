@@ -1,0 +1,124 @@
+{
+  "verdicts": [
+    {
+      "publisher_id": "pub_001",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Offers instant convenience delivery for groceries and household items, which has no overlap with high-end technical ski apparel."
+    },
+    {
+      "publisher_id": "pub_002",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Reaches fitness-engaged shoppers in the correct age band, but its average order value of $78 is far too low for $650+ professional backcountry shells."
+    },
+    {
+      "publisher_id": "pub_003",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Connects with high-income wellness and fitness audiences, but its $42 appointment-based booking value does not match the luxury pricing of serious outerwear."
+    },
+    {
+      "publisher_id": "pub_004",
+      "verdict": "recommended",
+      "rank": 1,
+      "reason": "Reaches older affluent women who respond strongly to quality messaging and high-ticket craftsmanship, fitting the premium positioning of professional gear."
+    },
+    {
+      "publisher_id": "pub_005",
+      "verdict": "recommended",
+      "rank": 2,
+      "reason": "Features the highest average order value in the apparel catalog, aligning well with luxury pricing, though its older audience skew requires careful creative positioning."
+    },
+    {
+      "publisher_id": "pub_006",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Provides good demographic overlap, but focuses on inclusive sizing and representation rather than the technical performance and professional craftsmanship required here."
+    },
+    {
+      "publisher_id": "pub_007",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Operates entirely within the pet supplies space, making its subscriber base completely irrelevant to an apparel brand selling backcountry ski shells."
+    },
+    {
+      "publisher_id": "pub_008",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Sells organic pantry and grocery items, offering zero product crossover for shoppers looking for technical winter outerwear."
+    },
+    {
+      "publisher_id": "pub_009",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "A dedicated pet care and pharmacy publisher whose audience is shopping exclusively for animals rather than human outdoor gear."
+    },
+    {
+      "publisher_id": "pub_010",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Delivers strong gifting uplift and matches the core age range, but sells basic socks and underwear at a $52 price point that clashes with luxury outerwear."
+    },
+    {
+      "publisher_id": "pub_011",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Engages high-income design-conscious buyers, but focuses on home textiles and bedding rather than technical outerwear for outdoor professionals."
+    },
+    {
+      "publisher_id": "pub_012",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Focuses on science-forward daily vitamins and supplements, meaning its wellness audience has no interest in heavy ski apparel."
+    },
+    {
+      "publisher_id": "pub_013",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Targets a younger Gen Z beauty and skincare demographic with a lower age bracket and minimal order values that miss the target backcountry market."
+    },
+    {
+      "publisher_id": "pub_014",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Attracts high-income sustainability-motivated buyers with a strong order value, but the kitchenware and non-toxic cookware focus is too distant from ski shells."
+    },
+    {
+      "publisher_id": "pub_015",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Provides meal kits and grocery delivery, which cannot connect with consumers shopping for technical winter sports equipment."
+    },
+    {
+      "publisher_id": "pub_016",
+      "verdict": "recommended",
+      "rank": 3,
+      "reason": "Engages high-income professional women with a strong appreciation for durable, high-ticket items and sustainable performance features."
+    },
+    {
+      "publisher_id": "pub_017",
+      "verdict": "recommended",
+      "rank": 4,
+      "reason": "Connects with tech-adjacent urban professionals who value premium comfort and are willing to invest in high-end, technical gear."
+    },
+    {
+      "publisher_id": "pub_018",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Caters to pet owners buying toys and treats, offering no topical relevance to winter sports enthusiasts."
+    },
+    {
+      "publisher_id": "pub_019",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Specializes in personalized haircare for a younger demographic, leaving a wide gap in both category relevance and price point."
+    },
+    {
+      "publisher_id": "pub_020",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Sells functional beverages and gut health sodas, keeping its audience firmly in the grocery and drink category away from outdoor apparel."
+    }
+  ]
+}

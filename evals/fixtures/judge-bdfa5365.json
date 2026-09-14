@@ -1,0 +1,22 @@
+{
+  "assignments": [
+    {
+      "creative_index": 0,
+      "persona_id": "persona_009",
+      "confidence": "low",
+      "rationale": "The creative mentions joint support and mobility for senior dogs, but none of the provided personas (Sustainability Buyer, Fitness Enthusiast, Gen Z Aesthete) match pet products or senior dog care. Assigned to Fitness Enthusiast by elimination."
+    },
+    {
+      "creative_index": 1,
+      "persona_id": "persona_006",
+      "confidence": "low",
+      "rationale": "The creative mentions ingredient transparency, which aligns with supply chain transparency for the Sustainability Buyer, though the product is pet food. Assigned by elimination."
+    },
+    {
+      "creative_index": 2,
+      "persona_id": "persona_003",
+      "confidence": "low",
+      "rationale": "The creative highlights subscription convenience and busy households. None of the personas focus on pet products, but Gen Z Aesthete is assigned here by elimination."
+    }
+  ]
+}

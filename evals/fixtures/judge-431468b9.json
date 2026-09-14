@@ -1,0 +1,22 @@
+{
+  "assignments": [
+    {
+      "creative_index": 0,
+      "persona_id": "persona_010",
+      "confidence": "high",
+      "rationale": "The copy explicitly mentions being wrapped and ready to gift, premium presentation gift sets, and an impressive present, perfectly matching The Gifter's messaging preferences."
+    },
+    {
+      "creative_index": 1,
+      "persona_id": "persona_006",
+      "confidence": "high",
+      "rationale": "The copy highlights a transparent supply chain and natural soy wax with zero synthetic fragrances, directly aligning with The Sustainability Buyer's preference for supply chain transparency and specific clean claims."
+    },
+    {
+      "creative_index": 2,
+      "persona_id": "persona_003",
+      "confidence": "high",
+      "rationale": "The headline and body focus on an aesthetic room refresh, slow-morning glow, and small-batch independent makers, which strongly aligns with The Gen Z Aesthete's preferences for aesthetic-forward and small-batch category affinities."
+    }
+  ]
+}

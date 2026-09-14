@@ -1,0 +1,24 @@
+{
+  "type": "object",
+  "description": "Structured advertiser profile derived from a free-text brief.",
+  "properties": {
+    "primary_category": { "type": "string" },
+    "subcategories": { "type": "array", "items": { "type": "string" } },
+    "price_tier": { "type": "string", "enum": ["budget", "mid", "premium", "luxury"] },
+    "estimated_aov_usd": { "type": "integer" },
+    "target_age_min": { "type": "integer" },
+    "target_age_max": { "type": "integer" },
+    "target_gender_skew": { "type": "string", "enum": ["female", "male", "balanced", "unknown"] },
+    "values": { "type": "array", "items": { "type": "string" } },
+    "business_model": { "type": "string", "enum": ["subscription", "one_off", "b2b", "service"] },
+    "is_consumer_dtc": { "type": "boolean" },
+    "confidence": { "type": "string", "enum": ["high", "medium", "low"] },
+    "assumptions": { "type": "array", "items": { "type": "string" } },
+    "missing_signals": { "type": "array", "items": { "type": "string" } }
+  },
+  "required": [
+    "primary_category", "subcategories", "price_tier", "estimated_aov_usd",
+    "target_age_min", "target_age_max", "target_gender_skew", "values",
+    "business_model", "is_consumer_dtc", "confidence", "assumptions", "missing_signals"
+  ]
+}

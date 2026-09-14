@@ -1,0 +1,27 @@
+{
+  "primary_category": "apparel",
+  "subcategories": [
+    "activewear",
+    "women",
+    "sustainable_fashion"
+  ],
+  "price_tier": "premium",
+  "estimated_aov_usd": 100,
+  "target_age_min": 22,
+  "target_age_max": 45,
+  "target_gender_skew": "female",
+  "values": [
+    "sustainability"
+  ],
+  "business_model": "one_off",
+  "is_consumer_dtc": true,
+  "confidence": "high",
+  "assumptions": [
+    "Assumed estimated AOV of $100 based on the positioning between Lululemon and Girlfriend Collective.",
+    "Assumed target age range of 22 to 45 as the core demographic for sustainable activewear brands of this tier."
+  ],
+  "missing_signals": [
+    "Specific product lineup beyond activewear",
+    "Exact average order value or product price points"
+  ]
+}
