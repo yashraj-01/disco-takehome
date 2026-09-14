@@ -1,0 +1,30 @@
+{
+  "primary_category": "meal_kits",
+  "subcategories": [
+    "vegan",
+    "protein",
+    "food_delivery"
+  ],
+  "price_tier": "mid",
+  "estimated_aov_usd": 60,
+  "target_age_min": 22,
+  "target_age_max": 45,
+  "target_gender_skew": "balanced",
+  "values": [
+    "convenience"
+  ],
+  "business_model": "subscription",
+  "is_consumer_dtc": true,
+  "confidence": "medium",
+  "assumptions": [
+    "Assumed price_tier is mid and estimated_aov_usd is 60 based on typical meal kit delivery pricing structures.",
+    "Assumed business_model is subscription as food delivery apps in this space typically operate on recurring meal plans.",
+    "Assumed target age range of 22-45 based on demographic trends for vegan and protein-focused meal delivery apps.",
+    "Assumed target_gender_skew is balanced because plant-based and protein diets appeal equally to men and women."
+  ],
+  "missing_signals": [
+    "Exact pricing or average order value details",
+    "Specific target demographic age and gender data",
+    "Whether the service operates on a subscription or one-off ordering model"
+  ]
+}

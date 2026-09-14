@@ -1,0 +1,61 @@
+{
+  "selected": [
+    {
+      "persona_id": "persona_001",
+      "rationale": "The Wellness Optimizer matches the advertiser's vegan and protein-rich product focus through her affinity for clean foods and low price sensitivity, and she can be effectively reached on Kitchenly.",
+      "primary_publishers": [
+        "pub_015"
+      ]
+    },
+    {
+      "persona_id": "persona_002",
+      "rationale": "The Busy Parent fits the meal_kits category affinity and loves subscriptions, making them a natural target for a vegan protein food delivery app on Kitchenly.",
+      "primary_publishers": [
+        "pub_015"
+      ]
+    },
+    {
+      "persona_id": "persona_006",
+      "rationale": "The Sustainability Buyer seeks out organic grocery and ethical food options, aligning seamlessly with a plant-based food delivery service via the demographic reach of Kitchenly.",
+      "primary_publishers": [
+        "pub_015"
+      ]
+    },
+    {
+      "persona_id": "persona_007",
+      "rationale": "The Convenience-First Millennial matches the advertiser's convenience value and instant delivery preferences, making Swiftcart an ideal publisher to target their subscription needs.",
+      "primary_publishers": [
+        "pub_001"
+      ]
+    },
+    {
+      "persona_id": "persona_009",
+      "rationale": "The Fitness Enthusiast looks specifically for protein and recovery nutrition, connecting well with the advertiser's protein-rich offering and reaching them on high-frequency channels like Swiftcart.",
+      "primary_publishers": [
+        "pub_001"
+      ]
+    }
+  ],
+  "rejected": [
+    {
+      "persona_id": "persona_003",
+      "reason": "The Gen Z Aesthete focuses heavily on beauty, fashion, and visual trends rather than functional food delivery subscriptions."
+    },
+    {
+      "persona_id": "persona_004",
+      "reason": "The Pet Parent focuses strictly on pet supplies and pet food rather than human meal delivery apps."
+    },
+    {
+      "persona_id": "persona_005",
+      "reason": "The Affluent Classic is focused on classic apparel and home goods with high age skew, mismatching the digital app demographic."
+    },
+    {
+      "persona_id": "persona_008",
+      "reason": "The Value-Conscious Shopper focuses heavily on discount-forward apparel and household goods rather than specialized subscription meal kits."
+    },
+    {
+      "persona_id": "persona_010",
+      "reason": "The Gifter explicitly dislikes subscription-only models, which contradicts the advertiser's core subscription business model."
+    }
+  ]
+}

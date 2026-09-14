@@ -1,0 +1,31 @@
+{
+  "primary_category": "meal_kits",
+  "subcategories": [
+    "vegan",
+    "protein",
+    "food_delivery",
+    "fitness"
+  ],
+  "price_tier": "premium",
+  "estimated_aov_usd": 120,
+  "target_age_min": 25,
+  "target_age_max": 54,
+  "target_gender_skew": "balanced",
+  "values": [
+    "convenience",
+    "science_backed"
+  ],
+  "business_model": "subscription",
+  "is_consumer_dtc": true,
+  "confidence": "medium",
+  "assumptions": [
+    "Assumed estimated AOV of $120 based on 'upper class' and 'willing to spend' targeting for a food delivery service.",
+    "Assumed target age range of 25-54 based on fitness and high-income demographic correlation.",
+    "Assumed subscription business model as is typical for premium food delivery and meal kit apps."
+  ],
+  "missing_signals": [
+    "Exact pricing or average order value numbers",
+    "Specific geographic availability",
+    "Exact demographic age boundaries preferred by the advertiser"
+  ]
+}

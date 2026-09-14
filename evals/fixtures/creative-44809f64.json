@@ -1,0 +1,14 @@
+{
+  "headline": "Plant protein with fully audited supply chains.",
+  "body": "Know exactly where your organic ingredients are grown. We use certified compostable packaging for zero waste delivery.",
+  "rationale": "This persona demands proof rather than general feelings. Highlighting audited supply chains, certified compostable packaging, and specific ingredient origins directly satisfies the preference for supply chain transparency and specific sustainability claims while completely avoiding greenwashing.",
+  "messaging_levers": [
+    "supply chain transparency",
+    "specific sustainability claims",
+    "certifications"
+  ],
+  "avoided": [
+    "vague eco claims",
+    "excessive packaging"
+  ]
+}

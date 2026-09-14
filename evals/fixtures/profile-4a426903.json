@@ -1,0 +1,27 @@
+{
+  "primary_category": "automotive",
+  "subcategories": [
+    "car_dealership",
+    "automotive_sales"
+  ],
+  "price_tier": "luxury",
+  "estimated_aov_usd": 35000,
+  "target_age_min": 25,
+  "target_age_max": 65,
+  "target_gender_skew": "balanced",
+  "values": [
+    "convenience"
+  ],
+  "business_model": "one_off",
+  "is_consumer_dtc": false,
+  "confidence": "low",
+  "assumptions": [
+    "Assumed a traditional car purchasing price point as none was specified",
+    "Assumed target age spans typical car-buying demographic"
+  ],
+  "missing_signals": [
+    "Target audience demographics",
+    "Specific vehicle price range or financing model",
+    "Geographic market"
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "selected": [
+    {
+      "persona_id": "persona_001",
+      "rationale": "The Wellness Optimizer matches the advertiser's focus on fitness, high willingness to pay premium prices, and science-backed nutritional claims, aligning closely with Pantrygood's audience of clean-ingredient and wellness seekers.",
+      "primary_publishers": [
+        "pub_008"
+      ]
+    },
+    {
+      "persona_id": "persona_002",
+      "rationale": "The Busy Parent embodies the subscription-based, convenience-first food delivery buyer who naturally shops on Kitchenly, matching the time-saving needs of upper-class households looking for nutritious meals.",
+      "primary_publishers": [
+        "pub_015"
+      ]
+    },
+    {
+      "persona_id": "persona_006",
+      "rationale": "The Sustainability Buyer strongly overlaps with vegan food delivery and Pantrygood's values-driven audience, responding well to ethical sourcing, organic footprints, and supply chain transparency.",
+      "primary_publishers": [
+        "pub_008"
+      ]
+    },
+    {
+      "persona_id": "persona_009",
+      "rationale": "The Fitness Enthusiast directly targets the advertiser's workout and protein-rich product focus, connecting performance-oriented goals with premium meal subscriptions.",
+      "primary_publishers": [
+        "pub_015"
+      ]
+    }
+  ],
+  "rejected": [
+    {
+      "persona_id": "persona_003",
+      "reason": "The Gen Z Aesthete has a lower AOV of $48 and focuses heavily on trends and beauty/fashion rather than high-end fitness subscriptions."
+    },
+    {
+      "persona_id": "persona_004",
+      "reason": "The Pet Parent focuses entirely on animal care rather than human fitness-oriented food delivery apps."
+    },
+    {
+      "persona_id": "persona_005",
+      "reason": "The Affluent Classic prefers traditional home goods, classic apparel, and travel rather than fitness-centric food delivery apps."
+    },
+    {
+      "persona_id": "persona_007",
+      "reason": "The Convenience-First Millennial is too heavily skewed toward low brand loyalty and quick impulse commerce rather than premium science-backed fitness nutrition."
+    },
+    {
+      "persona_id": "persona_008",
+      "reason": "The Value-Conscious Shopper seeks discount-forward bundles and low-end deals, which contradicts the advertiser's premium price tier and high AOV strategy."
+    },
+    {
+      "persona_id": "persona_010",
+      "reason": "The Gifter is explicitly disinterested in subscription-only models, which directly conflicts with the advertiser's subscription business model."
+    }
+  ]
+}

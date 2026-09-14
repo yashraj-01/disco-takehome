@@ -1,0 +1,124 @@
+{
+  "verdicts": [
+    {
+      "publisher_id": "pub_001",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Offers great convenience and high-frequency purchasing habits, but the average order value is significantly lower than expected for this premium protein offering."
+    },
+    {
+      "publisher_id": "pub_002",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Sells fitness apparel and activewear rather than food delivery or meal kits."
+    },
+    {
+      "publisher_id": "pub_003",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Focuses on fitness classes and spa bookings rather than food or meal delivery."
+    },
+    {
+      "publisher_id": "pub_004",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Caters to older women shopping for workwear and casual apparel rather than food delivery."
+    },
+    {
+      "publisher_id": "pub_005",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Offers classic workwear apparel for an older demographic with no connection to food subscriptions."
+    },
+    {
+      "publisher_id": "pub_006",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Provides inclusive sizing and workwear apparel rather than nutrition or meal delivery services."
+    },
+    {
+      "publisher_id": "pub_007",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Sells pet food and supplies rather than human food delivery."
+    },
+    {
+      "publisher_id": "pub_008",
+      "verdict": "recommended",
+      "rank": 2,
+      "reason": "Reaches values-driven shoppers who look for clean ingredients and wellness claims, aligning naturally with a protein-rich food delivery brand."
+    },
+    {
+      "publisher_id": "pub_009",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Exclusively serves pet owners looking for animal supplies and pharmaceuticals."
+    },
+    {
+      "publisher_id": "pub_010",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Sells basics like socks and underwear rather than food or meal subscriptions."
+    },
+    {
+      "publisher_id": "pub_011",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Focuses on home textiles like bedding and bath products rather than food delivery."
+    },
+    {
+      "publisher_id": "pub_012",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Provides vitamins and supplements rather than prepared meal kits or food delivery."
+    },
+    {
+      "publisher_id": "pub_013",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Sells beauty products like skincare and makeup rather than nutritional food delivery."
+    },
+    {
+      "publisher_id": "pub_014",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Provides kitchen cookware rather than food or meal delivery solutions."
+    },
+    {
+      "publisher_id": "pub_015",
+      "verdict": "recommended",
+      "rank": 1,
+      "reason": "Directly reaches families and couples actively buying meal kits, making it a natural fit for a subscription-based vegan food delivery service."
+    },
+    {
+      "publisher_id": "pub_016",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Sells sustainable women's shoes rather than food or grocery delivery."
+    },
+    {
+      "publisher_id": "pub_017",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Focuses on sustainable activewear shoes rather than nutrition or meal kits."
+    },
+    {
+      "publisher_id": "pub_018",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Provides pet toys and treats instead of human food subscriptions."
+    },
+    {
+      "publisher_id": "pub_019",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Sells personalized haircare products rather than food delivery."
+    },
+    {
+      "publisher_id": "pub_020",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Engages a health-curious audience interested in functional beverages, but operates in a beverage-specific niche rather than full meal delivery."
+    }
+  ]
+}

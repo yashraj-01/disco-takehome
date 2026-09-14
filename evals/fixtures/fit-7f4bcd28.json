@@ -1,0 +1,124 @@
+{
+  "verdicts": [
+    {
+      "publisher_id": "pub_001",
+      "verdict": "recommended",
+      "rank": 2,
+      "reason": "High-frequency shoppers looking for convenience, perfectly matching the recurring ordering habits of food delivery apps."
+    },
+    {
+      "publisher_id": "pub_002",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Sells fitness apparel and activewear; nothing in the assortment reaches people shopping for meal delivery."
+    },
+    {
+      "publisher_id": "pub_003",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Offers appointment-based spa and fitness bookings; no product overlap with prepared food delivery."
+    },
+    {
+      "publisher_id": "pub_004",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Caters to older affluent women for workwear and casual clothing, missing the younger demographic shopping for food apps."
+    },
+    {
+      "publisher_id": "pub_005",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Focuses on classic workwear for older women with a high average order value, offering no connection to plant-based food delivery."
+    },
+    {
+      "publisher_id": "pub_006",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Provides inclusive sizing and workwear apparel, completely outside the food and beverage category."
+    },
+    {
+      "publisher_id": "pub_007",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Sells pet food and supplies; shoppers here are looking for animal care rather than human meal solutions."
+    },
+    {
+      "publisher_id": "pub_008",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Shoppers are deeply engaged with organic and natural pantry goods, making this a strong near-miss for a plant-based food delivery brand despite being a marketplace rather than a direct meal kit service."
+    },
+    {
+      "publisher_id": "pub_009",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Specializes in pet products and pharmacy items, which has no category relevance to a human food delivery app."
+    },
+    {
+      "publisher_id": "pub_010",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Merchandises socks, underwear, and basics, completely unrelated to dietary meals."
+    },
+    {
+      "publisher_id": "pub_011",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Features home textiles and bedding with a high price point, entirely disconnected from grocery and food delivery."
+    },
+    {
+      "publisher_id": "pub_012",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Focuses on vitamins and supplements rather than full meal deliveries or fresh food options."
+    },
+    {
+      "publisher_id": "pub_013",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Operates in skincare and makeup beauty lines, lacking any crossover with food services."
+    },
+    {
+      "publisher_id": "pub_014",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Offers non-toxic kitchenware and cookware, whereas shoppers are looking for prepared food delivery rather than kitchen tools."
+    },
+    {
+      "publisher_id": "pub_015",
+      "verdict": "recommended",
+      "rank": 1,
+      "reason": "Directly operates in the meal kit space with a massive family audience that regularly uses subscription food services."
+    },
+    {
+      "publisher_id": "pub_016",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Sells sustainable shoes for professional women, which has no intersection with a food delivery app."
+    },
+    {
+      "publisher_id": "pub_017",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Offers sustainable activewear and footwear, entirely outside the food delivery sector."
+    },
+    {
+      "publisher_id": "pub_018",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Delivers pet toys and treats, entirely unrelated to human meal subscription services."
+    },
+    {
+      "publisher_id": "pub_019",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Merchandises personalized hair care products, holding no relevance to food delivery."
+    },
+    {
+      "publisher_id": "pub_020",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Sells alternative sodas and gut health beverages, missing the core meal delivery offering of the brand."
+    }
+  ]
+}
