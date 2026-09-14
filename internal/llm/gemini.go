@@ -66,6 +66,14 @@ const (
 // failure is a hard error rather than a silently defaulted value.
 func (g *Gemini) Complete(ctx context.Context, r Request) (json.RawMessage, error) {
 	if cached, ok := g.readCache(r); ok {
+		// Record on a cache hit too. The cache and the fixture store answer
+		// different questions — "have I asked this before on this machine" versus
+		// "is this brief part of the committed offline demo" — so a response
+		// served from cache must still be able to become a fixture, or a brief
+		// drafted twice would never get recorded at all.
+		if err := g.record(r, cached); err != nil {
+			return nil, err
+		}
 		return cached, nil
 	}
 
@@ -84,10 +92,8 @@ func (g *Gemini) Complete(ctx context.Context, r Request) (json.RawMessage, erro
 		}
 		if err := Validate(r.Schema, out); err == nil {
 			g.writeCache(r, out)
-			if g.recorder != nil {
-				if err := g.recorder.Record(r, out); err != nil {
-					return nil, fmt.Errorf("llm: recording fixture: %w", err)
-				}
+			if err := g.record(r, out); err != nil {
+				return nil, err
 			}
 			return out, nil
 		} else {
@@ -97,6 +103,19 @@ func (g *Gemini) Complete(ctx context.Context, r Request) (json.RawMessage, erro
 		}
 	}
 	return nil, fmt.Errorf("llm: stage %s failed schema validation twice: %w", r.Stage, lastErr)
+}
+
+// record writes a response to the fixture store when a recorder is configured.
+// A recorder failure is fatal: --record is an explicit request, and a silently
+// dropped fixture yields an incomplete offline demo that fails much later.
+func (g *Gemini) record(r Request, out json.RawMessage) error {
+	if g.recorder == nil {
+		return nil
+	}
+	if err := g.recorder.Record(r, out); err != nil {
+		return fmt.Errorf("llm: recording fixture: %w", err)
+	}
+	return nil
 }
 
 // generate issues one request, waiting for a rate-limit slot and backing off on

@@ -71,8 +71,10 @@ type commonFlags struct {
 // defaults can never drift apart.
 func registerCommon(fs *flag.FlagSet) *commonFlags {
 	c := &commonFlags{params: pipeline.DefaultAllocParams()}
-	fs.StringVar(&c.provider, "provider", "fixture",
-		"which LLM backend to use: \"fixture\" replays recorded responses (no API key or network needed) or \"gemini\" calls the live Gemini API")
+	fs.StringVar(&c.provider, "provider", "auto",
+		"which LLM backend to use: \"auto\" replays a recorded brief and calls the live "+
+			"model for anything new when GEMINI_API_KEY is set, \"fixture\" replays only "+
+			"(no key or network needed), \"gemini\" always calls the live API")
 	fs.StringVar(&c.model, "model", "gemini-3.5-flash-lite", "model id to request when --provider=gemini (the one the committed fixtures were recorded against)")
 	fs.StringVar(&c.dataDir, "data", "data", "directory holding publishers.json and shopper_personas.json")
 	fs.StringVar(&c.fixtureDir, "fixtures", "evals/fixtures", "directory of recorded provider responses used by --provider=fixture, and written to by --provider=gemini --record")
@@ -101,10 +103,7 @@ func buildProvider(c *commonFlags) (llm.Provider, *catalog.Catalog, error) {
 		return nil, nil, err
 	}
 
-	switch c.provider {
-	case "fixture":
-		return llm.NewFixture(c.fixtureDir), cat, nil
-	case "gemini":
+	newGemini := func() (llm.Provider, error) {
 		opts := llm.GeminiOptions{
 			APIKey: os.Getenv("GEMINI_API_KEY"),
 			Model:  c.model,
@@ -116,10 +115,35 @@ func buildProvider(c *commonFlags) (llm.Provider, *catalog.Catalog, error) {
 		if c.record {
 			opts.Recorder = llm.NewFixture(c.fixtureDir)
 		}
-		p, err := llm.NewGemini(opts)
+		return llm.NewGemini(opts)
+	}
+
+	switch c.provider {
+	case "auto":
+		// Replay what is recorded; call the model for anything new, but only if
+		// a key is actually configured. Without one the chain still answers the
+		// recorded briefs and explains itself on a miss, so the offline demo
+		// works exactly as before.
+		fixture := llm.NewFixture(c.fixtureDir)
+		if os.Getenv("GEMINI_API_KEY") == "" {
+			return llm.NewChain(fixture, nil), cat, nil
+		}
+		// Anything drafted live is recorded, so the same brief is free next time.
+		saved := c.record
+		c.record = true
+		live, err := newGemini()
+		c.record = saved
+		if err != nil {
+			return llm.NewChain(fixture, nil), cat, nil
+		}
+		return llm.NewChain(fixture, live), cat, nil
+	case "fixture":
+		return llm.NewChain(llm.NewFixture(c.fixtureDir), nil), cat, nil
+	case "gemini":
+		p, err := newGemini()
 		return p, cat, err
 	default:
-		return nil, nil, fmt.Errorf("unknown provider %q: want fixture or gemini", c.provider)
+		return nil, nil, fmt.Errorf("unknown provider %q: want auto, fixture or gemini", c.provider)
 	}
 }
 

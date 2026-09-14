@@ -32,11 +32,21 @@ func (f *Fixture) path(r Request) string {
 func (f *Fixture) Complete(_ context.Context, r Request) (json.RawMessage, error) {
 	b, err := os.ReadFile(f.path(r))
 	if err != nil {
-		return nil, fmt.Errorf(
-			"llm: no fixture for stage %q at %s — run once with --provider gemini --record to create it",
-			r.Stage, f.path(r))
+		return nil, &ErrNoFixture{Stage: r.Stage, Path: f.path(r)}
 	}
 	return json.RawMessage(b), nil
+}
+
+// ErrNoFixture reports that nothing is recorded for a request. It is a distinct
+// type so a chained provider can tell an absence (fall through to the live
+// model) from a real read failure (surface it).
+type ErrNoFixture struct {
+	Stage string
+	Path  string
+}
+
+func (e *ErrNoFixture) Error() string {
+	return fmt.Sprintf("llm: no recorded response for stage %q at %s", e.Stage, e.Path)
 }
 
 // Record writes a response so later runs can replay it.

@@ -28,8 +28,10 @@ func TestRegisterCommonDefaults(t *testing.T) {
 	if c.params != want {
 		t.Errorf("registerCommon defaults = %+v, want %+v (pipeline.DefaultAllocParams())", c.params, want)
 	}
-	if c.provider != "fixture" {
-		t.Errorf("default provider = %q, want %q", c.provider, "fixture")
+	// "auto" replays recorded briefs and only reaches for the live model when
+	// GEMINI_API_KEY is set, so the offline default behaviour is unchanged.
+	if c.provider != "auto" {
+		t.Errorf("default provider = %q, want %q", c.provider, "auto")
 	}
 }
 
@@ -80,11 +82,13 @@ func TestBuildProviderFixtureDefault(t *testing.T) {
 	if err != nil {
 		t.Fatalf("buildProvider: %v", err)
 	}
+	// With no GEMINI_API_KEY the default "auto" provider is a chain with no
+	// live fallback, so it behaves exactly like the fixture provider alone.
 	if provider.Name() != "fixture" {
 		t.Errorf("provider.Name() = %q, want fixture", provider.Name())
 	}
-	if _, ok := provider.(*llm.Fixture); !ok {
-		t.Errorf("provider is %T, want *llm.Fixture", provider)
+	if _, ok := provider.(*llm.Chain); !ok {
+		t.Errorf("provider is %T, want *llm.Chain", provider)
 	}
 	if cat == nil || len(cat.Publishers) == 0 {
 		t.Errorf("expected a loaded catalog with publishers, got %+v", cat)
@@ -151,8 +155,12 @@ func TestCmdRunMissingFixture(t *testing.T) {
 	if err == nil {
 		t.Fatal("expected an error when no fixture is recorded, got nil")
 	}
-	if !strings.Contains(err.Error(), "--provider gemini --record") {
-		t.Errorf("error %q does not tell the user how to record a fixture", err.Error())
+	// The message a user actually meets must name both recovery paths: which
+	// briefs are recorded, and how to draft one that is not.
+	for _, want := range []string{"evals/briefs.txt", "GEMINI_API_KEY"} {
+		if !strings.Contains(err.Error(), want) {
+			t.Errorf("error %q does not mention %q", err.Error(), want)
+		}
 	}
 }
 

@@ -1,0 +1,124 @@
+{
+  "verdicts": [
+    {
+      "publisher_id": "pub_001",
+      "verdict": "recommended",
+      "rank": 1,
+      "reason": "Direct category match in instant delivery with high-frequency impulse buyers, perfectly aligning with the 10-minute grocery delivery model and mid-market price tier."
+    },
+    {
+      "publisher_id": "pub_002",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Hard gate triggered: category_mismatch. Apparel is entirely out of scope for a grocery delivery service."
+    },
+    {
+      "publisher_id": "pub_003",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Hard gate triggered: category_mismatch. Wellness services do not overlap with quick-commerce grocery delivery."
+    },
+    {
+      "publisher_id": "pub_004",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Hard gate triggered: category_mismatch. Apparel and older demographics do not match the target instant grocery audience."
+    },
+    {
+      "publisher_id": "pub_005",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Hard gate triggered: category_mismatch. High-AOV apparel is completely misaligned with grocery delivery."
+    },
+    {
+      "publisher_id": "pub_006",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Hard gate triggered: category_mismatch. Apparel shopping behavior does not translate to grocery delivery."
+    },
+    {
+      "publisher_id": "pub_007",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Hard gate triggered: category_mismatch. Pet supplies and subscriptions do not overlap with instantaneous grocery delivery."
+    },
+    {
+      "publisher_id": "pub_008",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Plausible adjacency in organic groceries, but the subscription-heavy and higher AOV model differs from a one-off quick-commerce grocery app."
+    },
+    {
+      "publisher_id": "pub_009",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Hard gate triggered: category_mismatch. Pet products cannot fulfill a grocery delivery buyer's immediate needs."
+    },
+    {
+      "publisher_id": "pub_010",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Hard gate triggered: category_mismatch. Socks and basics apparel have no relevance to fast grocery delivery."
+    },
+    {
+      "publisher_id": "pub_011",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Hard gate triggered: category_mismatch. Home bedding and textiles do not align with grocery delivery."
+    },
+    {
+      "publisher_id": "pub_012",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Hard gate triggered: category_mismatch. Wellness supplements and DTC vitamins do not match an instant grocery delivery service."
+    },
+    {
+      "publisher_id": "pub_013",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Hard gate triggered: category_mismatch. Beauty and skincare have no category overlap with grocery delivery."
+    },
+    {
+      "publisher_id": "pub_014",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Hard gate triggered: category_mismatch. High-end cookware and home goods are misaligned with quick-commerce grocery delivery."
+    },
+    {
+      "publisher_id": "pub_015",
+      "verdict": "recommended",
+      "rank": 2,
+      "reason": "Strong alignment with food and meal-kit interest; while meal kits are subscription-based, the heavy food focus and family household audience provide strong conversion potential for grocery delivery."
+    },
+    {
+      "publisher_id": "pub_016",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Hard gate triggered: category_mismatch. Sustainable shoes and apparel are unrelated to grocery delivery."
+    },
+    {
+      "publisher_id": "pub_017",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Hard gate triggered: category_mismatch. Activewear and footwear do not fulfill a grocery delivery campaign's needs."
+    },
+    {
+      "publisher_id": "pub_018",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Hard gate triggered: category_mismatch. Pet subscription boxes do not align with human grocery delivery."
+    },
+    {
+      "publisher_id": "pub_019",
+      "verdict": "excluded",
+      "rank": 0,
+      "reason": "Hard gate triggered: category_mismatch. Haircare DTC does not match instant grocery delivery."
+    },
+    {
+      "publisher_id": "pub_020",
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Functional beverages share demographic and health-curious attributes with convenience grocery buyers, but beverage-only focus makes it a near-miss compared to broader grocery platforms."
+    }
+  ]
+}

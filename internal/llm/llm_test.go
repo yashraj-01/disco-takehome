@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"errors"
 	"os"
 	"path/filepath"
 	"strings"
@@ -116,8 +117,13 @@ func TestFixtureMissingIsAClearError(t *testing.T) {
 	if err == nil {
 		t.Fatal("want error for a missing fixture")
 	}
-	if !strings.Contains(err.Error(), "--record") {
-		t.Errorf("error %q should tell the user how to create it", err)
+	var miss *ErrNoFixture
+	if !errors.As(err, &miss) {
+		t.Fatalf("error %v should be a typed *ErrNoFixture so a chain can tell an "+
+			"absence from a real read failure", err)
+	}
+	if !strings.Contains(err.Error(), "fit-nothere.json") {
+		t.Errorf("error %q should name the path it looked for", err)
 	}
 }
 
