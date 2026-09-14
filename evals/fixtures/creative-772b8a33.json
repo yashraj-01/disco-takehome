@@ -1,13 +1,15 @@
 {
-  "headline": "Optimize your daily recovery metrics",
-  "body": "View complete active ingredient profiles and clinical trial data for every wellness service we offer so you can fine tune your physical performance.",
-  "rationale": "This persona treats her body like a system and values concrete evidence over vague lifestyle marketing. The copy uses outcome-focused phrasing and transparency around ingredients and data without triggering her aversion to novelty or low-quality positioning.",
+  "headline": "Optimize your daily wellness metrics",
+  "body": "Track your physical progress with transparent protocols designed to improve how you feel every day. Get clear outcomes for your routine.",
+  "rationale": "This persona treats her body like a system and values evidence-backed approaches over luxury or novelty. The copy focuses on tracking, clear outcomes, and transparent protocols while ignoring price entirely due to her low price sensitivity.",
   "messaging_levers": [
     "science-backed claims",
     "ingredient transparency",
     "outcome-focused"
   ],
   "avoided": [
+    "fast_fashion",
+    "ultra-processed food",
     "novelty"
   ]
 }

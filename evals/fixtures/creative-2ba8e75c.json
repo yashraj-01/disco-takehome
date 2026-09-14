@@ -1,10 +1,10 @@
 {
-  "headline": "Handcrafted in Florence, made to order to cut waste",
-  "body": "Skip mass production. Our Tuscan workshop crafts your custom leather bag in small batches using traceable Italian hides. Shipped directly from Florence in zero plastic packaging.",
-  "rationale": "This persona requires specific sustainability claims and supply chain transparency to overcome skepticism about luxury goods. Highlighting the made-to-order, small-batch Tuscan workshop model directly addresses their ethical footprint concerns while explicitly avoiding vague eco claims and excessive packaging.",
+  "headline": "Handcrafted in Florence, made to order",
+  "body": "Avoid mass production. Every Italian leather bag is custom cut by hand in a Florence workshop, eliminating surplus waste and ensuring lifelong durability.",
+  "rationale": "This persona values ethical production and rejects waste. The copy highlights the made-to-order, zero-surplus nature of artisanal workshop production in Florence, addressing supply chain transparency without relying on vague buzzwords.",
   "messaging_levers": [
-    "specific sustainability claims",
-    "supply chain transparency"
+    "supply chain transparency",
+    "specific sustainability claims"
   ],
   "avoided": [
     "vague eco claims",

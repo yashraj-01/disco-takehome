@@ -1,57 +1,57 @@
 {
   "selected": [
     {
-      "persona_id": "persona_001",
-      "rationale": "The Wellness Optimizer has category affinities for wellness and supplements and prefers science-backed claims and ingredient transparency, making her an ideal target for a functional protein bar that avoids the chalky, cardboards-like taste of typical products.",
+      "persona_id": "persona_009",
+      "rationale": "The Fitness Enthusiast naturally buys protein bars as part of their active lifestyle. They have a category affinity for 'supplements' and 'functional_beverages', making them an ideal match for a protein bar brand targeting ages 18-45. They can be reached effectively via Pantrygood and Daily Form.",
       "primary_publishers": [
-        "pub_012",
-        "pub_008"
+        "pub_008",
+        "pub_012"
+      ]
+    },
+    {
+      "persona_id": "persona_001",
+      "rationale": "The Wellness Optimizer looks for evidence-backed nutrition and clean ingredients, which aligns with selling a better-tasting, premium grocery snack. They can be targeted on health-conscious publishers like Daily Form and Pantrygood.",
+      "primary_publishers": [
+        "pub_008",
+        "pub_012"
       ]
     },
     {
       "persona_id": "persona_007",
-      "rationale": "The Convenience-First Millennial defaults to what is fast and easy, with category affinities for instant delivery and quick commerce, matching the impulse-friendly, high-frequency grocery nature of protein bar purchases on platforms like Swiftcart.",
+      "rationale": "The Convenience-First Millennial values speed and impulse-driven purchases, directly matching the fast delivery and snack-oriented profile of Swiftcart and the brand's mid-tier pricing.",
       "primary_publishers": [
         "pub_001"
-      ]
-    },
-    {
-      "persona_id": "persona_009",
-      "rationale": "The Fitness Enthusiast works out frequently and buys performance-related snacks and supplements, directly aligning with a protein bar advertiser targeting active demographics looking for better-tasting nutritional fueling.",
-      "primary_publishers": [
-        "pub_012",
-        "pub_020"
       ]
     }
   ],
   "rejected": [
     {
       "persona_id": "persona_002",
-      "reason": "The Busy Parent prioritizes bulk buying and subscription services, whereas this advertiser operates on a one-off business model with missing subscription availability."
+      "reason": "The Busy Parent prioritizes family-friendly products and kids' items in bulk, whereas this advertiser sells a single-item category (protein bars) with an estimated AOV of $30, which does not match their typical household purchasing bulk size."
     },
     {
       "persona_id": "persona_003",
-      "reason": "The Gen Z Aesthete focuses heavily on high-visual identity-expressive beauty, fashion, and small-batch decor with a playful, aesthetic-forward voice, which does not align with a functional grocery snack brand."
+      "reason": "The Gen Z Aesthete focuses heavily on beauty, fashion, and home decor with high visual identity, which does not align with the grocery and protein bar primary category of this advertiser."
     },
     {
       "persona_id": "persona_004",
-      "reason": "The Pet Parent focuses strictly on pet food, pet health, and pet supplies, which has no overlap with human protein bars and groceries."
+      "reason": "The Pet Parent is exclusively focused on pet food, pet health, and pet supplies, making them entirely irrelevant to a human nutrition brand selling protein bars."
     },
     {
       "persona_id": "persona_005",
-      "reason": "The Affluent Classic has an older age range of 50-68 and a high AOV focused on classic apparel and home goods, which falls outside the advertiser's target age range of 18-45."
+      "reason": "The Affluent Classic targets an older demographic (50-68) with classic apparel and home goods, whereas this advertiser targets ages 18-45."
     },
     {
       "persona_id": "persona_006",
-      "reason": "The Sustainability Buyer focuses on specific supply chain transparency and carbon footprints, whereas the advertiser's core value proposition and brief center exclusively on taste rather than environmental claims."
+      "reason": "The Sustainability Buyer focuses on complex supply chain transparency and refilables in sustainable apparel and clean beauty, which lacks a direct connection to a standard protein bar snack brand."
     },
     {
       "persona_id": "persona_008",
-      "reason": "The Value-Conscious Shopper requires discount-forward messaging and bundle offers, which conflicts with the mid-tier, one-off $30 estimated AOV product brief."
+      "reason": "The Value-Conscious Shopper seeks heavy discounts and clear budget bundles, whereas this advertiser offers a mid-tier, one-off grocery product priced at an estimated AOV of $30 without a discount-first focus."
     },
     {
       "persona_id": "persona_010",
-      "reason": "The Gifter is explicitly disinterested in self-care-only framing and relies on gifting-holiday timelines, whereas protein bars are an everyday personal grocery snack."
+      "reason": "The Gifter buys specifically for gifting holidays and explicitly dislikes subscription-only or self-care-only framing, whereas a personal-consumption protein bar is typically an everyday snack rather than a gift set."
     }
   ]
 }

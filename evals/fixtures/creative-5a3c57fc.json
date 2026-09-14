@@ -1,15 +1,15 @@
 {
-  "headline": "Functional adaptogens for recovery and focus",
-  "body": "Optimize your daily wellness routine with our sparkling functional drink. Clear ingredient lists and science-backed adaptogens help you feel your best without alcohol.",
-  "rationale": "This copy addresses the Wellness Optimizer's desire for system optimization by focusing directly on functional recovery and clear ingredients. It avoids trendy novelties and low-price callouts, respecting her low price sensitivity and demand for substance.",
+  "headline": "Functional adaptogens for your daily recovery protocol",
+  "body": "Optimize your evening routine without alcohol disrupting your sleep metrics. Formulated with clinical-grade adaptogens for active recovery.",
+  "rationale": "The Wellness Optimizer views health through metrics and sleep tracking. This copy targets her desire for data-driven recovery, uses her preferred scientific phrasing, and completely avoids novelty or emotional fluff.",
   "messaging_levers": [
     "science-backed claims",
     "ingredient transparency",
     "outcome-focused"
   ],
   "avoided": [
-    "fast_fashion",
+    "novelty",
     "ultra-processed food",
-    "novelty"
+    "fast_fashion"
   ]
 }

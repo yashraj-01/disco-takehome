@@ -2,55 +2,56 @@
   "selected": [
     {
       "persona_id": "persona_001",
-      "rationale": "The Wellness Optimizer tracks supplements and workouts, aligning directly with the advertiser's functional, science-backed adaptogenic drink, and can be effectively reached on the science-forward Daily Form publisher.",
+      "rationale": "The Wellness Optimizer tracks supplements and workouts and expects science-backed claims, aligning with the advertiser's focus on adaptogens and functional drinks.",
       "primary_publishers": [
-        "pub_012"
+        "pub_012",
+        "pub_008"
       ]
     },
     {
       "persona_id": "persona_003",
-      "rationale": "The Gen Z Aesthete has a category affinity for functional beverages and a preference for aesthetic-forward and novelty messaging, making them an ideal match for a trendy sparkling drink and reachable via Pop & Sip.",
+      "rationale": "The Gen Z Aesthete has a category affinity for functional beverages and values visual, identity-expressive products, which matches a mid-tier non-alcoholic sparkling drink alternative.",
       "primary_publishers": [
         "pub_020"
       ]
     },
     {
       "persona_id": "persona_009",
-      "rationale": "The Fitness Enthusiast focuses on recovery and functional beverages with low-medium price sensitivity, matching the advertiser's mid-tier adaptogenic beverage aimed at feeling good without a hangover, reachable on Pantrygood and Pop & Sip.",
+      "rationale": "The Fitness Enthusiast seeks recovery and functional beverages as part of their workout lifestyle, fitting the advertiser's value proposition of feeling good without a hangover.",
       "primary_publishers": [
-        "pub_008",
-        "pub_020"
+        "pub_020",
+        "pub_012"
       ]
     }
   ],
   "rejected": [
     {
       "persona_id": "persona_002",
-      "reason": "The Busy Parent prioritizes time-saving meal kits and family products, which does not align with a single-person lifestyle beverage brand or the recommended publishers' audiences."
+      "reason": "The Busy Parent prioritizes family-friendly products and kids items, which does not match a social functional beverage intended as a cocktail alternative."
     },
     {
       "persona_id": "persona_004",
-      "reason": "The Pet Parent focuses on animal health and pet supplies, which is entirely irrelevant to human functional beverages."
+      "reason": "The Pet Parent focuses strictly on pet health, supplies, and food, lacking alignment with a human beverage product."
     },
     {
       "persona_id": "persona_005",
-      "reason": "The Affluent Classic is aged 50-68 and prefers traditional luxury goods and heritage messaging, missing the younger 21-45 demographic target of the beverage."
+      "reason": "The Affluent Classic prefers heritage apparel, home goods, and travel with a high AOV, which does not align with a trendy mid-tier functional sparkling drink."
     },
     {
       "persona_id": "persona_006",
-      "reason": "The Sustainability Buyer focuses on supply chains and green credentials rather than the functional/wellness benefits emphasized by the advertiser's product."
+      "reason": "The Sustainability Buyer focuses heavily on supply chains and ethical footprints for apparel, clean beauty, and refillables rather than functional beverages."
     },
     {
       "persona_id": "persona_007",
-      "reason": "The Convenience-First Millennial prioritizes instant delivery and general quick commerce subscriptions over a specific functional drink formulation."
+      "reason": "The Convenience-First Millennial prioritizes instant delivery and quick commerce for meal kits and subscriptions, whereas this advertiser operates on a one-off DTC model."
     },
     {
       "persona_id": "persona_008",
-      "reason": "The Value-Conscious Shopper has high price sensitivity and looks for budget deals, whereas the advertiser's mid-tier $40 functional beverage requires a less discount-reliant buyer."
+      "reason": "The Value-Conscious Shopper seeks discount-forward household and grocery items, which contrasts with the mid-tier premium positioning of a functional adaptogenic beverage."
     },
     {
       "persona_id": "persona_010",
-      "reason": "The Gifter is focused on seasonal gift sets and impressive presentation, whereas the advertiser sells a routine lifestyle beverage rather than a gift item."
+      "reason": "The Gifter looks for gift sets and impressive presentation for holidays, which does not align with a casual functional beverage purchased for personal consumption."
     }
   ]
 }

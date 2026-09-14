@@ -4,121 +4,121 @@
       "publisher_id": "pub_001",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Sells convenience groceries and impulse items; completely mismatched with the unknown product brief and category setup."
+      "reason": "Sells convenience groceries and impulse items; nothing in the assortment matches this advertiser's offerings."
     },
     {
       "publisher_id": "pub_002",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Focuses on fitness-engaged apparel and activewear shoppers, offering no overlap with the advertiser's undefined catalog."
+      "reason": "Focuses on fitness-engaged apparel shoppers, which has no overlap with the advertiser's product range."
     },
     {
       "publisher_id": "pub_003",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Caters strictly to appointment-based fitness and spa self-care users, which fails to align with the unverified product brief."
+      "reason": "Caters to appointment-based wellness and fitness services, making it entirely irrelevant to the advertiser's catalog."
     },
     {
       "publisher_id": "pub_004",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Targets older affluent women seeking workwear and casual apparel, creating a distinct category disconnect."
+      "reason": "Reaches older affluent women shopping specifically for workwear and casual apparel."
     },
     {
       "publisher_id": "pub_005",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Features high-AOV classic workwear for women with a conservative brand sensibility, offering no relevance to the advertiser's unknown offerings."
+      "reason": "Features classic women's workwear with a conservative brand sensibility completely disconnected from the advertiser."
     },
     {
       "publisher_id": "pub_006",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Specializes in inclusive sizing and women's intimates, which does not match the missing product signals for the advertiser."
+      "reason": "Specializes in inclusive-sizing apparel and intimates, offering no category relevance."
     },
     {
       "publisher_id": "pub_007",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Reaches subscription-heavy pet owners and health-conscious animal lovers, entirely unrelated to the advertiser profile."
+      "reason": "Exclusively reaches pet owners buying health-conscious pet food and supplies."
     },
     {
       "publisher_id": "pub_008",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Serves organic pantry and grocery shoppers looking for clean ingredients and sustainability, presenting a direct category mismatch."
+      "reason": "Focuses strictly on organic pantry goods and groceries rather than the advertiser's products."
     },
     {
       "publisher_id": "pub_009",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Operates entirely within the pet food and supplies space, lacking any common ground with the advertiser's unknown product line."
+      "reason": "Dedicated entirely to pet food, supplies, and pharmacy."
     },
     {
       "publisher_id": "pub_010",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Focuses on socks, underwear, and gifting basics with social-good messaging, which fails to correspond to the advertiser's brief."
+      "reason": "Offers socks, underwear, and basics with high gifting uplift, unrelated to this brand."
     },
     {
       "publisher_id": "pub_011",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Appeals to design-conscious home textile and bedding buyers, offering zero category overlap for the given advertiser."
+      "reason": "Sells home textiles, bedding, and bath items to design-conscious buyers."
     },
     {
       "publisher_id": "pub_012",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Reaches science-forward supplement and vitamin consumers, presenting no relevance given the absence of product details."
+      "reason": "Distributes science-forward vitamins and supplements, missing any category overlap."
     },
     {
       "publisher_id": "pub_013",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Targets Gen Z beauty and skincare enthusiasts with identity-driven purchasing, entirely misaligned with the advertiser's missing category signals."
+      "reason": "Provides skincare and makeup with a minimalist aesthetic, completely outside the advertiser's scope."
     },
     {
       "publisher_id": "pub_014",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Caters to sustainability-motivated kitchenware and non-toxic cookware buyers, creating a clear product mismatch."
+      "reason": "Offers non-toxic cookware and kitchen items for sustainability-motivated culinary buyers."
     },
     {
       "publisher_id": "pub_015",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Focuses on family meal kit subscribers and food-interested households, offering no alignment with the unverified advertiser brief."
+      "reason": "Provides meal kits and groceries for family households, sharing no common ground with the advertiser."
     },
     {
       "publisher_id": "pub_016",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Reaches professional women shopping for sustainable shoes, presenting a category distance that cannot be bridged."
+      "reason": "Sells sustainable women's shoes and professional apparel."
     },
     {
       "publisher_id": "pub_017",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Serves tech-adjacent urban professionals buying comfortable and sustainable footwear, which does not match the advertiser's profile."
+      "reason": "Focuses on sustainable active shoes for tech-adjacent urban professionals."
     },
     {
       "publisher_id": "pub_018",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Engages millennial dog owners through pet toys and treat subscriptions, completely detached from the advertiser's unknown offerings."
+      "reason": "Serves dog owners looking for pet supplies, toys, and treats."
     },
     {
       "publisher_id": "pub_019",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Specializes in personalized haircare and quiz-based DTC beauty onboarding, offering no category alignment."
+      "reason": "Sells personalized haircare products through a quiz-based onboarding flow."
     },
     {
       "publisher_id": "pub_020",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Features functional gut-health beverages and soda alternatives, which is completely disconnected from the advertiser's undefined brief."
+      "reason": "Reaches buyers interested in functional beverages, gut health, and soda alternatives."
     }
   ]
 }

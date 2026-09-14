@@ -1,58 +1,56 @@
 {
   "selected": [
     {
-      "persona_id": "persona_002",
-      "rationale": "The advertiser focuses on moms and family with a mid-tier price point, making The Busy Parent a direct match due to their category affinities for kids products and household, and their messaging preference for family-friendly and time-saving features.",
+      "persona_id": "persona_001",
+      "rationale": "The Wellness Optimizer fits the 28-40 female demographic matching the advertiser's target audience of moms and women. Her willingness to pay mid-to-high premiums (typical AOV $95) pairs well with the advertiser's mid-tier estimated AOV of $50, and she can be effectively reached on the science-forward wellness publisher Daily Form.",
       "primary_publishers": [
-        "pub_002",
-        "pub_006"
+        "pub_012"
       ]
     },
     {
-      "persona_id": "persona_001",
-      "rationale": "Given the advertiser's target demographic of women aged 25-45 and wellness crossover on publishers like Daily Form, The Wellness Optimizer aligns well with her focus on self-care, wellness, and her low price sensitivity matching the mid-tier estimated AOV.",
+      "persona_id": "persona_002",
+      "rationale": "The Busy Parent directly aligns with the advertiser's 'moms' and 'family' subcategories, with an age range of 32-45 matching the target profile. They value time-saving and family-friendly messaging, and can be reached via Everbody or Movewell.",
       "primary_publishers": [
-        "pub_012",
+        "pub_006",
         "pub_002"
       ]
     },
     {
       "persona_id": "persona_006",
-      "rationale": "The advertiser's focus on family and women intersects with the sustainable-leaning publishers like Stride & Stem, allowing The Sustainability Buyer to evaluate the brand through supply chain transparency and specific sustainability messaging.",
+      "rationale": "The Sustainability Buyer falls into the 25-45 age bracket and female-skewing demographic typical of family and women's DTC brands. They prioritize supply chain transparency and can be reached on Stride & Stem, which targets professional women valuing sustainability.",
       "primary_publishers": [
-        "pub_016",
-        "pub_006"
+        "pub_016"
       ]
     }
   ],
   "rejected": [
     {
       "persona_id": "persona_003",
-      "reason": "The Gen Z Aesthete targets a younger demographic (19-27) that falls below the advertiser's target age range of 25-45."
+      "reason": "The Gen Z Aesthete's age range of 19-27 skews younger than the advertiser's target age range of 25-45, and their preference for TikTok and Instagram discovery doesn't align with the recommended publishers."
     },
     {
       "persona_id": "persona_004",
-      "reason": "The Pet Parent focuses strictly on pet-related categories and supplies, which does not align with the advertiser's stated subcategories of moms, women, and family."
+      "reason": "The Pet Parent focuses specifically on pet food, supplies, and health, whereas the advertiser's brief is focused on moms and family without any pet-related subcategories."
     },
     {
       "persona_id": "persona_005",
-      "reason": "The Affluent Classic skews older (50-68) with a higher AOV of $145, exceeding the advertiser's target age range and estimated AOV of $50."
+      "reason": "The Affluent Classic's age range of 50-68 is older than the advertiser's target age range maximum of 45, making them a poor fit for a brand focused on young moms and families."
     },
     {
       "persona_id": "persona_007",
-      "reason": "The Convenience-First Millennial heavily relies on subscription services, whereas the advertiser operates on a one-off purchase business model."
+      "reason": "The Convenience-First Millennial relies heavily on instant delivery and quick commerce apps, which do not align with the DTC publishing ecosystem recommended for this advertiser."
     },
     {
       "persona_id": "persona_008",
-      "reason": "The Value-Conscious Shopper requires discount-forward messaging and bundle offers, which does not fit the mid-tier general positioning assumed for the brand."
+      "reason": "The Value-Conscious Shopper focuses strictly on discount-forward messaging and heavy bargain hunting, which contrasts with the mid-tier value proposition implied by the advertiser's estimated $50 AOV."
     },
     {
       "persona_id": "persona_009",
-      "reason": "The Fitness Enthusiast focuses specifically on activewear, supplements, and recovery, which is too narrow for a general mom and family product."
+      "reason": "The Fitness Enthusiast focuses primarily on activewear, recovery, and gym performance, whereas the advertiser's brief centers broadly on moms and family rather than athletic performance."
     },
     {
       "persona_id": "persona_010",
-      "reason": "The Gifter focuses primarily on gifting holidays and life events with a preference for gift sets, whereas the advertiser is positioned for everyday moms and women."
+      "reason": "The Gifter is a temporary mindset persona that explicitly dislikes subscription-only models and self-care-only framing, whereas the recommended publishers feature strong subscription affinities."
     }
   ]
 }

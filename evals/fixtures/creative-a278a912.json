@@ -1,14 +1,15 @@
 {
-  "headline": "Traceable supply chain, verified organic materials",
-  "body": "Read our full audit report before you buy. Zero waste packaging and third-party fair trade certifications on every family essential we make.",
-  "rationale": "This ad speaks directly to The Sustainability Buyer by focusing exclusively on verifiable facts, audit reports, and certifiable supply chain practices, entirely avoiding vague greenwashing terms.",
+  "headline": "Traceable supply chains for conscious moms",
+  "body": "Verified ethical sourcing and complete supply chain transparency. Know exactly how your family's products are made from farm to doorstep with our certified sustainable model.",
+  "rationale": "This persona requires concrete proof rather than vague eco-friendly buzzwords. The copy explicitly addresses supply chain transparency and certifications while steering clear of fast fashion and greenwashing.",
   "messaging_levers": [
-    "specific sustainability claims",
     "supply chain transparency",
-    "certifications"
+    "certifications",
+    "specific sustainability claims"
   ],
   "avoided": [
     "vague eco claims",
+    "fast fashion",
     "excessive packaging"
   ]
 }

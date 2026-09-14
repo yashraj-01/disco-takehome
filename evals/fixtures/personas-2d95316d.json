@@ -1,26 +1,24 @@
 {
   "selected": [
     {
-      "persona_id": "persona_010",
-      "rationale": "The advertiser's brief explicitly states that their candles are 'mostly bought as gifts,' which aligns directly with The Gifter persona's motivation to find impressive-looking purchases and respond to gift presentation and gifting messaging.",
-      "primary_publishers": [
-        "pub_010",
-        "pub_014"
-      ]
-    },
-    {
       "persona_id": "persona_006",
-      "rationale": "The advertiser's values center on 'sustainability' and 'natural soy wax, no synthetic fragrances,' perfectly matching The Sustainability Buyer's demand for supply chain transparency and skepticism of greenwashing.",
+      "rationale": "The Sustainability Buyer cares about environmental footprint and non-toxic supply chains, which aligns perfectly with the advertiser's natural soy wax, no synthetic fragrances, and Vermont craftsmanship values.",
       "primary_publishers": [
         "pub_008",
         "pub_014"
       ]
     },
     {
-      "persona_id": "persona_003",
-      "rationale": "The advertiser offers hand-poured small-batch home goods in the home category, aligning with The Gen Z Aesthete's category affinity for small_batch and home_decor, as well as their focus on brand voice and packaging.",
+      "persona_id": "persona_010",
+      "rationale": "The Gifter is actively looking for impressive-looking purchases and is very responsive to gift-wrap and gifting messaging, which directly addresses the advertiser's brief that candles are mostly bought as gifts.",
       "primary_publishers": [
-        "pub_011",
+        "pub_010"
+      ]
+    },
+    {
+      "persona_id": "persona_003",
+      "rationale": "The Gen Z Aesthete focuses on small-batch home decor, visual branding, and whether a brand stands for something, fitting the artisanal nature of hand-poured soy candles.",
+      "primary_publishers": [
         "pub_014"
       ]
     }
@@ -28,31 +26,31 @@
   "rejected": [
     {
       "persona_id": "persona_001",
-      "reason": "The Wellness Optimizer focuses on supplements, fitness, and tracking health metrics with science-backed claims, whereas candles are a home decor and gifting item rather than a health optimization product."
+      "reason": "The Wellness Optimizer focuses on health tracking, supplements, and clean beauty rather than home fragrance and gifting."
     },
     {
       "persona_id": "persona_002",
-      "reason": "The Busy Parent relies heavily on subscriptions and convenience-motivated bulk purchases, whereas the advertiser's business model is explicitly one_off rather than subscription-based."
+      "reason": "The Busy Parent prioritizes convenience, bulk buying, and subscriptions, whereas this advertiser is a one-off small-batch DTC brand."
     },
     {
       "persona_id": "persona_004",
-      "reason": "The Pet Parent focuses strictly on pet food, pet health, and pet supplies, which has no overlap with human home-fragrance and candle products."
+      "reason": "The Pet Parent is strictly focused on pet food, supplies, and health, making human home goods irrelevant."
     },
     {
       "persona_id": "persona_005",
-      "reason": "The Affluent Classic typically has a much higher AOV ($145) and focuses on heritage apparel and luxury travel, making an artisanal $35 Vermont candle too casual for their primary purchasing habits."
+      "reason": "The Affluent Classic targets luxury home goods with higher typical AOVs of $145, exceeding the estimated $35 AOV of these hand-poured candles."
     },
     {
       "persona_id": "persona_007",
-      "reason": "The Convenience-First Millennial values instant delivery, quick commerce, and subscription perks, which conflicts with the slower, deliberate craftsmanship and one-off purchase nature of hand-poured small-batch candles."
+      "reason": "The Convenience-First Millennial relies on instant delivery and subscriptions, conflicting with the one-off and artisan nature of handmade Vermont candles."
     },
     {
       "persona_id": "persona_008",
-      "reason": "The Value-Conscious Shopper requires discount-forward messaging, bundle offers, and clear bargain-oriented value propositions, whereas the advertiser's mid-tier craft and sustainability positioning focuses on quality over deep discounting."
+      "reason": "The Value-Conscious Shopper seeks discount-forward messaging and budget-aware household goods rather than mid-tier artisanal crafts."
     },
     {
       "persona_id": "persona_009",
-      "reason": "The Fitness Enthusiast purchases activewear, recovery gear, and supplements, which does not align with home fragrance and gift categories."
+      "reason": "The Fitness Enthusiast purchases activewear, recovery gear, and supplements, which does not overlap with home decor and candles."
     }
   ]
 }

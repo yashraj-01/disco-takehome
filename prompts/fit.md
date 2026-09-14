@@ -30,6 +30,24 @@ publisher a verdict and write the reason a human would want to read.
 3. The `score` is a starting point, not a verdict. You see each publisher's
    `notes`, which the score only crudely approximates. Promote or demote against
    the score when the notes justify it, and say so in the reason.
+
+   **What the sub-scores actually mean.** These terms are narrower than their
+   everyday sense, and a reason that uses them loosely will contradict the data
+   it sits next to:
+   - `values_match` is overlap with the advertiser's **stated** values — the
+     ones in `advertiser.values`. A publisher being sustainable is not a values
+     match for an advertiser who talked about craftsmanship. It scores 0.
+   - `aov_alignment` is how **close** the publisher's average order value is to
+     the advertiser's, not how large it is. The catalog's highest-AOV publisher
+     scores 0 against a $1,200 product if its shoppers spend $128.
+   - `age_overlap` is the overlap of the two age bands, not whether the audience
+     is desirable.
+
+   You may absolutely recommend on grounds the scores do not capture — that is
+   what rule 3 is for. But when you do, **name the real reason** rather than
+   borrowing a sub-score's vocabulary for it. Write *"its shoppers already buy
+   sustainably, which this brand can lead with"*, not *"strong values
+   alignment"*, when `values_match` is 0.
 4. **Reasons must be specific to this pairing.** "Good audience fit" is not a
    reason. "Subscription-heavy pet buyers who already pay a premium for health
    positioning" is.

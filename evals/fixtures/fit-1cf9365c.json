@@ -4,121 +4,121 @@
       "publisher_id": "pub_001",
       "verdict": "considered",
       "rank": 0,
-      "reason": "Offers rapid delivery and impulse-friendly beverage traffic that matches our price point, but the late-night spike and convenience focus skew away from our science-backed positioning."
+      "reason": "Offers high-frequency grocery and convenience impulse traffic that aligns well with beverage discovery, but the lower order value and general retail environment mean it misses top placement."
     },
     {
       "publisher_id": "pub_002",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Sells workout apparel and activewear subscriptions; nothing in the assortment reaches shoppers looking for non-alcoholic functional drinks."
+      "reason": "Sells activewear and fitness apparel; nothing in the assortment reaches people shopping for non-alcoholic functional beverages."
     },
     {
       "publisher_id": "pub_003",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Operates appointment-based fitness classes and spa services, which does not overlap with packaged beverage retail."
+      "reason": "Focuses on fitness classes and spa booking services; nothing in the assortment reaches people shopping for non-alcoholic functional beverages."
     },
     {
       "publisher_id": "pub_004",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Focuses on older career women seeking high-end workwear and fashion, missing our younger adult demographic entirely."
+      "reason": "Sells mid-life women's workwear and apparel; nothing in the assortment reaches people shopping for non-alcoholic functional beverages."
     },
     {
       "publisher_id": "pub_005",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Features classic women's work apparel with a mature customer base that does not align with our beverage audience age range."
+      "reason": "Sells classic women's apparel with a conservative brand sensibility; nothing in the assortment reaches people shopping for non-alcoholic functional beverages."
     },
     {
       "publisher_id": "pub_006",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Provides inclusive-sized women's clothing and intimates, completely outside the food and beverage category."
+      "reason": "Sells women's plus-size workwear and intimates; nothing in the assortment reaches people shopping for non-alcoholic functional beverages."
     },
     {
       "publisher_id": "pub_007",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Caters specifically to pet owners buying animal food and supplies, with no overlap for human refreshments."
+      "reason": "Sells pet food and supplies; nothing in the assortment reaches people shopping for non-alcoholic functional beverages."
     },
     {
       "publisher_id": "pub_008",
       "verdict": "recommended",
       "rank": 2,
-      "reason": "Aligns strongly with our values-driven shoppers who actively seek out clean ingredients, natural formulations, and wellness-oriented pantry additions."
+      "reason": "Attracts values-driven shoppers who actively respond to clean-ingredient and wellness claims, making its audience highly receptive to functional adaptogenic drinks."
     },
     {
       "publisher_id": "pub_009",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Supplies pet food and veterinary products, whereas we manufacture human beverages."
+      "reason": "Sells pet food and pharmacy products; nothing in the assortment reaches people shopping for non-alcoholic functional beverages."
     },
     {
       "publisher_id": "pub_010",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Sells basic apparel like socks and underwear, offering no relevance to functional beverage consumers."
+      "reason": "Sells socks, underwear, and apparel basics; nothing in the assortment reaches people shopping for non-alcoholic functional beverages."
     },
     {
       "publisher_id": "pub_011",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Focuses on home textiles and bedding, which has no connection to liquid refreshments."
+      "reason": "Sells home bedding and bath textiles; nothing in the assortment reaches people shopping for non-alcoholic functional beverages."
     },
     {
       "publisher_id": "pub_012",
       "verdict": "recommended",
       "rank": 3,
-      "reason": "Reaches a science-forward wellness audience that values substantiated health claims and functional formulations, closely mirroring our target buyer."
+      "reason": "Reaches science-forward wellness consumers who are skeptical of unsubstantiated health claims, providing a strong environment for functional adaptogens."
     },
     {
       "publisher_id": "pub_013",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Offers skincare and makeup products, failing to connect with beverage purchasers."
+      "reason": "Sells skincare and makeup beauty items; nothing in the assortment reaches people shopping for non-alcoholic functional beverages."
     },
     {
       "publisher_id": "pub_014",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Sells non-toxic cookware and kitchen items, which is unrelated to consumable drinks."
+      "reason": "Sells kitchen cookware and non-toxic home goods; nothing in the assortment reaches people shopping for non-alcoholic functional beverages."
     },
     {
       "publisher_id": "pub_015",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Provides home meal kits and food subscriptions rather than standalone functional beverages."
+      "reason": "Sells subscription meal kits and groceries; nothing in the assortment reaches people shopping for non-alcoholic functional beverages."
     },
     {
       "publisher_id": "pub_016",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Features sustainable women's footwear, which is irrelevant to our drink brand."
+      "reason": "Sells women's sustainable shoes; nothing in the assortment reaches people shopping for non-alcoholic functional beverages."
     },
     {
       "publisher_id": "pub_017",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Markets sustainable athletic shoes and apparel, missing our beverage category."
+      "reason": "Sells sustainable activewear shoes; nothing in the assortment reaches people shopping for non-alcoholic functional beverages."
     },
     {
       "publisher_id": "pub_018",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Delivers pet toys and treats for dogs, completely outside the human beverage market."
+      "reason": "Sells pet toys, treats, and supplies; nothing in the assortment reaches people shopping for non-alcoholic functional beverages."
     },
     {
       "publisher_id": "pub_019",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Focuses on personalized hair care routines, which has no relation to functional drinks."
+      "reason": "Sells personalized hair care and beauty products; nothing in the assortment reaches people shopping for non-alcoholic functional beverages."
     },
     {
       "publisher_id": "pub_020",
       "verdict": "recommended",
       "rank": 1,
-      "reason": "Directly targets health-curious individuals seeking soda alternatives and gut health support, making it the most natural fit for our adaptogenic sparkling beverages."
+      "reason": "Features health-curious and indulgence-seeking shoppers with an order value and demographic profile that directly mirrors the target buyer for sparkling functional sodas."
     }
   ]
 }

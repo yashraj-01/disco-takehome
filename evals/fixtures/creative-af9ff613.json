@@ -1,14 +1,14 @@
 {
-  "headline": "Tested by patrollers. Built for heavy training.",
-  "body": "When you work out four days a week, your gear needs to perform. Our technical shells are what ski patrollers wear when the weather turns.",
-  "rationale": "This persona is driven by rigorous performance and professional proof. I used the advertiser's exact fact about ski patrollers combined with the persona's workout frequency to build trust without relying on fashion tropes.",
+  "headline": "Technical shells worn by ski patrollers",
+  "body": "Built for relentless days in the backcountry. Our technical fabrics deliver absolute protection when you push your limits in deep snow.",
+  "rationale": "This persona cares deeply about professional validation and functional capability rather than luxury branding. Using the exact fact that ski patrollers wear these shells matches their desire for performance proof, while the low-medium price sensitivity means we skip discount talk and focus entirely on technical specs.",
   "messaging_levers": [
     "performance claims",
     "athlete endorsements",
     "technical fabrics"
   ],
   "avoided": [
-    "sedentary-lifestyle products",
-    "fashion-only positioning"
+    "fashion-only positioning",
+    "sedentary-lifestyle products"
   ]
 }

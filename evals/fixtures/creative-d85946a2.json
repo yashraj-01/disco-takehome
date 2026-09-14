@@ -1,13 +1,14 @@
 {
-  "headline": "Hand-poured in Vermont with 100% natural soy wax",
-  "body": "No synthetic fragrances and zero plastic packaging. Poured in small batches in Vermont using ethically sourced soy, ensuring a clean burn for your home.",
-  "rationale": "This copy directly addresses the Sustainability Buyer's demand for specific sustainability claims and supply chain transparency by explicitly stating the origin, exact wax type, and absence of plastic and synthetics, while completely steering clear of vague eco claims.",
+  "headline": "Vermont soy candles with no synthetic fragrances",
+  "body": "Pour-by-hand craftsmanship using natural soy wax means zero synthetic fragrances in your home. Handcrafted in Vermont with a transparent supply chain.",
+  "rationale": "This persona requires explicit factual details to combat greenwashing skepticism. Using specific details like natural soy wax and no synthetic fragrances matches their preference for specific sustainability claims without using vague eco terms.",
   "messaging_levers": [
     "specific sustainability claims",
     "supply chain transparency"
   ],
   "avoided": [
     "vague eco claims",
+    "fast fashion",
     "excessive packaging"
   ]
 }

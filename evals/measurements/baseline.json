@@ -1,99 +1,99 @@
 {
-  "generated_at": "2026-09-14T17:21:25.322138Z",
+  "generated_at": "2026-09-14T18:04:44.749635Z",
   "provider": "fixture",
   "model": "gemini-3.5-flash-lite",
   "metrics": {
     "reason_consistency": {
       "name": "reason_consistency",
-      "summary": "535 citations from 300 ledger entries (20 skipped as code-generated gate reasons): 93.0% consistent, 3.9% contradicted, 3.1% weak, 98 unscored (considered verdict), 11 abstained as concessive constructions, 71 abstained as advertiser-described terms (coverage_rate=0.664: scored citations / all citations found — abstention is deliberate, precision is prioritized over recall). 0.7% of checkable reasons cited nothing in the phrase map (vague) — checked against the hand-written phrases UNIONED with vocabulary derived per publisher from the catalog (its Category, Subcategories, Keywords, and Audience fields), not a fixed list alone, so the metric doesn't go blind the moment the model's phrasing improves.",
+      "summary": "518 citations from 300 ledger entries (20 skipped as code-generated gate reasons): 94.1% consistent, 4.1% contradicted, 1.8% weak, 110 unscored (considered verdict), 6 abstained as concessive constructions, 62 abstained as advertiser-described terms (coverage_rate=0.656: scored citations / all citations found — abstention is deliberate, precision is prioritized over recall). 2.1% of checkable reasons cited nothing in the phrase map (vague) — checked against the hand-written phrases UNIONED with vocabulary derived per publisher from the catalog (its Category, Subcategories, Keywords, and Audience fields), not a fixed list alone, so the metric doesn't go blind the moment the model's phrasing improves.",
       "values": {
-        "consistency_rate": 0.9295774647887324,
-        "contradiction_rate": 0.03943661971830986,
-        "coverage_rate": 0.6635514018691588,
-        "vagueness_rate": 0.007142857142857143
+        "consistency_rate": 0.9411764705882353,
+        "contradiction_rate": 0.041176470588235294,
+        "coverage_rate": 0.6563706563706564,
+        "vagueness_rate": 0.02142857142857143
       },
       "counts": {
-        "advertiser_term": 71,
-        "citations": 535,
-        "concessive": 11,
-        "consistent": 330,
+        "advertiser_term": 62,
+        "citations": 518,
+        "concessive": 6,
+        "consistent": 320,
         "contradicted": 14,
         "entries": 300,
         "skipped_generated": 20,
-        "unscored": 98,
-        "vague_reasons": 2,
-        "weak": 11
+        "unscored": 110,
+        "vague_reasons": 6,
+        "weak": 6
       },
       "findings": [
         {
-          "brief_n": 1,
-          "publisher_id": "pub_004",
-          "detail": "verdict=excluded cited AgeOverlap=1.00 (matched \"mid-life\") — \"Features mid-life women's apparel with a higher order value, maintaining no connection to pet supplies.\""
+          "brief_n": 2,
+          "publisher_id": "pub_005",
+          "detail": "verdict=excluded cited Category=1.00 (matched \"classic\") — \"Caters to an older demographic shopping for conservative classic workwear, creating a fundamental audience age gap with a brand targeting yo…\""
         },
         {
-          "brief_n": 2,
-          "publisher_id": "pub_006",
-          "detail": "verdict=recommended cited ValuesMatch=0.00 (matched \"values\") — \"Inclusive sizing and a values-driven audience that responds strongly to fit-focused messaging and representation.\""
+          "brief_n": 6,
+          "publisher_id": "pub_005",
+          "detail": "verdict=recommended cited AOVAlignment=0.00 (matched \"order value\") — \"Features the highest average order value in the apparel catalog, aligning well with luxury pricing, though its older audience skew requires …\""
         },
         {
           "brief_n": 6,
           "publisher_id": "pub_016",
-          "detail": "verdict=recommended cited ValuesMatch=0.00 (matched \"sustainab\") — \"Professional women's apparel publisher where sustainability and technical fabric claims resonate with high-intent buyers.\""
+          "detail": "verdict=recommended cited ValuesMatch=0.00 (matched \"sustainab\") — \"Engages high-income professional women with a strong appreciation for durable, high-ticket items and sustainable performance features.\""
         },
         {
-          "brief_n": 6,
-          "publisher_id": "pub_017",
-          "detail": "verdict=recommended cited ValuesMatch=0.00 (matched \"sustainab\") — \"Activewear and sustainable footwear audience of tech-adjacent urban professionals who appreciate performance and comfort messaging.\""
-        },
-        {
-          "brief_n": 8,
-          "publisher_id": "pub_017",
-          "detail": "verdict=excluded cited AgeOverlap=1.00 (matched \"demographic\") — \"Focuses on sustainable active footwear for tech-oriented professionals, lacking the specific demographic focus on mothers.\""
+          "brief_n": 10,
+          "publisher_id": "pub_003",
+          "detail": "verdict=excluded cited IncomeTier=1.00 (matched \"high-end\") — \"Offers wellness services and fitness classes rather than retail goods, and its modest booking order value does not align with high-end luxur…\""
         },
         {
           "brief_n": 10,
           "publisher_id": "pub_004",
-          "detail": "verdict=recommended cited AOVAlignment=0.00 (matched \"price point\") — \"Reaches older affluent women with high purchasing power who respond well to quality and craftsmanship messaging, perfectly aligning with a l…\""
+          "detail": "verdict=recommended cited AOVAlignment=0.00 (matched \"order value\") — \"Reaches older affluent women with high order values who naturally respond to premium quality craftsmanship messaging and luxury apparel.\""
         },
         {
           "brief_n": 10,
           "publisher_id": "pub_005",
-          "detail": "verdict=recommended cited AOVAlignment=0.00 (matched \"order value\") — \"Features the highest average order value in the apparel category alongside a conservative, high-income audience that naturally fits handcraf…\""
+          "detail": "verdict=recommended cited AOVAlignment=0.00 (matched \"order value\") — \"Features the highest order value in the apparel category and caters to conservative, affluent shoppers who appreciate timeless craftsmanship…\""
         },
         {
           "brief_n": 10,
           "publisher_id": "pub_016",
-          "detail": "verdict=recommended cited ValuesMatch=0.00 (matched \"sustainab\") — \"Connects directly with professional women seeking sustainable luxury, making its high-income audience an ideal fit for handcrafted Italian l…\""
+          "detail": "verdict=recommended cited AOVAlignment=0.00 (matched \"price point\") — \"Connects directly with professional women who value high-end craftsmanship and are accustomed to premium price points for wardrobe investmen…\""
         },
         {
-          "brief_n": 10,
-          "publisher_id": "pub_018",
-          "detail": "verdict=excluded cited GenderFit=0.86 (matched \"her\") — \"Centres around dog toys and treat subscriptions; pet owners browsing here are shopping for animals, not high-end personal leather goods.\""
+          "brief_n": 11,
+          "publisher_id": "pub_013",
+          "detail": "verdict=excluded cited AgeOverlap=1.00 (matched \"younger\") — \"Beauty and skincare brand for younger demographics, offering no relevance to food products.\""
+        },
+        {
+          "brief_n": 12,
+          "publisher_id": "pub_013",
+          "detail": "verdict=excluded cited AgeOverlap=0.82 (matched \"younger\") — \"Focuses on skincare and makeup for Gen Z and younger millennials; no overlap with pet care.\""
         },
         {
           "brief_n": 13,
-          "publisher_id": "pub_002",
-          "detail": "verdict=excluded cited AgeOverlap=1.00 (matched \"skew\") — \"Sells activewear apparel with a heavy female skew and higher order value; does not reach budget-focused supplement buyers.\""
+          "publisher_id": "pub_008",
+          "detail": "verdict=recommended cited AOVAlignment=0.13 (matched \"affordab\") — \"Values-driven grocery shoppers purchasing clean-ingredient items will be receptive to affordable, straightforward protein and creatine formu…\""
         },
         {
           "brief_n": 14,
           "publisher_id": "pub_014",
-          "detail": "verdict=recommended cited ValuesMatch=0.00 (matched \"sustainab\") — \"Serves sustainability-motivated home buyers with a nearly identical high-end average order value and strong life-event purchase drivers.\""
+          "detail": "verdict=recommended cited ValuesMatch=0.00 (matched \"sustainab\") — \"Features a nearly identical average order value of $198 and reaches sustainability-motivated home buyers who invest in high-end kitchenware …\""
+        },
+        {
+          "brief_n": 14,
+          "publisher_id": "pub_016",
+          "detail": "verdict=recommended cited ValuesMatch=0.00 (matched \"sustainab\") — \"Reaches professional women with a high order value and strong appreciation for sustainable products, making it a great cross-category fit fo…\""
+        },
+        {
+          "brief_n": 14,
+          "publisher_id": "pub_017",
+          "detail": "verdict=recommended cited ValuesMatch=0.00 (matched \"sustainab\") — \"Engages urban professionals who respond well to comfort and sustainability narratives, aligning nicely with the brand's Portuguese craftsman…\""
         },
         {
           "brief_n": 15,
           "publisher_id": "pub_004",
-          "detail": "verdict=excluded cited AgeOverlap=1.00 (matched \"older\") — \"Targets older affluent women seeking workwear and casual apparel, creating a distinct category disconnect.\""
-        },
-        {
-          "brief_n": 15,
-          "publisher_id": "pub_013",
-          "detail": "verdict=excluded cited AgeOverlap=1.00 (matched \"gen z\") — \"Targets Gen Z beauty and skincare enthusiasts with identity-driven purchasing, entirely misaligned with the advertiser's missing category si…\""
-        },
-        {
-          "brief_n": 15,
-          "publisher_id": "pub_018",
-          "detail": "verdict=excluded cited AgeOverlap=1.00 (matched \"millennial\") — \"Engages millennial dog owners through pet toys and treat subscriptions, completely detached from the advertiser's unknown offerings.\""
+          "detail": "verdict=excluded cited AgeOverlap=1.00 (matched \"older\") — \"Reaches older affluent women shopping specifically for workwear and casual apparel.\""
         }
       ]
     },

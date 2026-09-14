@@ -2,51 +2,56 @@
   "selected": [
     {
       "persona_id": "persona_001",
-      "rationale": "The Wellness Optimizer aligns directly with the advertiser's primary category of general wellness and mid-price tier, matching the persona's low price sensitivity and category affinity for wellness services, and can be effectively reached on Daily Form.",
+      "rationale": "The advertiser provides general wellness services, and the Wellness Optimizer has a direct affinity for wellness and fitness with a low price sensitivity matching the mid-tier estimated AOV of 50 USD, making them an ideal fit to reach on Studiogrid and Daily Form.",
       "primary_publishers": [
+        "pub_003",
         "pub_012"
       ]
     },
     {
       "persona_id": "persona_009",
-      "rationale": "The Fitness Enthusiast matches the advertiser's core mission of feeling better and general wellness services, tying into fitness-oriented offerings and responding well to the fitness and appointment-based focus of Studiogrid.",
+      "rationale": "The Fitness Enthusiast actively engages in fitness services and recovery, aligning directly with the wellness services category of the advertiser and reachable via Studiogrid.",
       "primary_publishers": [
         "pub_003"
+      ]
+    },
+    {
+      "persona_id": "persona_007",
+      "rationale": "The Convenience-First Millennial values speed and frictionlessness in booking and services, matching the appointment-based and user-friendly nature of Studiogrid and Daily Form.",
+      "primary_publishers": [
+        "pub_003",
+        "pub_012"
       ]
     }
   ],
   "rejected": [
     {
       "persona_id": "persona_002",
-      "reason": "The Busy Parent focuses on household and kids products, which does not map to the general wellness services offering of the advertiser."
+      "reason": "The Busy Parent focuses heavily on family and kids products, which does not align with the individual-focused wellness services offered by the advertiser."
     },
     {
       "persona_id": "persona_003",
-      "reason": "The Gen Z Aesthete focuses on beauty and fast-moving visual trends, which mismatches the core general wellness services profile."
+      "reason": "The Gen Z Aesthete focuses primarily on beauty and fashion trends through TikTok and Instagram, rather than the core wellness services category of the advertiser."
     },
     {
       "persona_id": "persona_004",
-      "reason": "The Pet Parent is centered exclusively on pet food and pet health, completely unrelated to human wellness services."
+      "reason": "The Pet Parent focuses strictly on pet food and pet health, completely misaligned with human wellness services."
     },
     {
       "persona_id": "persona_005",
-      "reason": "The Affluent Classic prioritizes high-end apparel and home goods rather than wellness services."
+      "reason": "The Affluent Classic prefers high-AOV traditional items like classic apparel and home goods, whereas the advertiser operates in a mid-tier general wellness service model."
     },
     {
       "persona_id": "persona_006",
-      "reason": "The Sustainability Buyer focuses on supply chain transparency for goods like sustainable apparel and clean beauty rather than service-based wellness."
-    },
-    {
-      "persona_id": "persona_007",
-      "reason": "The Convenience-First Millennial is oriented around instant delivery and meal kits rather than wellness appointments."
+      "reason": "The Sustainability Buyer focuses on physical eco-friendly goods and supply chains rather than intangible wellness services."
     },
     {
       "persona_id": "persona_008",
-      "reason": "The Value-Conscious Shopper seeks household and grocery bundles, misaligning with the mid-tier service offering."
+      "reason": "The Value-Conscious Shopper seeks heavy discounts and household bundles, which does not fit the mid-tier wellness service positioning."
     },
     {
       "persona_id": "persona_010",
-      "reason": "The Gifter is explicitly disinterested in subscription-only and self-care-only framing, whereas wellness services lean directly into self-care."
+      "reason": "The Gifter shops for physical gifts and explicitly dislikes self-care-only framing and subscriptions, making them unsuitable for an advertiser helping people feel better through wellness services."
     }
   ]
 }

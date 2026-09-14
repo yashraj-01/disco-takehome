@@ -4,121 +4,121 @@
       "publisher_id": "pub_001",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Delivers groceries and everyday essentials within minutes, which does not align with artisanal, gift-oriented home fragrance."
+      "reason": "Sells convenience groceries and late-night snacks; nothing in the assortment reaches people shopping for artisan home gifts."
     },
     {
       "publisher_id": "pub_002",
       "verdict": "considered",
       "rank": 0,
-      "reason": "Reaches fitness and wellness shoppers who frequently purchase self-care items, but apparel is a secondary category fit for candles."
+      "reason": "While it reaches fitness and wellness shoppers who frequently buy self-care gifts, its activewear focus is slightly misaligned with home fragrance."
     },
     {
       "publisher_id": "pub_003",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Provides fitness and spa booking services, completely missing the retail product assortment required for home goods and gifting."
+      "reason": "Offers appointment-based fitness classes and spa bookings rather than physical home goods or retail gift items."
     },
     {
       "publisher_id": "pub_004",
       "verdict": "considered",
       "rank": 0,
-      "reason": "Engages older, affluent women who appreciate quality craftsmanship, though the high average order value indicates a luxury tier above standard artisan candles."
+      "reason": "Reaches older affluent women who appreciate quality and craftsmanship, but its high average order value and apparel focus create a pricing and category gap."
     },
     {
       "publisher_id": "pub_005",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Sells high-end classic apparel to an older demographic with a significantly higher price point, leaving little room for mid-tier home gifts."
+      "reason": "Focuses on high-end classic workwear for older women with an order value well above the price point of a standard artisan candle."
     },
     {
       "publisher_id": "pub_006",
       "verdict": "considered",
       "rank": 0,
-      "reason": "Features an inclusive and values-driven audience that aligns with sustainable ethos, but the focus remains strictly on apparel and intimates."
+      "reason": "Shares a strong demographic overlap and values inclusivity, but its apparel and intimates focus does not align with home fragrance."
     },
     {
       "publisher_id": "pub_007",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Focuses entirely on pet food and animal supplies, offering no crossover for human home decor or gifting."
+      "reason": "Caters entirely to pet owners looking for animal food and supplies, with no crossover to home goods or gifting."
     },
     {
       "publisher_id": "pub_008",
       "verdict": "recommended",
-      "rank": 2,
-      "reason": "Reaches values-driven grocery shoppers who actively respond to sustainability, clean ingredients, and wellness messaging."
+      "rank": 3,
+      "reason": "Its values-driven shoppers look for clean ingredients and sustainability, making them highly receptive to hand-poured natural soy wax candles."
     },
     {
       "publisher_id": "pub_009",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Caters exclusively to pet owners buying animal care products and pharmacy items."
+      "reason": "A dedicated pet care platform with an assortment limited exclusively to animal products and pharmacy items."
     },
     {
       "publisher_id": "pub_010",
       "verdict": "recommended",
-      "rank": 4,
-      "reason": "Attracts shoppers with a strong gifting season uplift who actively respond to social-good and artisan messaging."
+      "rank": 1,
+      "reason": "Features strong gifting season momentum and an audience that responds well to social-good messaging, perfectly matching the handmade Vermont brand story."
     },
     {
       "publisher_id": "pub_011",
-      "verdict": "recommended",
-      "rank": 3,
-      "reason": "Features design-conscious urban and suburban buyers who frequently cross-shop premium home textiles and artisanal decor."
+      "verdict": "considered",
+      "rank": 0,
+      "reason": "Reaches design-conscious home enthusiasts who buy textiles, but its order value is significantly higher than a standard candle purchase."
     },
     {
       "publisher_id": "pub_012",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Specializes in ingestible vitamins and supplements with a science-forward approach, which does not match home fragrance products."
+      "reason": "Sells ingestible vitamins and supplements with a science-forward approach, leaving no room for home fragrance."
     },
     {
       "publisher_id": "pub_013",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Focuses on minimalist skincare and cosmetics for a younger demographic rather than home goods."
+      "reason": "Centers entirely on skincare and makeup for a younger demographic, failing to reach home goods buyers."
     },
     {
       "publisher_id": "pub_014",
       "verdict": "recommended",
-      "rank": 1,
-      "reason": "Sells non-toxic kitchenware to sustainability-motivated buyers where new-home life events and gifting heavily drive purchases."
+      "rank": 2,
+      "reason": "Brings together sustainability-motivated kitchen and home buyers whose preference for non-toxic items extends naturally to pure soy wax candles."
     },
     {
       "publisher_id": "pub_015",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Delivers meal kits and food subscriptions, lacking any inventory related to home goods or decorative gifts."
+      "reason": "Provides meal kits and groceries for households, which does not overlap with home decor or gifting."
     },
     {
       "publisher_id": "pub_016",
       "verdict": "considered",
       "rank": 0,
-      "reason": "Appeals to professional women who value sustainability, but the footwear category has limited natural synergy with hand-poured soy candles."
+      "reason": "Appeals to professional women who value sustainability, but its footwear focus makes it a secondary fit compared to dedicated home goods platforms."
     },
     {
       "publisher_id": "pub_017",
       "verdict": "considered",
       "rank": 0,
-      "reason": "Engages tech-adjacent urban professionals who appreciate comfort and sustainability, though the audience primarily buys active lifestyle products."
+      "reason": "Shares a sustainability ethos and urban audience, but sells footwear rather than the home and gift items this brand offers."
     },
     {
       "publisher_id": "pub_018",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Provides subscription boxes and toys specifically designed for pets rather than human home gifts."
+      "reason": "A subscription box service dedicated entirely to dogs and pet supplies, completely outside the home fragrance category."
     },
     {
       "publisher_id": "pub_019",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Offers personalized haircare products, failing to connect with home decor and fragrance buyers."
+      "reason": "Specializes in personalized haircare formulations and beauty routines rather than home decor."
     },
     {
       "publisher_id": "pub_020",
       "verdict": "excluded",
       "rank": 0,
-      "reason": "Sells functional gut-health beverages and soda alternatives instead of home goods."
+      "reason": "Sells functional beverages and gut health soda alternatives, offering no connection to home goods or gifts."
     }
   ]
 }

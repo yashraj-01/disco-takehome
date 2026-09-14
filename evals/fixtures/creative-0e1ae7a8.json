@@ -1,11 +1,10 @@
 {
-  "headline": "Portuguese linen made in ethical family-run mills",
-  "body": "We share our exact supply chain from harvest to loom. Certified European flax woven with zero plastic packaging for true sustainability.",
-  "rationale": "This copy targets the Sustainability Buyer by focusing explicitly on the Portuguese supply chain and certified European materials, avoiding vague eco claims while respecting their medium price sensitivity through a focus on verified ethical production.",
+  "headline": "Made in Portugal. Zero greenwashing.",
+  "body": "We share our full supply chain so you know exactly how your linen is made. Crafted by European artisans using traceable, sustainable methods.",
+  "rationale": "This persona requires explicit proof and despises vague marketing. The copy cuts straight to the supply chain details and Portuguese manufacturing origin, completely avoiding fluff while satisfying their need for transparency.",
   "messaging_levers": [
-    "specific sustainability claims",
     "supply chain transparency",
-    "certifications"
+    "specific sustainability claims"
   ],
   "avoided": [
     "vague eco claims",

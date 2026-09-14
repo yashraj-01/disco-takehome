@@ -1,10 +1,11 @@
 {
-  "headline": "Vet-formulated nutrition for your senior dog",
-  "body": "Your older dog deserves complete ingredient transparency. Our vet-recommended recipe is crafted exclusively for senior joint health and longevity, delivered right to your door every month.",
-  "rationale": "This copy directly incorporates the persona's preference for vet-recommended formulas and ingredient transparency while speaking to their view of the pet as a family member who needs senior care. It avoids generic pet framing and ultra-cheap positioning.",
+  "headline": "Give your senior dog extra years together",
+  "body": "Keep your furry family member active with our vet-recommended, grain-free formula. Full ingredient transparency means you always know what goes into their bowl.",
+  "rationale": "This persona treats their dog as a family member and carefully checks ingredient labels. The copy uses exact messaging preferences like vet-recommended and ingredient transparency while speaking directly to the emotional connection of wanting more healthy years with a senior pet, avoiding any generic or cheap positioning.",
   "messaging_levers": [
     "vet-recommended",
-    "ingredient transparency"
+    "ingredient transparency",
+    "emotional connection"
   ],
   "avoided": [
     "generic pet brands",

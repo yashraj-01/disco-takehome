@@ -1,10 +1,10 @@
 {
-  "headline": "Same protein formula for half the cost",
-  "body": "Get pure protein without paying brand name markups. Read why smart shoppers switch and save on every order.",
-  "rationale": "This persona is highly price-sensitive and looks for clear value articulation and reviews. The copy highlights the half-the-cost positioning and mentions reading reviews, matching her comparison-shopping habits.",
+  "headline": "Same formula as the pricey brands for half the cost",
+  "body": "Why pay double for your daily protein and creatine? Get top-tier workout supplements without the markup and save big on your first order today.",
+  "rationale": "This persona is highly price-sensitive and comparison shops, making the direct price comparison to expensive brands crucial. The copy uses discount-forward messaging and clear value props while avoiding vague premium positioning.",
   "messaging_levers": [
-    "clear value props",
-    "reviews"
+    "discount-forward",
+    "clear value props"
   ],
   "avoided": [
     "luxury-only messaging",

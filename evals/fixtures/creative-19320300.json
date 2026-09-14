@@ -1,11 +1,12 @@
 {
-  "headline": "Protein bars built for heavy training sessions",
-  "body": "Stop chewing chalk. Grab a protein bar that fuels your workout without tasting like cardboard. Designed for athletes who demand real performance.",
-  "rationale": "This copy addresses the fitness enthusiast by focusing strictly on workout fueling and performance, directly using their preferred messaging lever while avoiding sedentary appeals.",
+  "headline": "Fuel your next PR without tasting cardboard",
+  "body": "Built for active days and heavy lifts. Get the performance nutrition your workout demands with none of the chalky aftertaste.",
+  "rationale": "This persona is driven by performance and works out heavily. The copy targets their active routine and need for functional fuel while directly addressing the core advertiser differentiator.",
   "messaging_levers": [
     "performance claims"
   ],
   "avoided": [
-    "sedentary-lifestyle products"
+    "sedentary-lifestyle products",
+    "fashion-only positioning"
   ]
 }
